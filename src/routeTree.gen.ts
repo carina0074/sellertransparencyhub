@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as HealthCheckRouteImport } from './routes/health-check'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as IndexRouteImport } from './routes/index'
 
+const HealthCheckRoute = HealthCheckRouteImport.update({
+  id: '/health-check',
+  path: '/health-check',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CalculatorRoute = CalculatorRouteImport.update({
   id: '/calculator',
   path: '/calculator',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
+  '/health-check': typeof HealthCheckRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
+  '/health-check': typeof HealthCheckRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
+  '/health-check': typeof HealthCheckRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calculator'
+  fullPaths: '/' | '/calculator' | '/health-check'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calculator'
-  id: '__root__' | '/' | '/calculator'
+  to: '/' | '/calculator' | '/health-check'
+  id: '__root__' | '/' | '/calculator' | '/health-check'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalculatorRoute: typeof CalculatorRoute
+  HealthCheckRoute: typeof HealthCheckRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/health-check': {
+      id: '/health-check'
+      path: '/health-check'
+      fullPath: '/health-check'
+      preLoaderRoute: typeof HealthCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calculator': {
       id: '/calculator'
       path: '/calculator'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalculatorRoute: CalculatorRoute,
+  HealthCheckRoute: HealthCheckRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
