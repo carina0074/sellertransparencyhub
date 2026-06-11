@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SuspensionPreventionRouteImport } from './routes/suspension-prevention'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as HealthCheckRouteImport } from './routes/health-check'
 import { Route as FeesRouteImport } from './routes/fees'
 import { Route as CalculatorRouteImport } from './routes/calculator'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const SuspensionPreventionRoute = SuspensionPreventionRouteImport.update({
   id: '/suspension-prevention',
   path: '/suspension-prevention',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HealthCheckRoute = HealthCheckRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/calculator': typeof CalculatorRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
+  '/resources': typeof ResourcesRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/calculator': typeof CalculatorRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
+  '/resources': typeof ResourcesRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
 }
 export interface FileRoutesById {
@@ -61,6 +69,7 @@ export interface FileRoutesById {
   '/calculator': typeof CalculatorRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
+  '/resources': typeof ResourcesRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
 }
 export interface FileRouteTypes {
@@ -70,15 +79,23 @@ export interface FileRouteTypes {
     | '/calculator'
     | '/fees'
     | '/health-check'
+    | '/resources'
     | '/suspension-prevention'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calculator' | '/fees' | '/health-check' | '/suspension-prevention'
+  to:
+    | '/'
+    | '/calculator'
+    | '/fees'
+    | '/health-check'
+    | '/resources'
+    | '/suspension-prevention'
   id:
     | '__root__'
     | '/'
     | '/calculator'
     | '/fees'
     | '/health-check'
+    | '/resources'
     | '/suspension-prevention'
   fileRoutesById: FileRoutesById
 }
@@ -87,6 +104,7 @@ export interface RootRouteChildren {
   CalculatorRoute: typeof CalculatorRoute
   FeesRoute: typeof FeesRoute
   HealthCheckRoute: typeof HealthCheckRoute
+  ResourcesRoute: typeof ResourcesRoute
   SuspensionPreventionRoute: typeof SuspensionPreventionRoute
 }
 
@@ -97,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/suspension-prevention'
       fullPath: '/suspension-prevention'
       preLoaderRoute: typeof SuspensionPreventionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/health-check': {
@@ -135,6 +160,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalculatorRoute: CalculatorRoute,
   FeesRoute: FeesRoute,
   HealthCheckRoute: HealthCheckRoute,
+  ResourcesRoute: ResourcesRoute,
   SuspensionPreventionRoute: SuspensionPreventionRoute,
 }
 export const routeTree = rootRouteImport
