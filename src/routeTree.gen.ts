@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SuspensionPreventionRouteImport } from './routes/suspension-prevention'
 import { Route as HealthCheckRouteImport } from './routes/health-check'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SuspensionPreventionRoute = SuspensionPreventionRouteImport.update({
+  id: '/suspension-prevention',
+  path: '/suspension-prevention',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HealthCheckRoute = HealthCheckRouteImport.update({
   id: '/health-check',
   path: '/health-check',
@@ -33,34 +39,50 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
   '/health-check': typeof HealthCheckRoute
+  '/suspension-prevention': typeof SuspensionPreventionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
   '/health-check': typeof HealthCheckRoute
+  '/suspension-prevention': typeof SuspensionPreventionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
   '/health-check': typeof HealthCheckRoute
+  '/suspension-prevention': typeof SuspensionPreventionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calculator' | '/health-check'
+  fullPaths: '/' | '/calculator' | '/health-check' | '/suspension-prevention'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calculator' | '/health-check'
-  id: '__root__' | '/' | '/calculator' | '/health-check'
+  to: '/' | '/calculator' | '/health-check' | '/suspension-prevention'
+  id:
+    | '__root__'
+    | '/'
+    | '/calculator'
+    | '/health-check'
+    | '/suspension-prevention'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalculatorRoute: typeof CalculatorRoute
   HealthCheckRoute: typeof HealthCheckRoute
+  SuspensionPreventionRoute: typeof SuspensionPreventionRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/suspension-prevention': {
+      id: '/suspension-prevention'
+      path: '/suspension-prevention'
+      fullPath: '/suspension-prevention'
+      preLoaderRoute: typeof SuspensionPreventionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/health-check': {
       id: '/health-check'
       path: '/health-check'
@@ -89,6 +111,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalculatorRoute: CalculatorRoute,
   HealthCheckRoute: HealthCheckRoute,
+  SuspensionPreventionRoute: SuspensionPreventionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
