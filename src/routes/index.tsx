@@ -83,7 +83,7 @@ function Index() {
               Independent marketplace transparency research for U.S. small businesses.
             </h1>
             <p className="mt-5 text-pretty text-lg text-muted-foreground">
-              We collect, structure, and publish independent marketplace data to protect U.S. small business sellers — from fee changes and policy updates to suspension appeals and rate cards.
+              Tracking marketplace fees, policy changes, seller compliance requirements, and platform transparency across major e-commerce ecosystems.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="lg">
