@@ -88,10 +88,10 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 lg:flex">
           <Button asChild variant="ghost" size="sm">
-            <Link to="/calculator">Sign in</Link>
+            <Link to="/auth">Sign in</Link>
           </Button>
           <Button asChild size="sm">
-            <Link to="/calculator">Start free</Link>
+            <Link to="/auth">Start free</Link>
           </Button>
         </div>
 
@@ -152,7 +152,7 @@ export function SiteHeader() {
               </div>
             ))}
             <Button asChild className="mt-2">
-              <Link to="/calculator" onClick={() => setMobileOpen(false)}>
+              <Link to="/auth" onClick={() => setMobileOpen(false)}>
                 Start free
               </Link>
             </Button>
