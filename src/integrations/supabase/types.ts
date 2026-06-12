@@ -14,7 +14,167 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      fee_changes: {
+        Row: {
+          announcement_date: string | null
+          category: string
+          change_amount: number
+          created_at: string
+          effective_date: string
+          fee_type: string
+          id: string
+          impact_level: string
+          marketplace: string
+          new_value: number
+          old_value: number
+          record_id: string | null
+          source_title: string
+          source_url: string
+          summary: string | null
+          title: string
+          value_type: string
+        }
+        Insert: {
+          announcement_date?: string | null
+          category: string
+          change_amount: number
+          created_at?: string
+          effective_date: string
+          fee_type: string
+          id?: string
+          impact_level: string
+          marketplace: string
+          new_value: number
+          old_value: number
+          record_id?: string | null
+          source_title: string
+          source_url: string
+          summary?: string | null
+          title: string
+          value_type: string
+        }
+        Update: {
+          announcement_date?: string | null
+          category?: string
+          change_amount?: number
+          created_at?: string
+          effective_date?: string
+          fee_type?: string
+          id?: string
+          impact_level?: string
+          marketplace?: string
+          new_value?: number
+          old_value?: number
+          record_id?: string | null
+          source_title?: string
+          source_url?: string
+          summary?: string | null
+          title?: string
+          value_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fee_changes_record_id_fkey"
+            columns: ["record_id"]
+            isOneToOne: false
+            referencedRelation: "fee_records"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fee_records: {
+        Row: {
+          category: string
+          created_at: string
+          effective_date: string
+          fee_name: string
+          fee_type: string
+          id: string
+          last_verified: string
+          marketplace: string
+          notes: string | null
+          source_title: string
+          source_url: string
+          value: number
+          value_type: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          effective_date: string
+          fee_name: string
+          fee_type: string
+          id?: string
+          last_verified: string
+          marketplace: string
+          notes?: string | null
+          source_title: string
+          source_url: string
+          value: number
+          value_type: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          effective_date?: string
+          fee_name?: string
+          fee_type?: string
+          id?: string
+          last_verified?: string
+          marketplace?: string
+          notes?: string | null
+          source_title?: string
+          source_url?: string
+          value?: number
+          value_type?: string
+        }
+        Relationships: []
+      }
+      impact_reports: {
+        Row: {
+          affected_categories: string[]
+          body_markdown: string
+          created_at: string
+          estimated_seller_impact: string
+          id: string
+          marketplace: string
+          methodology: string
+          publish_date: string
+          sample_size: number | null
+          slug: string
+          summary: string
+          title: string
+        }
+        Insert: {
+          affected_categories?: string[]
+          body_markdown: string
+          created_at?: string
+          estimated_seller_impact: string
+          id?: string
+          marketplace: string
+          methodology: string
+          publish_date: string
+          sample_size?: number | null
+          slug: string
+          summary: string
+          title: string
+        }
+        Update: {
+          affected_categories?: string[]
+          body_markdown?: string
+          created_at?: string
+          estimated_seller_impact?: string
+          id?: string
+          marketplace?: string
+          methodology?: string
+          publish_date?: string
+          sample_size?: number | null
+          slug?: string
+          summary?: string
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
