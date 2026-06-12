@@ -2,10 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight, Database, TrendingUp, Shield, BookOpen,
-  CheckCircle2, Sparkles, Lock, FileText, BarChart3,
+  CheckCircle2, Sparkles, Lock, FileText, BarChart3, Mail, History,
 } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -63,6 +67,58 @@ const stats = [
   { value: "150+", label: "Policy records archived" },
   { value: "25", label: "Official sources monitored" },
 ];
+
+const versionHistory = [
+  { date: "June 2026", items: ["Added Walmart fee schedules", "Launched fee change tracker filters"] },
+  { date: "May 2026", items: ["Added Amazon storage surcharge changes", "Expanded suspension appeal library"] },
+  { date: "April 2026", items: ["Archived Q1 marketplace policy updates", "Added Shopify referral fee dataset"] },
+  { date: "March 2026", items: ["Launched Marketplace Fee Database v1", "Initial policy archive published"] },
+];
+
+function SubscribeForm() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const trimmed = email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    setLoading(true);
+    const { error } = await supabase.from("email_subscribers").insert({ email: trimmed });
+    setLoading(false);
+    if (error) {
+      if (error.code === "23505") {
+        toast.success("You're already subscribed — thanks!");
+        setEmail("");
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+      return;
+    }
+    toast.success("Subscribed! We'll keep you posted.");
+    setEmail("");
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
+      <Input
+        type="email"
+        required
+        placeholder="you@company.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="h-11"
+        aria-label="Email address"
+      />
+      <Button type="submit" size="lg" disabled={loading}>
+        {loading ? "Subscribing…" : "Subscribe"}
+      </Button>
+    </form>
+  );
+}
 
 function Index() {
   return (
@@ -190,6 +246,56 @@ function Index() {
               <Link to="/about">Read our mission</Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Subscribe */}
+      <section className="border-t border-border bg-secondary/40">
+        <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
+            <Mail className="h-3.5 w-3.5 text-primary" />
+            Newsletter
+          </span>
+          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            Join Marketplace Transparency Updates
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+            Monthly digest of new fee changes, policy updates, and dataset releases. No spam, unsubscribe anytime.
+          </p>
+          <SubscribeForm />
+        </div>
+      </section>
+
+      {/* Version history */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3">
+            <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary-soft text-primary">
+              <History className="h-5 w-5" />
+            </span>
+            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              Version history
+            </h2>
+          </div>
+          <p className="mt-4 max-w-2xl text-muted-foreground">
+            A running log of dataset additions and platform updates.
+          </p>
+          <ol className="mt-10 space-y-8 border-l border-border pl-6">
+            {versionHistory.map((v) => (
+              <li key={v.date} className="relative">
+                <span className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full bg-primary ring-4 ring-background" />
+                <div className="text-sm font-medium text-muted-foreground">{v.date}</div>
+                <ul className="mt-2 space-y-1">
+                  {v.items.map((it) => (
+                    <li key={it} className="flex items-start gap-2 text-foreground">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <span>{it}</span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
     </>
