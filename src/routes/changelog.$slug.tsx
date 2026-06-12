@@ -2,10 +2,10 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Calendar, CheckCircle2, ExternalLink, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { getChangelogEntry } from "@/data/changelog";
+import { getChangelogEntry, type ChangelogEntry } from "@/data/changelog";
 
 export const Route = createFileRoute("/changelog/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): ChangelogEntry => {
     const entry = getChangelogEntry(params.slug);
     if (!entry) throw notFound();
     return entry;
