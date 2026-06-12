@@ -90,9 +90,6 @@ export function SiteHeader() {
           <Button asChild variant="ghost" size="sm">
             <Link to="/auth">Sign in</Link>
           </Button>
-          <Button asChild size="sm">
-            <Link to="/auth">Start free</Link>
-          </Button>
         </div>
 
         <button
