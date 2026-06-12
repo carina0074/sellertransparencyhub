@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import { ExternalLink, ShieldAlert, Calendar, Layers, Building2, Filter } from "lucide-react";
+import { ExternalLink, BookOpen, RefreshCw, Layers, Building2, Filter } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -58,7 +58,10 @@ function PolicyChangesPage() {
     [changes, marketplace, area],
   );
 
-  const highImpact = changes.filter((c) => c.impact_level === "high").length;
+  const officialSources = useMemo(
+    () => new Set(changes.map((c) => c.source_url)).size,
+    [changes],
+  );
 
   return (
     <>
@@ -76,10 +79,10 @@ function PolicyChangesPage() {
       />
       <section className="mx-auto max-w-7xl space-y-8 px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard icon={Layers} label="Policy updates tracked" value={changes.length.toString()} />
-          <StatCard icon={ShieldAlert} label="High-impact changes" value={highImpact.toString()} />
+          <StatCard icon={BookOpen} label="Official sources monitored" value={officialSources.toString()} />
+          <StatCard icon={Layers} label="Policy records archived" value={changes.length.toString()} />
           <StatCard icon={Building2} label="Marketplaces covered" value={(marketplaces.length - 1).toString()} />
-          <StatCard icon={Calendar} label="Most recent" value={changes[0]?.effective_date ?? "—"} />
+          <StatCard icon={RefreshCw} label="Historical coverage" value="Updated daily" />
         </div>
 
         <div className="flex flex-wrap items-center gap-3 rounded-xl border border-border bg-secondary/40 p-3">
