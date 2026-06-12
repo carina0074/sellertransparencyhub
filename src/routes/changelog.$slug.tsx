@@ -37,7 +37,7 @@ export const Route = createFileRoute("/changelog/$slug")({
 });
 
 function ChangelogDetail() {
-  const entry = Route.useLoaderData();
+  const entry = Route.useLoaderData() as ChangelogEntry;
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <Link
