@@ -1,5 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { getEmailSubscribers } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/admin/subscribers")({
@@ -10,17 +12,11 @@ export const Route = createFileRoute("/_authenticated/admin/subscribers")({
 
 function SubscribersPage() {
   const navigate = useNavigate();
+  const fetchSubscribers = useServerFn(getEmailSubscribers);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["email_subscribers"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("email_subscribers")
-        .select("id, email, created_at")
-        .order("created_at", { ascending: false });
-      if (error) throw error;
-      return data ?? [];
-    },
+    queryFn: () => fetchSubscribers(),
   });
 
   async function handleSignOut() {
@@ -47,10 +43,9 @@ function SubscribersPage() {
         <div className="mt-8 rounded-md border border-destructive/30 bg-destructive/5 p-4 text-sm">
           <p className="font-medium">Couldn't load subscribers.</p>
           <p className="mt-1 text-muted-foreground">
-            You may not have admin access yet. Ask the project owner to grant your account the
-            <code className="mx-1 rounded bg-muted px-1">admin</code> role.
+            This page is only available to admin accounts. Please sign out and sign back in if
+            access was just granted.
           </p>
-          <p className="mt-2 text-xs text-muted-foreground">Error: {(error as Error).message}</p>
         </div>
       )}
 
