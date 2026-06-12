@@ -15,10 +15,10 @@ const policyChangesQuery = queryOptions({
 
 export const Route = createFileRoute("/policy-changes")({
   head: () => ({
-    meta: [
-      { title: "Marketplace Policy Change Archive — Suspension, Listing & Returns Rules" },
+      meta: [
+        { title: "Marketplace Policy Archive — Suspension, Listing & Returns Rules" },
       { name: "description", content: "Public archive of marketplace policy changes across Amazon, Walmart, and Shopify. Effective dates, affected sellers, impact level, and source links." },
-      { property: "og:title", content: "Marketplace Policy Change Archive" },
+      { property: "og:title", content: "Marketplace Policy Archive" },
       { property: "og:description", content: "Continuously updated record of marketplace policy updates — every entry sourced and dated." },
     ],
   }),
@@ -64,7 +64,7 @@ function PolicyChangesPage() {
     <>
       <PageHeader
         eyebrow="Public dataset"
-        title="Marketplace Policy Change Archive"
+        title="Marketplace Policy Archive"
         description="A continuously maintained record of marketplace policy updates — suspension rules, listing requirements, returns, verification, and performance thresholds. Every entry links to the original source."
         actions={
           <Button asChild variant="outline" size="sm">
