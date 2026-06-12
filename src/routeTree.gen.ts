@@ -21,6 +21,7 @@ import { Route as FeesRouteImport } from './routes/fees'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicPolicyChangesRouteImport } from './routes/api/public/policy-changes'
 import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
 import { Route as ApiPublicFeesRouteImport } from './routes/api/public/fees'
 import { Route as ApiPublicFeeChangesRouteImport } from './routes/api/public/fee-changes'
@@ -85,6 +86,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPolicyChangesRoute = ApiPublicPolicyChangesRouteImport.update({
+  id: '/api/public/policy-changes',
+  path: '/api/public/policy-changes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicMarketplacesRoute = ApiPublicMarketplacesRouteImport.update({
   id: '/api/public/marketplaces',
   path: '/api/public/marketplaces',
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
+  '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
+  '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -152,6 +160,7 @@ export interface FileRoutesById {
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
+  '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
+    | '/api/public/policy-changes'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -188,6 +198,7 @@ export interface FileRouteTypes {
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
+    | '/api/public/policy-changes'
   id:
     | '__root__'
     | '/'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
+    | '/api/public/policy-changes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -223,6 +235,7 @@ export interface RootRouteChildren {
   ApiPublicFeeChangesRoute: typeof ApiPublicFeeChangesRoute
   ApiPublicFeesRoute: typeof ApiPublicFeesRoute
   ApiPublicMarketplacesRoute: typeof ApiPublicMarketplacesRoute
+  ApiPublicPolicyChangesRoute: typeof ApiPublicPolicyChangesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -311,6 +324,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/policy-changes': {
+      id: '/api/public/policy-changes'
+      path: '/api/public/policy-changes'
+      fullPath: '/api/public/policy-changes'
+      preLoaderRoute: typeof ApiPublicPolicyChangesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/marketplaces': {
       id: '/api/public/marketplaces'
       path: '/api/public/marketplaces'
@@ -351,7 +371,18 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicFeeChangesRoute: ApiPublicFeeChangesRoute,
   ApiPublicFeesRoute: ApiPublicFeesRoute,
   ApiPublicMarketplacesRoute: ApiPublicMarketplacesRoute,
+  ApiPublicPolicyChangesRoute: ApiPublicPolicyChangesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
