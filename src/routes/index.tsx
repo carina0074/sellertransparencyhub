@@ -10,10 +10,10 @@ import { Card, CardContent } from "@/components/ui/card";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Marketplace Transparency Through Data and Research" },
-      { name: "description", content: "Public datasets and research for marketplace sellers: fee database, fee change tracker, suspension appeal library, and policy archive." },
-      { property: "og:title", content: "Marketplace Transparency Through Data and Research" },
-      { property: "og:description", content: "Public datasets and research for marketplace sellers." },
+      { title: "Independent Marketplace Transparency Research for U.S. Small Businesses" },
+      { name: "description", content: "Independent research and public datasets for U.S. small business marketplace sellers: fee database, fee change tracker, suspension appeal library, and policy archive." },
+      { property: "og:title", content: "Independent Marketplace Transparency Research for U.S. Small Businesses" },
+      { property: "og:description", content: "Independent research and public datasets for U.S. small business marketplace sellers." },
     ],
   }),
   component: Index,
