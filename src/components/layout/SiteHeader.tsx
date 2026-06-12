@@ -90,9 +90,6 @@ export function SiteHeader() {
           <Button asChild variant="ghost" size="sm">
             <Link to="/auth">Sign in</Link>
           </Button>
-          <Button asChild size="sm">
-            <Link to="/auth">Start free</Link>
-          </Button>
         </div>
 
         <button
@@ -151,11 +148,6 @@ export function SiteHeader() {
                 )}
               </div>
             ))}
-            <Button asChild className="mt-2">
-              <Link to="/auth" onClick={() => setMobileOpen(false)}>
-                Start free
-              </Link>
-            </Button>
           </div>
         </div>
       )}
