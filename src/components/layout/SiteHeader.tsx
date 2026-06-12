@@ -148,11 +148,6 @@ export function SiteHeader() {
                 )}
               </div>
             ))}
-            <Button asChild className="mt-2">
-              <Link to="/auth" onClick={() => setMobileOpen(false)}>
-                Start free
-              </Link>
-            </Button>
           </div>
         </div>
       )}
