@@ -22,12 +22,14 @@ import { Route as FeesRouteImport } from './routes/fees'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ChangelogSlugRouteImport } from './routes/changelog.$slug'
 import { Route as ApiPublicPolicyChangesRouteImport } from './routes/api/public/policy-changes'
 import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
 import { Route as ApiPublicFeesRouteImport } from './routes/api/public/fees'
 import { Route as ApiPublicFeeChangesRouteImport } from './routes/api/public/fee-changes'
+import { Route as AuthenticatedAdminSubscribersRouteImport } from './routes/_authenticated/admin.subscribers'
 
 const SuspensionPreventionRoute = SuspensionPreventionRouteImport.update({
   id: '/suspension-prevention',
@@ -94,6 +96,10 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -124,6 +130,12 @@ const ApiPublicFeeChangesRoute = ApiPublicFeeChangesRouteImport.update({
   path: '/api/public/fee-changes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminSubscribersRoute =
+  AuthenticatedAdminSubscribersRouteImport.update({
+    id: '/admin/subscribers',
+    path: '/admin/subscribers',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -141,6 +153,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
+  '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
@@ -162,6 +175,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
+  '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
@@ -170,6 +184,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/calculator': typeof CalculatorRoute
@@ -184,6 +199,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
+  '/_authenticated/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
@@ -207,6 +223,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/suspension-prevention'
     | '/changelog/$slug'
+    | '/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
@@ -228,6 +245,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/suspension-prevention'
     | '/changelog/$slug'
+    | '/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
@@ -235,6 +253,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
     | '/auth'
     | '/calculator'
@@ -249,6 +268,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/suspension-prevention'
     | '/changelog/$slug'
+    | '/_authenticated/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
@@ -257,6 +277,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   CalculatorRoute: typeof CalculatorRoute
@@ -370,6 +391,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -412,11 +440,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicFeeChangesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/subscribers': {
+      id: '/_authenticated/admin/subscribers'
+      path: '/admin/subscribers'
+      fullPath: '/admin/subscribers'
+      preLoaderRoute: typeof AuthenticatedAdminSubscribersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminSubscribersRoute: typeof AuthenticatedAdminSubscribersRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminSubscribersRoute: AuthenticatedAdminSubscribersRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   CalculatorRoute: CalculatorRoute,
@@ -439,3 +486,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
