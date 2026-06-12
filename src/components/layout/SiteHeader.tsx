@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 const products = [
   { to: "/rate-card", label: "Fee Database" },
   { to: "/fees", label: "Fee Changes" },
-  { to: "/impact-reports", label: "Impact Reports" },
   { to: "/suspension-prevention", label: "Appeal Library" },
+  { to: "/policy-changes", label: "Policy Archive" },
+  { to: "/impact-reports", label: "Impact Reports" },
 ] as const;
 
 const research = [

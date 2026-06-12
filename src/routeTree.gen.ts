@@ -13,6 +13,7 @@ import { Route as SuspensionPreventionRouteImport } from './routes/suspension-pr
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RateCardRouteImport } from './routes/rate-card'
+import { Route as PolicyChangesRouteImport } from './routes/policy-changes'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as ImpactReportsRouteImport } from './routes/impact-reports'
@@ -21,6 +22,7 @@ import { Route as FeesRouteImport } from './routes/fees'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicPolicyChangesRouteImport } from './routes/api/public/policy-changes'
 import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
 import { Route as ApiPublicFeesRouteImport } from './routes/api/public/fees'
 import { Route as ApiPublicFeeChangesRouteImport } from './routes/api/public/fee-changes'
@@ -43,6 +45,11 @@ const ResourcesRoute = ResourcesRouteImport.update({
 const RateCardRoute = RateCardRouteImport.update({
   id: '/rate-card',
   path: '/rate-card',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PolicyChangesRoute = PolicyChangesRouteImport.update({
+  id: '/policy-changes',
+  path: '/policy-changes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MethodologyRoute = MethodologyRouteImport.update({
@@ -85,6 +92,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPolicyChangesRoute = ApiPublicPolicyChangesRouteImport.update({
+  id: '/api/public/policy-changes',
+  path: '/api/public/policy-changes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicMarketplacesRoute = ApiPublicMarketplacesRouteImport.update({
   id: '/api/public/marketplaces',
   path: '/api/public/marketplaces',
@@ -110,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/impact-reports': typeof ImpactReportsRoute
   '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
+  '/policy-changes': typeof PolicyChangesRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -117,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
+  '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -127,6 +141,7 @@ export interface FileRoutesByTo {
   '/impact-reports': typeof ImpactReportsRoute
   '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
+  '/policy-changes': typeof PolicyChangesRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -134,6 +149,7 @@ export interface FileRoutesByTo {
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
+  '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -145,6 +161,7 @@ export interface FileRoutesById {
   '/impact-reports': typeof ImpactReportsRoute
   '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
+  '/policy-changes': typeof PolicyChangesRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -152,6 +169,7 @@ export interface FileRoutesById {
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
+  '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -164,6 +182,7 @@ export interface FileRouteTypes {
     | '/impact-reports'
     | '/insights'
     | '/methodology'
+    | '/policy-changes'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
@@ -171,6 +190,7 @@ export interface FileRouteTypes {
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
+    | '/api/public/policy-changes'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -181,6 +201,7 @@ export interface FileRouteTypes {
     | '/impact-reports'
     | '/insights'
     | '/methodology'
+    | '/policy-changes'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
@@ -188,6 +209,7 @@ export interface FileRouteTypes {
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
+    | '/api/public/policy-changes'
   id:
     | '__root__'
     | '/'
@@ -198,6 +220,7 @@ export interface FileRouteTypes {
     | '/impact-reports'
     | '/insights'
     | '/methodology'
+    | '/policy-changes'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
@@ -205,6 +228,7 @@ export interface FileRouteTypes {
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
+    | '/api/public/policy-changes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -216,6 +240,7 @@ export interface RootRouteChildren {
   ImpactReportsRoute: typeof ImpactReportsRoute
   InsightsRoute: typeof InsightsRoute
   MethodologyRoute: typeof MethodologyRoute
+  PolicyChangesRoute: typeof PolicyChangesRoute
   RateCardRoute: typeof RateCardRoute
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -223,6 +248,7 @@ export interface RootRouteChildren {
   ApiPublicFeeChangesRoute: typeof ApiPublicFeeChangesRoute
   ApiPublicFeesRoute: typeof ApiPublicFeesRoute
   ApiPublicMarketplacesRoute: typeof ApiPublicMarketplacesRoute
+  ApiPublicPolicyChangesRoute: typeof ApiPublicPolicyChangesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -253,6 +279,13 @@ declare module '@tanstack/react-router' {
       path: '/rate-card'
       fullPath: '/rate-card'
       preLoaderRoute: typeof RateCardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/policy-changes': {
+      id: '/policy-changes'
+      path: '/policy-changes'
+      fullPath: '/policy-changes'
+      preLoaderRoute: typeof PolicyChangesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/methodology': {
@@ -311,6 +344,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/policy-changes': {
+      id: '/api/public/policy-changes'
+      path: '/api/public/policy-changes'
+      fullPath: '/api/public/policy-changes'
+      preLoaderRoute: typeof ApiPublicPolicyChangesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/marketplaces': {
       id: '/api/public/marketplaces'
       path: '/api/public/marketplaces'
@@ -344,6 +384,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImpactReportsRoute: ImpactReportsRoute,
   InsightsRoute: InsightsRoute,
   MethodologyRoute: MethodologyRoute,
+  PolicyChangesRoute: PolicyChangesRoute,
   RateCardRoute: RateCardRoute,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -351,6 +392,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicFeeChangesRoute: ApiPublicFeeChangesRoute,
   ApiPublicFeesRoute: ApiPublicFeesRoute,
   ApiPublicMarketplacesRoute: ApiPublicMarketplacesRoute,
+  ApiPublicPolicyChangesRoute: ApiPublicPolicyChangesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
