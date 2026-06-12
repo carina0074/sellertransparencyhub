@@ -10,10 +10,10 @@ import { Card, CardContent } from "@/components/ui/card";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Seller Transparency Hub — Public Marketplace Data & Policy Archive" },
-      { name: "description", content: "Free public datasets for e-commerce sellers: fee database, fee change tracker, suspension appeal library, and marketplace policy archive." },
-      { property: "og:title", content: "Seller Transparency Hub" },
-      { property: "og:description", content: "Continuously maintained public data assets for marketplace sellers." },
+      { title: "Marketplace Transparency Through Data and Research" },
+      { name: "description", content: "Public datasets and research for marketplace sellers: fee database, fee change tracker, suspension appeal library, and policy archive." },
+      { property: "og:title", content: "Marketplace Transparency Through Data and Research" },
+      { property: "og:description", content: "Public datasets and research for marketplace sellers." },
     ],
   }),
   component: Index,
@@ -77,14 +77,14 @@ function Index() {
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Public data assets for e-commerce sellers
+              Data and research for e-commerce sellers
             </span>
             <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Continuously maintained public datasets that keep sellers informed.
+              Marketplace transparency through data and research.
             </h1>
             <p className="mt-5 text-pretty text-lg text-muted-foreground">
-              Free, searchable databases of marketplace fees, policy changes, suspension appeals,
-              and fee updates — built for FBA sellers, Walmart operators, and Shopify merchants.
+              We collect, structure, and publish marketplace data so sellers can make informed decisions —
+              from fee changes and policy updates to suspension appeals and rate cards.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="lg">
