@@ -68,12 +68,7 @@ const stats = [
   { value: "25", label: "Official sources monitored" },
 ];
 
-const versionHistory = [
-  { date: "June 2026", items: ["Added Walmart fee schedules", "Launched fee change tracker filters"] },
-  { date: "May 2026", items: ["Added Amazon storage surcharge changes", "Expanded suspension appeal library"] },
-  { date: "April 2026", items: ["Archived Q1 marketplace policy updates", "Added Shopify referral fee dataset"] },
-  { date: "March 2026", items: ["Launched Marketplace Fee Database v1", "Initial policy archive published"] },
-];
+import { changelog } from "@/data/changelog";
 
 function SubscribeForm() {
   const [email, setEmail] = useState("");
@@ -281,18 +276,19 @@ function Index() {
             A running log of dataset additions and platform updates.
           </p>
           <ol className="mt-10 space-y-8 border-l border-border pl-6">
-            {versionHistory.map((v) => (
-              <li key={v.date} className="relative">
+            {changelog.map((v) => (
+              <li key={v.slug} className="relative">
                 <span className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full bg-primary ring-4 ring-background" />
                 <div className="text-sm font-medium text-muted-foreground">{v.date}</div>
-                <ul className="mt-2 space-y-1">
-                  {v.items.map((it) => (
-                    <li key={it} className="flex items-start gap-2 text-foreground">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                      <span>{it}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-1 text-foreground font-medium">{v.title}</div>
+                <p className="mt-1 text-sm text-muted-foreground">{v.summary}</p>
+                <Link
+                  to="/changelog/$slug"
+                  params={{ slug: v.slug }}
+                  className="mt-2 inline-flex items-center text-sm font-medium text-primary hover:text-foreground"
+                >
+                  View Changes <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
               </li>
             ))}
           </ol>
