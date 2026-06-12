@@ -46,7 +46,6 @@ function SubscribersPage() {
             This page is only available to admin accounts. Please sign out and sign back in if
             access was just granted.
           </p>
-          <p className="mt-2 text-xs text-muted-foreground">{(error as Error).message}</p>
         </div>
       )}
 
