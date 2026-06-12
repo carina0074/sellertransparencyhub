@@ -85,6 +85,7 @@ function Index() {
             <p className="mt-5 text-pretty text-lg text-muted-foreground">
               We collect, structure, and publish marketplace data so sellers can make informed decisions —
               from fee changes and policy updates to suspension appeals and rate cards.
+            </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="lg">
                 <Link to="/rate-card">
