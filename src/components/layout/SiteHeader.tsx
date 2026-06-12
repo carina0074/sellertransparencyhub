@@ -10,6 +10,7 @@ const nav = [
   { to: "/fees", label: "Fee Changes" },
   { to: "/rate-card", label: "Fee Database" },
   { to: "/impact-reports", label: "Impact Reports" },
+  { to: "/insights", label: "Insights" },
   { to: "/methodology", label: "Methodology" },
   { to: "/resources", label: "Resources" },
   { to: "/about", label: "About" },

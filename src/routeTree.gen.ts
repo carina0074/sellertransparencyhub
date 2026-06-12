@@ -14,6 +14,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RateCardRouteImport } from './routes/rate-card'
 import { Route as MethodologyRouteImport } from './routes/methodology'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as ImpactReportsRouteImport } from './routes/impact-reports'
 import { Route as HealthCheckRouteImport } from './routes/health-check'
 import { Route as FeesRouteImport } from './routes/fees'
@@ -47,6 +48,11 @@ const RateCardRoute = RateCardRouteImport.update({
 const MethodologyRoute = MethodologyRouteImport.update({
   id: '/methodology',
   path: '/methodology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImpactReportsRoute = ImpactReportsRouteImport.update({
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
   '/impact-reports': typeof ImpactReportsRoute
+  '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
   '/impact-reports': typeof ImpactReportsRoute
+  '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
@@ -135,6 +143,7 @@ export interface FileRoutesById {
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
   '/impact-reports': typeof ImpactReportsRoute
+  '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
@@ -153,6 +162,7 @@ export interface FileRouteTypes {
     | '/fees'
     | '/health-check'
     | '/impact-reports'
+    | '/insights'
     | '/methodology'
     | '/rate-card'
     | '/resources'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
     | '/fees'
     | '/health-check'
     | '/impact-reports'
+    | '/insights'
     | '/methodology'
     | '/rate-card'
     | '/resources'
@@ -185,6 +196,7 @@ export interface FileRouteTypes {
     | '/fees'
     | '/health-check'
     | '/impact-reports'
+    | '/insights'
     | '/methodology'
     | '/rate-card'
     | '/resources'
@@ -202,6 +214,7 @@ export interface RootRouteChildren {
   FeesRoute: typeof FeesRoute
   HealthCheckRoute: typeof HealthCheckRoute
   ImpactReportsRoute: typeof ImpactReportsRoute
+  InsightsRoute: typeof InsightsRoute
   MethodologyRoute: typeof MethodologyRoute
   RateCardRoute: typeof RateCardRoute
   ResourcesRoute: typeof ResourcesRoute
@@ -247,6 +260,13 @@ declare module '@tanstack/react-router' {
       path: '/methodology'
       fullPath: '/methodology'
       preLoaderRoute: typeof MethodologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/impact-reports': {
@@ -322,6 +342,7 @@ const rootRouteChildren: RootRouteChildren = {
   FeesRoute: FeesRoute,
   HealthCheckRoute: HealthCheckRoute,
   ImpactReportsRoute: ImpactReportsRoute,
+  InsightsRoute: InsightsRoute,
   MethodologyRoute: MethodologyRoute,
   RateCardRoute: RateCardRoute,
   ResourcesRoute: ResourcesRoute,
