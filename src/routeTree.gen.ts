@@ -22,6 +22,7 @@ import { Route as FeesRouteImport } from './routes/fees'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ChangelogSlugRouteImport } from './routes/changelog.$slug'
 import { Route as ApiPublicPolicyChangesRouteImport } from './routes/api/public/policy-changes'
 import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
 import { Route as ApiPublicFeesRouteImport } from './routes/api/public/fees'
@@ -92,6 +93,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChangelogSlugRoute = ChangelogSlugRouteImport.update({
+  id: '/changelog/$slug',
+  path: '/changelog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicPolicyChangesRoute = ApiPublicPolicyChangesRouteImport.update({
   id: '/api/public/policy-changes',
   path: '/api/public/policy-changes',
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
+  '/changelog/$slug': typeof ChangelogSlugRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
@@ -146,6 +153,7 @@ export interface FileRoutesByTo {
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
+  '/changelog/$slug': typeof ChangelogSlugRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
@@ -166,6 +174,7 @@ export interface FileRoutesById {
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
+  '/changelog/$slug': typeof ChangelogSlugRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
@@ -187,6 +196,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
+    | '/changelog/$slug'
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
@@ -206,6 +216,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
+    | '/changelog/$slug'
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
+    | '/changelog/$slug'
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
@@ -245,6 +257,7 @@ export interface RootRouteChildren {
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SuspensionPreventionRoute: typeof SuspensionPreventionRoute
+  ChangelogSlugRoute: typeof ChangelogSlugRoute
   ApiPublicFeeChangesRoute: typeof ApiPublicFeeChangesRoute
   ApiPublicFeesRoute: typeof ApiPublicFeesRoute
   ApiPublicMarketplacesRoute: typeof ApiPublicMarketplacesRoute
@@ -344,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/changelog/$slug': {
+      id: '/changelog/$slug'
+      path: '/changelog/$slug'
+      fullPath: '/changelog/$slug'
+      preLoaderRoute: typeof ChangelogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/policy-changes': {
       id: '/api/public/policy-changes'
       path: '/api/public/policy-changes'
@@ -389,6 +409,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SuspensionPreventionRoute: SuspensionPreventionRoute,
+  ChangelogSlugRoute: ChangelogSlugRoute,
   ApiPublicFeeChangesRoute: ApiPublicFeeChangesRoute,
   ApiPublicFeesRoute: ApiPublicFeesRoute,
   ApiPublicMarketplacesRoute: ApiPublicMarketplacesRoute,
