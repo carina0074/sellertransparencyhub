@@ -58,10 +58,10 @@ const products = [
 ];
 
 const stats = [
-  { value: "$1.2M+", label: "Seller margin recovered" },
-  { value: "12,400", label: "Calculations run" },
-  { value: "4 marketplaces", label: "Modeled in detail" },
-  { value: "98%", label: "Free public tools" },
+  { value: "127", label: "Fee changes monitored" },
+  { value: "3", label: "Marketplaces tracked" },
+  { value: "500+", label: "Transparency subscribers" },
+  { value: "Quarterly", label: "Trend reports published" },
 ];
 
 function Index() {
