@@ -77,14 +77,13 @@ function Index() {
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
               <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Data and research for e-commerce sellers
+              Built for U.S. small business sellers
             </span>
             <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Marketplace transparency through data and research.
+              Independent marketplace transparency research for U.S. small businesses.
             </h1>
             <p className="mt-5 text-pretty text-lg text-muted-foreground">
-              We collect, structure, and publish marketplace data so sellers can make informed decisions —
-              from fee changes and policy updates to suspension appeals and rate cards.
+              We collect, structure, and publish independent marketplace data to protect U.S. small business sellers — from fee changes and policy updates to suspension appeals and rate cards.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="lg">
