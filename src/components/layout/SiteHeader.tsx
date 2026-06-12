@@ -44,8 +44,9 @@ function Dropdown({
         <ChevronDown className="h-3.5 w-3.5" />
       </button>
       {open && (
-        <div className="absolute left-0 top-full z-50 mt-1 w-48 rounded-lg border border-border bg-background p-1 shadow-lg">
-          {items.map((item) => (
+        <div className="absolute left-0 top-full z-50 w-48 pt-1">
+          <div className="rounded-lg border border-border bg-background p-1 shadow-lg">
+            {items.map((item) => (
             <Link
               key={item.to}
               to={item.to}
@@ -55,7 +56,8 @@ function Dropdown({
             >
               {item.label}
             </Link>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </div>
