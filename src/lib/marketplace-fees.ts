@@ -25,10 +25,36 @@ export const SIZE_TIERS: { id: SizeTier; label: string }[] = [
   { id: "medium_oversize", label: "Medium oversize" },
 ];
 
-const REFERRAL_RATE: Record<string, number> = {
-  electronics: 0.08, home: 0.15, beauty: 0.15, apparel: 0.17,
-  toys: 0.15, grocery: 0.08, books: 0.15, tools: 0.15,
+/**
+ * Hand-maintained rate card from Amazon Seller Central public fee schedule.
+ * Source: https://sellercentral.amazon.com/help/hub/reference/external/200336920
+ * Last reviewed: 2025-01. Update this object when Amazon publishes a new schedule.
+ */
+export const AMAZON_REFERRAL_RATES: Record<string, number> = {
+  electronics: 0.08,
+  home: 0.15,
+  beauty: 0.08,            // ≤ $10 = 8%, > $10 = 15% — using lower-tier default
+  apparel: 0.17,
+  toys: 0.15,
+  grocery: 0.08,
+  books: 0.15,
+  tools: 0.15,
 };
+
+/**
+ * Amazon FBA fulfillment fee — base per-unit (USD) by size tier.
+ * Source: https://sellercentral.amazon.com/help/hub/reference/external/G201074400
+ * Last reviewed: 2025-01.
+ */
+export const AMAZON_FULFILLMENT_FEES: Record<SizeTier, number> = {
+  small_standard: 3.22,
+  large_standard: 5.87,
+  small_oversize: 9.61,
+  medium_oversize: 14.32,
+};
+
+/** Amazon FBA monthly storage fee per cubic foot (Jan–Sep, standard size). */
+export const AMAZON_STORAGE_PER_CUFT = 0.87;
 
 const MARKETPLACE_REFERRAL_MULT: Record<Marketplace, number> = {
   amazon: 1, walmart: 0.95, shopify: 0,
@@ -36,12 +62,6 @@ const MARKETPLACE_REFERRAL_MULT: Record<Marketplace, number> = {
 
 const SHOPIFY_TXN_RATE = 0.029;
 const SHOPIFY_TXN_FLAT = 0.3;
-
-const FULFILLMENT_BASE: Record<SizeTier, number> = {
-  small_standard: 3.22, large_standard: 3.86, small_oversize: 9.61, medium_oversize: 14.32,
-};
-
-const STORAGE_PER_CUFT_PER_MONTH = 0.87;
 
 const RETURN_RATE: Record<string, number> = {
   electronics: 0.12, home: 0.08, beauty: 0.05, apparel: 0.25,
@@ -61,12 +81,12 @@ export type FeeBreakdown = {
 };
 
 export function calculateFees(i: FeeInputs): FeeBreakdown {
-  const referralBase = (REFERRAL_RATE[i.category] ?? 0.15) * i.price;
+  const referralBase = (AMAZON_REFERRAL_RATES[i.category] ?? 0.15) * i.price;
   let referralFee = referralBase * MARKETPLACE_REFERRAL_MULT[i.marketplace];
   if (i.marketplace === "shopify") {
     referralFee = i.price * SHOPIFY_TXN_RATE + SHOPIFY_TXN_FLAT;
   }
-  const fulfillmentBase = FULFILLMENT_BASE[i.sizeTier];
+  const fulfillmentBase = AMAZON_FULFILLMENT_FEES[i.sizeTier];
   const weightSurcharge = Math.max(0, i.weightLb - 1) * 0.38;
   const fulfillmentFee = i.marketplace === "shopify"
     ? i.shipping
@@ -77,7 +97,7 @@ export function calculateFees(i: FeeInputs): FeeBreakdown {
   } as Record<SizeTier, number>)[i.sizeTier];
   const storageFee = i.marketplace === "shopify"
     ? 0
-    : cuftEstimate * STORAGE_PER_CUFT_PER_MONTH * i.storageMonths;
+    : cuftEstimate * AMAZON_STORAGE_PER_CUFT * i.storageMonths;
   const rRate = RETURN_RATE[i.category] ?? 0.08;
   const returnCost = rRate * (i.price * 0.25 + 2.5);
   const shippingCost = i.marketplace === "shopify" ? 0 : i.shipping;
