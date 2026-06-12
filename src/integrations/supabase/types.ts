@@ -175,6 +175,60 @@ export type Database = {
         }
         Relationships: []
       }
+      policy_changes: {
+        Row: {
+          affected_sellers: string | null
+          announcement_date: string | null
+          body_markdown: string | null
+          created_at: string
+          effective_date: string
+          id: string
+          impact_level: string
+          last_verified: string
+          marketplace: string
+          policy_area: string
+          source_title: string
+          source_url: string
+          summary: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          affected_sellers?: string | null
+          announcement_date?: string | null
+          body_markdown?: string | null
+          created_at?: string
+          effective_date: string
+          id?: string
+          impact_level: string
+          last_verified: string
+          marketplace: string
+          policy_area: string
+          source_title: string
+          source_url: string
+          summary: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          affected_sellers?: string | null
+          announcement_date?: string | null
+          body_markdown?: string | null
+          created_at?: string
+          effective_date?: string
+          id?: string
+          impact_level?: string
+          last_verified?: string
+          marketplace?: string
+          policy_area?: string
+          source_title?: string
+          source_url?: string
+          summary?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
