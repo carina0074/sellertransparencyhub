@@ -73,6 +73,7 @@ import { changelog } from "@/data/changelog";
 function SubscribeForm() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -87,6 +88,7 @@ function SubscribeForm() {
     if (error) {
       if (error.code === "23505") {
         toast.success("You're already subscribed — thanks!");
+        setSubmitted(true);
         setEmail("");
       } else {
         toast.error("Something went wrong. Please try again.");
@@ -94,7 +96,17 @@ function SubscribeForm() {
       return;
     }
     toast.success("Subscribed! We'll keep you posted.");
+    setSubmitted(true);
     setEmail("");
+  }
+
+  if (submitted) {
+    return (
+      <div className="mx-auto mt-8 flex max-w-md items-center justify-center gap-3 rounded-xl border border-green-200 bg-green-50 px-6 py-4 text-green-800 dark:border-green-900 dark:bg-green-950/30 dark:text-green-300">
+        <CheckCircle2 className="h-5 w-5 shrink-0" />
+        <span className="text-sm font-medium">You're subscribed! Check your inbox for confirmation.</span>
+      </div>
+    );
   }
 
   return (
