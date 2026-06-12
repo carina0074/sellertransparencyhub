@@ -98,6 +98,33 @@ export const getImpactReports = createServerFn({ method: "GET" }).handler(
   },
 );
 
+export type DatabaseStats = {
+  activeRecords: number;
+  historicalChanges: number;
+  marketplaces: number;
+  categories: number;
+  lastUpdated: string;
+};
+
+export const getDatabaseStats = createServerFn({ method: "GET" }).handler(
+  async (): Promise<DatabaseStats> => {
+    const [recs, chgs] = await Promise.all([
+      supabase.from("fee_records").select("marketplace,category,last_verified"),
+      supabase.from("fee_changes").select("id", { count: "exact", head: true }),
+    ]);
+    if (recs.error) throw new Error(recs.error.message);
+    if (chgs.error) throw new Error(chgs.error.message);
+    const rows = recs.data ?? [];
+    return {
+      activeRecords: rows.length,
+      historicalChanges: chgs.count ?? 0,
+      marketplaces: new Set(rows.map((r) => r.marketplace)).size,
+      categories: new Set(rows.map((r) => r.category)).size,
+      lastUpdated: rows.reduce((a, r) => (r.last_verified > a ? r.last_verified : a), "0000-00-00"),
+    };
+  },
+);
+
 export function formatFeeValue(value: number, valueType: string): string {
   switch (valueType) {
     case "percent":

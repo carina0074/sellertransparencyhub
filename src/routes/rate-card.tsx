@@ -12,11 +12,16 @@ import {
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { getFeeRecords, formatFeeValue } from "@/lib/fees.functions";
+import { getFeeRecords, getDatabaseStats, formatFeeValue } from "@/lib/fees.functions";
 
 const feeRecordsQuery = queryOptions({
   queryKey: ["fee-records"],
   queryFn: () => getFeeRecords(),
+});
+
+const statsQuery = queryOptions({
+  queryKey: ["fee-stats"],
+  queryFn: () => getDatabaseStats(),
 });
 
 export const Route = createFileRoute("/rate-card")({
@@ -28,7 +33,11 @@ export const Route = createFileRoute("/rate-card")({
       { property: "og:description", content: "Sourced, dated, and auditable marketplace fee data for e-commerce sellers." },
     ],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(feeRecordsQuery),
+  loader: ({ context }) =>
+    Promise.all([
+      context.queryClient.ensureQueryData(feeRecordsQuery),
+      context.queryClient.ensureQueryData(statsQuery),
+    ]),
   errorComponent: ({ error }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">
       Couldn't load the fee database: {error.message}
@@ -40,6 +49,7 @@ export const Route = createFileRoute("/rate-card")({
 
 function RateCardPage() {
   const { data: records } = useSuspenseQuery(feeRecordsQuery);
+  const { data: stats } = useSuspenseQuery(statsQuery);
 
   const marketplaces = useMemo(
     () => Array.from(new Set(records.map((r) => r.marketplace))).sort(),
@@ -75,11 +85,15 @@ function RateCardPage() {
         description="Every published seller fee — marketplace, category, fee type, current value, source URL, effective date, and last-verified date. Continuously maintained as a public transparency resource."
       />
       <section className="mx-auto max-w-7xl space-y-6 px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-4 sm:grid-cols-3">
-          <StatCard label="Records in database" value={records.length.toString()} />
-          <StatCard label="Marketplaces tracked" value={marketplaces.length.toString()} />
-          <StatCard label="Last verified" value={maxDate(records.map((r) => r.last_verified))} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <StatCard label="Active fee records" value={stats.activeRecords.toString()} />
+          <StatCard label="Historical changes" value={stats.historicalChanges.toString()} />
+          <StatCard label="Marketplaces tracked" value={stats.marketplaces.toString()} />
+          <StatCard label="Fee categories" value={stats.categories.toString()} />
         </div>
+        <p className="text-xs text-muted-foreground">
+          Last updated {formatMonth(stats.lastUpdated)} · <a href="/methodology" className="text-primary hover:underline">Methodology</a> · <a href="/api/public/fees" className="text-primary hover:underline">Public API</a>
+        </p>
 
         <div className="grid gap-3 sm:grid-cols-[1fr_180px_200px]">
           <div className="relative">
@@ -138,7 +152,8 @@ function RateCardPage() {
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
                         >
-                          Source <ExternalLink className="h-3 w-3" />
+                          <Badge variant="outline" className="rounded-full text-[10px] font-normal">Official</Badge>
+                          {r.source_title} <ExternalLink className="h-3 w-3" />
                         </a>
                       </TableCell>
                     </TableRow>
@@ -182,7 +197,7 @@ function StatCard({ label, value }: { label: string; value: string }) {
   );
 }
 
-function maxDate(dates: string[]): string {
-  if (dates.length === 0) return "—";
-  return dates.reduce((a, b) => (a > b ? a : b));
+function formatMonth(d: string): string {
+  if (!d || d.startsWith("0000")) return "—";
+  return new Date(d).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 }
