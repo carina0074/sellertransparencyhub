@@ -53,6 +53,36 @@ export type ImpactReport = {
   body_markdown: string;
 };
 
+export type PolicyChange = {
+  id: string;
+  marketplace: string;
+  policy_area: string;
+  title: string;
+  summary: string;
+  body_markdown: string | null;
+  effective_date: string;
+  announcement_date: string | null;
+  impact_level: "low" | "medium" | "high";
+  affected_sellers: string | null;
+  source_url: string;
+  source_title: string;
+  last_verified: string;
+};
+
+export const getPolicyChanges = createServerFn({ method: "GET" }).handler(
+  async (): Promise<PolicyChange[]> => {
+    const { data, error } = await supabase
+      .from("policy_changes")
+      .select("id,marketplace,policy_area,title,summary,body_markdown,effective_date,announcement_date,impact_level,affected_sellers,source_url,source_title,last_verified")
+      .order("effective_date", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (data ?? []).map((r) => ({
+      ...r,
+      impact_level: r.impact_level as "low" | "medium" | "high",
+    })) as PolicyChange[];
+  },
+);
+
 export const getFeeRecords = createServerFn({ method: "GET" }).handler(
   async (): Promise<FeeRecord[]> => {
     const { data, error } = await supabase
