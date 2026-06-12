@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SuspensionPreventionRouteImport } from './routes/suspension-prevention'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as RateCardRouteImport } from './routes/rate-card'
 import { Route as HealthCheckRouteImport } from './routes/health-check'
 import { Route as FeesRouteImport } from './routes/fees'
 import { Route as CalculatorRouteImport } from './routes/calculator'
@@ -31,6 +32,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ResourcesRoute = ResourcesRouteImport.update({
   id: '/resources',
   path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RateCardRoute = RateCardRouteImport.update({
+  id: '/rate-card',
+  path: '/rate-card',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HealthCheckRoute = HealthCheckRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/calculator': typeof CalculatorRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
+  '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/calculator': typeof CalculatorRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
+  '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/calculator': typeof CalculatorRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
+  '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/calculator'
     | '/fees'
     | '/health-check'
+    | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/calculator'
     | '/fees'
     | '/health-check'
+    | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/calculator'
     | '/fees'
     | '/health-check'
+    | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   CalculatorRoute: typeof CalculatorRoute
   FeesRoute: typeof FeesRoute
   HealthCheckRoute: typeof HealthCheckRoute
+  RateCardRoute: typeof RateCardRoute
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SuspensionPreventionRoute: typeof SuspensionPreventionRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/resources'
       fullPath: '/resources'
       preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rate-card': {
+      id: '/rate-card'
+      path: '/rate-card'
+      fullPath: '/rate-card'
+      preLoaderRoute: typeof RateCardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/health-check': {
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalculatorRoute: CalculatorRoute,
   FeesRoute: FeesRoute,
   HealthCheckRoute: HealthCheckRoute,
+  RateCardRoute: RateCardRoute,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SuspensionPreventionRoute: SuspensionPreventionRoute,
@@ -208,3 +229,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
