@@ -13,6 +13,7 @@ import { Route as SuspensionPreventionRouteImport } from './routes/suspension-pr
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RateCardRouteImport } from './routes/rate-card'
+import { Route as ImpactReportsRouteImport } from './routes/impact-reports'
 import { Route as HealthCheckRouteImport } from './routes/health-check'
 import { Route as FeesRouteImport } from './routes/fees'
 import { Route as CalculatorRouteImport } from './routes/calculator'
@@ -37,6 +38,11 @@ const ResourcesRoute = ResourcesRouteImport.update({
 const RateCardRoute = RateCardRouteImport.update({
   id: '/rate-card',
   path: '/rate-card',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpactReportsRoute = ImpactReportsRouteImport.update({
+  id: '/impact-reports',
+  path: '/impact-reports',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HealthCheckRoute = HealthCheckRouteImport.update({
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/calculator': typeof CalculatorRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
+  '/impact-reports': typeof ImpactReportsRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/calculator': typeof CalculatorRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
+  '/impact-reports': typeof ImpactReportsRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/calculator': typeof CalculatorRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
+  '/impact-reports': typeof ImpactReportsRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/calculator'
     | '/fees'
     | '/health-check'
+    | '/impact-reports'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/calculator'
     | '/fees'
     | '/health-check'
+    | '/impact-reports'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/calculator'
     | '/fees'
     | '/health-check'
+    | '/impact-reports'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   CalculatorRoute: typeof CalculatorRoute
   FeesRoute: typeof FeesRoute
   HealthCheckRoute: typeof HealthCheckRoute
+  ImpactReportsRoute: typeof ImpactReportsRoute
   RateCardRoute: typeof RateCardRoute
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/rate-card'
       fullPath: '/rate-card'
       preLoaderRoute: typeof RateCardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impact-reports': {
+      id: '/impact-reports'
+      path: '/impact-reports'
+      fullPath: '/impact-reports'
+      preLoaderRoute: typeof ImpactReportsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/health-check': {
@@ -221,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalculatorRoute: CalculatorRoute,
   FeesRoute: FeesRoute,
   HealthCheckRoute: HealthCheckRoute,
+  ImpactReportsRoute: ImpactReportsRoute,
   RateCardRoute: RateCardRoute,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

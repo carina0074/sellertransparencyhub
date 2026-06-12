@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 const nav = [
   { to: "/calculator", label: "Profit Calculator" },
   { to: "/health-check", label: "Account Health" },
-  { to: "/suspension-prevention", label: "Suspension Prevention" },
-  { to: "/fees", label: "Fee Dashboard" },
-  { to: "/rate-card", label: "Rate Card" },
+  { to: "/suspension-prevention", label: "Appeal Library" },
+  { to: "/fees", label: "Fee Changes" },
+  { to: "/rate-card", label: "Fee Database" },
+  { to: "/impact-reports", label: "Impact Reports" },
   { to: "/resources", label: "Resources" },
   { to: "/about", label: "About" },
 ] as const;
