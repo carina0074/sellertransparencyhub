@@ -18,7 +18,7 @@ export const Route = createFileRoute("/policy-changes")({
       meta: [
         { title: "Marketplace Policy Archive — Suspension, Listing & Returns Rules" },
       { name: "description", content: "Public archive of marketplace policy changes across Amazon, Walmart, and Shopify. Effective dates, affected sellers, impact level, and source links." },
-      { property: "og:title", content: "Marketplace Policy Change Archive" },
+      { property: "og:title", content: "Marketplace Policy Archive" },
       { property: "og:description", content: "Continuously updated record of marketplace policy updates — every entry sourced and dated." },
     ],
   }),
