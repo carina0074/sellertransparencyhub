@@ -13,12 +13,16 @@ import { Route as SuspensionPreventionRouteImport } from './routes/suspension-pr
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RateCardRouteImport } from './routes/rate-card'
+import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as ImpactReportsRouteImport } from './routes/impact-reports'
 import { Route as HealthCheckRouteImport } from './routes/health-check'
 import { Route as FeesRouteImport } from './routes/fees'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
+import { Route as ApiPublicFeesRouteImport } from './routes/api/public/fees'
+import { Route as ApiPublicFeeChangesRouteImport } from './routes/api/public/fee-changes'
 
 const SuspensionPreventionRoute = SuspensionPreventionRouteImport.update({
   id: '/suspension-prevention',
@@ -38,6 +42,11 @@ const ResourcesRoute = ResourcesRouteImport.update({
 const RateCardRoute = RateCardRouteImport.update({
   id: '/rate-card',
   path: '/rate-card',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImpactReportsRoute = ImpactReportsRouteImport.update({
@@ -70,6 +79,21 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicMarketplacesRoute = ApiPublicMarketplacesRouteImport.update({
+  id: '/api/public/marketplaces',
+  path: '/api/public/marketplaces',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicFeesRoute = ApiPublicFeesRouteImport.update({
+  id: '/api/public/fees',
+  path: '/api/public/fees',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicFeeChangesRoute = ApiPublicFeeChangesRouteImport.update({
+  id: '/api/public/fee-changes',
+  path: '/api/public/fee-changes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -78,10 +102,14 @@ export interface FileRoutesByFullPath {
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
   '/impact-reports': typeof ImpactReportsRoute
+  '/methodology': typeof MethodologyRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
+  '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
+  '/api/public/fees': typeof ApiPublicFeesRoute
+  '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -90,10 +118,14 @@ export interface FileRoutesByTo {
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
   '/impact-reports': typeof ImpactReportsRoute
+  '/methodology': typeof MethodologyRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
+  '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
+  '/api/public/fees': typeof ApiPublicFeesRoute
+  '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -103,10 +135,14 @@ export interface FileRoutesById {
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
   '/impact-reports': typeof ImpactReportsRoute
+  '/methodology': typeof MethodologyRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
+  '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
+  '/api/public/fees': typeof ApiPublicFeesRoute
+  '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,10 +153,14 @@ export interface FileRouteTypes {
     | '/fees'
     | '/health-check'
     | '/impact-reports'
+    | '/methodology'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
+    | '/api/public/fee-changes'
+    | '/api/public/fees'
+    | '/api/public/marketplaces'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -129,10 +169,14 @@ export interface FileRouteTypes {
     | '/fees'
     | '/health-check'
     | '/impact-reports'
+    | '/methodology'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
+    | '/api/public/fee-changes'
+    | '/api/public/fees'
+    | '/api/public/marketplaces'
   id:
     | '__root__'
     | '/'
@@ -141,10 +185,14 @@ export interface FileRouteTypes {
     | '/fees'
     | '/health-check'
     | '/impact-reports'
+    | '/methodology'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
+    | '/api/public/fee-changes'
+    | '/api/public/fees'
+    | '/api/public/marketplaces'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -154,10 +202,14 @@ export interface RootRouteChildren {
   FeesRoute: typeof FeesRoute
   HealthCheckRoute: typeof HealthCheckRoute
   ImpactReportsRoute: typeof ImpactReportsRoute
+  MethodologyRoute: typeof MethodologyRoute
   RateCardRoute: typeof RateCardRoute
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SuspensionPreventionRoute: typeof SuspensionPreventionRoute
+  ApiPublicFeeChangesRoute: typeof ApiPublicFeeChangesRoute
+  ApiPublicFeesRoute: typeof ApiPublicFeesRoute
+  ApiPublicMarketplacesRoute: typeof ApiPublicMarketplacesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -188,6 +240,13 @@ declare module '@tanstack/react-router' {
       path: '/rate-card'
       fullPath: '/rate-card'
       preLoaderRoute: typeof RateCardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/methodology': {
+      id: '/methodology'
+      path: '/methodology'
+      fullPath: '/methodology'
+      preLoaderRoute: typeof MethodologyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/impact-reports': {
@@ -232,6 +291,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/marketplaces': {
+      id: '/api/public/marketplaces'
+      path: '/api/public/marketplaces'
+      fullPath: '/api/public/marketplaces'
+      preLoaderRoute: typeof ApiPublicMarketplacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/fees': {
+      id: '/api/public/fees'
+      path: '/api/public/fees'
+      fullPath: '/api/public/fees'
+      preLoaderRoute: typeof ApiPublicFeesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/fee-changes': {
+      id: '/api/public/fee-changes'
+      path: '/api/public/fee-changes'
+      fullPath: '/api/public/fee-changes'
+      preLoaderRoute: typeof ApiPublicFeeChangesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -242,10 +322,14 @@ const rootRouteChildren: RootRouteChildren = {
   FeesRoute: FeesRoute,
   HealthCheckRoute: HealthCheckRoute,
   ImpactReportsRoute: ImpactReportsRoute,
+  MethodologyRoute: MethodologyRoute,
   RateCardRoute: RateCardRoute,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SuspensionPreventionRoute: SuspensionPreventionRoute,
+  ApiPublicFeeChangesRoute: ApiPublicFeeChangesRoute,
+  ApiPublicFeesRoute: ApiPublicFeesRoute,
+  ApiPublicMarketplacesRoute: ApiPublicMarketplacesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
