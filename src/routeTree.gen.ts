@@ -13,6 +13,7 @@ import { Route as SuspensionPreventionRouteImport } from './routes/suspension-pr
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RateCardRouteImport } from './routes/rate-card'
+import { Route as PolicyChangesRouteImport } from './routes/policy-changes'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as ImpactReportsRouteImport } from './routes/impact-reports'
@@ -44,6 +45,11 @@ const ResourcesRoute = ResourcesRouteImport.update({
 const RateCardRoute = RateCardRouteImport.update({
   id: '/rate-card',
   path: '/rate-card',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PolicyChangesRoute = PolicyChangesRouteImport.update({
+  id: '/policy-changes',
+  path: '/policy-changes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MethodologyRoute = MethodologyRouteImport.update({
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/impact-reports': typeof ImpactReportsRoute
   '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
+  '/policy-changes': typeof PolicyChangesRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/impact-reports': typeof ImpactReportsRoute
   '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
+  '/policy-changes': typeof PolicyChangesRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/impact-reports': typeof ImpactReportsRoute
   '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
+  '/policy-changes': typeof PolicyChangesRoute
   '/rate-card': typeof RateCardRoute
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -173,6 +182,7 @@ export interface FileRouteTypes {
     | '/impact-reports'
     | '/insights'
     | '/methodology'
+    | '/policy-changes'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/impact-reports'
     | '/insights'
     | '/methodology'
+    | '/policy-changes'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
@@ -209,6 +220,7 @@ export interface FileRouteTypes {
     | '/impact-reports'
     | '/insights'
     | '/methodology'
+    | '/policy-changes'
     | '/rate-card'
     | '/resources'
     | '/sitemap.xml'
@@ -228,6 +240,7 @@ export interface RootRouteChildren {
   ImpactReportsRoute: typeof ImpactReportsRoute
   InsightsRoute: typeof InsightsRoute
   MethodologyRoute: typeof MethodologyRoute
+  PolicyChangesRoute: typeof PolicyChangesRoute
   RateCardRoute: typeof RateCardRoute
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -266,6 +279,13 @@ declare module '@tanstack/react-router' {
       path: '/rate-card'
       fullPath: '/rate-card'
       preLoaderRoute: typeof RateCardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/policy-changes': {
+      id: '/policy-changes'
+      path: '/policy-changes'
+      fullPath: '/policy-changes'
+      preLoaderRoute: typeof PolicyChangesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/methodology': {
@@ -364,6 +384,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImpactReportsRoute: ImpactReportsRoute,
   InsightsRoute: InsightsRoute,
   MethodologyRoute: MethodologyRoute,
+  PolicyChangesRoute: PolicyChangesRoute,
   RateCardRoute: RateCardRoute,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -376,3 +397,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
