@@ -2,10 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight, Database, TrendingUp, Shield, BookOpen,
-  CheckCircle2, Sparkles, Lock, FileText, BarChart3, History,
+  CheckCircle2, Sparkles, Lock, FileText, BarChart3, Mail, History,
 } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/")({
   head: () => ({
