@@ -12,6 +12,9 @@ const products = [
 
 const research = [
   { to: "/impact-reports", label: "Marketplace Fee Reports" },
+  { to: "/reports/q2-2026", label: "Q2 2026 Fee Report" },
+  { to: "/reports/q3-2026", label: "Q3 2026 Fee Report" },
+  { to: "/reports/annual-2026", label: "Annual Review 2026" },
   { to: "/insights", label: "Industry Insights" },
   { to: "/methodology", label: "Methodology" },
   { to: "/resources", label: "Resources" },
