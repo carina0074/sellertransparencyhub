@@ -257,29 +257,19 @@ function Index() {
       </section>
 
       {/* Newsletter */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-2xl border border-border bg-primary px-8 py-12 text-center text-primary-foreground sm:px-12">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-primary-foreground/10"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -bottom-24 left-0 h-64 w-64 rounded-full bg-primary-foreground/10"
-          />
-          <div className="relative">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1 text-xs font-medium text-primary-foreground">
-              <Mail className="h-3.5 w-3.5" />
-              Newsletter
-            </span>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Join Marketplace Transparency Updates
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-primary-foreground/80">
-              Quarterly Reports • Fee Changes • Policy Updates • Database Releases
-            </p>
-            <SubscribeForm />
-          </div>
+      <section className="border-y border-border bg-muted/30">
+        <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-primary">
+            <Mail className="h-3.5 w-3.5" />
+            Newsletter
+          </span>
+          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            Join Marketplace Transparency Updates
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+            Monthly digest of new fee changes, policy updates, and dataset releases. No spam, unsubscribe anytime.
+          </p>
+          <SubscribeForm />
         </div>
       </section>
 
