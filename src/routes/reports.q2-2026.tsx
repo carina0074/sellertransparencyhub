@@ -1,21 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import {
-  ArrowLeft, TrendingUp, ShoppingCart, BarChart3, Calendar,
-  Layers, AlertTriangle, BadgeCheck, FileText, Download,
-} from "lucide-react";
+import { ArrowLeft, Calendar, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/reports/q2-2026")({
   head: () => ({
     meta: [
       { title: "Q2 2026 Marketplace Fee Transparency Report — Seller Transparency Hub" },
-      { name: "description", content: "Comprehensive Q2 2026 analysis of Amazon, Walmart, Shopify and other marketplace fee changes. Impact estimates, category breakdowns, and methodology disclosed." },
+      { name: "description", content: "Independent Q2 2026 analysis of marketplace fee transparency across Amazon, Walmart, and eBay. Fee structures, policy changes, and seller cost visibility." },
       { property: "og:title", content: "Q2 2026 Marketplace Fee Transparency Report" },
-      { property: "og:description", content: "Independent analysis of Q2 2026 marketplace fee changes with disclosed methodology and impact estimates." },
+      { property: "og:description", content: "Independent analysis of Q2 2026 marketplace fee transparency with disclosed methodology." },
     ],
   }),
   component: Q2_2026_ReportPage,
@@ -27,151 +22,234 @@ function Q2_2026_ReportPage() {
       <PageHeader
         eyebrow="Q2 2026 Report"
         title="Marketplace Fee Transparency Report"
-        description="Independent analysis of fee changes across Amazon, Walmart, Shopify and other major marketplaces — with methodology, sample sizes, and per-unit impact estimates disclosed up front."
+        description="Independent analysis of fee transparency across Amazon, Walmart Marketplace, and eBay — April through June 2026."
       />
-      <section className="mx-auto max-w-4xl space-y-10 px-4 py-12 sm:px-6 lg:px-8">
-        {/* Overview */}
-        <div className="space-y-6">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge variant="secondary" className="rounded-full">Published June 2026</Badge>
-            <Badge variant="outline" className="rounded-full">Quarterly</Badge>
-          </div>
+      <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+        {/* Meta bar */}
+        <div className="mb-10 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1">
+            <Calendar className="h-3.5 w-3.5" />
+            June 2026
+          </span>
+          <span className="rounded-full border border-border px-3 py-1">Quarterly</span>
+        </div>
+
+        {/* Executive Summary */}
+        <section className="space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Executive Summary</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            This report covers fee changes announced and implemented by major online marketplaces during Q2 2026 (April–June).
-            We analyzed published rate cards, seller announcements, and policy updates to quantify the direct impact on seller margins across key product categories.
+          <p className="leading-relaxed text-muted-foreground">
+            The Seller Transparency Hub analyzed publicly available marketplace fee policies and fee updates across major e-commerce platforms during Q2 2026.
           </p>
-        </div>
+          <p className="leading-relaxed text-muted-foreground">
+            This report focuses on fee transparency, seller cost visibility, and policy changes affecting third-party merchants operating on Amazon, Walmart Marketplace, and eBay.
+          </p>
+        </section>
 
-        {/* Key Stats */}
-        <div className="grid gap-4 sm:grid-cols-3">
-          <StatCard icon={BarChart3} label="Marketplaces tracked" value="6" />
-          <StatCard icon={Layers} label="Fee combinations analyzed" value="142" />
-          <StatCard icon={AlertTriangle} label="Fee increases identified" value="8" />
-        </div>
-
-        {/* Marketplace Breakdown */}
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold tracking-tight text-foreground">Marketplace Breakdown</h3>
-          <div className="grid gap-4 md:grid-cols-2">
-            <MarketplaceCard
-              name="Amazon"
-              change="+0.5–1.2%"
-              detail="FBA fulfillment fees increased for standard-size items in apparel and home categories. Referral rates unchanged."
-              impact="moderate"
-            />
-            <MarketplaceCard
-              name="Walmart"
-              change="No change"
-              detail="No published fee changes in Q2 2026. Existing referral and fulfillment rates held steady."
-              impact="low"
-            />
-            <MarketplaceCard
-              name="Shopify"
-              change="+2.0%"
-              detail="Payment processing rates increased for merchants on Basic plans in US and Canada."
-              impact="moderate"
-            />
-            <MarketplaceCard
-              name="eBay"
-              change="-0.3%"
-              detail="Promoted Listings Standard rate reduced slightly for top-rated sellers."
-              impact="low"
-            />
-          </div>
-        </div>
-
-        {/* Affected Categories */}
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold tracking-tight text-foreground">Most Affected Categories</h3>
-          <div className="grid gap-3 sm:grid-cols-2">
+        {/* Key findings */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Key findings</h2>
+          <ul className="space-y-3">
             {[
-              { category: "Apparel & Accessories", avgImpact: "+1.1%" },
-              { category: "Home & Kitchen", avgImpact: "+0.9%" },
-              { category: "Electronics", avgImpact: "+0.4%" },
-              { category: "Health & Personal Care", avgImpact: "+0.3%" },
-            ].map((c) => (
-              <div key={c.category} className="flex items-center justify-between rounded-lg border border-border bg-secondary/40 px-4 py-3">
-                <span className="text-sm font-medium text-foreground">{c.category}</span>
-                <Badge variant="secondary">{c.avgImpact}</Badge>
-              </div>
+              "Marketplace fee structures remain complex and fragmented.",
+              "Sellers often face difficulty identifying the total cost of selling across platforms.",
+              "Fee updates are frequently announced through multiple channels, creating transparency challenges.",
+              "Greater standardization and public reporting would improve seller decision-making.",
+            ].map((item) => (
+              <li key={item} className="flex gap-3 leading-relaxed text-muted-foreground">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                {item}
+              </li>
             ))}
+          </ul>
+        </section>
+
+        {/* Scope of Analysis */}
+        <section className="mt-10 space-y-6">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Scope of Analysis</h2>
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Platforms covered</h3>
+            <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+              <li>Amazon</li>
+              <li>Walmart Marketplace</li>
+              <li>eBay</li>
+            </ul>
           </div>
-        </div>
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Data sources</h3>
+            <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+              <li>Official marketplace fee schedules</li>
+              <li>Public policy announcements</li>
+              <li>Seller-facing documentation</li>
+              <li>Archived fee change notices</li>
+            </ul>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Reporting period</h3>
+            <p className="text-muted-foreground">April 1, 2026 – June 30, 2026</p>
+          </div>
+        </section>
+
+        {/* Amazon */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Amazon Marketplace Fee Overview</h2>
+          <p className="leading-relaxed text-muted-foreground">
+            Amazon continues to utilize a multi-layer fee structure including:
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+            <li>Referral fees</li>
+            <li>Fulfillment fees</li>
+            <li>Storage fees</li>
+            <li>Additional service fees</li>
+          </ul>
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Observed transparency challenges</h3>
+            <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+              <li>Multiple fee categories impact total seller cost.</li>
+              <li>Fee updates are distributed across different documentation pages.</li>
+              <li>Historical fee changes are difficult to track in a centralized location.</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Walmart */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Walmart Marketplace Fee Overview</h2>
+          <p className="leading-relaxed text-muted-foreground">
+            Walmart Marketplace primarily relies on referral fees.
+          </p>
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Observations</h3>
+            <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+              <li>Fee schedules are generally simpler than Amazon.</li>
+              <li>Fee information is dispersed across multiple support resources.</li>
+              <li>Category-specific differences may create uncertainty for new sellers.</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* eBay */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">eBay Marketplace Fee Overview</h2>
+          <p className="leading-relaxed text-muted-foreground">
+            eBay maintains a final value fee structure with category-based variations.
+          </p>
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Observations</h3>
+            <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+              <li>Fee calculations remain dependent on product category.</li>
+              <li>Promotional and optional service fees can affect total seller costs.</li>
+              <li>Historical comparison data is not always easily accessible.</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Comparative Analysis */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Comparative Analysis</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="py-3 pr-4 font-semibold text-foreground">Platform</th>
+                  <th className="py-3 pr-4 font-semibold text-foreground">Primary Fee Structure</th>
+                  <th className="py-3 font-semibold text-foreground">Transparency Complexity</th>
+                </tr>
+              </thead>
+              <tbody className="text-muted-foreground">
+                <tr className="border-b border-border/50">
+                  <td className="py-3 pr-4 font-medium text-foreground">Amazon</td>
+                  <td className="py-3 pr-4">Multi-layer fees</td>
+                  <td className="py-3">High</td>
+                </tr>
+                <tr className="border-b border-border/50">
+                  <td className="py-3 pr-4 font-medium text-foreground">Walmart</td>
+                  <td className="py-3 pr-4">Referral fees</td>
+                  <td className="py-3">Medium</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-medium text-foreground">eBay</td>
+                  <td className="py-3 pr-4">Final value fees</td>
+                  <td className="py-3">Medium</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="leading-relaxed text-muted-foreground">
+            Amazon exhibits the highest fee complexity due to the number of fee components affecting total seller costs.
+          </p>
+        </section>
+
+        {/* Implications for Sellers */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Implications for Sellers</h2>
+          <p className="leading-relaxed text-muted-foreground">
+            Transparent fee information is critical for:
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+            <li>Product pricing decisions</li>
+            <li>Profitability analysis</li>
+            <li>Marketplace selection</li>
+            <li>Long-term business planning</li>
+          </ul>
+          <p className="leading-relaxed text-muted-foreground">
+            Improved visibility into fee changes can help sellers better manage operational risk.
+          </p>
+        </section>
 
         {/* Methodology */}
-        <div className="rounded-2xl border border-border bg-secondary/40 p-6 sm:p-8 space-y-4">
-          <h3 className="text-xl font-semibold tracking-tight text-foreground">Methodology</h3>
-          <ul className="space-y-3 text-sm text-muted-foreground">
-            <li className="flex gap-3">
-              <BadgeCheck className="h-5 w-5 shrink-0 text-primary" />
-              <span>Fee data sourced from official marketplace seller central announcements and published rate cards as of June 30, 2026.</span>
-            </li>
-            <li className="flex gap-3">
-              <BadgeCheck className="h-5 w-5 shrink-0 text-primary" />
-              <span>Impact estimates calculated using a representative sample of 142 fee combinations across 6 major marketplaces.</span>
-            </li>
-            <li className="flex gap-3">
-              <BadgeCheck className="h-5 w-5 shrink-0 text-primary" />
-              <span>Category-level averages weighted by estimated GMV share. All assumptions documented and reproducible.</span>
-            </li>
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Methodology</h2>
+          <p className="leading-relaxed text-muted-foreground">
+            The Seller Transparency Hub collects and reviews publicly available marketplace documentation.
+          </p>
+          <p className="leading-relaxed text-muted-foreground">
+            Data is categorized into:
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+            <li>Fee schedules</li>
+            <li>Policy updates</li>
+            <li>Historical fee changes</li>
+            <li>Seller appeal information</li>
           </ul>
-        </div>
+          <p className="leading-relaxed text-muted-foreground">
+            All information is sourced from publicly available marketplace resources.
+          </p>
+        </section>
 
-        {/* Navigation */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8">
+        {/* About */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">About Seller Transparency Hub</h2>
+          <p className="leading-relaxed text-muted-foreground">
+            Seller Transparency Hub is an independent research initiative focused on marketplace transparency, fee visibility, and seller policy research.
+          </p>
+          <div className="space-y-1 text-sm text-muted-foreground">
+            <p>
+              <span className="font-medium text-foreground">Website:</span>{" "}
+              <a href="https://sellertransparency.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">
+                sellertransparency.com
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </p>
+            <p><span className="font-medium text-foreground">Published:</span> June 2026</p>
+          </div>
+        </section>
+
+        {/* Footer nav */}
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8">
           <Button asChild variant="ghost">
             <Link to="/impact-reports">
               <ArrowLeft className="mr-2 h-4 w-4" />
               All Reports
             </Link>
           </Button>
-          <div className="flex gap-2">
-            <Button asChild variant="outline">
-              <Link to="/reports/q3-2026">Next: Q3 2026 →</Link>
-            </Button>
-          </div>
+          <Button asChild variant="outline">
+            <Link to="/reports/q3-2026">Next: Q3 2026 →</Link>
+          </Button>
         </div>
-      </section>
+      </article>
     </>
-  );
-}
-
-function StatCard({ icon: Icon, label, value }: { icon: typeof FileText; label: string; value: string }) {
-  return (
-    <Card className="border-border">
-      <CardContent className="flex items-center gap-3 p-5">
-        <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary-soft text-primary">
-          <Icon className="h-5 w-5" />
-        </span>
-        <div>
-          <div className="text-xl font-semibold tabular-nums text-foreground">{value}</div>
-          <div className="text-xs text-muted-foreground">{label}</div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function MarketplaceCard({
-  name, change, detail, impact,
-}: { name: string; change: string; detail: string; impact: "low" | "moderate" | "high" }) {
-  const impactColor = {
-    low: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    moderate: "bg-amber-50 text-amber-700 border-amber-200",
-    high: "bg-rose-50 text-rose-700 border-rose-200",
-  }[impact];
-
-  return (
-    <div className="rounded-lg border border-border p-5 space-y-3">
-      <div className="flex items-center justify-between">
-        <span className="font-semibold text-foreground">{name}</span>
-        <span className={`text-xs font-medium px-2 py-0.5 rounded-full border ${impactColor}`}>
-          {impact} impact
-        </span>
-      </div>
-      <div className="text-lg font-semibold tabular-nums text-foreground">{change}</div>
-      <p className="text-sm text-muted-foreground">{detail}</p>
-    </div>
   );
 }
