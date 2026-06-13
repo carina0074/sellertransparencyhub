@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import {
   Microscope, Calendar, FileText, ChevronRight, ArrowRight, Layers,
+  Clock, BarChart3,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -68,6 +69,49 @@ function ImpactReportsPage() {
         {reports.length === 0 && (
           <p className="text-center text-sm text-muted-foreground">No reports published yet.</p>
         )}
+
+        {/* Upcoming Reports */}
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground">Upcoming Reports</h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="flex h-full flex-col border-border">
+              <CardContent className="flex h-full flex-col gap-3 p-6">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Clock className="h-3.5 w-3.5" />
+                  <span>Coming Soon — October 2026</span>
+                </div>
+                <h3 className="text-base font-semibold leading-snug text-foreground">Q3 2026 Marketplace Fee Transparency Report</h3>
+                <p className="text-sm text-muted-foreground">Analysis of fee changes across Amazon, Walmart, Shopify, eBay, and other major marketplaces for the July–September period.</p>
+                <div className="mt-auto pt-3">
+                  <Button asChild variant="ghost" size="sm" className="w-full justify-between px-2 text-sm">
+                    <Link to="/reports/q3-2026">
+                      View details
+                      <ChevronRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="flex h-full flex-col border-border">
+              <CardContent className="flex h-full flex-col gap-3 p-6">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Clock className="h-3.5 w-3.5" />
+                  <span>Coming Soon — January 2027</span>
+                </div>
+                <h3 className="text-base font-semibold leading-snug text-foreground">Annual Marketplace Transparency Review 2026</h3>
+                <p className="text-sm text-muted-foreground">Comprehensive year-in-review with trend analysis, year-over-year comparisons, and forward-looking projections for 2027.</p>
+                <div className="mt-auto pt-3">
+                  <Button asChild variant="ghost" size="sm" className="w-full justify-between px-2 text-sm">
+                    <Link to="/reports/annual-2026">
+                      View details
+                      <ChevronRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
 
         <div className="rounded-2xl border border-border bg-secondary/40 p-6 sm:p-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
