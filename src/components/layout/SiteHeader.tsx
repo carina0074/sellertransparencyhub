@@ -14,11 +14,6 @@ const research = [
   { to: "/impact-reports", label: "Marketplace Fee Reports" },
   { to: "/insights", label: "Industry Insights" },
   { to: "/methodology", label: "Methodology" },
-] as const;
-
-const resources = [
-  { to: "/insights", label: "Blog" },
-  { to: "/resources", label: "Newsletter" },
   { to: "/resources", label: "Resources" },
 ] as const;
 
@@ -54,7 +49,7 @@ function Dropdown({
           <div className="rounded-lg border border-border bg-background p-1 shadow-lg">
             {items.map((item) => (
             <Link
-              key={item.to}
+              key={item.to + item.label}
               to={item.to}
               className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               activeProps={{ className: "bg-muted text-foreground" }}
@@ -73,7 +68,7 @@ function Dropdown({
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSection, setMobileSection] = useState<
-    "products" | "research" | "resources" | "company" | null
+    "products" | "research" | "company" | null
   >(null);
 
   return (
@@ -89,7 +84,6 @@ export function SiteHeader() {
         <nav className="hidden items-center gap-1 lg:flex">
           <Dropdown title="Products" items={products} />
           <Dropdown title="Research" items={research} />
-          <Dropdown title="Resources" items={resources} />
           <Dropdown title="Company" items={company} />
         </nav>
 
@@ -115,7 +109,6 @@ export function SiteHeader() {
             {[
               { key: "products", title: "Products", items: products },
               { key: "research", title: "Research", items: research },
-              { key: "resources", title: "Resources", items: resources },
               { key: "company", title: "Company", items: company },
             ].map((section) => (
               <div key={section.key}>
@@ -124,9 +117,9 @@ export function SiteHeader() {
                   className="flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
                   onClick={() =>
                     setMobileSection((s) =>
-                      s === (section.key as "products" | "research" | "resources" | "company")
+                      s === (section.key as "products" | "research" | "company")
                         ? null
-                        : (section.key as "products" | "research" | "resources" | "company")
+                        : (section.key as "products" | "research" | "company")
                     )
                   }
                 >
@@ -141,7 +134,7 @@ export function SiteHeader() {
                   <div className="ml-4 flex flex-col gap-1">
                     {section.items.map((item) => (
                       <Link
-                        key={item.to}
+                        key={item.to + item.label}
                         to={item.to}
                         onClick={() => {
                           setMobileOpen(false);
@@ -162,3 +155,4 @@ export function SiteHeader() {
     </header>
   );
 }
+
