@@ -56,6 +56,30 @@ function MethodologyPage() {
           </CardContent>
         </Card>
 
+        <Card className="border-border">
+          <CardContent className="p-6 space-y-3">
+            <h2 className="text-base font-semibold text-foreground">Sources</h2>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                Amazon Seller Central
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                Walmart Marketplace
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                eBay Seller Center
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                Seller Transparency Hub Database
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+
         <p className="pt-2 text-center text-xs text-muted-foreground">
           Methodology last reviewed June 2026. Corrections welcome — every record links back to its original public source.
         </p>
