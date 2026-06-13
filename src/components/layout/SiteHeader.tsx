@@ -74,14 +74,10 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-2.5 font-semibold tracking-tight">
-          <img
-            src={logoAsset.url}
-            alt="Seller Transparency Hub"
-            width={40}
-            height={40}
-            className="h-10 w-10 object-cover"
-          />
+        <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
+          <span className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground">
+            <LineChart className="h-4 w-4" />
+          </span>
           <span className="text-foreground">Seller Transparency Hub</span>
         </Link>
 
