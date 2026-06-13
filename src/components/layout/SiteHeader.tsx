@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, LineChart, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoAsset from "@/assets/logo.png.asset.json";
 
 const products = [
   { to: "/rate-card", label: "Fee Database" },
@@ -75,9 +76,13 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground">
-            <LineChart className="h-4 w-4" />
-          </span>
+          <img
+            src={logoAsset.url}
+            alt="Seller Transparency Hub"
+            width={32}
+            height={32}
+            className="h-8 w-8 rounded-md object-cover"
+          />
           <span className="text-foreground">Seller Transparency Hub</span>
         </Link>
 
