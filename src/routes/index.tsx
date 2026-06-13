@@ -24,7 +24,6 @@ export const Route = createFileRoute("/")({
 });
 
 const trust = [
-  "Built by UX experts",
   "Data-driven insights",
   "Seller-first mission",
   "Free public resources",
