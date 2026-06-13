@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SuspensionPreventionRouteImport } from './routes/suspension-prevention'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as RateCardRouteImport } from './routes/rate-card'
 import { Route as PolicyChangesRouteImport } from './routes/policy-changes'
 import { Route as MethodologyRouteImport } from './routes/methodology'
@@ -24,6 +25,9 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReportsQ32026RouteImport } from './routes/reports.q3-2026'
+import { Route as ReportsQ22026RouteImport } from './routes/reports.q2-2026'
+import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
 import { Route as ChangelogSlugRouteImport } from './routes/changelog.$slug'
 import { Route as ApiPublicPolicyChangesRouteImport } from './routes/api/public/policy-changes'
 import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
@@ -44,6 +48,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ResourcesRoute = ResourcesRouteImport.update({
   id: '/resources',
   path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RateCardRoute = RateCardRouteImport.update({
@@ -105,6 +114,21 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportsQ32026Route = ReportsQ32026RouteImport.update({
+  id: '/q3-2026',
+  path: '/q3-2026',
+  getParentRoute: () => ReportsRoute,
+} as any)
+const ReportsQ22026Route = ReportsQ22026RouteImport.update({
+  id: '/q2-2026',
+  path: '/q2-2026',
+  getParentRoute: () => ReportsRoute,
+} as any)
+const ReportsAnnual2026Route = ReportsAnnual2026RouteImport.update({
+  id: '/annual-2026',
+  path: '/annual-2026',
+  getParentRoute: () => ReportsRoute,
+} as any)
 const ChangelogSlugRoute = ChangelogSlugRouteImport.update({
   id: '/changelog/$slug',
   path: '/changelog/$slug',
@@ -149,10 +173,14 @@ export interface FileRoutesByFullPath {
   '/methodology': typeof MethodologyRoute
   '/policy-changes': typeof PolicyChangesRoute
   '/rate-card': typeof RateCardRoute
+  '/reports': typeof ReportsRouteWithChildren
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
+  '/reports/annual-2026': typeof ReportsAnnual2026Route
+  '/reports/q2-2026': typeof ReportsQ22026Route
+  '/reports/q3-2026': typeof ReportsQ32026Route
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
@@ -171,10 +199,14 @@ export interface FileRoutesByTo {
   '/methodology': typeof MethodologyRoute
   '/policy-changes': typeof PolicyChangesRoute
   '/rate-card': typeof RateCardRoute
+  '/reports': typeof ReportsRouteWithChildren
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
+  '/reports/annual-2026': typeof ReportsAnnual2026Route
+  '/reports/q2-2026': typeof ReportsQ22026Route
+  '/reports/q3-2026': typeof ReportsQ32026Route
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
@@ -195,10 +227,14 @@ export interface FileRoutesById {
   '/methodology': typeof MethodologyRoute
   '/policy-changes': typeof PolicyChangesRoute
   '/rate-card': typeof RateCardRoute
+  '/reports': typeof ReportsRouteWithChildren
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
+  '/reports/annual-2026': typeof ReportsAnnual2026Route
+  '/reports/q2-2026': typeof ReportsQ22026Route
+  '/reports/q3-2026': typeof ReportsQ32026Route
   '/_authenticated/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
@@ -219,10 +255,14 @@ export interface FileRouteTypes {
     | '/methodology'
     | '/policy-changes'
     | '/rate-card'
+    | '/reports'
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
     | '/changelog/$slug'
+    | '/reports/annual-2026'
+    | '/reports/q2-2026'
+    | '/reports/q3-2026'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
@@ -241,10 +281,14 @@ export interface FileRouteTypes {
     | '/methodology'
     | '/policy-changes'
     | '/rate-card'
+    | '/reports'
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
     | '/changelog/$slug'
+    | '/reports/annual-2026'
+    | '/reports/q2-2026'
+    | '/reports/q3-2026'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
@@ -264,10 +308,14 @@ export interface FileRouteTypes {
     | '/methodology'
     | '/policy-changes'
     | '/rate-card'
+    | '/reports'
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
     | '/changelog/$slug'
+    | '/reports/annual-2026'
+    | '/reports/q2-2026'
+    | '/reports/q3-2026'
     | '/_authenticated/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
@@ -288,6 +336,7 @@ export interface RootRouteChildren {
   MethodologyRoute: typeof MethodologyRoute
   PolicyChangesRoute: typeof PolicyChangesRoute
   RateCardRoute: typeof RateCardRoute
+  ReportsRoute: typeof ReportsRouteWithChildren
   ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SuspensionPreventionRoute: typeof SuspensionPreventionRoute
@@ -319,6 +368,13 @@ declare module '@tanstack/react-router' {
       path: '/resources'
       fullPath: '/resources'
       preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rate-card': {
@@ -405,6 +461,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reports/q3-2026': {
+      id: '/reports/q3-2026'
+      path: '/q3-2026'
+      fullPath: '/reports/q3-2026'
+      preLoaderRoute: typeof ReportsQ32026RouteImport
+      parentRoute: typeof ReportsRoute
+    }
+    '/reports/q2-2026': {
+      id: '/reports/q2-2026'
+      path: '/q2-2026'
+      fullPath: '/reports/q2-2026'
+      preLoaderRoute: typeof ReportsQ22026RouteImport
+      parentRoute: typeof ReportsRoute
+    }
+    '/reports/annual-2026': {
+      id: '/reports/annual-2026'
+      path: '/annual-2026'
+      fullPath: '/reports/annual-2026'
+      preLoaderRoute: typeof ReportsAnnual2026RouteImport
+      parentRoute: typeof ReportsRoute
+    }
     '/changelog/$slug': {
       id: '/changelog/$slug'
       path: '/changelog/$slug'
@@ -461,6 +538,21 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface ReportsRouteChildren {
+  ReportsAnnual2026Route: typeof ReportsAnnual2026Route
+  ReportsQ22026Route: typeof ReportsQ22026Route
+  ReportsQ32026Route: typeof ReportsQ32026Route
+}
+
+const ReportsRouteChildren: ReportsRouteChildren = {
+  ReportsAnnual2026Route: ReportsAnnual2026Route,
+  ReportsQ22026Route: ReportsQ22026Route,
+  ReportsQ32026Route: ReportsQ32026Route,
+}
+
+const ReportsRouteWithChildren =
+  ReportsRoute._addFileChildren(ReportsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -474,6 +566,7 @@ const rootRouteChildren: RootRouteChildren = {
   MethodologyRoute: MethodologyRoute,
   PolicyChangesRoute: PolicyChangesRoute,
   RateCardRoute: RateCardRoute,
+  ReportsRoute: ReportsRouteWithChildren,
   ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SuspensionPreventionRoute: SuspensionPreventionRoute,
