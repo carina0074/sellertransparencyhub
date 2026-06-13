@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, LineChart, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoAsset from "@/assets/logo.png.asset.json";
 
 const products = [
   { to: "/rate-card", label: "Fee Database" },
