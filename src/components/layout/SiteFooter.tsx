@@ -1,5 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { LineChart } from "lucide-react";
+import { LineChart, Mail, ArrowRight, Check } from "lucide-react";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const columns = [
   {
