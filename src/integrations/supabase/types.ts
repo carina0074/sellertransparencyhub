@@ -193,6 +193,24 @@ export type Database = {
         }
         Relationships: []
       }
+      newsletter_subscriptions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
       policy_changes: {
         Row: {
           affected_sellers: string | null
@@ -273,7 +291,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_valid_email: { Args: { email: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
