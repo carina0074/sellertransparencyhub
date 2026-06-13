@@ -1,0 +1,3 @@
+CREATE POLICY "Admins can view subscriptions" ON public.newsletter_subscriptions FOR SELECT TO authenticated USING (private.has_role(auth.uid(), 'admin'::app_role));
+CREATE POLICY "Admins can update subscriptions" ON public.newsletter_subscriptions FOR UPDATE TO authenticated USING (private.has_role(auth.uid(), 'admin'::app_role)) WITH CHECK (private.has_role(auth.uid(), 'admin'::app_role));
+CREATE POLICY "Admins can delete subscriptions" ON public.newsletter_subscriptions FOR DELETE TO authenticated USING (private.has_role(auth.uid(), 'admin'::app_role));
