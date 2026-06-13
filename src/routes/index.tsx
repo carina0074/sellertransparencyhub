@@ -2,14 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight, Database, TrendingUp, Shield, BookOpen,
-  CheckCircle2, Sparkles, Lock, FileText, BarChart3, Mail, History,
+  CheckCircle2, Sparkles, Lock, FileText, BarChart3, History,
 } from "lucide-react";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -69,63 +65,6 @@ const stats = [
 ];
 
 import { changelog } from "@/data/changelog";
-
-function SubscribeForm() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const trimmed = email.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      toast.error("Please enter a valid email address.");
-      return;
-    }
-    setLoading(true);
-    const { error } = await supabase.from("email_subscribers").insert({ email: trimmed });
-    setLoading(false);
-    if (error) {
-      if (error.code === "23505") {
-        toast.success("You're already subscribed — thanks!");
-        setSubmitted(true);
-        setEmail("");
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
-      return;
-    }
-    toast.success("Subscribed! We'll keep you posted.");
-    setSubmitted(true);
-    setEmail("");
-  }
-
-  if (submitted) {
-    return (
-      <div className="mx-auto mt-8 flex max-w-md items-center justify-center gap-3 rounded-xl border border-green-200 bg-green-50 px-6 py-4 text-green-800 dark:border-green-900 dark:bg-green-950/30 dark:text-green-300">
-        <CheckCircle2 className="h-5 w-5 shrink-0" />
-        <span className="text-sm font-medium">You're subscribed! Check your inbox for confirmation.</span>
-      </div>
-    );
-  }
-
-  return (
-    <form onSubmit={onSubmit} className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
-      <Input
-        type="email"
-        required
-        placeholder="you@company.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="h-11"
-        aria-label="Email address"
-      />
-      <Button type="submit" size="lg" disabled={loading}>
-        {loading ? "Subscribing…" : "Subscribe"}
-      </Button>
-    </form>
-  );
-}
 
 function Index() {
   return (
@@ -256,22 +195,6 @@ function Index() {
         </div>
       </section>
 
-      {/* Subscribe */}
-      <section className="border-t border-border bg-secondary/40">
-        <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
-            <Mail className="h-3.5 w-3.5 text-primary" />
-            Newsletter
-          </span>
-          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Join Marketplace Transparency Updates
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            Monthly digest of new fee changes, policy updates, and dataset releases. No spam, unsubscribe anytime.
-          </p>
-          <SubscribeForm />
-        </div>
-      </section>
 
       {/* Version history */}
       <section className="border-t border-border">
