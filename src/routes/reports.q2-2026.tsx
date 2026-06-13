@@ -227,6 +227,32 @@ function Q2_2026_ReportPage() {
           </p>
         </section>
 
+        {/* Research Archive */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Research Archive</h2>
+          <ul className="space-y-3">
+            <li>
+              <Link
+                to="/reports/q2-2026"
+                className="inline-flex items-center gap-2 text-primary hover:underline"
+              >
+                <ExternalLink className="h-3.5 w-3.5" />
+                Q2 2026 Marketplace Fee Transparency Report
+              </Link>
+            </li>
+            <li className="flex items-center gap-2 text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              Q3 2026 Marketplace Fee Transparency Report
+              <span className="text-xs text-muted-foreground">(Coming Soon)</span>
+            </li>
+            <li className="flex items-center gap-2 text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              2026 Annual Marketplace Transparency Review
+              <span className="text-xs text-muted-foreground">(Coming Soon)</span>
+            </li>
+          </ul>
+        </section>
+
         {/* About */}
         <section className="mt-10 space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">About Seller Transparency Hub</h2>
