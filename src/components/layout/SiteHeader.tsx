@@ -5,20 +5,26 @@ import { Button } from "@/components/ui/button";
 
 const products = [
   { to: "/rate-card", label: "Fee Database" },
-  { to: "/fees", label: "Fee Changes" },
-  { to: "/suspension-prevention", label: "Appeal Library" },
+  { to: "/fees", label: "Fee Change Tracker" },
   { to: "/policy-changes", label: "Policy Archive" },
-  { to: "/impact-reports", label: "Impact Reports" },
+  { to: "/suspension-prevention", label: "Appeal Library" },
 ] as const;
 
 const research = [
-  { to: "/insights", label: "Insights" },
+  { to: "/impact-reports", label: "Marketplace Fee Reports" },
+  { to: "/insights", label: "Industry Insights" },
   { to: "/methodology", label: "Methodology" },
 ] as const;
 
-const company = [
+const resources = [
+  { to: "/insights", label: "Blog" },
+  { to: "/resources", label: "Newsletter" },
   { to: "/resources", label: "Resources" },
+] as const;
+
+const company = [
   { to: "/about", label: "About" },
+  { to: "/about", label: "Contact" },
 ] as const;
 
 function Dropdown({
@@ -67,7 +73,7 @@ function Dropdown({
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSection, setMobileSection] = useState<
-    "products" | "research" | "company" | null
+    "products" | "research" | "resources" | "company" | null
   >(null);
 
   return (
@@ -83,6 +89,7 @@ export function SiteHeader() {
         <nav className="hidden items-center gap-1 lg:flex">
           <Dropdown title="Products" items={products} />
           <Dropdown title="Research" items={research} />
+          <Dropdown title="Resources" items={resources} />
           <Dropdown title="Company" items={company} />
         </nav>
 
@@ -108,6 +115,7 @@ export function SiteHeader() {
             {[
               { key: "products", title: "Products", items: products },
               { key: "research", title: "Research", items: research },
+              { key: "resources", title: "Resources", items: resources },
               { key: "company", title: "Company", items: company },
             ].map((section) => (
               <div key={section.key}>
@@ -116,9 +124,9 @@ export function SiteHeader() {
                   className="flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
                   onClick={() =>
                     setMobileSection((s) =>
-                      s === (section.key as "products" | "research" | "company")
+                      s === (section.key as "products" | "research" | "resources" | "company")
                         ? null
-                        : (section.key as "products" | "research" | "company")
+                        : (section.key as "products" | "research" | "resources" | "company")
                     )
                   }
                 >
