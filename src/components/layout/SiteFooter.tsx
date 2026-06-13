@@ -62,7 +62,7 @@ function NewsletterSignup() {
     <div className="rounded-xl border border-border bg-background p-6 shadow-sm">
       <h3 className="text-lg font-semibold text-foreground">Join Marketplace Transparency Updates</h3>
       <p className="mt-2 text-sm text-muted-foreground">
-        Receive quarterly research reports, marketplace fee updates, policy changes, and dataset releases covering Amazon, Walmart Marketplace, eBay, and other major platforms.
+        Quarterly Reports • Fee Changes • Policy Updates • Database Releases
       </p>
       {status === "success" ? (
         <div className="mt-4 flex items-center gap-2 text-sm font-medium text-green-600">
