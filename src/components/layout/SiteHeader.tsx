@@ -14,6 +14,7 @@ const research = [
   { to: "/reports/q2-2026", label: "Marketplace Fee Reports" },
   { to: "/insights", label: "Industry Insights" },
   { to: "/methodology", label: "Methodology" },
+  { to: "/resources", label: "Resources" },
 ] as const;
 
 const company = [
