@@ -66,63 +66,6 @@ const stats = [
 
 import { changelog } from "@/data/changelog";
 
-function SubscribeForm() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const trimmed = email.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      toast.error("Please enter a valid email address.");
-      return;
-    }
-    setLoading(true);
-    const { error } = await supabase.from("email_subscribers").insert({ email: trimmed });
-    setLoading(false);
-    if (error) {
-      if (error.code === "23505") {
-        toast.success("You're already subscribed — thanks!");
-        setSubmitted(true);
-        setEmail("");
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
-      return;
-    }
-    toast.success("Subscribed! We'll keep you posted.");
-    setSubmitted(true);
-    setEmail("");
-  }
-
-  if (submitted) {
-    return (
-      <div className="mx-auto mt-8 flex max-w-md items-center justify-center gap-3 rounded-xl border border-green-200 bg-green-50 px-6 py-4 text-green-800 dark:border-green-900 dark:bg-green-950/30 dark:text-green-300">
-        <CheckCircle2 className="h-5 w-5 shrink-0" />
-        <span className="text-sm font-medium">You're subscribed! Check your inbox for confirmation.</span>
-      </div>
-    );
-  }
-
-  return (
-    <form onSubmit={onSubmit} className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
-      <Input
-        type="email"
-        required
-        placeholder="you@company.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="h-11"
-        aria-label="Email address"
-      />
-      <Button type="submit" size="lg" disabled={loading}>
-        {loading ? "Subscribing…" : "Subscribe"}
-      </Button>
-    </form>
-  );
-}
-
 function Index() {
   return (
     <>
