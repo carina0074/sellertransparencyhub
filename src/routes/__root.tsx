@@ -144,10 +144,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div
-        className="flex min-h-dvh flex-col bg-background bg-fixed bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${bgAsset.url})` }}
-      >
+      <div className="flex min-h-dvh flex-col bg-background">
         <SiteHeader />
         <main className="flex-1">
           <Outlet />
