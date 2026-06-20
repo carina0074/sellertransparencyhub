@@ -1,10 +1,11 @@
-export type Marketplace = "amazon" | "walmart" | "shopify";
+export type Marketplace = "amazon" | "walmart" | "shopify" | "etsy";
 export type SizeTier = "small_standard" | "large_standard" | "small_oversize" | "medium_oversize";
 
 export const MARKETPLACES: { id: Marketplace; label: string }[] = [
   { id: "amazon", label: "Amazon FBA" },
   { id: "walmart", label: "Walmart Marketplace" },
   { id: "shopify", label: "Shopify" },
+  { id: "etsy", label: "Etsy" },
 ];
 
 export const CATEGORIES = [
@@ -57,11 +58,16 @@ export const AMAZON_FULFILLMENT_FEES: Record<SizeTier, number> = {
 export const AMAZON_STORAGE_PER_CUFT = 0.87;
 
 const MARKETPLACE_REFERRAL_MULT: Record<Marketplace, number> = {
-  amazon: 1, walmart: 0.95, shopify: 0,
+  amazon: 1, walmart: 0.95, shopify: 0, etsy: 0,
 };
 
 const SHOPIFY_TXN_RATE = 0.029;
 const SHOPIFY_TXN_FLAT = 0.3;
+
+const ETSY_TXN_RATE = 0.065;
+const ETSY_PAYMENT_RATE = 0.03;
+const ETSY_PAYMENT_FLAT = 0.25;
+const ETSY_LISTING_FEE = 0.20;
 
 const RETURN_RATE: Record<string, number> = {
   electronics: 0.12, home: 0.08, beauty: 0.05, apparel: 0.25,
@@ -86,21 +92,24 @@ export function calculateFees(i: FeeInputs): FeeBreakdown {
   if (i.marketplace === "shopify") {
     referralFee = i.price * SHOPIFY_TXN_RATE + SHOPIFY_TXN_FLAT;
   }
+  if (i.marketplace === "etsy") {
+    referralFee = i.price * ETSY_TXN_RATE + i.price * ETSY_PAYMENT_RATE + ETSY_PAYMENT_FLAT + ETSY_LISTING_FEE;
+  }
   const fulfillmentBase = AMAZON_FULFILLMENT_FEES[i.sizeTier];
   const weightSurcharge = Math.max(0, i.weightLb - 1) * 0.38;
-  const fulfillmentFee = i.marketplace === "shopify"
+  const fulfillmentFee = i.marketplace === "shopify" || i.marketplace === "etsy"
     ? i.shipping
     : fulfillmentBase + weightSurcharge;
   const cuftEstimate = ({
     small_standard: 0.05, large_standard: 0.12,
     small_oversize: 0.6, medium_oversize: 1.4,
   } as Record<SizeTier, number>)[i.sizeTier];
-  const storageFee = i.marketplace === "shopify"
+  const storageFee = i.marketplace === "shopify" || i.marketplace === "etsy"
     ? 0
     : cuftEstimate * AMAZON_STORAGE_PER_CUFT * i.storageMonths;
   const rRate = RETURN_RATE[i.category] ?? 0.08;
   const returnCost = rRate * (i.price * 0.25 + 2.5);
-  const shippingCost = i.marketplace === "shopify" ? 0 : i.shipping;
+  const shippingCost = i.marketplace === "shopify" || i.marketplace === "etsy" ? 0 : i.shipping;
   const totalFees = referralFee + fulfillmentFee + storageFee + returnCost;
   const netProfit = i.price - i.cost - shippingCost - totalFees;
   const margin = i.price > 0 ? netProfit / i.price : 0;

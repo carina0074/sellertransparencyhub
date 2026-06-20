@@ -33,7 +33,7 @@ const datasets = [
   {
     icon: Database,
     title: "Marketplace Fee Database",
-    desc: "Searchable rate cards across Amazon, Walmart, and Shopify. Referral, fulfillment, storage, and ad fees — all sourced from official documentation.",
+    desc: "Searchable rate cards across Amazon, Walmart, Shopify, and Etsy. Referral, fulfillment, storage, and ad fees — all sourced from official documentation.",
     to: "/rate-card",
     cta: "Browse fee database",
   },
