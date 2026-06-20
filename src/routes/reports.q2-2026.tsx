@@ -121,20 +121,25 @@ function Q2_2026_ReportPage() {
         <section className="mt-10 space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Amazon Marketplace Fee Overview</h2>
           <p className="leading-relaxed text-muted-foreground">
-            Amazon continues to utilize a multi-layer fee structure including:
+            Amazon maintains one of the most comprehensive marketplace ecosystems in the world.
           </p>
+          <p className="leading-relaxed text-muted-foreground">Major fee categories include:</p>
           <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
             <li>Referral fees</li>
             <li>Fulfillment fees</li>
-            <li>Storage fees</li>
+            <li>Monthly storage fees</li>
+            <li>Long-term storage fees</li>
+            <li>Returns processing fees</li>
+            <li>Advertising costs</li>
             <li>Additional service fees</li>
           </ul>
           <div className="space-y-2">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Observed transparency challenges</h3>
             <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
-              <li>Multiple fee categories impact total seller cost.</li>
-              <li>Fee updates are distributed across different documentation pages.</li>
-              <li>Historical fee changes are difficult to track in a centralized location.</li>
+              <li>Numerous fee categories affect total selling costs.</li>
+              <li>Sellers must often consult multiple documentation sources.</li>
+              <li>Historical fee changes are not consolidated into a centralized repository.</li>
+              <li>New sellers may underestimate total operating costs.</li>
             </ul>
           </div>
         </section>
