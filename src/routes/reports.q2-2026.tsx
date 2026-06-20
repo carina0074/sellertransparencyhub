@@ -71,10 +71,11 @@ function Q2_2026_ReportPage() {
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Key findings</h2>
           <ul className="space-y-3">
             {[
-              "Marketplace fee structures remain complex and fragmented.",
-              "Sellers often face difficulty identifying the total cost of selling across platforms.",
-              "Fee updates are frequently announced through multiple channels, creating transparency challenges.",
-              "Greater standardization and public reporting would improve seller decision-making.",
+              "Fee structures continue to increase in complexity across all platforms.",
+              "Sellers frequently struggle to calculate total selling costs.",
+              "Historical fee tracking remains limited across marketplaces.",
+              "Fee information is often fragmented across multiple resources.",
+              "Greater transparency would support informed business decision-making.",
             ].map((item) => (
               <li key={item} className="flex gap-3 leading-relaxed text-muted-foreground">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
