@@ -59,10 +59,10 @@ function Q2_2026_ReportPage() {
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Executive Summary</h2>
           <p className="leading-relaxed text-muted-foreground">
-            The Seller Transparency Hub analyzed publicly available marketplace fee policies and fee updates across major e-commerce platforms during Q2 2026.
+            Marketplace fees represent one of the most significant operational expenses faced by online sellers. Across Amazon, Walmart Marketplace, eBay, and Etsy, fee structures continue to evolve through changes to referral fees, transaction fees, fulfillment costs, advertising charges, payment processing expenses, and platform-specific service fees.
           </p>
           <p className="leading-relaxed text-muted-foreground">
-            This report focuses on fee transparency, seller cost visibility, and policy changes affecting third-party merchants operating on Amazon, Walmart Marketplace, and eBay.
+            This report provides a comparative assessment of fee transparency across major marketplaces and highlights areas where improved visibility could benefit sellers, entrepreneurs, and small businesses.
           </p>
         </section>
 
