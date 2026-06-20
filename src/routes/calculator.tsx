@@ -47,7 +47,7 @@ function CalculatorPage() {
 
   const profitData = [
     { name: "Cost", value: inputs.cost },
-    { name: "Shipping", value: inputs.marketplace === "shopify" ? 0 : inputs.shipping },
+    { name: "Shipping", value: inputs.marketplace === "shopify" || inputs.marketplace === "etsy" ? 0 : inputs.shipping },
     { name: "Total fees", value: result.totalFees },
     { name: "Net profit", value: Math.max(0, result.netProfit) },
   ];
