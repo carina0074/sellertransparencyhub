@@ -1,10 +1,11 @@
-export type Marketplace = "amazon" | "walmart" | "shopify";
+export type Marketplace = "amazon" | "walmart" | "shopify" | "etsy";
 export type SizeTier = "small_standard" | "large_standard" | "small_oversize" | "medium_oversize";
 
 export const MARKETPLACES: { id: Marketplace; label: string }[] = [
   { id: "amazon", label: "Amazon FBA" },
   { id: "walmart", label: "Walmart Marketplace" },
   { id: "shopify", label: "Shopify" },
+  { id: "etsy", label: "Etsy" },
 ];
 
 export const CATEGORIES = [
