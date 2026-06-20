@@ -29,7 +29,7 @@ function Q2_2026_ReportPage() {
         <div className="mb-6 flex justify-end print:hidden">
           <Button asChild variant="outline" size="sm">
             <a
-              href="/Marketplace-Fee-Transparency-Report-Q2-2026.pdf"
+              href={reportAsset.url}
               download
               onClick={() => {
                 if (typeof window !== "undefined" && "gtag" in window) {
