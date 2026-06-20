@@ -236,7 +236,7 @@ function Q2_2026_ReportPage() {
               <tbody className="text-muted-foreground">
                 <tr className="border-b border-border/50">
                   <td className="py-3 pr-4 font-medium text-foreground">Amazon</td>
-                  <td className="py-3 pr-4">Multi-layer fees</td>
+                  <td className="py-3 pr-4">Referral, fulfillment, storage, service fees</td>
                   <td className="py-3">High</td>
                 </tr>
                 <tr className="border-b border-border/50">
@@ -244,16 +244,21 @@ function Q2_2026_ReportPage() {
                   <td className="py-3 pr-4">Referral fees</td>
                   <td className="py-3">Medium</td>
                 </tr>
-                <tr>
+                <tr className="border-b border-border/50">
                   <td className="py-3 pr-4 font-medium text-foreground">eBay</td>
-                  <td className="py-3 pr-4">Final value fees</td>
+                  <td className="py-3 pr-4">Final value fees and optional services</td>
                   <td className="py-3">Medium</td>
+                </tr>
+                <tr>
+                  <td className="py-3 pr-4 font-medium text-foreground">Etsy</td>
+                  <td className="py-3 pr-4">Listing, transaction, advertising, payment processing fees</td>
+                  <td className="py-3">Medium-High</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p className="leading-relaxed text-muted-foreground">
-            Amazon exhibits the highest fee complexity due to the number of fee components affecting total seller costs.
+            Amazon exhibits the highest fee complexity due to the number of fee components affecting total seller costs. Etsy shows medium-high complexity as total costs are distributed across multiple fee categories.
           </p>
         </section>
 
