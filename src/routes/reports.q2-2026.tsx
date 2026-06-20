@@ -266,17 +266,36 @@ function Q2_2026_ReportPage() {
         <section className="mt-10 space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Implications for Sellers</h2>
           <p className="leading-relaxed text-muted-foreground">
-            Transparent fee information is critical for:
+            Transparent fee information is essential for:
           </p>
           <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
-            <li>Product pricing decisions</li>
+            <li>Pricing decisions</li>
             <li>Profitability analysis</li>
             <li>Marketplace selection</li>
-            <li>Long-term business planning</li>
+            <li>Risk management</li>
+            <li>Long-term planning</li>
           </ul>
           <p className="leading-relaxed text-muted-foreground">
-            Improved visibility into fee changes can help sellers better manage operational risk.
+            Improved visibility into marketplace fees can help sellers better understand operating costs and make more informed business decisions.
           </p>
+        </section>
+
+        {/* Public Interest Significance */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Public Interest Significance</h2>
+          <p className="leading-relaxed text-muted-foreground">
+            Marketplace transparency benefits not only individual sellers but also the broader digital commerce ecosystem. Small businesses increasingly rely on online marketplaces to reach customers throughout the United States and internationally.
+          </p>
+          <p className="leading-relaxed text-muted-foreground">
+            Improved access to fee information contributes to:
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+            <li>Greater market transparency</li>
+            <li>Better-informed business decisions</li>
+            <li>Increased accessibility of marketplace information</li>
+            <li>Reduced information asymmetry</li>
+            <li>Enhanced support for entrepreneurship and small business growth</li>
+          </ul>
         </section>
 
         {/* Methodology */}
