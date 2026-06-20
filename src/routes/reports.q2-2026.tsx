@@ -9,7 +9,7 @@ export const Route = createFileRoute("/reports/q2-2026")({
   head: () => ({
     meta: [
       { title: "Q2 2026 Marketplace Fee Transparency Report — Seller Transparency Hub" },
-      { name: "description", content: "Independent Q2 2026 analysis of marketplace fee transparency across Amazon, Walmart, and eBay. Fee structures, policy changes, and seller cost visibility." },
+      { name: "description", content: "Independent Q2 2026 analysis of marketplace fee transparency across Amazon, Walmart, eBay, and Etsy. Fee structures, policy changes, and seller cost visibility." },
       { property: "og:title", content: "Q2 2026 Marketplace Fee Transparency Report" },
       { property: "og:description", content: "Independent analysis of Q2 2026 marketplace fee transparency with disclosed methodology." },
     ],
@@ -23,7 +23,7 @@ function Q2_2026_ReportPage() {
       <PageHeader
         eyebrow="Q2 2026 Report"
         title="Marketplace Fee Transparency Report"
-        description="Independent analysis of fee transparency across Amazon, Walmart Marketplace, and eBay — April through June 2026."
+        description="Independent analysis of fee transparency across Amazon, Walmart Marketplace, eBay, and Etsy — April through June 2026."
       />
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-6 flex justify-end print:hidden">
