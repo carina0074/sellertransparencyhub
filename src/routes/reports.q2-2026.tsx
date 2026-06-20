@@ -302,19 +302,40 @@ function Q2_2026_ReportPage() {
         <section className="mt-10 space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Methodology</h2>
           <p className="leading-relaxed text-muted-foreground">
-            The Seller Transparency Hub collects and reviews publicly available marketplace documentation.
+            Seller Transparency Hub collects and reviews publicly available marketplace information.
           </p>
           <p className="leading-relaxed text-muted-foreground">
-            Data is categorized into:
+            Data categories include:
           </p>
           <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
             <li>Fee schedules</li>
             <li>Policy updates</li>
             <li>Historical fee changes</li>
-            <li>Seller appeal information</li>
+            <li>Seller documentation</li>
+            <li>Marketplace announcements</li>
           </ul>
           <p className="leading-relaxed text-muted-foreground">
-            All information is sourced from publicly available marketplace resources.
+            All findings are based on publicly available information available during the reporting period.
+          </p>
+        </section>
+
+        {/* Future Research Roadmap */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Future Research Roadmap</h2>
+          <p className="leading-relaxed text-muted-foreground">
+            Future reports will include:
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+            <li>Quarterly transparency reporting</li>
+            <li>Historical fee benchmarking</li>
+            <li>Expanded Etsy coverage</li>
+            <li>Policy change monitoring</li>
+            <li>Marketplace transparency indicators</li>
+            <li>Seller-impact trend analysis</li>
+            <li>Longitudinal marketplace research</li>
+          </ul>
+          <p className="leading-relaxed text-muted-foreground">
+            The long-term objective is to create a publicly accessible repository documenting marketplace fee developments and transparency trends across major e-commerce ecosystems.
           </p>
         </section>
 
