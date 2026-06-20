@@ -92,19 +92,22 @@ function Q2_2026_ReportPage() {
           <div className="space-y-2">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Platforms covered</h3>
             <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
-              <li>Amazon</li>
+              <li>Amazon Marketplace</li>
               <li>Walmart Marketplace</li>
               <li>eBay</li>
+              <li>Etsy</li>
             </ul>
           </div>
 
           <div className="space-y-2">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Data sources</h3>
             <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
-              <li>Official marketplace fee schedules</li>
-              <li>Public policy announcements</li>
-              <li>Seller-facing documentation</li>
-              <li>Archived fee change notices</li>
+              <li>Official fee schedules</li>
+              <li>Marketplace policy documentation</li>
+              <li>Seller help resources</li>
+              <li>Public announcements</li>
+              <li>Historical fee change notices</li>
+              <li>Marketplace support documentation</li>
             </ul>
           </div>
 
