@@ -173,16 +173,52 @@ function Q2_2026_ReportPage() {
         <section className="mt-10 space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">eBay Marketplace Fee Overview</h2>
           <p className="leading-relaxed text-muted-foreground">
-            eBay maintains a final value fee structure with category-based variations.
+            eBay remains one of the largest online marketplaces and supports a diverse range of businesses.
           </p>
+          <p className="leading-relaxed text-muted-foreground">Major fee categories include:</p>
+          <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+            <li>Final value fees</li>
+            <li>Listing-related fees</li>
+            <li>Optional promotional fees</li>
+            <li>Advertising services</li>
+          </ul>
           <div className="space-y-2">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Observations</h3>
             <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
-              <li>Fee calculations remain dependent on product category.</li>
-              <li>Promotional and optional service fees can affect total seller costs.</li>
-              <li>Historical comparison data is not always easily accessible.</li>
+              <li>Fee calculations vary by category.</li>
+              <li>Promotional options may increase total selling costs.</li>
+              <li>Historical fee comparisons are not always easily accessible.</li>
             </ul>
           </div>
+        </section>
+
+        {/* Etsy */}
+        <section className="mt-10 space-y-4">
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Etsy Marketplace Fee Overview</h2>
+          <p className="leading-relaxed text-muted-foreground">
+            Etsy serves a unique segment of the digital commerce economy by supporting artisans, creators, independent designers, vintage sellers, and micro-businesses. Unlike larger general retail marketplaces, Etsy's seller community is heavily composed of entrepreneurs operating small-scale businesses.
+          </p>
+          <p className="leading-relaxed text-muted-foreground">Major fee categories include:</p>
+          <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+            <li>Listing fees</li>
+            <li>Transaction fees</li>
+            <li>Payment processing fees</li>
+            <li>Offsite advertising fees</li>
+            <li>Etsy Ads expenses</li>
+            <li>Currency conversion fees</li>
+          </ul>
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Observations</h3>
+            <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+              <li>Total costs are distributed across multiple fee categories.</li>
+              <li>Advertising-related fees can create uncertainty regarding final transaction costs.</li>
+              <li>Historical fee changes may be difficult for sellers to track over time.</li>
+              <li>New sellers often face challenges estimating total marketplace costs before launching products.</li>
+            </ul>
+          </div>
+          <p className="leading-relaxed text-muted-foreground">
+            Because many Etsy sellers operate micro-businesses, fee increases may have a disproportionate impact on profitability. The inclusion of Etsy broadens marketplace transparency research beyond large-scale retail platforms and reflects the growing importance of independent creators and small businesses within the digital economy.
+          </p>
         </section>
 
         {/* Comparative Analysis */}
