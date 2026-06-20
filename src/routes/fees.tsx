@@ -20,10 +20,10 @@ const feeChangesQuery = queryOptions({
 export const Route = createFileRoute("/fees")({
   head: () => ({
     meta: [
-      { title: "Seller Fee Change Feed — Amazon, Walmart, Shopify rate changes" },
+      { title: "Seller Fee Change Feed — Amazon, Walmart, Shopify, Etsy rate changes" },
       { name: "description", content: "Every published marketplace fee change in one feed. Old vs new rate, effective date, source link, and estimated seller impact." },
       { property: "og:title", content: "Seller Fee Change Feed" },
-      { property: "og:description", content: "Subscribe to marketplace fee change alerts across Amazon, Walmart, and Shopify." },
+      { property: "og:description", content: "Subscribe to marketplace fee change alerts across Amazon, Walmart, Shopify, and Etsy." },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(feeChangesQuery),

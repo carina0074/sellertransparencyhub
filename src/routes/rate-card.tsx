@@ -27,8 +27,8 @@ const statsQuery = queryOptions({
 export const Route = createFileRoute("/rate-card")({
   head: () => ({
     meta: [
-      { title: "Marketplace Fee Database — Amazon, Walmart, Shopify rates" },
-      { name: "description", content: "A continuously updated public database of Amazon, Walmart, and Shopify seller fees. Every record carries a source URL and last-verified date." },
+      { title: "Marketplace Fee Database — Amazon, Walmart, Shopify, Etsy rates" },
+      { name: "description", content: "A continuously updated public database of Amazon, Walmart, Shopify, and Etsy seller fees. Every record carries a source URL and last-verified date." },
       { property: "og:title", content: "Marketplace Fee Database" },
       { property: "og:description", content: "Sourced, dated, and auditable marketplace fee data for e-commerce sellers." },
     ],
