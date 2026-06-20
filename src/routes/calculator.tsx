@@ -21,9 +21,9 @@ export const Route = createFileRoute("/calculator")({
   head: () => ({
     meta: [
       { title: "Amazon FBA Fee Calculator & Seller Profit Calculator" },
-      { name: "description", content: "Free marketplace profit calculator for Amazon FBA, Walmart, and Shopify sellers. Model referral, fulfillment, and storage fees in seconds." },
+      { name: "description", content: "Free marketplace profit calculator for Amazon FBA, Walmart, Shopify, and Etsy sellers. Model referral, fulfillment, and storage fees in seconds." },
       { property: "og:title", content: "Marketplace Profit Calculator" },
-      { property: "og:description", content: "Estimate referral, fulfillment, storage, and return costs across Amazon, Walmart, and Shopify." },
+      { property: "og:description", content: "Estimate referral, fulfillment, storage, and return costs across Amazon, Walmart, Shopify, and Etsy." },
     ],
   }),
   component: CalculatorPage,
