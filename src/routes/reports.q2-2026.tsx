@@ -148,16 +148,25 @@ function Q2_2026_ReportPage() {
         <section className="mt-10 space-y-4">
           <h2 className="text-2xl font-semibold tracking-tight text-foreground">Walmart Marketplace Fee Overview</h2>
           <p className="leading-relaxed text-muted-foreground">
-            Walmart Marketplace primarily relies on referral fees.
+            Walmart Marketplace continues to expand as an important alternative marketplace for sellers seeking additional distribution channels.
           </p>
+          <p className="leading-relaxed text-muted-foreground">Major fee categories include:</p>
+          <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
+            <li>Referral fees</li>
+            <li>Optional fulfillment-related services</li>
+            <li>Advertising expenses</li>
+          </ul>
           <div className="space-y-2">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">Observations</h3>
             <ul className="ml-5 list-disc space-y-1 text-muted-foreground">
-              <li>Fee schedules are generally simpler than Amazon.</li>
-              <li>Fee information is dispersed across multiple support resources.</li>
-              <li>Category-specific differences may create uncertainty for new sellers.</li>
+              <li>Fee schedules are generally less complex than Amazon.</li>
+              <li>Category-specific fee structures may create confusion.</li>
+              <li>Information is dispersed across multiple seller resources.</li>
             </ul>
           </div>
+          <p className="leading-relaxed text-muted-foreground">
+            Greater fee transparency may assist sellers evaluating whether to diversify beyond a single marketplace platform.
+          </p>
         </section>
 
         {/* eBay */}
