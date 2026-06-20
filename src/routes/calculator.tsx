@@ -62,7 +62,7 @@ function CalculatorPage() {
       <PageHeader
         eyebrow="Tool"
         title="Marketplace Profit Calculator"
-        description="Enter a product and see referral, fulfillment, storage, and return-cost estimates across Amazon FBA, Walmart, and Shopify."
+        description="Enter a product and see referral, fulfillment, storage, and return-cost estimates across Amazon FBA, Walmart, Shopify, and Etsy."
       />
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[420px_1fr]">
