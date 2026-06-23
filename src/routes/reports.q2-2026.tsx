@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Calendar, Download, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
-import reportAsset from "@/assets/Marketplace-Fee-Transparency-Report-Q2-2026.pdf.asset.json";
 
 export const Route = createFileRoute("/reports/q2-2026")({
   head: () => ({
@@ -28,22 +27,10 @@ function Q2_2026_ReportPage() {
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-6 flex justify-end print:hidden">
           <Button asChild variant="outline" size="sm">
-            <a
-              href={reportAsset.url}
-              download
-              onClick={() => {
-                if (typeof window !== "undefined" && "gtag" in window) {
-                  (window as any).gtag("event", "download", {
-                    event_category: "report",
-                    event_label: "Marketplace-Fee-Transparency-Report-Q2-2026.pdf",
-                    value: 1,
-                  });
-                }
-              }}
-            >
+            <Link to="/downloads/q2-2026-report">
               <Download className="mr-2 h-4 w-4" />
               Download PDF
-            </a>
+            </Link>
           </Button>
         </div>
         {/* Meta bar */}
