@@ -28,6 +28,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ReportsQ32026RouteImport } from './routes/reports.q3-2026'
 import { Route as ReportsQ22026RouteImport } from './routes/reports.q2-2026'
 import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
+import { Route as DownloadsQ22026ReportRouteImport } from './routes/downloads.q2-2026-report'
 import { Route as ChangelogSlugRouteImport } from './routes/changelog.$slug'
 import { Route as ApiPublicPolicyChangesRouteImport } from './routes/api/public/policy-changes'
 import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
@@ -129,6 +130,11 @@ const ReportsAnnual2026Route = ReportsAnnual2026RouteImport.update({
   path: '/annual-2026',
   getParentRoute: () => ReportsRoute,
 } as any)
+const DownloadsQ22026ReportRoute = DownloadsQ22026ReportRouteImport.update({
+  id: '/downloads/q2-2026-report',
+  path: '/downloads/q2-2026-report',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChangelogSlugRoute = ChangelogSlugRouteImport.update({
   id: '/changelog/$slug',
   path: '/changelog/$slug',
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
+  '/downloads/q2-2026-report': typeof DownloadsQ22026ReportRoute
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
@@ -204,6 +211,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
+  '/downloads/q2-2026-report': typeof DownloadsQ22026ReportRoute
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
@@ -232,6 +240,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
+  '/downloads/q2-2026-report': typeof DownloadsQ22026ReportRoute
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
@@ -260,6 +269,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/suspension-prevention'
     | '/changelog/$slug'
+    | '/downloads/q2-2026-report'
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
@@ -286,6 +296,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/suspension-prevention'
     | '/changelog/$slug'
+    | '/downloads/q2-2026-report'
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
@@ -313,6 +324,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/suspension-prevention'
     | '/changelog/$slug'
+    | '/downloads/q2-2026-report'
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
@@ -341,6 +353,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SuspensionPreventionRoute: typeof SuspensionPreventionRoute
   ChangelogSlugRoute: typeof ChangelogSlugRoute
+  DownloadsQ22026ReportRoute: typeof DownloadsQ22026ReportRoute
   ApiPublicFeeChangesRoute: typeof ApiPublicFeeChangesRoute
   ApiPublicFeesRoute: typeof ApiPublicFeesRoute
   ApiPublicMarketplacesRoute: typeof ApiPublicMarketplacesRoute
@@ -482,6 +495,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportsAnnual2026RouteImport
       parentRoute: typeof ReportsRoute
     }
+    '/downloads/q2-2026-report': {
+      id: '/downloads/q2-2026-report'
+      path: '/downloads/q2-2026-report'
+      fullPath: '/downloads/q2-2026-report'
+      preLoaderRoute: typeof DownloadsQ22026ReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/changelog/$slug': {
       id: '/changelog/$slug'
       path: '/changelog/$slug'
@@ -571,6 +591,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SuspensionPreventionRoute: SuspensionPreventionRoute,
   ChangelogSlugRoute: ChangelogSlugRoute,
+  DownloadsQ22026ReportRoute: DownloadsQ22026ReportRoute,
   ApiPublicFeeChangesRoute: ApiPublicFeeChangesRoute,
   ApiPublicFeesRoute: ApiPublicFeesRoute,
   ApiPublicMarketplacesRoute: ApiPublicMarketplacesRoute,
@@ -579,13 +600,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
