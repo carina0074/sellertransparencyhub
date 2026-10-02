@@ -30,7 +30,7 @@ export const Route = createFileRoute("/impact-reports")({
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(impactReportsQuery),
-  errorComponent: ({ error }: { error: Error; reset: () => void }) => (
+  errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">
       Couldn't load impact reports: {error.message}
     </p>
