@@ -11,7 +11,7 @@ const products = [
 ] as const;
 
 const research = [
-  { to: "/reports/q2-2026", label: "Marketplace Fee Reports" },
+  { to: "/reports/q3-2026", label: "Marketplace Fee Reports" },
   { to: "/insights", label: "Industry Insights" },
   { to: "/methodology", label: "Methodology" },
   { to: "/resources", label: "Resources" },
