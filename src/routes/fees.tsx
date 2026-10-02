@@ -27,7 +27,7 @@ export const Route = createFileRoute("/fees")({
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(feeChangesQuery),
-  errorComponent: ({ error }) => (
+  errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">
       Couldn't load the change feed: {error.message}
     </p>

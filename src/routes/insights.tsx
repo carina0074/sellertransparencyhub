@@ -26,7 +26,7 @@ export const Route = createFileRoute("/insights")({
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(insightsQuery),
-  errorComponent: ({ error }) => (
+  errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">
       Couldn't load insights: {error.message}
     </p>
