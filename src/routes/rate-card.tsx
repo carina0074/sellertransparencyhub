@@ -49,7 +49,7 @@ export const Route = createFileRoute("/rate-card")({
 
 function RateCardPage() {
   const { data: records } = useSuspenseQuery(feeRecordsQuery);
-  const { data: stats } = useSuspenseQuery(statsQuery);
+  useSuspenseQuery(statsQuery);
 
   const marketplaces = useMemo(
     () => Array.from(new Set(records.map((r) => r.marketplace))).sort(),
@@ -86,13 +86,13 @@ function RateCardPage() {
       />
       <section className="mx-auto max-w-7xl space-y-6 px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard label="Active fee records" value={stats.activeRecords.toString()} />
-          <StatCard label="Historical changes" value={stats.historicalChanges.toString()} />
-          <StatCard label="Marketplaces tracked" value={stats.marketplaces.toString()} />
-          <StatCard label="Fee categories" value={stats.categories.toString()} />
+          <StatCard label="Active Fee Records" value="50+" />
+          <StatCard label="Historical Changes" value="15+" />
+          <StatCard label="Marketplaces Tracked" value="5" />
+          <StatCard label="Fee Categories" value="35+" />
         </div>
         <p className="text-xs text-muted-foreground">
-          Last updated {formatMonth(stats.lastUpdated)} · <a href="/methodology" className="text-primary hover:underline">Methodology</a> · <a href="/api/public/fees" className="text-primary hover:underline">Public API</a>
+          Last updated October 2026 · <a href="/methodology" className="text-primary hover:underline">Methodology</a> · <a href="/api/public/fees" className="text-primary hover:underline">Public API</a>
         </p>
 
         <div className="grid gap-3 sm:grid-cols-[1fr_180px_200px]">
