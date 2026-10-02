@@ -339,10 +339,14 @@ function Q2_2026_ReportPage() {
                 Q2 2026 Marketplace Fee Transparency Report
               </Link>
             </li>
-            <li className="flex items-center gap-2 text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              Q3 2026 Marketplace Fee Transparency Report
-              <span className="text-xs text-muted-foreground">(Coming Soon)</span>
+            <li>
+              <Link
+                to="/reports/q3-2026"
+                className="inline-flex items-center gap-2 text-primary hover:underline"
+              >
+                <ExternalLink className="h-3.5 w-3.5" />
+                Q3 2026 Marketplace Fee Transparency Report
+              </Link>
             </li>
             <li className="flex items-center gap-2 text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
