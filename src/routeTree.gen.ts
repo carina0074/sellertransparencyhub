@@ -9,100 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as CalculatorRouteImport } from './routes/calculator'
-import { Route as FeesRouteImport } from './routes/fees'
-import { Route as HealthCheckRouteImport } from './routes/health-check'
-import { Route as ImpactReportsRouteImport } from './routes/impact-reports'
-import { Route as InsightsRouteImport } from './routes/insights'
-import { Route as MethodologyRouteImport } from './routes/methodology'
-import { Route as PolicyChangesRouteImport } from './routes/policy-changes'
-import { Route as RateCardRouteImport } from './routes/rate-card'
-import { Route as ReportsRouteImport } from './routes/reports'
-import { Route as ResourcesRouteImport } from './routes/resources'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SuspensionPreventionRouteImport } from './routes/suspension-prevention'
-import { Route as ChangelogSlugRouteImport } from './routes/changelog.$slug'
-import { Route as DownloadsQ22026ReportRouteImport } from './routes/downloads.q2-2026-report'
-import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
-import { Route as ReportsQ22026RouteImport } from './routes/reports.q2-2026'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as RateCardRouteImport } from './routes/rate-card'
+import { Route as PolicyChangesRouteImport } from './routes/policy-changes'
+import { Route as MethodologyRouteImport } from './routes/methodology'
+import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as ImpactReportsRouteImport } from './routes/impact-reports'
+import { Route as HealthCheckRouteImport } from './routes/health-check'
+import { Route as FeesRouteImport } from './routes/fees'
+import { Route as CalculatorRouteImport } from './routes/calculator'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as ReportsQ32026RouteImport } from './routes/reports.q3-2026'
-import { Route as AuthenticatedAdminSubscribersRouteImport } from './routes/_authenticated/admin.subscribers'
-import { Route as ApiPublicFeeChangesRouteImport } from './routes/api/public/fee-changes'
-import { Route as ApiPublicFeesRouteImport } from './routes/api/public/fees'
-import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
+import { Route as ReportsQ22026RouteImport } from './routes/reports.q2-2026'
+import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
+import { Route as DownloadsQ22026ReportRouteImport } from './routes/downloads.q2-2026-report'
+import { Route as ChangelogSlugRouteImport } from './routes/changelog.$slug'
 import { Route as ApiPublicPolicyChangesRouteImport } from './routes/api/public/policy-changes'
+import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
+import { Route as ApiPublicFeesRouteImport } from './routes/api/public/fees'
+import { Route as ApiPublicFeeChangesRouteImport } from './routes/api/public/fee-changes'
+import { Route as AuthenticatedAdminSubscribersRouteImport } from './routes/_authenticated/admin.subscribers'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CalculatorRoute = CalculatorRouteImport.update({
-  id: '/calculator',
-  path: '/calculator',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FeesRoute = FeesRouteImport.update({
-  id: '/fees',
-  path: '/fees',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HealthCheckRoute = HealthCheckRouteImport.update({
-  id: '/health-check',
-  path: '/health-check',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ImpactReportsRoute = ImpactReportsRouteImport.update({
-  id: '/impact-reports',
-  path: '/impact-reports',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InsightsRoute = InsightsRouteImport.update({
-  id: '/insights',
-  path: '/insights',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MethodologyRoute = MethodologyRouteImport.update({
-  id: '/methodology',
-  path: '/methodology',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PolicyChangesRoute = PolicyChangesRouteImport.update({
-  id: '/policy-changes',
-  path: '/policy-changes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RateCardRoute = RateCardRouteImport.update({
-  id: '/rate-card',
-  path: '/rate-card',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReportsRoute = ReportsRouteImport.update({
-  id: '/reports',
-  path: '/reports',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResourcesRoute = ResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
+const SuspensionPreventionRoute = SuspensionPreventionRouteImport.update({
+  id: '/suspension-prevention',
+  path: '/suspension-prevention',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -110,24 +46,78 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SuspensionPreventionRoute = SuspensionPreventionRouteImport.update({
-  id: '/suspension-prevention',
-  path: '/suspension-prevention',
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChangelogSlugRoute = ChangelogSlugRouteImport.update({
-  id: '/changelog/$slug',
-  path: '/changelog/$slug',
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DownloadsQ22026ReportRoute = DownloadsQ22026ReportRouteImport.update({
-  id: '/downloads/q2-2026-report',
-  path: '/downloads/q2-2026-report',
+const RateCardRoute = RateCardRouteImport.update({
+  id: '/rate-card',
+  path: '/rate-card',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ReportsAnnual2026Route = ReportsAnnual2026RouteImport.update({
-  id: '/annual-2026',
-  path: '/annual-2026',
+const PolicyChangesRoute = PolicyChangesRouteImport.update({
+  id: '/policy-changes',
+  path: '/policy-changes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpactReportsRoute = ImpactReportsRouteImport.update({
+  id: '/impact-reports',
+  path: '/impact-reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthCheckRoute = HealthCheckRouteImport.update({
+  id: '/health-check',
+  path: '/health-check',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeesRoute = FeesRouteImport.update({
+  id: '/fees',
+  path: '/fees',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalculatorRoute = CalculatorRouteImport.update({
+  id: '/calculator',
+  path: '/calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsQ32026Route = ReportsQ32026RouteImport.update({
+  id: '/q3-2026',
+  path: '/q3-2026',
   getParentRoute: () => ReportsRoute,
 } as any)
 const ReportsQ22026Route = ReportsQ22026RouteImport.update({
@@ -135,30 +125,19 @@ const ReportsQ22026Route = ReportsQ22026RouteImport.update({
   path: '/q2-2026',
   getParentRoute: () => ReportsRoute,
 } as any)
-const ReportsQ32026Route = ReportsQ32026RouteImport.update({
-  id: '/q3-2026',
-  path: '/q3-2026',
+const ReportsAnnual2026Route = ReportsAnnual2026RouteImport.update({
+  id: '/annual-2026',
+  path: '/annual-2026',
   getParentRoute: () => ReportsRoute,
 } as any)
-const AuthenticatedAdminSubscribersRoute =
-  AuthenticatedAdminSubscribersRouteImport.update({
-    id: '/admin/subscribers',
-    path: '/admin/subscribers',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const ApiPublicFeeChangesRoute = ApiPublicFeeChangesRouteImport.update({
-  id: '/api/public/fee-changes',
-  path: '/api/public/fee-changes',
+const DownloadsQ22026ReportRoute = DownloadsQ22026ReportRouteImport.update({
+  id: '/downloads/q2-2026-report',
+  path: '/downloads/q2-2026-report',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicFeesRoute = ApiPublicFeesRouteImport.update({
-  id: '/api/public/fees',
-  path: '/api/public/fees',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicMarketplacesRoute = ApiPublicMarketplacesRouteImport.update({
-  id: '/api/public/marketplaces',
-  path: '/api/public/marketplaces',
+const ChangelogSlugRoute = ChangelogSlugRouteImport.update({
+  id: '/changelog/$slug',
+  path: '/changelog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicPolicyChangesRoute = ApiPublicPolicyChangesRouteImport.update({
@@ -166,6 +145,27 @@ const ApiPublicPolicyChangesRoute = ApiPublicPolicyChangesRouteImport.update({
   path: '/api/public/policy-changes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicMarketplacesRoute = ApiPublicMarketplacesRouteImport.update({
+  id: '/api/public/marketplaces',
+  path: '/api/public/marketplaces',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicFeesRoute = ApiPublicFeesRouteImport.update({
+  id: '/api/public/fees',
+  path: '/api/public/fees',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicFeeChangesRoute = ApiPublicFeeChangesRouteImport.update({
+  id: '/api/public/fee-changes',
+  path: '/api/public/fee-changes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminSubscribersRoute =
+  AuthenticatedAdminSubscribersRouteImport.update({
+    id: '/admin/subscribers',
+    path: '/admin/subscribers',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -362,102 +362,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/calculator': {
-      id: '/calculator'
-      path: '/calculator'
-      fullPath: '/calculator'
-      preLoaderRoute: typeof CalculatorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/fees': {
-      id: '/fees'
-      path: '/fees'
-      fullPath: '/fees'
-      preLoaderRoute: typeof FeesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/health-check': {
-      id: '/health-check'
-      path: '/health-check'
-      fullPath: '/health-check'
-      preLoaderRoute: typeof HealthCheckRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/impact-reports': {
-      id: '/impact-reports'
-      path: '/impact-reports'
-      fullPath: '/impact-reports'
-      preLoaderRoute: typeof ImpactReportsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/insights': {
-      id: '/insights'
-      path: '/insights'
-      fullPath: '/insights'
-      preLoaderRoute: typeof InsightsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/methodology': {
-      id: '/methodology'
-      path: '/methodology'
-      fullPath: '/methodology'
-      preLoaderRoute: typeof MethodologyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/policy-changes': {
-      id: '/policy-changes'
-      path: '/policy-changes'
-      fullPath: '/policy-changes'
-      preLoaderRoute: typeof PolicyChangesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rate-card': {
-      id: '/rate-card'
-      path: '/rate-card'
-      fullPath: '/rate-card'
-      preLoaderRoute: typeof RateCardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reports': {
-      id: '/reports'
-      path: '/reports'
-      fullPath: '/reports'
-      preLoaderRoute: typeof ReportsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteImport
+    '/suspension-prevention': {
+      id: '/suspension-prevention'
+      path: '/suspension-prevention'
+      fullPath: '/suspension-prevention'
+      preLoaderRoute: typeof SuspensionPreventionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -467,32 +376,109 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/suspension-prevention': {
-      id: '/suspension-prevention'
-      path: '/suspension-prevention'
-      fullPath: '/suspension-prevention'
-      preLoaderRoute: typeof SuspensionPreventionRouteImport
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/changelog/$slug': {
-      id: '/changelog/$slug'
-      path: '/changelog/$slug'
-      fullPath: '/changelog/$slug'
-      preLoaderRoute: typeof ChangelogSlugRouteImport
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/downloads/q2-2026-report': {
-      id: '/downloads/q2-2026-report'
-      path: '/downloads/q2-2026-report'
-      fullPath: '/downloads/q2-2026-report'
-      preLoaderRoute: typeof DownloadsQ22026ReportRouteImport
+    '/rate-card': {
+      id: '/rate-card'
+      path: '/rate-card'
+      fullPath: '/rate-card'
+      preLoaderRoute: typeof RateCardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reports/annual-2026': {
-      id: '/reports/annual-2026'
-      path: '/annual-2026'
-      fullPath: '/reports/annual-2026'
-      preLoaderRoute: typeof ReportsAnnual2026RouteImport
+    '/policy-changes': {
+      id: '/policy-changes'
+      path: '/policy-changes'
+      fullPath: '/policy-changes'
+      preLoaderRoute: typeof PolicyChangesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/methodology': {
+      id: '/methodology'
+      path: '/methodology'
+      fullPath: '/methodology'
+      preLoaderRoute: typeof MethodologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impact-reports': {
+      id: '/impact-reports'
+      path: '/impact-reports'
+      fullPath: '/impact-reports'
+      preLoaderRoute: typeof ImpactReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health-check': {
+      id: '/health-check'
+      path: '/health-check'
+      fullPath: '/health-check'
+      preLoaderRoute: typeof HealthCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fees': {
+      id: '/fees'
+      path: '/fees'
+      fullPath: '/fees'
+      preLoaderRoute: typeof FeesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calculator': {
+      id: '/calculator'
+      path: '/calculator'
+      fullPath: '/calculator'
+      preLoaderRoute: typeof CalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports/q3-2026': {
+      id: '/reports/q3-2026'
+      path: '/q3-2026'
+      fullPath: '/reports/q3-2026'
+      preLoaderRoute: typeof ReportsQ32026RouteImport
       parentRoute: typeof ReportsRoute
     }
     '/reports/q2-2026': {
@@ -502,32 +488,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportsQ22026RouteImport
       parentRoute: typeof ReportsRoute
     }
-    '/reports/q3-2026': {
-      id: '/reports/q3-2026'
-      path: '/q3-2026'
-      fullPath: '/reports/q3-2026'
-      preLoaderRoute: typeof ReportsQ32026RouteImport
+    '/reports/annual-2026': {
+      id: '/reports/annual-2026'
+      path: '/annual-2026'
+      fullPath: '/reports/annual-2026'
+      preLoaderRoute: typeof ReportsAnnual2026RouteImport
       parentRoute: typeof ReportsRoute
     }
-    '/_authenticated/admin/subscribers': {
-      id: '/_authenticated/admin/subscribers'
-      path: '/admin/subscribers'
-      fullPath: '/admin/subscribers'
-      preLoaderRoute: typeof AuthenticatedAdminSubscribersRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/api/public/fee-changes': {
-      id: '/api/public/fee-changes'
-      path: '/api/public/fee-changes'
-      fullPath: '/api/public/fee-changes'
-      preLoaderRoute: typeof ApiPublicFeeChangesRouteImport
+    '/downloads/q2-2026-report': {
+      id: '/downloads/q2-2026-report'
+      path: '/downloads/q2-2026-report'
+      fullPath: '/downloads/q2-2026-report'
+      preLoaderRoute: typeof DownloadsQ22026ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/fees': {
-      id: '/api/public/fees'
-      path: '/api/public/fees'
-      fullPath: '/api/public/fees'
-      preLoaderRoute: typeof ApiPublicFeesRouteImport
+    '/changelog/$slug': {
+      id: '/changelog/$slug'
+      path: '/changelog/$slug'
+      fullPath: '/changelog/$slug'
+      preLoaderRoute: typeof ChangelogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/policy-changes': {
+      id: '/api/public/policy-changes'
+      path: '/api/public/policy-changes'
+      fullPath: '/api/public/policy-changes'
+      preLoaderRoute: typeof ApiPublicPolicyChangesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/marketplaces': {
@@ -537,12 +523,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicMarketplacesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/policy-changes': {
-      id: '/api/public/policy-changes'
-      path: '/api/public/policy-changes'
-      fullPath: '/api/public/policy-changes'
-      preLoaderRoute: typeof ApiPublicPolicyChangesRouteImport
+    '/api/public/fees': {
+      id: '/api/public/fees'
+      path: '/api/public/fees'
+      fullPath: '/api/public/fees'
+      preLoaderRoute: typeof ApiPublicFeesRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/public/fee-changes': {
+      id: '/api/public/fee-changes'
+      path: '/api/public/fee-changes'
+      fullPath: '/api/public/fee-changes'
+      preLoaderRoute: typeof ApiPublicFeeChangesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/subscribers': {
+      id: '/_authenticated/admin/subscribers'
+      path: '/admin/subscribers'
+      fullPath: '/admin/subscribers'
+      preLoaderRoute: typeof AuthenticatedAdminSubscribersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }

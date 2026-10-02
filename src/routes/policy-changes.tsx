@@ -23,7 +23,7 @@ export const Route = createFileRoute("/policy-changes")({
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(policyChangesQuery),
-  errorComponent: ({ error }) => (
+  errorComponent: ({ error }: { error: Error; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">
       Couldn't load policy changes: {error.message}
     </p>
