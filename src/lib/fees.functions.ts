@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 export { formatFeeValue } from "./fee-formatting";
 
 /**
@@ -20,7 +21,7 @@ export type FeeRecord = {
   source_title: string;
   last_verified: string;
   notes: string | null;
-  pricing_details: unknown;
+  pricing_details: Json | null;
 };
 
 export type FeeChange = {
