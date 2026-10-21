@@ -7,7 +7,7 @@ export const Route = createFileRoute("/api/public/fees")({
         const { supabase } = await import("@/integrations/supabase/client");
         const { data, error } = await supabase
           .from("fee_records")
-          .select("id,marketplace,fee_name,category,fee_type,value,value_type,effective_date,source_url,source_title,last_verified,notes")
+          .select("id,marketplace,fee_name,category,fee_type,value,value_type,effective_date,source_url,source_title,last_verified,notes,pricing_details")
           .order("marketplace")
           .order("fee_type");
         if (error) {
