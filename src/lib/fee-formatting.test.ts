@@ -1,3 +1,4 @@
+/// <reference types="bun" />
 import { describe, expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
 import { formatFeeValue, presentFee, pricingDetailsSchema, resolveOffsiteAdsRate } from "./fee-formatting";
