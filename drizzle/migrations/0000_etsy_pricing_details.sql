@@ -1,0 +1,2 @@
+ALTER TABLE public.fee_records ADD COLUMN IF NOT EXISTS pricing_details jsonb;
+COMMENT ON COLUMN public.fee_records.pricing_details IS 'Optional structured applicability, fixed minor-unit amounts, conditional fraction rates, and supporting references; original source and date fields remain preserved.';
