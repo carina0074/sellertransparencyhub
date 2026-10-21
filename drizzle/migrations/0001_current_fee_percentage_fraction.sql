@@ -1,0 +1,2 @@
+DO $$ BEGIN IF EXISTS (SELECT 1 FROM public.fee_records WHERE value_type='percent' AND (value < 0 OR value > 1)) THEN RAISE EXCEPTION 'Current percentage fees must be decimal fractions'; END IF; END $$;
+ALTER TABLE public.fee_records ADD CONSTRAINT fee_records_percent_fraction CHECK (value_type <> 'percent' OR (value >= 0 AND value <= 1));
