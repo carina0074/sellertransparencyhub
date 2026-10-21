@@ -1,0 +1,129 @@
+[
+  {
+    "id": "413b8b13-08a9-4c93-9ffd-7a82cd4e7d4e",
+    "marketplace": "Etsy",
+    "fee_name": "Listing Fee",
+    "category": "Listing",
+    "fee_type": "flat",
+    "value": 0.2,
+    "value_type": "usd",
+    "effective_date": "2018-07-16",
+    "source_url": "https://help.etsy.com/hc/en-us/articles/115014483627-Fees-Taxes-for-Selling-on-Etsy",
+    "source_title": "Etsy Help \u2014 Fees & Taxes",
+    "last_verified": "2026-06-20",
+    "notes": "Per listing, valid for 4 months or until item sells.",
+    "pricing_details": {
+      "kind": "listing",
+      "conditions": [
+        "$0.20 USD per ordinary listing, payable whether it sells or not; expires after four months.",
+        "Renewals and additional quantities can incur additional listing fees. Etsy converts USD fees to the payment-account currency where applicable."
+      ],
+      "references": [
+        {
+          "url": "https://help.etsy.com/hc/en-us/articles/115014483627-What-are-the-Fees-and-Taxes-for-Selling-on-Etsy",
+          "title": "Etsy listing fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-21",
+      "legacy_source": false
+    }
+  },
+  {
+    "id": "0f1a52ba-5275-4c22-9faa-98dfd0a9aa72",
+    "marketplace": "Etsy",
+    "fee_name": "Payment Processing Fee",
+    "category": "Payment",
+    "fee_type": "percentage",
+    "value": 0.03,
+    "value_type": "percent",
+    "effective_date": "2023-01-01",
+    "source_url": "https://help.etsy.com/hc/en-us/articles/115014483627-Fees-Taxes-for-Selling-on-Etsy",
+    "source_title": "Etsy Help \u2014 Fees & Taxes",
+    "last_verified": "2026-06-20",
+    "notes": "US rate: 3% + $0.25 per transaction. Varies by country.",
+    "pricing_details": {
+      "kind": "processing",
+      "currency": "USD",
+      "conditions": [
+        "US bank-account rate only: 3% plus $0.25 USD per Etsy Payments order, including shipping and applicable sales tax.",
+        "Rates and currencies vary by bank-account country; see the full official country table. VAT on processing fees applies where required."
+      ],
+      "references": [
+        {
+          "url": "https://help.etsy.com/hc/en-us/articles/115015628847-What-are-Payment-Processing-Fees-for-Selling-on-Etsy",
+          "title": "Etsy Payments country rates"
+        }
+      ],
+      "fixed_minor": 25,
+      "reviewed_on": "2026-10-21",
+      "legacy_source": false,
+      "bank_account_country": "US"
+    }
+  },
+  {
+    "id": "5aa7bad9-5984-4156-8805-06e63bf60cdf",
+    "marketplace": "Etsy",
+    "fee_name": "Offsite Ads Fee",
+    "category": "Advertising",
+    "fee_type": "percentage",
+    "value": 0.15,
+    "value_type": "percent",
+    "effective_date": "2020-02-12",
+    "source_url": "https://help.etsy.com/hc/en-us/articles/360035555313-How-Offsite-Ads-Work",
+    "source_title": "Etsy Help \u2014 Offsite Ads",
+    "last_verified": "2026-06-20",
+    "notes": "12% for sellers with over $10K in sales in past 12 months; capped at $100 per order.",
+    "pricing_details": {
+      "kind": "offsite_ads",
+      "currency": "USD",
+      "cap_minor": 10000,
+      "conditions": [
+        "15% for attributed orders if the shop has always remained below $10,000 USD in any consecutive 365-day period; eligible to opt out.",
+        "12% once the shop reaches at least $10,000 USD in any consecutive 365-day period; participation is required for the lifetime of the shop, even if revenue later falls.",
+        "Only ad-attributed orders: purchase within 30 days of an Offsite Ad click. Maximum $100 USD fee per order. If the final click is an Etsy Ad instead, only the Etsy Ads fee applies."
+      ],
+      "references": [
+        {
+          "url": "https://help.etsy.com/hc/en-us/articles/360000338367-How-Etsy-s-Offsite-Ads-Work",
+          "title": "How Etsy Offsite Ads work"
+        }
+      ],
+      "reviewed_on": "2026-10-21",
+      "window_days": 365,
+      "legacy_source": true,
+      "threshold_minor": 1000000,
+      "attribution_days": 30,
+      "threshold_currency": "USD",
+      "below_threshold_rate": 0.15,
+      "threshold_reached_rate": 0.12
+    }
+  },
+  {
+    "id": "f4207dd9-af1a-4f58-bccb-f996b2efc595",
+    "marketplace": "Etsy",
+    "fee_name": "Transaction Fee",
+    "category": "Selling",
+    "fee_type": "percentage",
+    "value": 0.065,
+    "value_type": "percent",
+    "effective_date": "2022-04-11",
+    "source_url": "https://www.etsy.com/seller-handbook/article/the-ultimate-guide-to-etsy-fees/27620195906",
+    "source_title": "Etsy Seller Handbook \u2014 Fees",
+    "last_verified": "2026-06-20",
+    "notes": "Applied to item price plus shipping and gift wrapping.",
+    "pricing_details": {
+      "kind": "simple",
+      "conditions": [
+        "6.5% of item price plus charged shipping and gift wrapping; separate from Etsy Payments processing."
+      ],
+      "references": [
+        {
+          "url": "https://help.etsy.com/hc/en-us/articles/115014483627-What-are-the-Fees-and-Taxes-for-Selling-on-Etsy",
+          "title": "Etsy fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-21",
+      "legacy_source": true
+    }
+  }
+]
