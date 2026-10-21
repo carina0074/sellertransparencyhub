@@ -1,5 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
+export { formatFeeValue } from "./fee-formatting";
 
 /**
  * Public, read-only marketplace fee data. No auth required — RLS allows
@@ -19,6 +21,7 @@ export type FeeRecord = {
   source_title: string;
   last_verified: string;
   notes: string | null;
+  pricing_details: Json | null;
 };
 
 export type FeeChange = {
@@ -87,7 +90,7 @@ export const getFeeRecords = createServerFn({ method: "GET" }).handler(
   async (): Promise<FeeRecord[]> => {
     const { data, error } = await supabase
       .from("fee_records")
-      .select("id,marketplace,fee_name,category,fee_type,value,value_type,effective_date,source_url,source_title,last_verified,notes")
+      .select("id,marketplace,fee_name,category,fee_type,value,value_type,effective_date,source_url,source_title,last_verified,notes,pricing_details")
       .order("marketplace", { ascending: true })
       .order("fee_type", { ascending: true })
       .order("category", { ascending: true });
@@ -154,18 +157,3 @@ export const getDatabaseStats = createServerFn({ method: "GET" }).handler(
     };
   },
 );
-
-export function formatFeeValue(value: number, valueType: string): string {
-  switch (valueType) {
-    case "percent":
-      return `${(value * 100).toFixed(1)}%`;
-    case "usd_per_unit":
-      return `$${value.toFixed(2)} / unit`;
-    case "usd_per_cuft":
-      return `$${value.toFixed(2)} / cu.ft`;
-    case "usd_per_month":
-      return `$${value.toFixed(2)} / mo`;
-    default:
-      return value.toString();
-  }
-}

@@ -12,7 +12,8 @@ import {
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { getFeeRecords, getDatabaseStats, formatFeeValue } from "@/lib/fees.functions";
+import { getFeeRecords, getDatabaseStats } from "@/lib/fees.functions";
+import { presentFee } from "@/lib/fee-formatting";
 
 const feeRecordsQuery = queryOptions({
   queryKey: ["fee-records"],
@@ -31,6 +32,8 @@ export const Route = createFileRoute("/rate-card")({
       { name: "description", content: "A continuously updated public database of Amazon, Walmart, Shopify, and Etsy seller fees. Every record carries a source URL and last-verified date." },
       { property: "og:title", content: "Marketplace Fee Database" },
       { property: "og:description", content: "Sourced, dated, and auditable marketplace fee data for e-commerce sellers." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   loader: ({ context }) =>
@@ -133,15 +136,22 @@ function RateCardPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filtered.map((r) => (
+                  {filtered.map((r) => {
+                    const presentation = presentFee(r);
+                    return (
                     <TableRow key={r.id}>
                       <TableCell>
                         <Badge variant="secondary" className="rounded-full">{r.marketplace}</Badge>
                       </TableCell>
-                      <TableCell className="text-muted-foreground">{r.fee_name}</TableCell>
+                      <TableCell className="text-muted-foreground">
+                        {r.fee_name}
+                        {presentation.details && <div className="mt-2 min-w-48 max-w-80 space-y-2 whitespace-normal text-xs leading-relaxed">
+                          {presentation.details.conditions.map((condition) => <p key={condition}>{condition}</p>)}
+                        </div>}
+                      </TableCell>
                       <TableCell className="font-medium text-foreground">{r.category}</TableCell>
                       <TableCell className="text-right font-semibold tabular-nums">
-                        {formatFeeValue(r.value, r.value_type)}
+                        <span className={presentation.details ? "block min-w-36 max-w-52 whitespace-normal" : undefined}>{presentation.value}</span>
                       </TableCell>
                       <TableCell className="text-muted-foreground tabular-nums">{r.effective_date}</TableCell>
                       <TableCell className="text-muted-foreground tabular-nums">{r.last_verified}</TableCell>
@@ -152,12 +162,16 @@ function RateCardPage() {
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
                         >
-                          <Badge variant="outline" className="rounded-full text-[10px] font-normal">Official</Badge>
+                          <Badge variant="outline" className="rounded-full text-[10px] font-normal">{presentation.details?.legacy_source ? "Legacy reference" : "Official"}</Badge>
                           {r.source_title} <ExternalLink className="h-3 w-3" />
                         </a>
+                        {presentation.details && <div className="mt-2 space-y-2 whitespace-normal text-xs">
+                          {presentation.details.references.map((reference) => <a key={reference.url} href={reference.url} target="_blank" rel="noreferrer" className="block text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>)}
+                          <p className="text-muted-foreground">Supporting sources checked {presentation.details.reviewed_on}; original dates retained.</p>
+                        </div>}
                       </TableCell>
                     </TableRow>
-                  ))}
+                  );})}
                 </TableBody>
               </Table>
             </div>

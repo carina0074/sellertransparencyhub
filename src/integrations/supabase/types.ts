@@ -111,6 +111,7 @@ export type Database = {
           last_verified: string
           marketplace: string
           notes: string | null
+          pricing_details: Json | null
           source_title: string
           source_url: string
           value: number
@@ -126,6 +127,7 @@ export type Database = {
           last_verified: string
           marketplace: string
           notes?: string | null
+          pricing_details?: Json | null
           source_title: string
           source_url: string
           value: number
@@ -141,6 +143,7 @@ export type Database = {
           last_verified?: string
           marketplace?: string
           notes?: string | null
+          pricing_details?: Json | null
           source_title?: string
           source_url?: string
           value?: number
