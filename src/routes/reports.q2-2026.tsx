@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { ArrowLeft, Calendar, Download, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
+import { FeedbackPrompt } from "@/components/feedback-prompt";
+import { trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/reports/q2-2026")({
   head: () => ({
@@ -17,6 +20,9 @@ export const Route = createFileRoute("/reports/q2-2026")({
 });
 
 function Q2_2026_ReportPage() {
+  useEffect(() => {
+    trackEvent("transparency_report_viewed", { report: "q2-2026" });
+  }, []);
   return (
     <>
       <PageHeader
@@ -385,6 +391,10 @@ function Q2_2026_ReportPage() {
           <Button asChild variant="outline">
             <Link to="/reports/q3-2026">Next: Q3 2026 →</Link>
           </Button>
+        </div>
+
+        <div className="mt-8">
+          <FeedbackPrompt resourceType="transparency_report" resourcePath="/reports/q2-2026" />
         </div>
       </article>
     </>

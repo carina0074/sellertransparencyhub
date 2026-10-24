@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell, CartesianGrid,
   PieChart, Pie,
@@ -17,6 +17,8 @@ import {
   calculateFees, MARKETPLACES, CATEGORIES, SIZE_TIERS, fmtUSD, fmtPct,
   type FeeInputs, type Marketplace, type SizeTier,
 } from "@/lib/marketplace-fees";
+import { FeedbackPrompt } from "@/components/feedback-prompt";
+import { trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/calculator")({
   head: () => ({
@@ -39,6 +41,23 @@ function CalculatorPage() {
 
   const result = useMemo(() => calculateFees(inputs), [inputs]);
 
+  const startedRef = useRef(false);
+  const completedRef = useRef(new Set<string>());
+  const unsupportedRef = useRef(new Set<string>());
+
+  useEffect(() => {
+    if (!startedRef.current) return;
+    const key = `${inputs.marketplace}|${inputs.category}`;
+    if (!completedRef.current.has(key)) {
+      completedRef.current.add(key);
+      trackEvent("calculator_completed", { marketplace: inputs.marketplace, category: inputs.category });
+    }
+    if (result.unsupported.length > 0 && !unsupportedRef.current.has(key)) {
+      unsupportedRef.current.add(key);
+      trackEvent("calculator_unsupported_combination", { marketplace: inputs.marketplace, category: inputs.category });
+    }
+  }, [inputs.marketplace, inputs.category, result.unsupported]);
+
   const feeData = [
     { name: "Referral", value: result.referralFee },
     { name: "Fulfillment", value: result.fulfillmentFee },
@@ -55,8 +74,13 @@ function CalculatorPage() {
 
   const PIE_COLORS = ["#2563eb", "#60a5fa", "#94a3b8", "#cbd5e1"];
 
-  const set = <K extends keyof FeeInputs>(k: K, v: FeeInputs[K]) =>
+  const set = <K extends keyof FeeInputs>(k: K, v: FeeInputs[K]) => {
+    if (!startedRef.current) {
+      startedRef.current = true;
+      trackEvent("calculator_started");
+    }
     setInputs((s) => ({ ...s, [k]: v }));
+  };
 
   return (
     <>
@@ -233,6 +257,8 @@ function CalculatorPage() {
             </p>
           </CardContent>
         </Card>
+
+        <FeedbackPrompt resourceType="calculator" resourcePath="/calculator" />
       </section>
     </>
   );
