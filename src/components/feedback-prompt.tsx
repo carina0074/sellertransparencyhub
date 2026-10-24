@@ -226,11 +226,5 @@ export function FeedbackPrompt({
     </Card>
   );
 
-  if (!floating) return card;
-
-  return (
-    <div className="fixed bottom-4 right-4 z-40 w-[22rem] max-w-[calc(100vw-2rem)]">
-      {card}
-    </div>
-  );
+  return card;
 }
