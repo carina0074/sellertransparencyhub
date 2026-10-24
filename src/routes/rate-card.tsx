@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { ExternalLink, Database, Search, ShieldCheck } from "lucide-react";
+import { ExternalLink, Database, Search, ShieldCheck, MessageSquareText } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -202,6 +202,16 @@ function RateCardPage() {
 
         <FeedbackPrompt id="feedback" resourceType="fee_database" resourcePath="/rate-card" />
       </section>
+
+      <button
+        type="button"
+        onClick={() => document.getElementById("feedback")?.scrollIntoView({ behavior: "smooth", block: "center" })}
+        className="fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        aria-label="Give feedback — scroll to the feedback form"
+      >
+        <MessageSquareText className="h-4 w-4 text-primary" />
+        Give feedback
+      </button>
     </>
   );
 }
