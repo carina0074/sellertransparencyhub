@@ -5,11 +5,16 @@ import {
   CheckCircle2, Sparkles, Lock, FileText, BarChart3, Mail, History,
 } from "lucide-react";
 import { useState } from "react";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { getDatabaseStats } from "@/lib/fees.functions";
+import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+
+const statsQuery = queryOptions({ queryKey: ["fee-stats"], queryFn: () => getDatabaseStats() });
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,8 +23,11 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Independent research and public datasets for U.S. small business marketplace sellers: fee database, fee change tracker, suspension appeal library, and policy archive." },
       { property: "og:title", content: "Independent Marketplace Transparency Research for U.S. Small Businesses" },
       { property: "og:description", content: "Independent research and public datasets for U.S. small business marketplace sellers." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(statsQuery),
   component: Index,
 });
 
@@ -33,7 +41,7 @@ const datasets = [
   {
     icon: Database,
     title: "Marketplace Fee Database",
-    desc: "Searchable rate cards across Amazon, Walmart, Shopify, and Etsy. Referral, fulfillment, storage, and ad fees — all sourced from official documentation.",
+    desc: "Searchable rate cards across Amazon, Walmart, eBay, Shopify, and Etsy. Referral, fulfillment, storage, and ad fees — all sourced from official documentation.",
     to: "/rate-card",
     cta: "Browse fee database",
   },
@@ -58,13 +66,6 @@ const datasets = [
     to: "/policy-changes",
     cta: "Browse policy archive",
   },
-];
-
-const stats = [
-  { value: "200+", label: "Fee records archived" },
-  { value: "127", label: "Fee changes tracked" },
-  { value: "150+", label: "Policy records archived" },
-  { value: "25", label: "Official sources monitored" },
 ];
 
 import { changelog } from "@/data/changelog";
@@ -127,6 +128,13 @@ function SubscribeForm() {
 }
 
 function Index() {
+  const { data: coverage } = useSuspenseQuery(statsQuery);
+  const stats = [
+    { value: coverage.activeRecords, label: "Current fee records" },
+    { value: coverage.historicalChanges, label: "Historical fee-change events" },
+    { value: coverage.marketplaces, label: "Marketplaces tracked" },
+    { value: coverage.categories, label: "Category labels" },
+  ];
   return (
     <>
       {/* Hero */}
@@ -179,6 +187,7 @@ function Index() {
             </div>
           ))}
         </div>
+        <p className="pb-6 text-center text-xs text-muted-foreground">Latest fee verification: {formatVerificationDate(coverage.lastUpdated)}</p>
       </section>
 
       {/* Datasets */}

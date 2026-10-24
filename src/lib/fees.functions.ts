@@ -1,6 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import type { Json } from "@/integrations/supabase/types";
+import { readCoverageStatistics, type DatabaseStats } from "./coverage-statistics";
+export type { DatabaseStats } from "./coverage-statistics";
 export { formatFeeValue } from "./fee-formatting";
 
 /**
@@ -131,29 +133,37 @@ export const getImpactReports = createServerFn({ method: "GET" }).handler(
   },
 );
 
-export type DatabaseStats = {
-  activeRecords: number;
-  historicalChanges: number;
-  marketplaces: number;
-  categories: number;
-  lastUpdated: string;
-};
-
 export const getDatabaseStats = createServerFn({ method: "GET" }).handler(
   async (): Promise<DatabaseStats> => {
-    const [recs, chgs] = await Promise.all([
-      supabase.from("fee_records").select("marketplace,category,last_verified"),
-      supabase.from("fee_changes").select("id", { count: "exact", head: true }),
-    ]);
-    if (recs.error) throw new Error(recs.error.message);
-    if (chgs.error) throw new Error(chgs.error.message);
-    const rows = recs.data ?? [];
-    return {
-      activeRecords: rows.length,
-      historicalChanges: chgs.count ?? 0,
-      marketplaces: new Set(rows.map((r) => r.marketplace)).size,
-      categories: new Set(rows.map((r) => r.category)).size,
-      lastUpdated: rows.reduce((a, r) => (r.last_verified > a ? r.last_verified : a), "0000-00-00"),
+    const { createClient } = await import("@supabase/supabase-js");
+    const url = process.env['SUPABASE_URL'];
+    const key = process.env['SUPABASE_PUBLISHABLE_KEY'];
+    if (!url || !key) throw new Error("Public coverage data is unavailable");
+    const publicClient = createClient(url, key, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+      global: { fetch: (input, init) => {
+        const headers = new Headers(init?.headers);
+        if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`) headers.delete("Authorization");
+        headers.set("apikey", key);
+        return fetch(input, { ...init, headers });
+      } },
+    });
+    const exactCount = async (table: "fee_records" | "fee_changes") => {
+      const { count, error } = await publicClient.from(table).select("id", { count: "exact", head: true });
+      if (error) throw new Error(error.message);
+      if (count === null) throw new Error("Coverage count is unavailable");
+      return count;
     };
+    return readCoverageStatistics({
+      countRecords: () => exactCount("fee_records"),
+      countChanges: () => exactCount("fee_changes"),
+      fetchRecords: async (offset, limit) => {
+        const { data, error } = await publicClient.from("fee_records")
+          .select("marketplace,category,last_verified").order("id", { ascending: true })
+          .range(offset, offset + limit - 1);
+        if (error) throw new Error(error.message);
+        return data ?? [];
+      },
+    });
   },
 );
