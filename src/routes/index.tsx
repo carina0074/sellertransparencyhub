@@ -30,7 +30,11 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(statsQuery),
+  loader: ({ context }) =>
+    Promise.all([
+      context.queryClient.ensureQueryData(statsQuery),
+      context.queryClient.ensureQueryData(feeRecordsQuery),
+    ]),
   component: Index,
 });
 
