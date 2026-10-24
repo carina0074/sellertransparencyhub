@@ -47,21 +47,22 @@ const trust = [
 const marketplaces = ["Amazon", "eBay", "Walmart", "Etsy", "Shopify"];
 
 // Real verified records shown in the hero preview, matched from the live database.
-const previewPicks: { marketplace: string; feeName: string; category: string }[] = [
-  { marketplace: "Amazon", feeName: "Referral Fee", category: "Home & Kitchen" },
-  { marketplace: "eBay", feeName: "Final Value Fee", category: "Books & Magazines" },
-  { marketplace: "Walmart", feeName: "Referral Fee", category: "Sporting Goods" },
-  { marketplace: "Shopify", feeName: "Online Card Rate", category: "Basic plan" },
+const previewPicks: { marketplace: string; feeName: string; category: string; label: string }[] = [
+  { marketplace: "Amazon", feeName: "Referral Fee", category: "Home & Kitchen", label: "Home & Kitchen" },
+  { marketplace: "eBay", feeName: "Final value fee — Books & Magazines", category: "books", label: "Books & Magazines" },
+  { marketplace: "Walmart", feeName: "Referral Fee", category: "Sporting Goods", label: "Sporting Goods" },
+  { marketplace: "Shopify", feeName: "Online Card Rate", category: "Basic plan", label: "Basic online card rate" },
 ];
 
 function FeePreview({ records }: { records: FeeRecord[] }) {
   const rows = previewPicks
-    .map((p) =>
-      records.find(
+    .map((p) => {
+      const record = records.find(
         (r) => r.marketplace === p.marketplace && r.fee_name === p.feeName && r.category === p.category,
-      ),
-    )
-    .filter((r): r is FeeRecord => Boolean(r));
+      );
+      return record ? { record, label: p.label } : null;
+    })
+    .filter((r): r is { record: FeeRecord; label: string } => Boolean(r));
   return (
     <Card className="border-border shadow-sm">
       <CardContent className="p-6">
