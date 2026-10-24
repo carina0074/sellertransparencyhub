@@ -37,3 +37,11 @@ test("both ads rates are presented", () => expect(presentFee(row("Offsite Ads Fe
 test("missing ads details cannot imply a universal rate", () => expect(presentFee({ ...row("Offsite Ads Fee"), pricing_details: null }).value).toBe("Pricing details unavailable"));
 test("malformed ads details cannot imply a universal rate", () => expect(presentFee({ ...row("Offsite Ads Fee"), pricing_details: { ...ads, threshold_reached_rate: 12 } }).value).toBe("Pricing details unavailable"));
 test("other marketplaces do not receive Etsy conditions", () => expect(presentFee({ ...row("Offsite Ads Fee"), marketplace: "Amazon" })).toEqual({ value: "15.0%", details: null }));
+
+describe("corrected eBay records (Phase 2B Batch 1)", () => {
+  test("Electronics FVF displays 13.6%", () => expect(presentFee(row("Final value fee — Electronics")).value).toBe("13.6%"));
+  test("Books & Magazines FVF displays 15.3%", () => expect(presentFee(row("Final value fee — Books & Magazines")).value).toBe("15.3%"));
+  test("Basic Store subscription displays $21.95 / mo", () => expect(presentFee(row("Basic Store subscription")).value).toBe("$21.95 / mo"));
+  test("International fee displays 1.65% exactly, not rounded to 1.7%", () => expect(presentFee(row("International fee (cross-border)")).value).toBe("1.65%"));
+  test("corrected eBay records carry no structured conditions", () => expect(presentFee(row("Final value fee — Electronics")).details).toBeNull());
+});
