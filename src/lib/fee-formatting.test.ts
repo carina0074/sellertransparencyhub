@@ -10,7 +10,7 @@ const row = (name: string) => {
   return found;
 };
 describe("fee amount formatting", () => {
-  test.each([[0.065, "6.5%"], [0.03, "3.0%"], [0.12, "12.0%"], [0.15, "15.0%"], [0.1325, "13.3%"]])("fraction %s", (value, output) => expect(formatFeeValue(Number(value), "percent")).toBe(output));
+  test.each([[0.065, "6.5%"], [0.03, "3.0%"], [0.12, "12.0%"], [0.15, "15.0%"], [0.1325, "13.25%"], [0.0165, "1.65%"], [0.136, "13.6%"], [0.153, "15.3%"]])("fraction %s", (value, output) => expect(formatFeeValue(Number(value), "percent")).toBe(output));
   test("USD listing unit", () => expect(formatFeeValue(0.20, "usd")).toBe("$0.20 USD"));
   test.each([[3.45, "usd_per_unit", "$3.45 / unit"], [0.75, "usd_per_cuft", "$0.75 / cu.ft"], [39, "usd_per_month", "$39.00 / mo"]])("existing unit %s", (value, unit, output) => expect(formatFeeValue(Number(value), String(unit))).toBe(output));
 });

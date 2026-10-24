@@ -125,5 +125,65 @@
       "reviewed_on": "2026-10-21",
       "legacy_source": true
     }
+  },
+  {
+    "id": "345a4fbb-b1df-4123-9376-bb2bd0ff1a61",
+    "marketplace": "eBay",
+    "fee_name": "Final value fee — Electronics",
+    "category": "electronics",
+    "fee_type": "percentage",
+    "value": 0.136,
+    "value_type": "percent",
+    "effective_date": "2024-04-01",
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay — Selling fees",
+    "last_verified": "2026-10-24",
+    "notes": "US non-Store sellers; 13.6% on portion up to $7,500; 2.35% above",
+    "pricing_details": null
+  },
+  {
+    "id": "1f1e5897-cba7-4980-b30f-a1526439336c",
+    "marketplace": "eBay",
+    "fee_name": "Final value fee — Books & Magazines",
+    "category": "books",
+    "fee_type": "percentage",
+    "value": 0.153,
+    "value_type": "percent",
+    "effective_date": "2024-04-01",
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay — Selling fees",
+    "last_verified": "2026-10-24",
+    "notes": "US non-Store sellers; 15.3% on portion up to $7,500; 2.35% above",
+    "pricing_details": null
+  },
+  {
+    "id": "ef9ceedc-ea63-4348-aea6-5589330a9ca4",
+    "marketplace": "eBay",
+    "fee_name": "Basic Store subscription",
+    "category": "all",
+    "fee_type": "subscription",
+    "value": 21.95,
+    "value_type": "usd_per_month",
+    "effective_date": "2024-04-01",
+    "source_url": "https://pages.ebay.com/seller-center/run-your-store/why-get-an-ebay-store.html",
+    "source_title": "eBay — Why get an eBay Store",
+    "last_verified": "2026-10-24",
+    "notes": "Annual billing $21.95/month; monthly billing price not reverified",
+    "pricing_details": null
+  },
+  {
+    "id": "b0a96d65-9ab9-4655-a678-ba1364a97804",
+    "marketplace": "eBay",
+    "fee_name": "International fee (cross-border)",
+    "category": "all",
+    "fee_type": "percentage",
+    "value": 0.0165,
+    "value_type": "percent",
+    "effective_date": "2024-04-01",
+    "source_url": "https://export.ebay.com/en/fees-regulations-policies/seller-fees/international-fees/",
+    "source_title": "eBay — International fees",
+    "last_verified": "2026-10-24",
+    "notes": "US-registered sellers; applied when buyer is outside US/Canada",
+    "pricing_details": null
   }
 ]
