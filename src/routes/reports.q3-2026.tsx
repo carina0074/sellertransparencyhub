@@ -72,6 +72,9 @@ function renderMarkdown(md: string) {
 const body = reportMd.split("\n").slice(7).join("\n");
 
 function Q3Report() {
+  useEffect(() => {
+    trackEvent("transparency_report_viewed", { report: "q3-2026" });
+  }, []);
   return (
     <>
       <PageHeader eyebrow="Q3 2026 Report" title="Marketplace Fee Transparency Report" description="Seller Transparency Hub — Amazon, Walmart Marketplace, eBay, and Etsy" />
@@ -86,6 +89,7 @@ function Q3Report() {
           </Button>
           <Button asChild variant="outline"><Link to="/reports/annual-2026">Annual Review 2026 →</Link></Button>
         </div>
+        <FeedbackPrompt resourceType="transparency_report" resourcePath="/reports/q3-2026" />
       </article>
     </>
   );
