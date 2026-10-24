@@ -9,3 +9,4 @@
 - [x] Phase 2A read-only evidence reconciliation matrix (awaiting approval; no changes made).
 - [x] Phase 2B Batch 1: approved eBay current-fee corrections (8 records, 2026-10-24). Batches 2–4 await approval.
 - [x] Phase 2C: fee conditions/scope display on Fee Database (presentation only, 2026-10-24).
+- [x] Phase 2D: confirmed Amazon/Shopify/Walmart current-data corrections (4 records, 2026-10-24). Historical-event review awaits approval.
