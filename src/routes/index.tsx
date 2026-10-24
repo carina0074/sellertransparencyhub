@@ -35,10 +35,61 @@ export const Route = createFileRoute("/")({
 });
 
 const trust = [
-  "Data-driven insights",
-  "Seller-first mission",
-  "Free public resources",
+  "Official marketplace sources",
+  "Free public resource",
+  "Independently maintained",
 ];
+
+const marketplaces = ["Amazon", "eBay", "Walmart", "Etsy", "Shopify"];
+
+// Real verified records shown in the hero preview, matched from the live database.
+const previewPicks: { marketplace: string; feeName: string; category: string }[] = [
+  { marketplace: "Amazon", feeName: "Referral Fee", category: "Home & Kitchen" },
+  { marketplace: "eBay", feeName: "Final Value Fee", category: "Books & Magazines" },
+  { marketplace: "Walmart", feeName: "Referral Fee", category: "Sporting Goods" },
+  { marketplace: "Shopify", feeName: "Online Card Rate", category: "Basic plan" },
+];
+
+function FeePreview({ records }: { records: FeeRecord[] }) {
+  const rows = previewPicks
+    .map((p) =>
+      records.find(
+        (r) => r.marketplace === p.marketplace && r.fee_name === p.feeName && r.category === p.category,
+      ),
+    )
+    .filter((r): r is FeeRecord => Boolean(r));
+  return (
+    <Card className="border-border shadow-sm">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-sm font-semibold text-foreground">Marketplace Fee Comparison</h2>
+          <span className="rounded-full border border-border bg-secondary/60 px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+            Official source
+          </span>
+        </div>
+        <ul className="mt-4 divide-y divide-border">
+          {rows.map((r) => (
+            <li key={r.id} className="flex items-center justify-between gap-4 py-3">
+              <div className="min-w-0">
+                <div className="text-sm font-medium text-foreground">{r.marketplace}</div>
+                <div className="truncate text-xs text-muted-foreground">{r.category}</div>
+              </div>
+              <div className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
+                {formatFeeValue(r)}
+              </div>
+            </li>
+          ))}
+        </ul>
+        <Link
+          to="/rate-card"
+          className="mt-4 inline-flex items-center text-sm font-medium text-primary transition-colors hover:text-foreground"
+        >
+          View fee database <ArrowRight className="ml-1 h-4 w-4" />
+        </Link>
+      </CardContent>
+    </Card>
+  );
+}
 
 const datasets = [
   {
