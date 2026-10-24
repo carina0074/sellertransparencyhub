@@ -78,6 +78,9 @@ function FeePreview({ records }: { records: FeeRecord[] }) {
               <div className="min-w-0">
                 <div className="text-sm font-medium text-foreground">{r.marketplace}</div>
                 <div className="truncate text-xs text-muted-foreground">{label}</div>
+                {r.notes ? (
+                  <div className="truncate text-xs text-muted-foreground">{r.notes}</div>
+                ) : null}
               </div>
               <div className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
                 {formatFeeValue(r.value, r.value_type)}
