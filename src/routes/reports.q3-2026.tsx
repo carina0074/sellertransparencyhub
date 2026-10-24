@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Calendar } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
+import { FeedbackPrompt } from "@/components/feedback-prompt";
+import { trackEvent } from "@/lib/analytics";
 import reportMd from "@/content/q3-2026-report.md?raw";
 
 export const Route = createFileRoute("/reports/q3-2026")({
