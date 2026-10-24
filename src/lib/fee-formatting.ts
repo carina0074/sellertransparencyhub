@@ -18,7 +18,11 @@ export type PricingDetails = z.infer<typeof pricingDetailsSchema>;
 
 export function formatFeeValue(value: number, valueType: string): string {
   switch (valueType) {
-    case "percent": return `${(value * 100).toFixed(1)}%`;
+    case "percent": {
+      // Exact precision: keep at least one decimal, never round away significant digits.
+      const pct = Math.round(value * 10000) / 100;
+      return `${pct.toFixed(2).replace(/0$/, "")}%`;
+    }
     case "usd": return `$${value.toFixed(2)} USD`;
     case "usd_per_unit": return `$${value.toFixed(2)} / unit`;
     case "usd_per_cuft": return `$${value.toFixed(2)} / cu.ft`;

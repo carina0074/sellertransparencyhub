@@ -7,3 +7,4 @@
 - [x] Test full-table counting and verify current totals on the three pages.
 - [x] Report changed files, displays, tests, and remaining out-of-scope claims.
 - [x] Phase 2A read-only evidence reconciliation matrix (awaiting approval; no changes made).
+- [x] Phase 2B Batch 1: approved eBay current-fee corrections (8 records, 2026-10-24). Batches 2–4 await approval.

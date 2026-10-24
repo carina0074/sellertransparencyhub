@@ -10,7 +10,7 @@ const row = (name: string) => {
   return found;
 };
 describe("fee amount formatting", () => {
-  test.each([[0.065, "6.5%"], [0.03, "3.0%"], [0.12, "12.0%"], [0.15, "15.0%"], [0.1325, "13.3%"]])("fraction %s", (value, output) => expect(formatFeeValue(Number(value), "percent")).toBe(output));
+  test.each([[0.065, "6.5%"], [0.03, "3.0%"], [0.12, "12.0%"], [0.15, "15.0%"], [0.1325, "13.25%"], [0.0165, "1.65%"], [0.136, "13.6%"], [0.153, "15.3%"]])("fraction %s", (value, output) => expect(formatFeeValue(Number(value), "percent")).toBe(output));
   test("USD listing unit", () => expect(formatFeeValue(0.20, "usd")).toBe("$0.20 USD"));
   test.each([[3.45, "usd_per_unit", "$3.45 / unit"], [0.75, "usd_per_cuft", "$0.75 / cu.ft"], [39, "usd_per_month", "$39.00 / mo"]])("existing unit %s", (value, unit, output) => expect(formatFeeValue(Number(value), String(unit))).toBe(output));
 });
@@ -37,3 +37,11 @@ test("both ads rates are presented", () => expect(presentFee(row("Offsite Ads Fe
 test("missing ads details cannot imply a universal rate", () => expect(presentFee({ ...row("Offsite Ads Fee"), pricing_details: null }).value).toBe("Pricing details unavailable"));
 test("malformed ads details cannot imply a universal rate", () => expect(presentFee({ ...row("Offsite Ads Fee"), pricing_details: { ...ads, threshold_reached_rate: 12 } }).value).toBe("Pricing details unavailable"));
 test("other marketplaces do not receive Etsy conditions", () => expect(presentFee({ ...row("Offsite Ads Fee"), marketplace: "Amazon" })).toEqual({ value: "15.0%", details: null }));
+
+describe("corrected eBay records (Phase 2B Batch 1)", () => {
+  test("Electronics FVF displays 13.6%", () => expect(presentFee(row("Final value fee — Electronics")).value).toBe("13.6%"));
+  test("Books & Magazines FVF displays 15.3%", () => expect(presentFee(row("Final value fee — Books & Magazines")).value).toBe("15.3%"));
+  test("Basic Store subscription displays $21.95 / mo", () => expect(presentFee(row("Basic Store subscription")).value).toBe("$21.95 / mo"));
+  test("International fee displays 1.65% exactly, not rounded to 1.7%", () => expect(presentFee(row("International fee (cross-border)")).value).toBe("1.65%"));
+  test("corrected eBay records carry no structured conditions", () => expect(presentFee(row("Final value fee — Electronics")).details).toBeNull());
+});
