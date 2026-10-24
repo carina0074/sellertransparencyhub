@@ -21,9 +21,11 @@ export const Route = createFileRoute("/fees")({
   head: () => ({
     meta: [
       { title: "Seller Fee Change Feed — Amazon, Walmart, Shopify, Etsy rate changes" },
-      { name: "description", content: "Every published marketplace fee change in one feed. Old vs new rate, effective date, source link, and estimated seller impact." },
+      { name: "description", content: "Recorded marketplace fee-change events in one feed. Old vs new rate, effective date, source link, and estimated seller impact." },
       { property: "og:title", content: "Seller Fee Change Feed" },
       { property: "og:description", content: "Subscribe to marketplace fee change alerts across Amazon, Walmart, Shopify, and Etsy." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(feeChangesQuery),
@@ -70,7 +72,7 @@ function FeesPage() {
       <PageHeader
         eyebrow="Live feed"
         title="Seller Fee Change Feed"
-        description="Every marketplace fee change, sourced from public Seller Central, Walmart Seller Help, and Shopify pricing pages. Old rate, new rate, effective date, and source link — all in one place."
+        description="Recorded historical and upcoming fee-change events, sourced from official marketplace documentation. Old rate, new rate, effective date, and source link — all in one place."
         actions={
           <Link
             to="/impact-reports"

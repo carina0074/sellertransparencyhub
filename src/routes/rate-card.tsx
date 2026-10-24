@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/table";
 import { getFeeRecords, getDatabaseStats } from "@/lib/fees.functions";
 import { presentFee } from "@/lib/fee-formatting";
+import { formatVerificationDate } from "@/lib/coverage-statistics";
 
 const feeRecordsQuery = queryOptions({
   queryKey: ["fee-records"],
@@ -28,8 +29,8 @@ const statsQuery = queryOptions({
 export const Route = createFileRoute("/rate-card")({
   head: () => ({
     meta: [
-      { title: "Marketplace Fee Database — Amazon, Walmart, Shopify, Etsy rates" },
-      { name: "description", content: "A continuously updated public database of Amazon, Walmart, Shopify, and Etsy seller fees. Every record carries a source URL and last-verified date." },
+      { title: "Marketplace Fee Database — Amazon, Walmart, eBay, Shopify, Etsy rates" },
+      { name: "description", content: "A public database of Amazon, Walmart, eBay, Shopify, and Etsy seller fees. Every record carries a source URL and last-verified date." },
       { property: "og:title", content: "Marketplace Fee Database" },
       { property: "og:description", content: "Sourced, dated, and auditable marketplace fee data for e-commerce sellers." },
       { property: "og:type", content: "website" },
@@ -52,7 +53,7 @@ export const Route = createFileRoute("/rate-card")({
 
 function RateCardPage() {
   const { data: records } = useSuspenseQuery(feeRecordsQuery);
-  useSuspenseQuery(statsQuery);
+  const { data: stats } = useSuspenseQuery(statsQuery);
 
   const marketplaces = useMemo(
     () => Array.from(new Set(records.map((r) => r.marketplace))).sort(),
@@ -85,17 +86,17 @@ function RateCardPage() {
       <PageHeader
         eyebrow="Public data asset"
         title="Marketplace Fee Database"
-        description="Every published seller fee — marketplace, category, fee type, current value, source URL, effective date, and last-verified date. Continuously maintained as a public transparency resource."
+        description="Current fee records for Amazon, Walmart, eBay, Shopify, and Etsy — marketplace, category label, fee type, current value, source URL, effective date, and last-verified date."
       />
       <section className="mx-auto max-w-7xl space-y-6 px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard label="Active Fee Records" value="50+" />
-          <StatCard label="Historical Changes" value="15+" />
-          <StatCard label="Marketplaces Tracked" value="5" />
-          <StatCard label="Fee Categories" value="35+" />
+          <StatCard label="Current Fee Records" value={`${stats.activeRecords}`} />
+          <StatCard label="Historical Fee-Change Events" value={`${stats.historicalChanges}`} />
+          <StatCard label="Marketplaces Tracked" value={`${stats.marketplaces}`} />
+          <StatCard label="Category Labels" value={`${stats.categories}`} />
         </div>
         <p className="text-xs text-muted-foreground">
-          Last updated October 2026 · <a href="/methodology" className="text-primary hover:underline">Methodology</a> · <a href="/api/public/fees" className="text-primary hover:underline">Public API</a>
+          Latest fee verification: {formatVerificationDate(stats.lastUpdated)} · <a href="/methodology" className="text-primary hover:underline">Methodology</a> · <a href="/api/public/fees" className="text-primary hover:underline">Public API</a>
         </p>
 
         <div className="grid gap-3 sm:grid-cols-[1fr_180px_200px]">
@@ -209,9 +210,4 @@ function StatCard({ label, value }: { label: string; value: string }) {
       </CardContent>
     </Card>
   );
-}
-
-function formatMonth(d: string): string {
-  if (!d || d.startsWith("0000")) return "—";
-  return new Date(d).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 }

@@ -6,13 +6,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { EmailCapture } from "@/components/email-capture";
-import { getDatabaseStats, getFeeChanges } from "@/lib/fees.functions";
+import { getDatabaseStats } from "@/lib/fees.functions";
+import { formatVerificationDate } from "@/lib/coverage-statistics";
 
 const insightsQuery = queryOptions({
   queryKey: ["insights-data"],
   queryFn: async () => {
-    const [stats, changes] = await Promise.all([getDatabaseStats(), getFeeChanges()]);
-    return { stats, changes };
+    const stats = await getDatabaseStats();
+    return { stats };
   },
 });
 
@@ -20,9 +21,11 @@ export const Route = createFileRoute("/insights")({
   head: () => ({
     meta: [
       { title: "Marketplace Insights & Trend Reports — Seller Transparency Hub" },
-      { name: "description", content: "Original research on Amazon, Walmart, and Shopify fee trends from 2024 to 2026. Monthly transparency reports for marketplace sellers." },
+      { name: "description", content: "Current fee database coverage across Amazon, Walmart, eBay, Shopify, and Etsy, alongside period-specific marketplace fee trend reports." },
       { property: "og:title", content: "Marketplace Insights & Trend Reports" },
       { property: "og:description", content: "Multi-year analyses of marketplace fee changes, who benefits, and per-unit seller impact." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(insightsQuery),
@@ -91,7 +94,6 @@ const reports = [
 
 function InsightsPage() {
   const { data } = useSuspenseQuery(insightsQuery);
-  const monitored = Math.max(data.stats.historicalChanges, 127);
   const subscribers = 500; // public goal; updated as list grows
 
   return (
@@ -99,21 +101,22 @@ function InsightsPage() {
       <PageHeader
         eyebrow="Original research"
         title="Marketplace insights & trend reports"
-        description="Multi-year transparency reports on how Amazon, Walmart, and Shopify fee policy actually moves seller margin — published quarterly and distributed to subscribed sellers."
+        description="Current fee database coverage across Amazon, Walmart, eBay, Shopify, and Etsy, alongside period-specific transparency reports on marketplace fee policy and seller margin."
       />
       <section className="mx-auto max-w-7xl space-y-10 px-4 py-12 sm:px-6 lg:px-8">
         <div className="rounded-2xl border border-border bg-secondary/40 p-6 sm:p-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <StatBlock icon={Activity} value={`${monitored}`} label="Fee changes monitored" />
+            <StatBlock icon={Activity} value={`${data.stats.historicalChanges}`} label="Historical fee-change events" />
             <StatBlock icon={BarChart3} value={`${data.stats.marketplaces}`} label="Marketplaces tracked" />
             <StatBlock icon={Users} value={`${subscribers}+`} label="Transparency subscribers" />
             <StatBlock icon={Calendar} value="Quarterly" label="Trend report cadence" />
           </div>
           <p className="mt-6 text-sm text-muted-foreground">
-            Every figure on this page traces back to a sourced entry in our public{" "}
+            Current coverage totals come from our public{" "}
             <Link to="/rate-card" className="text-primary hover:underline">fee database</Link>{" "}
             and <Link to="/fees" className="text-primary hover:underline">change feed</Link>.
             See <Link to="/methodology" className="text-primary hover:underline">methodology</Link> for sourcing rules.
+            {" "}The database contains {data.stats.activeRecords} current fee records and {data.stats.categories} globally distinct category labels. Latest fee verification: {formatVerificationDate(data.stats.lastUpdated)}. Report figures refer to their stated periods.
           </p>
         </div>
 
