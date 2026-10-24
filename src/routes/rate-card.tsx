@@ -146,6 +146,7 @@ function RateCardPage() {
                       </TableCell>
                       <TableCell className="text-muted-foreground">
                         {r.fee_name}
+                        {r.notes && <p className="mt-1 max-w-80 whitespace-normal text-xs leading-relaxed text-muted-foreground/80">{r.notes}</p>}
                         {presentation.details && <div className="mt-2 min-w-48 max-w-80 space-y-2 whitespace-normal text-xs leading-relaxed">
                           {presentation.details.conditions.map((condition) => <p key={condition}>{condition}</p>)}
                         </div>}
@@ -163,7 +164,7 @@ function RateCardPage() {
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
                         >
-                          <Badge variant="outline" className="rounded-full text-[10px] font-normal">{presentation.details?.legacy_source ? "Legacy reference" : "Official"}</Badge>
+                          <Badge variant="outline" className="rounded-full text-[10px] font-normal">{presentation.details?.legacy_source ? "Legacy reference" : "Official source"}</Badge>
                           {r.source_title} <ExternalLink className="h-3 w-3" />
                         </a>
                         {presentation.details && <div className="mt-2 space-y-2 whitespace-normal text-xs">
