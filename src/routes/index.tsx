@@ -6,8 +6,10 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { getDatabaseStats } from "@/lib/fees.functions";
+import { getDatabaseStats, getFeeRecords } from "@/lib/fees.functions";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
+import { formatFeeValue } from "@/lib/fee-formatting";
+import type { FeeRecord } from "@/lib/fees.functions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,6 +17,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const statsQuery = queryOptions({ queryKey: ["fee-stats"], queryFn: () => getDatabaseStats() });
+const feeRecordsQuery = queryOptions({ queryKey: ["fee-records"], queryFn: () => getFeeRecords() });
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,15 +30,74 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(statsQuery),
+  loader: ({ context }) =>
+    Promise.all([
+      context.queryClient.ensureQueryData(statsQuery),
+      context.queryClient.ensureQueryData(feeRecordsQuery),
+    ]),
   component: Index,
 });
 
 const trust = [
-  "Data-driven insights",
-  "Seller-first mission",
-  "Free public resources",
+  "Official marketplace sources",
+  "Free public resource",
+  "Independently maintained",
 ];
+
+const marketplaces = ["Amazon", "eBay", "Walmart", "Etsy", "Shopify"];
+
+// Real verified records shown in the hero preview, matched from the live database.
+const previewPicks: { marketplace: string; feeName: string; category: string; label: string }[] = [
+  { marketplace: "Amazon", feeName: "Referral Fee", category: "Home & Kitchen", label: "Home & Kitchen" },
+  { marketplace: "eBay", feeName: "Final value fee — Books & Magazines", category: "books", label: "Books & Magazines" },
+  { marketplace: "Walmart", feeName: "Referral Fee", category: "Sporting Goods", label: "Sporting Goods" },
+  { marketplace: "Shopify", feeName: "Online Card Rate", category: "Basic plan", label: "Basic online card rate" },
+];
+
+function FeePreview({ records }: { records: FeeRecord[] }) {
+  const rows = previewPicks
+    .map((p) => {
+      const record = records.find(
+        (r) => r.marketplace === p.marketplace && r.fee_name === p.feeName && r.category === p.category,
+      );
+      return record ? { record, label: p.label } : null;
+    })
+    .filter((r): r is { record: FeeRecord; label: string } => Boolean(r));
+  return (
+    <Card className="border-border shadow-sm">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-sm font-semibold text-foreground">Marketplace Fee Comparison</h2>
+          <span className="rounded-full border border-border bg-secondary/60 px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+            Official source
+          </span>
+        </div>
+        <ul className="mt-4 divide-y divide-border">
+          {rows.map(({ record: r, label }) => (
+            <li key={r.id} className="flex items-center justify-between gap-4 py-3">
+              <div className="min-w-0">
+                <div className="text-sm font-medium text-foreground">{r.marketplace}</div>
+                <div className="truncate text-xs text-muted-foreground">{label}</div>
+                {r.notes ? (
+                  <div className="truncate text-xs text-muted-foreground">{r.notes}</div>
+                ) : null}
+              </div>
+              <div className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
+                {formatFeeValue(r.value, r.value_type)}
+              </div>
+            </li>
+          ))}
+        </ul>
+        <Link
+          to="/rate-card"
+          className="mt-4 inline-flex items-center text-sm font-medium text-primary transition-colors hover:text-foreground"
+        >
+          View fee database <ArrowRight className="ml-1 h-4 w-4" />
+        </Link>
+      </CardContent>
+    </Card>
+  );
+}
 
 const datasets = [
   {
@@ -129,6 +191,7 @@ function SubscribeForm() {
 
 function Index() {
   const { data: coverage } = useSuspenseQuery(statsQuery);
+  const { data: feeRecords } = useSuspenseQuery(feeRecordsQuery);
   const stats = [
     { value: coverage.activeRecords, label: "Current fee records" },
     { value: coverage.historicalChanges, label: "Historical fee-change events" },
@@ -143,36 +206,51 @@ function Index() {
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,var(--color-primary-soft)_0%,transparent_70%)]"
         />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Built for U.S. small business sellers
-            </span>
-            <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Independent marketplace transparency research for U.S. small businesses.
-            </h1>
-            <p className="mt-5 text-pretty text-lg text-muted-foreground">
-              Tracking marketplace fees, policy changes, seller compliance requirements, and platform transparency across major e-commerce ecosystems.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button asChild size="lg">
-                <Link to="/rate-card">
-                  Browse fee database <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link to="/policy-changes">Explore datasets</Link>
-              </Button>
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
+                <Sparkles className="h-3.5 w-3.5 text-primary" />
+                Independent research for U.S. marketplace sellers
+              </span>
+              <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+                Understand what it really costs to sell online.
+              </h1>
+              <p className="mt-5 max-w-xl text-pretty text-lg text-muted-foreground">
+                Independent marketplace fee and policy research helping U.S. small businesses understand selling costs across major e-commerce platforms.
+              </p>
+              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Marketplace coverage">
+                {marketplaces.map((m) => (
+                  <li
+                    key={m}
+                    className="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground"
+                  >
+                    {m}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button asChild size="lg">
+                  <Link to="/rate-card">
+                    Explore fee database <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link to="/calculator">Calculate selling costs</Link>
+                </Button>
+              </div>
+              <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                {trust.map((t) => (
+                  <li key={t} className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-primary" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="mx-auto mt-10 flex max-w-2xl flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              {trust.map((t) => (
-                <li key={t} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
-                  {t}
-                </li>
-              ))}
-            </ul>
+            <div className="lg:justify-self-end lg:w-full lg:max-w-md">
+              <FeePreview records={feeRecords} />
+            </div>
           </div>
         </div>
       </section>
