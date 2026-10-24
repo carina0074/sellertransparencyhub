@@ -183,6 +183,7 @@ function SubscribeForm() {
 
 function Index() {
   const { data: coverage } = useSuspenseQuery(statsQuery);
+  const { data: feeRecords } = useSuspenseQuery(feeRecordsQuery);
   const stats = [
     { value: coverage.activeRecords, label: "Current fee records" },
     { value: coverage.historicalChanges, label: "Historical fee-change events" },
