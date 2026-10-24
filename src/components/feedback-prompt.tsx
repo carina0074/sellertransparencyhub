@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { MessageSquareText } from "lucide-react";
+import { MessageSquareText, X } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -24,12 +24,18 @@ export function FeedbackPrompt({
   resourceType,
   resourcePath,
   question = "Was this resource useful?",
+  supportingText,
   id,
+  variant = "inline",
+  onClose,
 }: {
   resourceType: string;
   resourcePath: string;
   question?: string;
+  supportingText?: string;
   id?: string;
+  variant?: "inline" | "floating";
+  onClose?: () => void;
 }) {
   const [usefulness, setUsefulness] = useState<Usefulness | null>(null);
   const [marketplaces, setMarketplaces] = useState<string[]>([]);
@@ -76,12 +82,34 @@ export function FeedbackPrompt({
     }
   };
 
-  return (
-    <Card className="border-border" id={id}>
-      <CardContent className="p-6">
-        <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-          <MessageSquareText className="h-4 w-4 text-primary" /> {question}
+  const floating = variant === "floating";
+
+  const card = (
+    <Card
+      className={
+        floating
+          ? "border-primary/30 bg-background shadow-lg"
+          : "border-border"
+      }
+      id={id}
+    >
+      <CardContent className={floating ? "relative p-5" : "p-6"}>
+        {floating && onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close feedback prompt"
+            className="absolute right-3 top-3 rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
+        <div className="flex items-center gap-2 pr-6 text-sm font-medium text-foreground">
+          <MessageSquareText className="h-4 w-4 shrink-0 text-primary" /> {question}
         </div>
+        {supportingText && (
+          <p className="mt-1.5 text-xs text-muted-foreground">{supportingText}</p>
+        )}
 
         {status === "done" ? (
           <p className="mt-3 text-sm text-muted-foreground">
@@ -196,5 +224,13 @@ export function FeedbackPrompt({
         )}
       </CardContent>
     </Card>
+  );
+
+  if (!floating) return card;
+
+  return (
+    <div className="fixed bottom-4 right-4 z-40 w-[22rem] max-w-[calc(100vw-2rem)]">
+      {card}
+    </div>
   );
 }
