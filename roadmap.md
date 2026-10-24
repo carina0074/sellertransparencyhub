@@ -6,3 +6,4 @@
 - [x] Apply approved Phase 1 database-derived coverage totals and wording only.
 - [x] Test full-table counting and verify current totals on the three pages.
 - [x] Report changed files, displays, tests, and remaining out-of-scope claims.
+- [x] Phase 2A read-only evidence reconciliation matrix (awaiting approval; no changes made).
