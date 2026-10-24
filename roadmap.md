@@ -14,3 +14,4 @@
 - [x] Phase 2E.1: approved minimum calculator fixes — Walmart multiplier removed, Amazon tiers, assumptions panel (2026-10-24).
 - [x] Phase 2F: impact evidence system — feedback_submissions table, feedback prompt, GA4 events, admin feedback page + CSV, privacy page (2026-10-24).
 - [x] Homepage hero polish: two-column hero, new messaging, marketplace chips, live fee-comparison preview card (2026-10-24).
+- [x] Pre-outreach UX: persistent Give feedback tab on Fee Database, inline estimate-usefulness prompt on Calculator, corrected traceability wording (2026-10-24).
