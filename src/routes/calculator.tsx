@@ -210,6 +210,29 @@ function CalculatorPage() {
             </div>
           </div>
         </div>
+
+        <Card className="mt-8 border-border">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <Info className="h-4 w-4 text-primary" /> Assumptions &amp; limitations
+            </div>
+            <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
+              <li>Estimates depend on the selected marketplace and category and on the verified fee rules available for that combination.</li>
+              <li>Some marketplace fees are tiered or conditional. Where tiers are verified (for example Amazon Apparel, Beauty, Grocery, and Electronics), the calculator applies the tier matching your selling price.</li>
+              <li>Shopify results use the <strong className="text-foreground">Basic plan online card rate (2.9% + $0.30)</strong>. Other Shopify plans have different rates, and Shopify subscription-plan costs (for example the $39/month Basic plan fee) are <strong className="text-foreground">not included</strong>.</li>
+              <li>Etsy results use the <strong className="text-foreground">US payment-processing rate (3% + $0.25)</strong>; rates vary by country. Etsy Offsite Ads fees (12% or 15%, conditional) are <strong className="text-foreground">not included</strong>. The $0.20 listing fee is charged per sale here, though it actually covers a 4-month listing period.</li>
+              <li>Amazon Books results exclude the $1.80 per-item closing fee for Media items.</li>
+              <li>Amazon storage uses the January–September standard-size rate; the Q4 peak rate is not modeled.</li>
+              <li>Walmart estimates cover only categories with a verified Walmart rate (Electronics, Home &amp; Kitchen, Apparel) and the verified WFS Small ≤ 1 lb fulfillment fee. Unsupported combinations are flagged above instead of being estimated.</li>
+              <li><strong className="text-foreground">eBay is not currently supported</strong> by this calculator. See the <Link to="/rate-card" className="text-primary underline underline-offset-2">Marketplace Fee Database</Link> for verified eBay fees.</li>
+              <li>Return-cost and package-size (cubic-foot) figures are rough modeling assumptions, not verified marketplace fee data.</li>
+              <li>Results are estimates. Always confirm current applicable fees in the official marketplace sources linked in the <Link to="/rate-card" className="text-primary underline underline-offset-2">Fee Database</Link>.</li>
+            </ul>
+            <p className="mt-4 text-xs text-muted-foreground">
+              Fee data last reviewed: June–October 2026, varying by marketplace and fee. Per-fee verification dates are shown in the Fee Database.
+            </p>
+          </CardContent>
+        </Card>
       </section>
     </>
   );
