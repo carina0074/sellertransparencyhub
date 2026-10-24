@@ -4,7 +4,8 @@ import {
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell, CartesianGrid,
   PieChart, Pie,
 } from "recharts";
-import { Calculator, TrendingUp, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { Calculator, TrendingUp, AlertTriangle, CheckCircle2, Info } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -138,6 +139,23 @@ function CalculatorPage() {
             </div>
 
             <RecommendationBanner level={result.recommendation} margin={result.margin} />
+
+            {result.unsupported.length > 0 && (
+              <div className="flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/15 p-4 text-warning-foreground">
+                <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold">Not estimated</p>
+                  <ul className="mt-1 list-inside list-disc text-sm opacity-90">
+                    {result.unsupported.map((u) => (
+                      <li key={u}>{u}</li>
+                    ))}
+                  </ul>
+                  <p className="mt-1 text-sm opacity-90">
+                    These are excluded from the totals above rather than estimated from another marketplace.
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="grid gap-6 lg:grid-cols-2">
               <Card className="border-border">
