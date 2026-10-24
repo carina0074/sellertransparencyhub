@@ -79,7 +79,7 @@ function FeePreview({ records }: { records: FeeRecord[] }) {
                 <div className="truncate text-xs text-muted-foreground">{r.category}</div>
               </div>
               <div className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
-                {formatFeeValue(r)}
+                {formatFeeValue(r.value, r.value_type)}
               </div>
             </li>
           ))}
