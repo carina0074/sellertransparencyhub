@@ -141,12 +141,12 @@ export const getDatabaseStats = createServerFn({ method: "GET" }).handler(
     if (!url || !key) throw new Error("Public coverage data is unavailable");
     const publicClient = createClient(url, key, {
       auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
-      global: { fetch: (input, init) => {
+      global: { fetch: Object.assign((input: RequestInfo | URL, init?: RequestInit) => {
         const headers = new Headers(init?.headers);
         if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`) headers.delete("Authorization");
         headers.set("apikey", key);
         return fetch(input, { ...init, headers });
-      } },
+      }, fetch) },
     });
     const exactCount = async (table: "fee_records" | "fee_changes") => {
       const { count, error } = await publicClient.from(table).select("id", { count: "exact", head: true });
