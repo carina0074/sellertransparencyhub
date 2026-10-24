@@ -198,36 +198,51 @@ function Index() {
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,var(--color-primary-soft)_0%,transparent_70%)]"
         />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
-              Built for U.S. small business sellers
-            </span>
-            <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-              Independent marketplace transparency research for U.S. small businesses.
-            </h1>
-            <p className="mt-5 text-pretty text-lg text-muted-foreground">
-              Tracking marketplace fees, policy changes, seller compliance requirements, and platform transparency across major e-commerce ecosystems.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button asChild size="lg">
-                <Link to="/rate-card">
-                  Browse fee database <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link to="/policy-changes">Explore datasets</Link>
-              </Button>
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
+                <Sparkles className="h-3.5 w-3.5 text-primary" />
+                Independent research for U.S. marketplace sellers
+              </span>
+              <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+                Understand what it really costs to sell online.
+              </h1>
+              <p className="mt-5 max-w-xl text-pretty text-lg text-muted-foreground">
+                Independent marketplace fee and policy research helping U.S. small businesses understand selling costs across major e-commerce platforms.
+              </p>
+              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Marketplace coverage">
+                {marketplaces.map((m) => (
+                  <li
+                    key={m}
+                    className="rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground"
+                  >
+                    {m}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button asChild size="lg">
+                  <Link to="/rate-card">
+                    Explore fee database <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link to="/calculator">Calculate selling costs</Link>
+                </Button>
+              </div>
+              <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+                {trust.map((t) => (
+                  <li key={t} className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-primary" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="mx-auto mt-10 flex max-w-2xl flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              {trust.map((t) => (
-                <li key={t} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
-                  {t}
-                </li>
-              ))}
-            </ul>
+            <div className="lg:justify-self-end lg:w-full lg:max-w-md">
+              <FeePreview records={feeRecords} />
+            </div>
           </div>
         </div>
       </section>
