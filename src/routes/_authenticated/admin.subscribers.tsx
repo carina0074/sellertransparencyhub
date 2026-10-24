@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getEmailSubscribers } from "@/lib/admin.functions";
@@ -31,6 +31,8 @@ function SubscribersPage() {
           <h1 className="text-2xl font-semibold">Email Subscribers</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {data ? `${data.length} subscriber${data.length === 1 ? "" : "s"}` : "Loading…"}
+            {" · "}
+            <Link to="/admin/feedback" className="text-primary hover:underline">Feedback</Link>
           </p>
         </div>
         <button onClick={handleSignOut} className="text-sm text-muted-foreground hover:underline">

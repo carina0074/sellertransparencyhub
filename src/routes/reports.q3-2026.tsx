@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Calendar } from "lucide-react";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
+import { FeedbackPrompt } from "@/components/feedback-prompt";
+import { trackEvent } from "@/lib/analytics";
 import reportMd from "@/content/q3-2026-report.md?raw";
 
 export const Route = createFileRoute("/reports/q3-2026")({
@@ -70,6 +72,9 @@ function renderMarkdown(md: string) {
 const body = reportMd.split("\n").slice(7).join("\n");
 
 function Q3Report() {
+  useEffect(() => {
+    trackEvent("transparency_report_viewed", { report: "q3-2026" });
+  }, []);
   return (
     <>
       <PageHeader eyebrow="Q3 2026 Report" title="Marketplace Fee Transparency Report" description="Seller Transparency Hub — Amazon, Walmart Marketplace, eBay, and Etsy" />
@@ -84,6 +89,7 @@ function Q3Report() {
           </Button>
           <Button asChild variant="outline"><Link to="/reports/annual-2026">Annual Review 2026 →</Link></Button>
         </div>
+        <FeedbackPrompt resourceType="transparency_report" resourcePath="/reports/q3-2026" />
       </article>
     </>
   );

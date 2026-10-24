@@ -151,6 +151,45 @@ export type Database = {
         }
         Relationships: []
       }
+      feedback_submissions: {
+        Row: {
+          created_at: string
+          follow_up_email: string | null
+          follow_up_opt_in: boolean
+          free_text_feedback: string | null
+          id: string
+          marketplaces: string[]
+          resource_path: string
+          resource_type: string
+          use_cases: string[]
+          usefulness_response: string
+        }
+        Insert: {
+          created_at?: string
+          follow_up_email?: string | null
+          follow_up_opt_in?: boolean
+          free_text_feedback?: string | null
+          id?: string
+          marketplaces?: string[]
+          resource_path: string
+          resource_type: string
+          use_cases?: string[]
+          usefulness_response: string
+        }
+        Update: {
+          created_at?: string
+          follow_up_email?: string | null
+          follow_up_opt_in?: boolean
+          free_text_feedback?: string | null
+          id?: string
+          marketplaces?: string[]
+          resource_path?: string
+          resource_type?: string
+          use_cases?: string[]
+          usefulness_response?: string
+        }
+        Relationships: []
+      }
       impact_reports: {
         Row: {
           affected_categories: string[]

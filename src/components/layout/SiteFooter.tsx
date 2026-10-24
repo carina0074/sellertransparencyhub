@@ -136,7 +136,10 @@ export function SiteFooter() {
         </div>
         <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} Seller Transparency Hub. All rights reserved.</p>
-          <p>Built for sellers. Independent and unaffiliated with marketplaces.</p>
+          <p>
+            Built for sellers. Independent and unaffiliated with marketplaces.{" "}
+            <Link to="/privacy" className="text-primary hover:underline">Privacy</Link>
+          </p>
         </div>
       </div>
     </footer>

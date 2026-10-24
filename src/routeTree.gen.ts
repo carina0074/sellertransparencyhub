@@ -20,6 +20,7 @@ import { Route as ImpactReportsRouteImport } from './routes/impact-reports'
 import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as PolicyChangesRouteImport } from './routes/policy-changes'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RateCardRouteImport } from './routes/rate-card'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as ResourcesRouteImport } from './routes/resources'
@@ -30,6 +31,7 @@ import { Route as DownloadsQ22026ReportRouteImport } from './routes/downloads.q2
 import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
 import { Route as ReportsQ22026RouteImport } from './routes/reports.q2-2026'
 import { Route as ReportsQ32026RouteImport } from './routes/reports.q3-2026'
+import { Route as AuthenticatedAdminFeedbackRouteImport } from './routes/_authenticated/admin.feedback'
 import { Route as AuthenticatedAdminSubscribersRouteImport } from './routes/_authenticated/admin.subscribers'
 import { Route as ApiPublicFeeChangesRouteImport } from './routes/api/public/fee-changes'
 import { Route as ApiPublicFeesRouteImport } from './routes/api/public/fees'
@@ -90,6 +92,11 @@ const PolicyChangesRoute = PolicyChangesRouteImport.update({
   path: '/policy-changes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RateCardRoute = RateCardRouteImport.update({
   id: '/rate-card',
   path: '/rate-card',
@@ -140,6 +147,12 @@ const ReportsQ32026Route = ReportsQ32026RouteImport.update({
   path: '/q3-2026',
   getParentRoute: () => ReportsRoute,
 } as any)
+const AuthenticatedAdminFeedbackRoute =
+  AuthenticatedAdminFeedbackRouteImport.update({
+    id: '/admin/feedback',
+    path: '/admin/feedback',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminSubscribersRoute =
   AuthenticatedAdminSubscribersRouteImport.update({
     id: '/admin/subscribers',
@@ -178,6 +191,7 @@ export interface FileRoutesByFullPath {
   '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
   '/policy-changes': typeof PolicyChangesRoute
+  '/privacy': typeof PrivacyRoute
   '/rate-card': typeof RateCardRoute
   '/reports': typeof ReportsRouteWithChildren
   '/resources': typeof ResourcesRoute
@@ -188,6 +202,7 @@ export interface FileRoutesByFullPath {
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
+  '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
@@ -205,6 +220,7 @@ export interface FileRoutesByTo {
   '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
   '/policy-changes': typeof PolicyChangesRoute
+  '/privacy': typeof PrivacyRoute
   '/rate-card': typeof RateCardRoute
   '/reports': typeof ReportsRouteWithChildren
   '/resources': typeof ResourcesRoute
@@ -215,6 +231,7 @@ export interface FileRoutesByTo {
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
+  '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
@@ -234,6 +251,7 @@ export interface FileRoutesById {
   '/insights': typeof InsightsRoute
   '/methodology': typeof MethodologyRoute
   '/policy-changes': typeof PolicyChangesRoute
+  '/privacy': typeof PrivacyRoute
   '/rate-card': typeof RateCardRoute
   '/reports': typeof ReportsRouteWithChildren
   '/resources': typeof ResourcesRoute
@@ -244,6 +262,7 @@ export interface FileRoutesById {
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
+  '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/_authenticated/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
@@ -263,6 +282,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/methodology'
     | '/policy-changes'
+    | '/privacy'
     | '/rate-card'
     | '/reports'
     | '/resources'
@@ -273,6 +293,7 @@ export interface FileRouteTypes {
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
+    | '/admin/feedback'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
@@ -290,6 +311,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/methodology'
     | '/policy-changes'
+    | '/privacy'
     | '/rate-card'
     | '/reports'
     | '/resources'
@@ -300,6 +322,7 @@ export interface FileRouteTypes {
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
+    | '/admin/feedback'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
@@ -318,6 +341,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/methodology'
     | '/policy-changes'
+    | '/privacy'
     | '/rate-card'
     | '/reports'
     | '/resources'
@@ -328,6 +352,7 @@ export interface FileRouteTypes {
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
+    | '/_authenticated/admin/feedback'
     | '/_authenticated/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
@@ -347,6 +372,7 @@ export interface RootRouteChildren {
   InsightsRoute: typeof InsightsRoute
   MethodologyRoute: typeof MethodologyRoute
   PolicyChangesRoute: typeof PolicyChangesRoute
+  PrivacyRoute: typeof PrivacyRoute
   RateCardRoute: typeof RateCardRoute
   ReportsRoute: typeof ReportsRouteWithChildren
   ResourcesRoute: typeof ResourcesRoute
@@ -439,6 +465,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PolicyChangesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rate-card': {
       id: '/rate-card'
       path: '/rate-card'
@@ -509,6 +542,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportsQ32026RouteImport
       parentRoute: typeof ReportsRoute
     }
+    '/_authenticated/admin/feedback': {
+      id: '/_authenticated/admin/feedback'
+      path: '/admin/feedback'
+      fullPath: '/admin/feedback'
+      preLoaderRoute: typeof AuthenticatedAdminFeedbackRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/subscribers': {
       id: '/_authenticated/admin/subscribers'
       path: '/admin/subscribers'
@@ -548,10 +588,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminFeedbackRoute: typeof AuthenticatedAdminFeedbackRoute
   AuthenticatedAdminSubscribersRoute: typeof AuthenticatedAdminSubscribersRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminFeedbackRoute: AuthenticatedAdminFeedbackRoute,
   AuthenticatedAdminSubscribersRoute: AuthenticatedAdminSubscribersRoute,
 }
 
@@ -585,6 +627,7 @@ const rootRouteChildren: RootRouteChildren = {
   InsightsRoute: InsightsRoute,
   MethodologyRoute: MethodologyRoute,
   PolicyChangesRoute: PolicyChangesRoute,
+  PrivacyRoute: PrivacyRoute,
   RateCardRoute: RateCardRoute,
   ReportsRoute: ReportsRouteWithChildren,
   ResourcesRoute: ResourcesRoute,

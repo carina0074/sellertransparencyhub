@@ -12,3 +12,4 @@
 - [x] Phase 2D: confirmed Amazon/Shopify/Walmart current-data corrections (4 records, 2026-10-24). Historical-event review awaits approval.
 - [x] Phase 2E: read-only calculator ↔ Fee Database reconciliation audit (report in Files, 2026-10-24). Calculator fixes await approval.
 - [x] Phase 2E.1: approved minimum calculator fixes — Walmart multiplier removed, Amazon tiers, assumptions panel (2026-10-24).
+- [x] Phase 2F: impact evidence system — feedback_submissions table, feedback prompt, GA4 events, admin feedback page + CSV, privacy page (2026-10-24).
