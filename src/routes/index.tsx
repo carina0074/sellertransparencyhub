@@ -6,8 +6,10 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { getDatabaseStats } from "@/lib/fees.functions";
+import { getDatabaseStats, getFeeRecords } from "@/lib/fees.functions";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
+import { formatFeeValue } from "@/lib/fee-formatting";
+import type { FeeRecord } from "@/lib/fees.functions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,6 +17,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const statsQuery = queryOptions({ queryKey: ["fee-stats"], queryFn: () => getDatabaseStats() });
+const feeRecordsQuery = queryOptions({ queryKey: ["fee-records"], queryFn: () => getFeeRecords() });
 
 export const Route = createFileRoute("/")({
   head: () => ({
