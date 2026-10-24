@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { ExternalLink, Database, Search, ShieldCheck, MessageSquareText } from "lucide-react";
+import { ExternalLink, Database, Search, ShieldCheck } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -74,6 +74,20 @@ function RateCardPage() {
   const [mkt, setMkt] = useState<string>("all");
   const [ft, setFt] = useState<string>("all");
 
+  // Contextual feedback card: appears ~8s after the first meaningful
+  // interaction (search, filter change, or source-link click), never on load.
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [showFloatingFeedback, setShowFloatingFeedback] = useState(false);
+  const markInteraction = () => setHasInteracted(true);
+
+  useEffect(() => {
+    if (!hasInteracted) return;
+    const timer = window.setTimeout(() => {
+      if (document.visibilityState === "visible") setShowFloatingFeedback(true);
+    }, 8000);
+    return () => window.clearTimeout(timer);
+  }, [hasInteracted]);
+
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
     return records.filter((r) => {
@@ -108,17 +122,17 @@ function RateCardPage() {
         <div className="grid gap-3 sm:grid-cols-[1fr_180px_200px]">
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input value={q} onChange={(e) => setQ(e.target.value)}
+            <Input value={q} onChange={(e) => { setQ(e.target.value); markInteraction(); }}
               placeholder="Search by category, type, marketplace…" className="pl-9" />
           </div>
-          <Select value={mkt} onValueChange={(v) => { setMkt(v); trackEvent("marketplace_filter_used", { marketplace: v }); }}>
+          <Select value={mkt} onValueChange={(v) => { setMkt(v); markInteraction(); trackEvent("marketplace_filter_used", { marketplace: v }); }}>
             <SelectTrigger><SelectValue placeholder="Marketplace" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All marketplaces</SelectItem>
               {marketplaces.map((m) => <SelectItem key={m} value={m}>{m}</SelectItem>)}
             </SelectContent>
           </Select>
-          <Select value={ft} onValueChange={setFt}>
+          <Select value={ft} onValueChange={(v) => { setFt(v); markInteraction(); }}>
             <SelectTrigger><SelectValue placeholder="Fee type" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All fee types</SelectItem>
@@ -169,7 +183,7 @@ function RateCardPage() {
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
-                          onClick={() => trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type })}
+                          onClick={() => { markInteraction(); trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); }}
                         >
                           <Badge variant="outline" className="rounded-full text-[10px] font-normal">{presentation.details?.legacy_source ? "Legacy reference" : "Official source"}</Badge>
                           {r.source_title} <ExternalLink className="h-3 w-3" />
@@ -203,15 +217,16 @@ function RateCardPage() {
         <FeedbackPrompt id="feedback" resourceType="fee_database" resourcePath="/rate-card" />
       </section>
 
-      <button
-        type="button"
-        onClick={() => document.getElementById("feedback")?.scrollIntoView({ behavior: "smooth", block: "center" })}
-        className="fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        aria-label="Give feedback — scroll to the feedback form"
-      >
-        <MessageSquareText className="h-4 w-4 text-primary" />
-        Give feedback
-      </button>
+      {showFloatingFeedback && (
+        <FeedbackPrompt
+          variant="floating"
+          resourceType="fee_database"
+          resourcePath="/rate-card"
+          question="Was this fee database useful?"
+          supportingText="Your feedback helps improve this free public resource."
+          onClose={() => setShowFloatingFeedback(false)}
+        />
+      )}
     </>
   );
 }
