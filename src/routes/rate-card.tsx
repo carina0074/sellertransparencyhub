@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { ExternalLink, Database, Search, ShieldCheck } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -15,6 +15,8 @@ import {
 import { getFeeRecords, getDatabaseStats } from "@/lib/fees.functions";
 import { presentFee } from "@/lib/fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
+import { FeedbackPrompt } from "@/components/feedback-prompt";
+import { trackEvent } from "@/lib/analytics";
 
 const feeRecordsQuery = queryOptions({
   queryKey: ["fee-records"],
@@ -54,6 +56,10 @@ export const Route = createFileRoute("/rate-card")({
 function RateCardPage() {
   const { data: records } = useSuspenseQuery(feeRecordsQuery);
   const { data: stats } = useSuspenseQuery(statsQuery);
+
+  useEffect(() => {
+    trackEvent("fee_database_view");
+  }, []);
 
   const marketplaces = useMemo(
     () => Array.from(new Set(records.map((r) => r.marketplace))).sort(),
@@ -105,7 +111,7 @@ function RateCardPage() {
             <Input value={q} onChange={(e) => setQ(e.target.value)}
               placeholder="Search by category, type, marketplace…" className="pl-9" />
           </div>
-          <Select value={mkt} onValueChange={setMkt}>
+          <Select value={mkt} onValueChange={(v) => { setMkt(v); trackEvent("marketplace_filter_used", { marketplace: v }); }}>
             <SelectTrigger><SelectValue placeholder="Marketplace" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All marketplaces</SelectItem>
@@ -163,6 +169,7 @@ function RateCardPage() {
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+                          onClick={() => trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type })}
                         >
                           <Badge variant="outline" className="rounded-full text-[10px] font-normal">{presentation.details?.legacy_source ? "Legacy reference" : "Official source"}</Badge>
                           {r.source_title} <ExternalLink className="h-3 w-3" />
@@ -192,6 +199,8 @@ function RateCardPage() {
             </p>
           </CardContent>
         </Card>
+
+        <FeedbackPrompt resourceType="fee_database" resourcePath="/rate-card" />
       </section>
     </>
   );
