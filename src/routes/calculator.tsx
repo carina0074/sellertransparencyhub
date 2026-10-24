@@ -74,10 +74,13 @@ function CalculatorPage() {
 
   const PIE_COLORS = ["#2563eb", "#60a5fa", "#94a3b8", "#cbd5e1"];
 
+  const [hasCalculated, setHasCalculated] = useState(false);
+
   const set = <K extends keyof FeeInputs>(k: K, v: FeeInputs[K]) => {
     if (!startedRef.current) {
       startedRef.current = true;
       trackEvent("calculator_started");
+      setHasCalculated(true);
     }
     setInputs((s) => ({ ...s, [k]: v }));
   };
@@ -163,6 +166,14 @@ function CalculatorPage() {
             </div>
 
             <RecommendationBanner level={result.recommendation} margin={result.margin} />
+
+            {hasCalculated && (
+              <FeedbackPrompt
+                question="Was this estimate useful?"
+                resourceType="calculator_estimate"
+                resourcePath="/calculator"
+              />
+            )}
 
             {result.unsupported.length > 0 && (
               <div className="flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/15 p-4 text-warning-foreground">
