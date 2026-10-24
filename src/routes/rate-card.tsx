@@ -195,12 +195,12 @@ function RateCardPage() {
           <CardContent className="flex items-start gap-3 p-6 text-sm text-muted-foreground">
             <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
             <p>
-              Every record is sourced from a public marketplace help page. We re-verify rates on a rolling cadence and write a new <code className="rounded bg-background px-1 py-0.5 font-mono text-xs">last_verified</code> date when we do. When a marketplace publishes a new fee, the historical version is preserved in the <a href="/fees" className="text-primary hover:underline">Seller Fee Change Feed</a> so the change is auditable.
+              Current fee records include source and verification information. Separately documented fee changes are published in the <a href="/fees" className="text-primary hover:underline">Seller Fee Change Feed</a> with their available source and effective-date evidence.
             </p>
           </CardContent>
         </Card>
 
-        <FeedbackPrompt resourceType="fee_database" resourcePath="/rate-card" />
+        <FeedbackPrompt id="feedback" resourceType="fee_database" resourcePath="/rate-card" />
       </section>
     </>
   );
