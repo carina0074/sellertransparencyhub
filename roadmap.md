@@ -15,4 +15,4 @@
 - [x] Phase 2F: impact evidence system — feedback_submissions table, feedback prompt, GA4 events, admin feedback page + CSV, privacy page (2026-10-24).
 - [x] Homepage hero polish: two-column hero, new messaging, marketplace chips, live fee-comparison preview card (2026-10-24).
 - [x] Pre-outreach UX: persistent Give feedback tab on Fee Database, inline estimate-usefulness prompt on Calculator, corrected traceability wording (2026-10-24).
-- [x] Feedback discoverability: replaced floating pill with contextual card on Fee Database — appears ~8s after first meaningful interaction (search/filter/source click), expands in place, closeable (2026-10-24).
+- [x] Feedback discoverability: contextual prompt on Fee Database — inline between filters and table, ~8s after first meaningful interaction, once per session, expands in place, closeable (2026-10-24).

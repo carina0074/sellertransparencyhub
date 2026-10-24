@@ -34,7 +34,7 @@ export function FeedbackPrompt({
   question?: string;
   supportingText?: string;
   id?: string;
-  variant?: "inline" | "floating";
+  variant?: "inline" | "contextual";
   onClose?: () => void;
 }) {
   const [usefulness, setUsefulness] = useState<Usefulness | null>(null);
@@ -82,19 +82,19 @@ export function FeedbackPrompt({
     }
   };
 
-  const floating = variant === "floating";
+  const contextual = variant === "contextual";
 
   const card = (
     <Card
       className={
-        floating
-          ? "border-primary/30 bg-background shadow-lg"
+        contextual
+          ? "border-primary/30 bg-primary-soft/40"
           : "border-border"
       }
       id={id}
     >
-      <CardContent className={floating ? "relative p-5" : "p-6"}>
-        {floating && onClose && (
+      <CardContent className={contextual ? "relative p-5" : "p-6"}>
+        {contextual && onClose && (
           <button
             type="button"
             onClick={onClose}
@@ -226,11 +226,5 @@ export function FeedbackPrompt({
     </Card>
   );
 
-  if (!floating) return card;
-
-  return (
-    <div className="fixed bottom-4 right-4 z-40 w-[22rem] max-w-[calc(100vw-2rem)]">
-      {card}
-    </div>
-  );
+  return card;
 }
