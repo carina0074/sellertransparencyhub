@@ -74,16 +74,24 @@ function RateCardPage() {
   const [mkt, setMkt] = useState<string>("all");
   const [ft, setFt] = useState<string>("all");
 
-  // Contextual feedback card: appears ~8s after the first meaningful
-  // interaction (search, filter change, or source-link click), never on load.
+  // Contextual feedback prompt: appears inline ~8s after the first meaningful
+  // interaction (search, filter change, or source-link click), never on load,
+  // and at most once per browser session (including after dismiss/submit).
   const [hasInteracted, setHasInteracted] = useState(false);
-  const [showFloatingFeedback, setShowFloatingFeedback] = useState(false);
+  const [showContextualFeedback, setShowContextualFeedback] = useState(false);
   const markInteraction = () => setHasInteracted(true);
 
   useEffect(() => {
     if (!hasInteracted) return;
     const timer = window.setTimeout(() => {
-      if (document.visibilityState === "visible") setShowFloatingFeedback(true);
+      if (document.visibilityState !== "visible") return;
+      try {
+        if (window.sessionStorage.getItem("sthub.contextualFeedbackShown")) return;
+        window.sessionStorage.setItem("sthub.contextualFeedbackShown", "1");
+      } catch {
+        // sessionStorage unavailable — fall through and show once per page view
+      }
+      setShowContextualFeedback(true);
     }, 8000);
     return () => window.clearTimeout(timer);
   }, [hasInteracted]);
@@ -140,6 +148,17 @@ function RateCardPage() {
             </SelectContent>
           </Select>
         </div>
+
+        {showContextualFeedback && (
+          <FeedbackPrompt
+            variant="contextual"
+            resourceType="fee_database"
+            resourcePath="/rate-card"
+            question="Was this fee database useful?"
+            supportingText="Your feedback helps improve this free public resource."
+            onClose={() => setShowContextualFeedback(false)}
+          />
+        )}
 
         <Card className="border-border">
           <CardContent className="p-0">
@@ -217,16 +236,6 @@ function RateCardPage() {
         <FeedbackPrompt id="feedback" resourceType="fee_database" resourcePath="/rate-card" />
       </section>
 
-      {showFloatingFeedback && (
-        <FeedbackPrompt
-          variant="floating"
-          resourceType="fee_database"
-          resourcePath="/rate-card"
-          question="Was this fee database useful?"
-          supportingText="Your feedback helps improve this free public resource."
-          onClose={() => setShowFloatingFeedback(false)}
-        />
-      )}
     </>
   );
 }
