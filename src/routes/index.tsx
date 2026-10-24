@@ -73,11 +73,11 @@ function FeePreview({ records }: { records: FeeRecord[] }) {
           </span>
         </div>
         <ul className="mt-4 divide-y divide-border">
-          {rows.map((r) => (
+          {rows.map(({ record: r, label }) => (
             <li key={r.id} className="flex items-center justify-between gap-4 py-3">
               <div className="min-w-0">
                 <div className="text-sm font-medium text-foreground">{r.marketplace}</div>
-                <div className="truncate text-xs text-muted-foreground">{r.category}</div>
+                <div className="truncate text-xs text-muted-foreground">{label}</div>
               </div>
               <div className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
                 {formatFeeValue(r.value, r.value_type)}
