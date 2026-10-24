@@ -23,9 +23,13 @@ function toggle(list: string[], value: string): string[] {
 export function FeedbackPrompt({
   resourceType,
   resourcePath,
+  question = "Was this resource useful?",
+  id,
 }: {
   resourceType: string;
   resourcePath: string;
+  question?: string;
+  id?: string;
 }) {
   const [usefulness, setUsefulness] = useState<Usefulness | null>(null);
   const [marketplaces, setMarketplaces] = useState<string[]>([]);
@@ -73,10 +77,10 @@ export function FeedbackPrompt({
   };
 
   return (
-    <Card className="border-border">
+    <Card className="border-border" id={id}>
       <CardContent className="p-6">
         <div className="flex items-center gap-2 text-sm font-medium text-foreground">
-          <MessageSquareText className="h-4 w-4 text-primary" /> Was this resource useful?
+          <MessageSquareText className="h-4 w-4 text-primary" /> {question}
         </div>
 
         {status === "done" ? (
