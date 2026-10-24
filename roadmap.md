@@ -11,3 +11,4 @@
 - [x] Phase 2C: fee conditions/scope display on Fee Database (presentation only, 2026-10-24).
 - [x] Phase 2D: confirmed Amazon/Shopify/Walmart current-data corrections (4 records, 2026-10-24). Historical-event review awaits approval.
 - [x] Phase 2E: read-only calculator ↔ Fee Database reconciliation audit (report in Files, 2026-10-24). Calculator fixes await approval.
+- [x] Phase 2E.1: approved minimum calculator fixes — Walmart multiplier removed, Amazon tiers, assumptions panel (2026-10-24).
