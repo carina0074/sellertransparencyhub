@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Clock, BarChart3 } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
-import { EmailCapture } from "@/components/email-capture";
 
 export const Route = createFileRoute("/reports/annual-2026")({
   head: () => ({
@@ -39,14 +38,6 @@ function Annual_2026_ComingSoonPage() {
           <p className="text-sm text-muted-foreground">
             Expected publish date: <span className="font-medium text-foreground">January 2027</span>
           </p>
-        </div>
-
-        <div className="rounded-2xl border border-border bg-secondary/40 p-6 sm:p-8">
-          <EmailCapture
-            topic="policy_updates"
-            title="Get notified when the annual review publishes"
-            description="Occasional updates when new research, reports, or dataset updates are published."
-          />
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
