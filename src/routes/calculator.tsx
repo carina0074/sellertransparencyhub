@@ -71,8 +71,8 @@ function CalculatorPage() {
   const profitData = [
     { name: "Cost", value: inputs.cost },
     { name: "Shipping", value: inputs.marketplace === "shopify" || inputs.marketplace === "etsy" ? 0 : inputs.shipping },
-    { name: "Total fees", value: result.totalFees },
-    { name: "Net profit", value: Math.max(0, result.netProfit) },
+    { name: result.unsupported.length ? "Included costs" : "Total fees", value: result.totalFees },
+    { name: result.unsupported.length ? "Surplus*" : "Net profit", value: Math.max(0, result.netProfit) },
   ];
 
   const PIE_COLORS = ["#2563eb", "#60a5fa", "#94a3b8", "#cbd5e1", "#64748b"];
@@ -116,7 +116,7 @@ function CalculatorPage() {
                     onChange={(e) => set("shipping", +e.target.value || 0)} />
                 </Field>
                 <Field label="Weight (lb)">
-                  <Input type="number" min={0} step="0.1" value={inputs.weightLb}
+                  <Input type="number" min={0} step="0.1" disabled title="Fulfillment is not estimated from these inputs" value={inputs.weightLb}
                     onChange={(e) => set("weightLb", +e.target.value || 0)} />
                 </Field>
               </div>
@@ -146,7 +146,7 @@ function CalculatorPage() {
                 <Field label="Size tier">
                   <Select value={inputs.sizeTier}
                     onValueChange={(v) => set("sizeTier", v as SizeTier)}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectTrigger disabled title="Fulfillment is not estimated from these inputs"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       {SIZE_TIERS.map((s) => (
                         <SelectItem key={s.id} value={s.id}>{s.label}</SelectItem>
@@ -228,6 +228,7 @@ function CalculatorPage() {
               <Card className="border-border">
                 <CardContent className="p-6">
                   <h3 className="text-sm font-medium text-foreground">Where your revenue goes</h3>
+                  {result.unsupported.length > 0 && <p className="mt-1 text-xs text-muted-foreground">* Surplus before excluded costs; not net profit.</p>}
                   <div className="mt-4 h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={profitData}>
@@ -238,7 +239,7 @@ function CalculatorPage() {
                         <Tooltip formatter={(v: number) => fmtUSD(v)} />
                         <Bar dataKey="value" radius={[6, 6, 0, 0]}>
                           {profitData.map((d, i) => (
-                            <Cell key={i} fill={d.name === "Net profit" ? "#16a34a" : "#2563eb"} />
+                            <Cell key={i} fill={d.name === "Net profit" || d.name === "Surplus*" ? "#16a34a" : "#2563eb"} />
                           ))}
                         </Bar>
                       </BarChart>
