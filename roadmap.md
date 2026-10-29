@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Credibility cleanup: fee-feed/policy/history/shared capability wording only; hide local-only fee alerts; preserve all rows, counts, dates, calculator, feedback and Q3 content.
+- [ ] Verify zero-baseline display regression, tests, preview checks and unchanged public data; report exact wording and files without publishing.
+
 - [x] Update Marketplace Fee Database header metrics and October 2026 date.
 - [x] Apply approved Etsy-only fraction normalization and structured fee details.
 - [x] Verify formatting tests, Etsy page, preserved records and history.
