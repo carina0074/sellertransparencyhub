@@ -15,7 +15,7 @@ function SubscribersPage() {
   const fetchSubscribers = useServerFn(getEmailSubscribers);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["email_subscribers"],
+    queryKey: ["newsletter_subscriptions"],
     queryFn: () => fetchSubscribers(),
   });
 
@@ -57,6 +57,7 @@ function SubscribersPage() {
             <thead className="bg-muted/50 text-left text-xs uppercase text-muted-foreground">
               <tr>
                 <th className="px-4 py-3">Email</th>
+                <th className="px-4 py-3">Source</th>
                 <th className="px-4 py-3">Subscribed</th>
               </tr>
             </thead>
@@ -64,6 +65,7 @@ function SubscribersPage() {
               {data.map((s) => (
                 <tr key={s.id} className="border-t border-border">
                   <td className="px-4 py-3 font-medium">{s.email}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{s.source === "legacy_homepage" ? "Legacy homepage" : "Footer"}</td>
                   <td className="px-4 py-3 text-muted-foreground">
                     {new Date(s.created_at).toLocaleString()}
                   </td>

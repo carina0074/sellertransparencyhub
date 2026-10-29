@@ -5,6 +5,7 @@ export type EmailSubscriber = {
   id: string;
   email: string;
   created_at: string;
+  source: string;
 };
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
@@ -26,8 +27,8 @@ export const getEmailSubscribers = createServerFn({ method: "GET" })
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
-      .from("email_subscribers")
-      .select("id, email, created_at")
+      .from("newsletter_subscriptions")
+      .select("id, email, created_at, source")
       .order("created_at", { ascending: false });
 
     if (error) throw new Error("Unable to load subscribers.");
