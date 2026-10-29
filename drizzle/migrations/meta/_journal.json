@@ -36,6 +36,13 @@
       "when": 1793243092855,
       "tag": "0004_historical_fee_evidence_precision",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793243737763,
+      "tag": "0005_policy_event_evidence_precision",
+      "breakpoints": true
     }
   ]
 }

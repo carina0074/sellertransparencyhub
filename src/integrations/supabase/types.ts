@@ -271,7 +271,10 @@ export type Database = {
           announcement_date: string | null
           body_markdown: string | null
           created_at: string
-          effective_date: string
+          effective_date: string | null
+          effective_date_precision: string
+          effective_period: string | null
+          evidence_details: Json | null
           id: string
           impact_level: string
           last_verified: string
@@ -288,7 +291,10 @@ export type Database = {
           announcement_date?: string | null
           body_markdown?: string | null
           created_at?: string
-          effective_date: string
+          effective_date?: string | null
+          effective_date_precision?: string
+          effective_period?: string | null
+          evidence_details?: Json | null
           id?: string
           impact_level: string
           last_verified: string
@@ -305,7 +311,10 @@ export type Database = {
           announcement_date?: string | null
           body_markdown?: string | null
           created_at?: string
-          effective_date?: string
+          effective_date?: string | null
+          effective_date_precision?: string
+          effective_period?: string | null
+          evidence_details?: Json | null
           id?: string
           impact_level?: string
           last_verified?: string
