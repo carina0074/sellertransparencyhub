@@ -16,16 +16,33 @@ export const MARKETPLACE_OPTIONS = [
   "Walmart",
   "Etsy",
   "Shopify",
+  "Multiple marketplaces",
   "Other",
-  "Prefer not to say",
 ] as const;
+
+export const USER_TYPE_OPTIONS = ["marketplace_seller", "service_provider", "researcher", "other"] as const;
+export type UserType = (typeof USER_TYPE_OPTIONS)[number];
+export const USER_TYPE_LABELS: Record<UserType, string> = {
+  marketplace_seller: "Marketplace seller",
+  service_provider: "Seller service provider",
+  researcher: "Researcher",
+  other: "Other",
+};
+
+export const INFO_ACCESS_OPTIONS = ["yes", "somewhat", "no"] as const;
+export type InfoAccess = (typeof INFO_ACCESS_OPTIONS)[number];
+export const INFO_ACCESS_LABELS: Record<InfoAccess, string> = {
+  yes: "Yes",
+  somewhat: "Somewhat",
+  no: "No",
+};
 
 export const USE_CASE_OPTIONS = [
   "Understand marketplace fees",
+  "Compare marketplaces",
   "Estimate selling costs",
-  "Compare marketplace costs",
+  "Verify a marketplace fee",
   "Research a fee or policy change",
-  "Decide where or what to sell",
   "General research",
   "Other",
 ] as const;
@@ -35,6 +52,8 @@ export const feedbackSchema = z
     resourceType: z.string().trim().min(1).max(50),
     resourcePath: z.string().trim().min(1).max(500),
     usefulness: z.enum(USEFULNESS_OPTIONS),
+    userType: z.enum(USER_TYPE_OPTIONS).optional(),
+    informationAccess: z.enum(INFO_ACCESS_OPTIONS).optional(),
     marketplaces: z.array(z.enum(MARKETPLACE_OPTIONS)).max(MARKETPLACE_OPTIONS.length).default([]),
     useCases: z.array(z.enum(USE_CASE_OPTIONS)).max(USE_CASE_OPTIONS.length).default([]),
     freeText: z.string().trim().max(2000).optional(),
@@ -76,6 +95,8 @@ export const submitFeedback = createServerFn({ method: "POST" })
       resource_type: data.resourceType,
       resource_path: data.resourcePath,
       usefulness_response: data.usefulness,
+      user_type: data.userType ?? null,
+      information_access_response: data.informationAccess ?? null,
       marketplaces: data.marketplaces,
       use_cases: data.useCases,
       free_text_feedback: data.freeText || null,
