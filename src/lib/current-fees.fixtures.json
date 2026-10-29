@@ -910,7 +910,7 @@
     "notes": "First 250 qualifying listings/month free; then $0.35 per additional listing/category. Store allowances and category exclusions differ.",
     "pricing_details": {
       "kind": "allowance",
-      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "basis": "per listing and per category; not per unit or a percentage of sale proceeds",
       "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
       "currency": "USD",
       "conditions": [
