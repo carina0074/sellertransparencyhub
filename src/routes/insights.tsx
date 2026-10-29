@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { notFound, createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { TrendingUp, TrendingDown, Users, Activity, Calendar, ArrowRight, BarChart3 } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -18,16 +18,11 @@ const insightsQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/insights")({
-  head: () => ({
-    meta: [
-      { title: "Marketplace Insights & Trend Reports — Seller Transparency Hub" },
-      { name: "description", content: "Current fee database coverage across Amazon, Walmart, eBay, Shopify, and Etsy, alongside period-specific marketplace fee trend reports." },
-      { property: "og:title", content: "Marketplace Insights & Trend Reports" },
-      { property: "og:description", content: "Multi-year analyses of marketplace fee changes, who benefits, and per-unit seller impact." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
+  // Hidden before publication (unsupported claims); source kept for future redevelopment.
+  beforeLoad: () => {
+    throw notFound();
+  },
+  head: () => ({ meta: [{ title: "Page not found | Seller Transparency Hub" }, { name: "robots", content: "noindex, nofollow" }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(insightsQuery),
   errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">

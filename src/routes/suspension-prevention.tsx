@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { notFound, createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import {
   ShieldAlert, Search, CheckCircle2, AlertTriangle, Clock, FileText,
@@ -17,14 +17,11 @@ import {
 } from "@/lib/appeals-library";
 
 export const Route = createFileRoute("/suspension-prevention")({
-  head: () => ({
-    meta: [
-      { title: "Amazon Suspension Appeal Library — 50+ real cases & playbooks" },
-      { name: "description", content: "A searchable library of real seller suspension cases across IP complaints, inauthentic claims, review manipulation, related accounts, late shipments, and verification." },
-      { property: "og:title", content: "Suspension Appeal Library" },
-      { property: "og:description", content: "50+ anonymized seller appeals with root cause, corrective actions, and outcomes." },
-    ],
-  }),
+  // Hidden before publication (unsupported claims); source kept for future redevelopment.
+  beforeLoad: () => {
+    throw notFound();
+  },
+  head: () => ({ meta: [{ title: "Page not found | Seller Transparency Hub" }, { name: "robots", content: "noindex, nofollow" }] }),
   component: SuspensionPage,
 });
 
