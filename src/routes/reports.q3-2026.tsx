@@ -22,9 +22,18 @@ export const Route = createFileRoute("/reports/q3-2026")({
 });
 
 function inline(text: string): ReactNode[] {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((p, i) =>
-    p.startsWith("**") && p.endsWith("**") ? <strong key={i} className="text-foreground">{p.slice(2, -2)}</strong> : p,
-  );
+  return text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)\s]+\))/g).map((p, i) => {
+    if (p.startsWith("**") && p.endsWith("**")) return <strong key={i} className="text-foreground">{p.slice(2, -2)}</strong>;
+    const link = p.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+    if (link) {
+      return (
+        <a key={i} href={link[2]} target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline-offset-2 hover:underline">
+          [{link[1]}]
+        </a>
+      );
+    }
+    return p;
+  });
 }
 
 function renderMarkdown(md: string) {
