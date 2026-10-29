@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import {
-  ArrowRight, Database, TrendingUp, Shield, BookOpen,
+  ArrowRight, Database, TrendingUp, BookOpen,
   CheckCircle2, Sparkles, Lock, FileText, BarChart3, Mail, History,
 } from "lucide-react";
 import { useState } from "react";

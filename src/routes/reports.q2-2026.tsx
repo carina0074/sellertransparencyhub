@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
-import { ArrowLeft, Calendar, Download, ExternalLink } from "lucide-react";
+import { Calendar, Download, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
