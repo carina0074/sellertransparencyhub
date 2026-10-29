@@ -70,7 +70,10 @@ export type PolicyChange = {
   title: string;
   summary: string;
   body_markdown: string | null;
-  effective_date: string;
+  effective_date: string | null;
+  effective_date_precision: "exact" | "month" | "year" | "unknown";
+  effective_period: string | null;
+  evidence_details: Json | null;
   announcement_date: string | null;
   impact_level: "low" | "medium" | "high";
   affected_sellers: string | null;
@@ -83,8 +86,9 @@ export const getPolicyChanges = createServerFn({ method: "GET" }).handler(
   async (): Promise<PolicyChange[]> => {
     const { data, error } = await supabase
       .from("policy_changes")
-      .select("id,marketplace,policy_area,title,summary,body_markdown,effective_date,announcement_date,impact_level,affected_sellers,source_url,source_title,last_verified")
-      .order("effective_date", { ascending: false });
+      .select("id,marketplace,policy_area,title,summary,body_markdown,effective_date,announcement_date,impact_level,affected_sellers,source_url,source_title,last_verified,effective_date_precision,effective_period,evidence_details")
+      .order("effective_date", { ascending: false, nullsFirst: false })
+      .order("id", { ascending: true });
     if (error) throw new Error(error.message);
     return (data ?? []).map((r) => ({
       ...r,

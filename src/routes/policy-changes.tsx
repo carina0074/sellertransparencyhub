@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getPolicyChanges, type PolicyChange } from "@/lib/fees.functions";
+import { policyEffectiveDate, policyEvidenceSchema } from "@/lib/policy-evidence";
 
 const policyChangesQuery = queryOptions({
   queryKey: ["policy-changes"],
@@ -16,10 +17,10 @@ const policyChangesQuery = queryOptions({
 export const Route = createFileRoute("/policy-changes")({
   head: () => ({
       meta: [
-        { title: "Marketplace Policy Archive — Suspension, Listing & Returns Rules" },
-      { name: "description", content: "A manually maintained record of marketplace policy updates with source, date, and scope information where available." },
+        { title: "Marketplace Policy Archive — Documented Changes | Seller Transparency Hub" },
+      { name: "description", content: "A manually maintained, source-linked collection of documented marketplace policy changes with evidence, applicable scope and qualified historical dates." },
       { property: "og:title", content: "Marketplace Policy Archive" },
-      { property: "og:description", content: "A manually maintained record of marketplace policy updates with source, date, and scope information where available." },
+      { property: "og:description", content: "Documented marketplace policy changes with first-party evidence, applicable scope and qualified historical dates." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -70,7 +71,7 @@ function PolicyChangesPage() {
       <PageHeader
         eyebrow="Public dataset"
         title="Marketplace Policy Archive"
-        description="A manually maintained record of marketplace policy updates with source, date, and scope information where available."
+        description="A manually maintained, source-linked collection of documented marketplace policy changes. Coverage is not exhaustive; dates and applicability reflect the available evidence."
         actions={
           <Button asChild variant="outline" size="sm">
             <a href="/api/public/policy-changes" target="_blank" rel="noreferrer">
@@ -162,24 +163,18 @@ function FilterGroup({
   );
 }
 
-function impactTone(level: PolicyChange["impact_level"]) {
-  if (level === "high") return "bg-destructive/10 text-destructive border-destructive/30";
-  if (level === "medium") return "bg-amber-500/10 text-amber-700 border-amber-500/30 dark:text-amber-400";
-  return "bg-emerald-500/10 text-emerald-700 border-emerald-500/30 dark:text-emerald-400";
-}
-
 function PolicyCard({ c }: { c: PolicyChange }) {
+  const parsed = policyEvidenceSchema.safeParse(c.evidence_details);
+  const evidence = parsed.success ? parsed.data : null;
   return (
     <Card className="border-border">
       <CardContent className="space-y-4 p-6">
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <Badge variant="secondary" className="rounded-full">{c.marketplace}</Badge>
           <Badge variant="outline" className="rounded-full">{c.policy_area}</Badge>
-          <span className={`rounded-full border px-2 py-0.5 font-medium ${impactTone(c.impact_level)}`}>
-            {c.impact_level} impact
-          </span>
+          {evidence && <Badge variant="outline">{evidence.status === "verified_policy_event" ? "Evidence reviewed" : "Timing not established"}</Badge>}
           <span className="ml-auto tabular-nums text-muted-foreground">
-            Effective {c.effective_date}
+            {c.effective_date_precision === "unknown" ? policyEffectiveDate(c) : `Effective ${policyEffectiveDate(c)}`}
           </span>
         </div>
         <h2 className="text-base font-semibold leading-snug text-foreground sm:text-lg">
@@ -198,12 +193,31 @@ function PolicyCard({ c }: { c: PolicyChange }) {
           {c.announcement_date && (
             <Detail label="Announced" value={c.announcement_date} />
           )}
-          <Detail label="Last verified" value={c.last_verified} />
+          <Detail label="Evidence reviewed" value={evidence?.reviewed_on ?? "Review not established"} />
         </dl>
-        <div className="flex items-center justify-between border-t border-border pt-3 text-xs">
+        {evidence && (
+          <div className="space-y-3 border-t border-border pt-3 text-sm">
+            <Detail label="Applicable scope" value={evidence.scope} />
+            <Detail label="Seller impact" value={evidence.impact} />
+            {evidence.conditions.length > 0 && <ul className="list-disc space-y-1 pl-5 text-muted-foreground">{evidence.conditions.map((condition) => <li key={condition}>{condition}</li>)}</ul>}
+            <details className="rounded-md border border-border p-3">
+              <summary className="cursor-pointer font-medium text-primary">First-party evidence</summary>
+              <p className="mt-3 text-xs text-muted-foreground">Review dates are evidence checks, not historical effective dates.</p>
+              {evidence.references.map((reference) => (
+                <div key={reference.url} className="mt-3 space-y-2">
+                  <a href={reference.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>
+                  <p className="text-xs text-muted-foreground">{reference.evidence_type} · {reference.heading}</p>
+                  <blockquote className="border-l-2 border-border pl-3 text-muted-foreground">{reference.quote}</blockquote>
+                  <p className="text-xs text-muted-foreground">Supports: {reference.supported_fields.join(", ")}</p>
+                </div>
+              ))}
+            </details>
+          </div>
+        )}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3 text-xs">
           <span className="text-muted-foreground">
             <span className="mr-1 rounded-full bg-primary-soft px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
-              Official
+              Source
             </span>
             {c.source_title}
           </span>
