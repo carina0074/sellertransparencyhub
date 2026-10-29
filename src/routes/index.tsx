@@ -371,7 +371,7 @@ function Index() {
             </h2>
           </div>
           <p className="mt-4 max-w-2xl text-muted-foreground">
-            Selected early platform milestones.
+            Selected milestones documenting the development of Seller Transparency Hub. Dates and descriptions are limited to events supported by available project records.
           </p>
           <ol className="mt-10 space-y-8 border-l border-border pl-6">
             {changelog.map((v) => (

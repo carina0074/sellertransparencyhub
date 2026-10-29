@@ -3,47 +3,57 @@ export interface ChangelogEntry {
   date: string;
   title: string;
   summary: string;
+  /** Date this public entry was last written or revised (not the milestone date). */
   updatedAt: string;
   records: { name: string; detail: string }[];
   sources: { title: string; url: string }[];
 }
 
+// Newest first. Only milestones supported by project records (repository history,
+// published-site analytics, dated report files) belong here.
 export const changelog: ChangelogEntry[] = [
+  {
+    slug: "october-2026",
+    date: "October 2026",
+    title: "Research Integrity & Source Verification Update",
+    summary:
+      "Reviewed published records and reports against marketplace-published documentation, then corrected, qualified, or retired claims the evidence didn't support. Coverage is described as curated and non-exhaustive.",
+    updatedAt: "2026-10-29",
+    records: [
+      { name: "Current fee records", detail: "Reviewed against current marketplace-published documentation. Tiered and conditional fees are shown as structured pricing instead of single flat rates, and review dates are kept separate from effective dates." },
+      { name: "Historical fee changes and policy events", detail: "Each event was checked for dated evidence. Unsupported events were retired from public view, and dates are shown only to the precision the evidence supports." },
+      { name: "Q2 2026 report review", detail: "The June 2026 report is kept as a historical publication. Source citations and labeled review notes were added separately." },
+      { name: "Q3 2026 report", detail: "Research and claim-level sourcing completed. Not yet publicly released at the time of this entry." },
+      { name: "Methodology", detail: "Rewritten to describe manual, source-reviewed research with no automated monitoring, along with its limitations." },
+    ],
+    sources: [],
+  },
+  {
+    slug: "q2-2026-report",
+    date: "June 2026",
+    title: "Q2 2026 Marketplace Fee Transparency Report",
+    summary:
+      "First quarterly research publication: a qualitative review of fee categories and transparency across Amazon, Walmart Marketplace, eBay, and Etsy for April–June 2026.",
+    updatedAt: "2026-10-29",
+    records: [
+      { name: "Original publication", detail: "Published as a PDF and web page in June 2026. The original PDF remains available unchanged." },
+      { name: "Later review", detail: "Source citations were added in October 2026 and are labeled separately from the original text." },
+    ],
+    sources: [],
+  },
   {
     slug: "june-2026",
     date: "June 2026",
-    title: "Marketplace Transparency Hub v1.0 — Public Launch",
-    summary: "Initial public release of the independent marketplace transparency platform, including searchable marketplace datasets and source-linked records.",
-    updatedAt: "2026-06-12",
+    title: "Public Launch",
+    summary:
+      "Seller Transparency Hub became publicly accessible, with an initial marketplace fee database, fee-change and policy pages, a fee calculator, and a methodology page.",
+    updatedAt: "2026-10-29",
     records: [
-      { name: "Marketplace Fee Database", detail: "200+ baseline fee records across Amazon, Walmart, and Shopify — referral, fulfillment, storage, and advertising fees." },
-      { name: "Fee Change Tracker", detail: "127 recorded fee-change events with impact levels, affected categories, and source links." },
-      { name: "Policy Archive", detail: "150+ policy records with effective dates, summaries, and source links." },
-      { name: "Seller Suspension Appeal Library", detail: "Searchable composite case examples and corrective-action guidance for suspension categories; outcomes are illustrative, not verified reinstatement results." },
-      { name: "Source references", detail: "Fee and policy records include source URL and title fields." },
+      { name: "Initial platform", detail: "Built and deployed in June 2026, with a database for fee records, fee-change events, and policy records." },
+      { name: "Source-linked records", detail: "Fee and policy records included fields for source documentation links." },
+      { name: "Public research pages", detail: "Fee Database, Fee Change Feed, Policy Archive, Calculator, and Methodology." },
     ],
-    sources: [
-      { title: "Amazon Seller Central — Selling Fees", url: "https://sellercentral.amazon.com/help/hub/reference/G200336920" },
-      { title: "Walmart Seller Center — Referral Fees", url: "https://sellerhelp.walmart.com/seller/s/guide?article=000007072" },
-      { title: "Shopify Pricing", url: "https://www.shopify.com/pricing" },
-    ],
-  },
-  {
-    slug: "may-2026",
-    date: "May 2026",
-    title: "Data Foundation & Source References",
-    summary: "Established the initial marketplace data structures and documented source links for fee and policy records.",
-    updatedAt: "2026-05-20",
-    records: [
-      { name: "Source references", detail: "Included example links to marketplace fee and policy documentation." },
-      { name: "Data schema v1", detail: "Defined separate fee, fee-change, policy, and composite-appeal structures; fee and policy records include source fields and selected timestamps." },
-      { name: "Record retrieval", detail: "Implemented database-backed retrieval of stored fee and policy records." },
-    ],
-    sources: [
-      { title: "Amazon Seller Central", url: "https://sellercentral.amazon.com/" },
-      { title: "Walmart Seller Center", url: "https://sellerhelp.walmart.com/" },
-      { title: "Shopify Help Center", url: "https://help.shopify.com/" },
-    ],
+    sources: [],
   },
 ];
 

@@ -56,7 +56,7 @@ function ChangelogDetail() {
           <Calendar className="h-4 w-4" />
           <span>{entry.date}</span>
           <span>·</span>
-          <span>Entry date: {entry.updatedAt}</span>
+          <span>Entry last revised: {entry.updatedAt}</span>
         </div>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           {entry.title}
@@ -81,8 +81,9 @@ function ChangelogDetail() {
         </div>
       </section>
 
+      {entry.sources.length > 0 && (
       <section className="mt-10">
-        <h2 className="text-lg font-semibold text-foreground">Marketplace reference links</h2>
+        <h2 className="text-lg font-semibold text-foreground">Related links</h2>
         <ul className="mt-4 space-y-2">
           {entry.sources.map((s) => (
             <li key={s.url}>
@@ -100,6 +101,7 @@ function ChangelogDetail() {
           ))}
         </ul>
       </section>
+      )}
     </div>
   );
 }
