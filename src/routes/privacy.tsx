@@ -71,9 +71,9 @@ function PrivacyPage() {
           <CardContent className="space-y-3 p-6 text-sm text-muted-foreground">
             <h2 className="text-base font-semibold text-foreground">Newsletter subscription</h2>
             <p>
-              The newsletter is a separate, explicit opt-in. Subscribing stores your email address
-              so we can send you quarterly reports, fee-change updates, policy changes, and
-              dataset releases. Submitting research feedback never subscribes you to the
+              The newsletter is a separate, explicit opt-in. Subscribing stores your email address.
+              Occasional updates when new research, reports, or dataset updates are published.
+              Submitting research feedback never subscribes you to the
               newsletter, and subscribing to the newsletter is never required to use any tool.
             </p>
           </CardContent>
