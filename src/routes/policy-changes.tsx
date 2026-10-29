@@ -17,9 +17,11 @@ export const Route = createFileRoute("/policy-changes")({
   head: () => ({
       meta: [
         { title: "Marketplace Policy Archive — Suspension, Listing & Returns Rules" },
-      { name: "description", content: "Public archive of marketplace policy changes across Amazon, Walmart, and Shopify. Effective dates, affected sellers, impact level, and source links." },
+      { name: "description", content: "A manually maintained record of marketplace policy updates with source, date, and scope information where available." },
       { property: "og:title", content: "Marketplace Policy Archive" },
-      { property: "og:description", content: "Continuously updated record of marketplace policy updates — every entry sourced and dated." },
+      { property: "og:description", content: "A manually maintained record of marketplace policy updates with source, date, and scope information where available." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(policyChangesQuery),
@@ -68,7 +70,7 @@ function PolicyChangesPage() {
       <PageHeader
         eyebrow="Public dataset"
         title="Marketplace Policy Archive"
-        description="A continuously maintained record of marketplace policy updates — suspension rules, listing requirements, returns, verification, and performance thresholds. Every entry links to the original source."
+        description="A manually maintained record of marketplace policy updates with source, date, and scope information where available."
         actions={
           <Button asChild variant="outline" size="sm">
             <a href="/api/public/policy-changes" target="_blank" rel="noreferrer">
@@ -79,10 +81,10 @@ function PolicyChangesPage() {
       />
       <section className="mx-auto max-w-7xl space-y-8 px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard icon={BookOpen} label="Official sources monitored" value={officialSources.toString()} />
+          <StatCard icon={BookOpen} label="Source links recorded" value={officialSources.toString()} />
           <StatCard icon={Layers} label="Policy records archived" value={changes.length.toString()} />
           <StatCard icon={Building2} label="Marketplaces covered" value={(marketplaces.length - 1).toString()} />
-          <StatCard icon={RefreshCw} label="Historical coverage" value="Updated daily" />
+          <StatCard icon={RefreshCw} label="Maintenance" value="Manually maintained" />
         </div>
 
         <div className="flex flex-wrap items-center gap-3 rounded-xl border border-border bg-secondary/40 p-3">
@@ -107,7 +109,7 @@ function PolicyChangesPage() {
             Part of the public dataset suite
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            This archive sits alongside three other continuously maintained datasets — the{" "}
+            This archive sits alongside three other public resources — the{" "}
             <Link to="/rate-card" className="text-primary hover:underline">Fee Database</Link>, the{" "}
             <Link to="/fees" className="text-primary hover:underline">Fee Change Tracker</Link>, and the{" "}
             <Link to="/suspension-prevention" className="text-primary hover:underline">Seller Suspension Appeal Library</Link>.

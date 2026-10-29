@@ -110,21 +110,21 @@ const datasets = [
   {
     icon: TrendingUp,
     title: "Fee Change Tracker",
-    desc: "Historical and upcoming fee changes with impact levels, affected categories, and direct links to official announcements.",
+    desc: "Recorded marketplace fee-change events with available source and effective-date information.",
     to: "/fees",
     cta: "Track fee changes",
   },
   {
     icon: Shield,
     title: "Seller Suspension Appeal Database",
-    desc: "Appeal templates, policy references, and successful reinstatement strategies for common suspension types.",
+    desc: "Searchable composite case examples and corrective-action guidance for suspension categories; outcomes are illustrative, not verified reinstatement results.",
     to: "/suspension-prevention",
     cta: "Explore appeals",
   },
   {
     icon: BookOpen,
     title: "Marketplace Policy Archive",
-    desc: "Continuously archived policy updates from official sources. Track what changed, when it took effect, and who it impacts.",
+    desc: "A manually maintained record of marketplace policy updates with source, date, and scope information where available.",
     to: "/policy-changes",
     cta: "Browse policy archive",
   },
@@ -272,7 +272,7 @@ function Index() {
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Four public datasets, continuously maintained.
+            Four public resources, independently maintained.
           </h2>
           <p className="mt-4 text-muted-foreground">
             Tangible data assets you can search, filter, and reference — not gated reports or vague summaries.
@@ -308,7 +308,7 @@ function Index() {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-3 lg:px-8">
           {[
             { icon: Lock, title: "Independent by design", desc: "We don't sell leads to marketplaces. Our datasets exist to protect your margin and your account." },
-            { icon: FileText, title: "Sourced from official policy", desc: "Every record is traceable to a primary source — no speculation, no recycled blog content." },
+            { icon: FileText, title: "Documented source links", desc: "Fee and policy records include source links and date information where available." },
             { icon: BarChart3, title: "Decision-ready outputs", desc: "Data you can act on immediately. Filter by marketplace, category, date, or impact level." },
           ].map((p) => (
             <div key={p.title}>
@@ -371,7 +371,7 @@ function Index() {
             </h2>
           </div>
           <p className="mt-4 max-w-2xl text-muted-foreground">
-            A running log of dataset additions and platform updates.
+            Selected early platform milestones.
           </p>
           <ol className="mt-10 space-y-8 border-l border-border pl-6">
             {changelog.map((v) => (
@@ -385,7 +385,7 @@ function Index() {
                   params={{ slug: v.slug }}
                   className="mt-2 inline-flex items-center text-sm font-medium text-primary hover:text-foreground"
                 >
-                  View Changes <ArrowRight className="ml-1 h-4 w-4" />
+                  Read milestone summary <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
               </li>
             ))}
