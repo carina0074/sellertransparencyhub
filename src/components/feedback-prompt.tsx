@@ -12,7 +12,13 @@ import {
   USE_CASE_OPTIONS,
   USEFULNESS_LABELS,
   USEFULNESS_OPTIONS,
+  USER_TYPE_OPTIONS,
+  USER_TYPE_LABELS,
+  INFO_ACCESS_OPTIONS,
+  INFO_ACCESS_LABELS,
   type Usefulness,
+  type UserType,
+  type InfoAccess,
 } from "@/lib/feedback.functions";
 import { trackEvent } from "@/lib/analytics";
 
@@ -38,6 +44,8 @@ export function FeedbackPrompt({
   onClose?: () => void;
 }) {
   const [usefulness, setUsefulness] = useState<Usefulness | null>(null);
+  const [userType, setUserType] = useState<UserType | null>(null);
+  const [infoAccess, setInfoAccess] = useState<InfoAccess | null>(null);
   const [marketplaces, setMarketplaces] = useState<string[]>([]);
   const [useCases, setUseCases] = useState<string[]>([]);
   const [freeText, setFreeText] = useState("");
@@ -68,6 +76,8 @@ export function FeedbackPrompt({
           resourceType,
           resourcePath,
           usefulness,
+          userType: userType ?? undefined,
+          informationAccess: infoAccess ?? undefined,
           marketplaces,
           useCases,
           freeText: freeText || undefined,
@@ -134,9 +144,21 @@ export function FeedbackPrompt({
 
             {usefulness && (
               <div className="mt-5 space-y-5 border-t border-border pt-5">
+                <fieldset>
+                  <legend className="text-sm font-medium text-foreground">What best describes you? <span className="font-normal text-muted-foreground">(optional)</span></legend>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {USER_TYPE_OPTIONS.map((o) => (
+                      <Button key={o} type="button" size="sm" aria-pressed={userType === o}
+                        variant={userType === o ? "default" : "outline"}
+                        onClick={() => { markStarted(); setUserType((c) => (c === o ? null : o)); }}>
+                        {USER_TYPE_LABELS[o]}
+                      </Button>
+                    ))}
+                  </div>
+                </fieldset>
                 <fieldset onChange={markStarted}>
                   <legend className="text-sm font-medium text-foreground">
-                    Which marketplace(s) do you sell on or work with?
+                    Which marketplace(s) are relevant to what you were researching? <span className="font-normal text-muted-foreground">(optional)</span>
                   </legend>
                   <div className="mt-2 grid gap-2 sm:grid-cols-2">
                     {MARKETPLACE_OPTIONS.map((m) => (
@@ -153,7 +175,7 @@ export function FeedbackPrompt({
 
                 <fieldset>
                   <legend className="text-sm font-medium text-foreground">
-                    What did you use Seller Transparency Hub for today?
+                    What were you trying to do? <span className="font-normal text-muted-foreground">(optional)</span>
                   </legend>
                   <div className="mt-2 grid gap-2 sm:grid-cols-2">
                     {USE_CASE_OPTIONS.map((c) => (
@@ -168,9 +190,23 @@ export function FeedbackPrompt({
                   </div>
                 </fieldset>
 
+
+                <fieldset>
+                  <legend className="text-sm font-medium text-foreground">Did this resource help you understand information that was previously difficult to find or compare? <span className="font-normal text-muted-foreground">(optional)</span></legend>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {INFO_ACCESS_OPTIONS.map((o) => (
+                      <Button key={o} type="button" size="sm" aria-pressed={infoAccess === o}
+                        variant={infoAccess === o ? "default" : "outline"}
+                        onClick={() => { markStarted(); setInfoAccess((c) => (c === o ? null : o)); }}>
+                        {INFO_ACCESS_LABELS[o]}
+                      </Button>
+                    ))}
+                  </div>
+                </fieldset>
+
                 <div>
                   <label htmlFor={`fb-text-${resourceType}`} className="text-sm font-medium text-foreground">
-                    How did this resource help you? <span className="font-normal text-muted-foreground">(optional — critical feedback welcome)</span>
+                    What was useful, confusing, or missing? <span className="font-normal text-muted-foreground">(optional)</span>
                   </label>
                   <Textarea
                     id={`fb-text-${resourceType}`}
@@ -183,20 +219,24 @@ export function FeedbackPrompt({
                 </div>
 
                 <div>
-                  <label className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <Checkbox
-                      className="mt-0.5"
-                      checked={followUp}
-                      onCheckedChange={(c) => setFollowUp(c === true)}
-                    />
-                    I'm open to a short follow-up conversation about how I use marketplace fee
-                    information.
-                  </label>
+                  <fieldset>
+                    <legend className="text-sm font-medium text-foreground">May we contact you about your feedback?</legend>
+                    <div className="mt-2 flex gap-2">
+                      {([true, false] as const).map((v) => (
+                        <Button key={String(v)} type="button" size="sm" aria-pressed={followUp === v}
+                          variant={followUp === v ? "default" : "outline"}
+                          onClick={() => { setFollowUp(v); if (!v) setEmail(""); }}>
+                          {v ? "Yes" : "No"}
+                        </Button>
+                      ))}
+                    </div>
+                  </fieldset>
                   {followUp && (
                     <div className="mt-3">
                       <Input
                         type="email"
                         placeholder="Email (optional)"
+                        aria-label="Follow-up email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="max-w-sm"

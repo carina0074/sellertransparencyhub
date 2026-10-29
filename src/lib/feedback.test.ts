@@ -64,3 +64,20 @@ describe("feedbackSchema", () => {
     expect(feedbackSchema.safeParse({ ...valid, resourcePath: "" }).success).toBe(false);
   });
 });
+
+describe("feedbackSchema research fields", () => {
+  test("new optional fields may be omitted", () => {
+    const r = feedbackSchema.safeParse(valid);
+    expect(r.success && r.data.userType).toBeUndefined();
+  });
+  test("accepts the four user types and three info-access answers", () => {
+    for (const userType of ["marketplace_seller", "service_provider", "researcher", "other"] as const)
+      expect(feedbackSchema.safeParse({ ...valid, userType }).success).toBe(true);
+    for (const informationAccess of ["yes", "somewhat", "no"] as const)
+      expect(feedbackSchema.safeParse({ ...valid, informationAccess }).success).toBe(true);
+  });
+  test("rejects unknown user type or info-access answer", () => {
+    expect(feedbackSchema.safeParse({ ...valid, userType: "investor" }).success).toBe(false);
+    expect(feedbackSchema.safeParse({ ...valid, informationAccess: "not_really" }).success).toBe(false);
+  });
+});

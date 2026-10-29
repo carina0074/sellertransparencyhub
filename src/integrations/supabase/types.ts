@@ -170,11 +170,13 @@ export type Database = {
           follow_up_opt_in: boolean
           free_text_feedback: string | null
           id: string
+          information_access_response: string | null
           marketplaces: string[]
           resource_path: string
           resource_type: string
           use_cases: string[]
           usefulness_response: string
+          user_type: string | null
         }
         Insert: {
           created_at?: string
@@ -182,11 +184,13 @@ export type Database = {
           follow_up_opt_in?: boolean
           free_text_feedback?: string | null
           id?: string
+          information_access_response?: string | null
           marketplaces?: string[]
           resource_path: string
           resource_type: string
           use_cases?: string[]
           usefulness_response: string
+          user_type?: string | null
         }
         Update: {
           created_at?: string
@@ -194,11 +198,13 @@ export type Database = {
           follow_up_opt_in?: boolean
           free_text_feedback?: string | null
           id?: string
+          information_access_response?: string | null
           marketplaces?: string[]
           resource_path?: string
           resource_type?: string
           use_cases?: string[]
           usefulness_response?: string
+          user_type?: string | null
         }
         Relationships: []
       }
