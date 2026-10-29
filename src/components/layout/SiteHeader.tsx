@@ -5,21 +5,17 @@ import { Button } from "@/components/ui/button";
 
 const products = [
   { to: "/rate-card", label: "Fee Database" },
-  { to: "/fees", label: "Fee Change Tracker" },
-  { to: "/policy-changes", label: "Policy Archive" },
-  { to: "/suspension-prevention", label: "Appeal Library" },
+  { to: "/fees", label: "Fee Change Feed" },
+  { to: "/calculator", label: "Calculator" },
 ] as const;
 
 const research = [
   { to: "/reports/q3-2026", label: "Marketplace Fee Reports" },
-  { to: "/insights", label: "Industry Insights" },
   { to: "/methodology", label: "Methodology" },
-  { to: "/resources", label: "Resources" },
 ] as const;
 
 const company = [
   { to: "/about", label: "About" },
-  { to: "/about", label: "Contact" },
 ] as const;
 
 function Dropdown({

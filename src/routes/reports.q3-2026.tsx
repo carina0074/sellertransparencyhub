@@ -11,9 +11,9 @@ export const Route = createFileRoute("/reports/q3-2026")({
   head: () => ({
     meta: [
       { title: "Q3 2026 Marketplace Fee Transparency Report | Seller Transparency Hub" },
-      { name: "description", content: "Q3 2026 (July–September) analysis of marketplace fees and seller policies across Amazon, Walmart, eBay, and Etsy." },
+      { name: "description", content: "Q3 2026 (July–September) analysis of marketplace fees and seller policies across Amazon, Walmart Marketplace, eBay, Etsy, and Shopify." },
       { property: "og:title", content: "Q3 2026 Marketplace Fee Transparency Report" },
-      { property: "og:description", content: "Quarterly tracking of fee and policy changes across Amazon, Walmart, eBay, and Etsy for July–September 2026." },
+      { property: "og:description", content: "Quarterly tracking of fee and policy changes across Amazon, Walmart Marketplace, eBay, Etsy, and Shopify for July–September 2026." },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -86,7 +86,7 @@ function Q3Report() {
   }, []);
   return (
     <>
-      <PageHeader eyebrow="Q3 2026 Report" title="Marketplace Fee Transparency Report" description="Seller Transparency Hub — Amazon, Walmart Marketplace, eBay, and Etsy" />
+      <PageHeader eyebrow="Q3 2026 Report" title="Marketplace Fee Transparency Report" description="Seller Transparency Hub — Amazon, Walmart Marketplace, eBay, Etsy, and Shopify" />
       <article className="mx-auto max-w-3xl space-y-5 px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Calendar className="h-4 w-4" /> Reporting Period: July 1 – September 30, 2026

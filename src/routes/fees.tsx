@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { Search, TrendingUp, TrendingDown, ExternalLink, BookOpen } from "lucide-react";
+import { Search, TrendingUp, TrendingDown, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -73,14 +73,6 @@ function FeesPage() {
         eyebrow="HISTORICAL DATASET"
         title="Seller Fee Change Feed"
         description="A manually maintained, evidence-backed collection of documented marketplace fee-change events, not an exhaustive history of every marketplace change."
-        actions={
-          <Link
-            to="/impact-reports"
-            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
-          >
-            <BookOpen className="h-4 w-4" /> Read impact reports
-          </Link>
-        }
       />
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-3 sm:grid-cols-[1fr_180px_200px]">

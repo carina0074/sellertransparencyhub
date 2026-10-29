@@ -484,13 +484,7 @@ function Q2_2026_ReportPage() {
         </section>
 
         {/* Footer nav */}
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8">
-          <Button asChild variant="ghost">
-            <Link to="/impact-reports">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              All Reports
-            </Link>
-          </Button>
+        <div className="mt-12 flex flex-wrap items-center justify-end gap-4 border-t border-border pt-8">
           <Button asChild variant="outline">
             <Link to="/reports/q3-2026">Next: Q3 2026 →</Link>
           </Button>

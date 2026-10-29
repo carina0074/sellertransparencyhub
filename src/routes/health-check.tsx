@@ -10,10 +10,10 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/health-check")({
   head: () => ({
     meta: [
-      { title: "Seller Account Health Checker — Suspension Risk Assessment" },
-      { name: "description", content: "Score your seller account on a 0-100 scale. Get an Amazon, Walmart, and Shopify suspension risk assessment with actionable recommendations." },
+      { title: "Account Health Checker — Educational Self-Assessment" },
+      { name: "description", content: "An educational self-assessment that gives a rough heuristic score from common seller performance metrics. Not an official marketplace score." },
       { property: "og:title", content: "Account Health Checker" },
-      { property: "og:description", content: "Suspension risk scoring and recommendations for marketplace sellers." },
+      { property: "og:description", content: "Educational heuristic self-assessment for marketplace sellers. Not an official marketplace score." },
     ],
   }),
   component: HealthCheckPage,
@@ -68,7 +68,7 @@ function HealthCheckPage() {
       <PageHeader
         eyebrow="Tool"
         title="Account Health Checker"
-        description="Score your seller account on a 0-100 scale using the same metrics marketplaces watch. Built on Amazon, Walmart, and Shopify policy."
+        description="An educational self-assessment that gives a rough 0-100 heuristic score from common seller performance metrics. It is not an official marketplace score, not marketplace policy, and not a guarantee or prediction of account standing or enforcement."
       />
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1fr_420px]">
