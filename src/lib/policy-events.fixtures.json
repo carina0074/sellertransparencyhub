@@ -1,0 +1,61 @@
+[
+  {
+    "id": "51561c2b-a955-4b42-8d0b-b7a1e73253e2",
+    "marketplace": "eBay",
+    "policy_area": "Shipping",
+    "title": "eBay UK announces Simple Delivery rollout for private sellers",
+    "summary": "In a documented announcement published 4 April 2025, eBay UK said Simple Delivery would be the only delivery method for private sellers listing most items starting 15 April 2025.",
+    "body_markdown": "Eligible existing listings were scheduled to transition from 7 April through the end of April 2025. These are announced rollout dates, not proof that every eligible seller or listing was switched on one day.",
+    "effective_date": "2025-04-15",
+    "announcement_date": "2025-04-04",
+    "impact_level": "medium",
+    "affected_sellers": "UK private sellers on eBay.co.uk listing eligible items; not business sellers",
+    "source_url": "https://community.ebay.co.uk/forum/announcements-28/topic/updates-on-simple-delivery-automated-positive-feedback-us-tariffs-and-seller-meetups-17246/",
+    "source_title": "eBay UK staff announcement — Updates on Simple Delivery",
+    "last_verified": "2026-10-29",
+    "created_at": "2026-06-12T19:28:13.373266+00:00",
+    "updated_at": "2026-06-12T19:28:13.373266+00:00",
+    "effective_date_precision": "exact",
+    "effective_period": null,
+    "evidence_details": {
+      "status": "verified_policy_event",
+      "reviewed_on": "2026-10-29",
+      "scope": "eBay.co.uk UK private sellers listing eligible items; not business sellers or all categories",
+      "conditions": [
+        "15 April 2025 is the announced start for new listings, not verified universal enforcement.",
+        "Eligible existing listings were scheduled to transition from 7 April through the end of April 2025; completion is not independently established.",
+        "The April announcement excludes custom-delivery items exceeding 61 × 46 × 46 cm or 20 kg, Authenticity Guarantee items, and items exceeding £750 (listed-price thresholds excluding shipping).",
+        "Some letter-sized categories weighing up to 100 grams and priced at a maximum of £10 excluding buyer fees could still use untracked services. These are historical announcement conditions, not a claim about current limits."
+      ],
+      "impact": "For in-scope listings, sellers would use an eBay-provided QR code/prepaid printable label instead of purchasing their own label. No measured operational disruption or quantified economic impact is asserted.",
+      "references": [
+        {
+          "title": "eBay UK — Updates on Simple Delivery",
+          "url": "https://community.ebay.co.uk/forum/announcements-28/topic/updates-on-simple-delivery-automated-positive-feedback-us-tariffs-and-seller-meetups-17246/",
+          "quote": "Starting from 15 April, Simple Delivery will be the only delivery method available for private sellers when listing most items.",
+          "heading": "Ship confidently & easily with Simple Delivery",
+          "evidence_type": "Dated first-party staff announcement; publication metadata 2025-04-04T14:31:19.973000Z",
+          "supported_fields": [
+            "policy event",
+            "announced new-listing start",
+            "private-seller scope",
+            "UK geography",
+            "documented announcement date"
+          ]
+        },
+        {
+          "title": "eBay UK — Simple Delivery existing listings and exceptions",
+          "url": "https://community.ebay.co.uk/forum/announcements-28/topic/updates-on-simple-delivery-automated-positive-feedback-us-tariffs-and-seller-meetups-17246/",
+          "quote": "From 7th of April, Simple Delivery will automatically apply to eligible existing listings, with the transition completed by the end of the month.",
+          "heading": "Getting set up with Simple Delivery / More about the items which will and won’t use Simple Delivery",
+          "evidence_type": "Dated first-party rollout announcement",
+          "supported_fields": [
+            "announced existing-listing transition",
+            "eligibility and exceptions",
+            "seller shipping workflow"
+          ]
+        }
+      ]
+    }
+  }
+]
