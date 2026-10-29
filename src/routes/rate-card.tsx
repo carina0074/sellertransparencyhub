@@ -13,7 +13,7 @@ import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import { getFeeRecords, getDatabaseStats } from "@/lib/fees.functions";
-import { presentFee } from "@/lib/fee-formatting";
+import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@/lib/fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
 import { trackEvent } from "@/lib/analytics";
@@ -32,9 +32,9 @@ export const Route = createFileRoute("/rate-card")({
   head: () => ({
     meta: [
       { title: "Marketplace Fee Database — Amazon, Walmart, eBay, Shopify, Etsy rates" },
-      { name: "description", content: "A public database of Amazon, Walmart, eBay, Shopify, and Etsy seller fees. Every record carries a source URL and last-verified date." },
+      { name: "description", content: "Current U.S. seller fees for Amazon, Walmart, eBay, Shopify, and Etsy, with pricing tiers, applicability, first-party evidence and current-value review status." },
       { property: "og:title", content: "Marketplace Fee Database" },
-      { property: "og:description", content: "Sourced, dated, and auditable marketplace fee data for e-commerce sellers." },
+      { property: "og:description", content: "Current U.S. marketplace fees with pricing conditions, official evidence and separate current-value and effective-date information." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -114,7 +114,7 @@ function RateCardPage() {
       <PageHeader
         eyebrow="Public data asset"
         title="Marketplace Fee Database"
-        description="Current fee records for Amazon, Walmart, eBay, Shopify, and Etsy — marketplace, category label, fee type, current value, source URL, effective date, and last-verified date."
+        description="Current U.S. seller fees for Amazon, Walmart, eBay, Shopify, and Etsy — with pricing conditions, official sources, current-value review status, and effective dates where independently established."
       />
       <section className="mx-auto max-w-7xl space-y-6 px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -125,6 +125,9 @@ function RateCardPage() {
         </div>
         <p className="text-xs text-muted-foreground">
           Latest fee verification: {formatVerificationDate(stats.lastUpdated)} · <a href="/methodology" className="text-primary hover:underline">Methodology</a> · <a href="/api/public/fees" className="text-primary hover:underline">Public API</a>
+        </p>
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          Amazon FBA fulfillment varies by dimensions, shipping weight, price, product class, season and program eligibility. Former flat-fee records have been retired; consult the <a href="https://sellercentral.amazon.com/help/hub/reference/external/GABBX6GZPA8MSZGW" target="_blank" rel="noreferrer" className="text-primary hover:underline">current official FBA schedule</a> and its fuel/logistics surcharge. Current-value verification does not establish a fee’s original effective date.
         </p>
 
         <div className="grid gap-3 sm:grid-cols-[1fr_180px_200px]">
@@ -171,7 +174,7 @@ function RateCardPage() {
                     <TableHead>Category</TableHead>
                     <TableHead className="text-right">Value</TableHead>
                     <TableHead>Effective</TableHead>
-                    <TableHead>Last verified</TableHead>
+                    <TableHead>Current-value review</TableHead>
                     <TableHead className="text-right">Source</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -185,17 +188,30 @@ function RateCardPage() {
                       </TableCell>
                       <TableCell className="text-muted-foreground">
                         {r.fee_name}
-                        {r.notes && <p className="mt-1 max-w-80 whitespace-normal text-xs leading-relaxed text-muted-foreground/80">{r.notes}</p>}
-                        {presentation.details && <div className="mt-2 min-w-48 max-w-80 space-y-2 whitespace-normal text-xs leading-relaxed">
-                          {presentation.details.conditions.map((condition) => <p key={condition}>{condition}</p>)}
-                        </div>}
+                        {r.notes && <p className="mt-1 min-w-48 max-w-80 whitespace-normal text-xs leading-relaxed text-muted-foreground/80">{r.notes}</p>}
+                        {presentation.details && <details className="mt-2 min-w-48 max-w-80 whitespace-normal text-xs leading-relaxed">
+                          <summary className="cursor-pointer font-medium text-primary">Fee details &amp; conditions</summary>
+                          <div className="mt-2 space-y-2">
+                            {presentation.details.scope && <p><strong>Scope:</strong> {presentation.details.scope}</p>}
+                            {presentation.details.basis && <p><strong>Basis:</strong> {presentation.details.basis}</p>}
+                            {presentation.details.kind === "tiered" && <ul className="space-y-1">
+                              {presentation.details.tiers.map((t) => <li key={t.label}><strong>{t.label}:</strong> {tierAmount(t, presentation.details?.kind === "tiered" ? presentation.details.unit : "")}{t.effective_date && ` (effective ${t.effective_date})`}</li>)}
+                            </ul>}
+                            {presentation.details.minimum_minor != null && <p>Minimum referral fee: ${(presentation.details.minimum_minor / 100).toFixed(2)} USD per item, where applicable.</p>}
+                            {presentation.details.separate_closing_minor !== undefined && <p>Separate closing fee: ${(presentation.details.separate_closing_minor / 100).toFixed(2)} USD per item sold (not part of the percentage).</p>}
+                            {presentation.details.conditions.map((condition) => <p key={condition}>{condition}</p>)}
+                          </div>
+                        </details>}
                       </TableCell>
                       <TableCell className="font-medium text-foreground">{r.category}</TableCell>
                       <TableCell className="text-right font-semibold tabular-nums">
                         <span className={presentation.details ? "block min-w-36 max-w-52 whitespace-normal" : undefined}>{presentation.value}</span>
                       </TableCell>
-                      <TableCell className="text-muted-foreground tabular-nums">{r.effective_date}</TableCell>
-                      <TableCell className="text-muted-foreground tabular-nums">{r.last_verified}</TableCell>
+                      <TableCell className="max-w-40 whitespace-normal text-xs text-muted-foreground tabular-nums">{effectiveDateLabel(r.effective_date)}</TableCell>
+                      <TableCell className="text-muted-foreground tabular-nums">
+                        <Badge variant="outline" className="max-w-40 whitespace-normal text-xs">{verificationLabel(r.verification_status)}</Badge>
+                        <p className="mt-1 text-xs">{r.verification_status === "verification_pending" ? "Previous review: " : "Reviewed: "}{r.last_verified}</p>
+                      </TableCell>
                       <TableCell className="text-right">
                         <a
                           href={r.source_url}
@@ -209,7 +225,7 @@ function RateCardPage() {
                         </a>
                         {presentation.details && <div className="mt-2 space-y-2 whitespace-normal text-xs">
                           {presentation.details.references.map((reference) => <a key={reference.url} href={reference.url} target="_blank" rel="noreferrer" className="block text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>)}
-                          <p className="text-muted-foreground">Supporting sources checked {presentation.details.reviewed_on}; original dates retained.</p>
+                          <p className="text-muted-foreground">Current-value evidence reviewed {presentation.details.reviewed_on}.</p>
                         </div>}
                       </TableCell>
                     </TableRow>

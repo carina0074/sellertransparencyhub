@@ -3,7 +3,6 @@ import {
   amazonReferralFee,
   calculateFees,
   WALMART_REFERRAL_RATES,
-  WALMART_WFS_SMALL_FEE,
   type FeeInputs,
 } from "./marketplace-fees";
 
@@ -37,9 +36,11 @@ describe("Amazon referral tiers", () => {
     close(amazonReferralFee("grocery", 25), 3.75);
   });
 
-  test("Electronics: 15% on portion ≤ $100, 8% above", () => {
-    close(amazonReferralFee("electronics", 80), 12.0);
-    close(amazonReferralFee("electronics", 150), 15 + 4);
+  test("Consumer Electronics 8% is distinct from Accessories marginal tiers", () => {
+    close(amazonReferralFee("electronics", 80), 6.4);
+    close(amazonReferralFee("electronics", 150), 12);
+    close(amazonReferralFee("electronics_accessories", 150), 15 + 4);
+    close(amazonReferralFee("home", 1), 0.30);
   });
 
   test("Flat categories unchanged: home 15%, toys 15%, books 15%, tools 15%", () => {
@@ -55,6 +56,8 @@ describe("Walmart uses verified Walmart rates, never Amazon-derived", () => {
     close(calculateFees({ ...base, marketplace: "walmart", category: "apparel" }).referralFee, 4.5);
     close(calculateFees({ ...base, marketplace: "walmart", category: "electronics", price: 100 }).referralFee, 8.0);
     close(calculateFees({ ...base, marketplace: "walmart", category: "home" }).referralFee, 4.5);
+    close(calculateFees({ ...base, marketplace: "walmart", category: "apparel", price:15 }).referralFee, 0.75);
+    close(calculateFees({ ...base, marketplace: "walmart", category: "apparel", price:20 }).referralFee, 2);
   });
 
   test("No Walmart rate is the Amazon rate × 0.95", () => {
@@ -74,9 +77,10 @@ describe("Walmart uses verified Walmart rates, never Amazon-derived", () => {
     }
   });
 
-  test("WFS fulfillment: $3.45 only for Small ≤ 1 lb; other sizes flagged unsupported", () => {
+  test("WFS cannot estimate a base from unit weight without packaged dimensions and eligibility", () => {
     const small = calculateFees({ ...base, marketplace: "walmart", category: "home", weightLb: 1 });
-    close(small.fulfillmentFee, WALMART_WFS_SMALL_FEE);
+    expect(small.fulfillmentFee).toBe(0);
+    expect(small.unsupported.some((u) => u.includes("WFS fulfillment"))).toBe(true);
     const heavy = calculateFees({ ...base, marketplace: "walmart", category: "home", weightLb: 2 });
     expect(heavy.fulfillmentFee).toBe(0);
     expect(heavy.unsupported.some((u) => u.includes("WFS fulfillment"))).toBe(true);
@@ -84,9 +88,10 @@ describe("Walmart uses verified Walmart rates, never Amazon-derived", () => {
     expect(large.unsupported.some((u) => u.includes("WFS fulfillment"))).toBe(true);
   });
 
-  test("Walmart storage uses the verified WFS $0.75/cu ft, not Amazon's $0.87", () => {
+  test("Walmart storage is not estimated without season, actual volume and age", () => {
     const r = calculateFees({ ...base, marketplace: "walmart", category: "home", storageMonths: 2 });
-    close(r.storageFee, 0.05 * 0.75 * 2);
+    expect(r.storageFee).toBe(0);
+    expect(r.unsupported.some((u) => u.includes("WFS storage"))).toBe(true);
   });
 });
 
@@ -105,22 +110,32 @@ describe("Etsy verified values", () => {
 });
 
 describe("Amazon fulfillment and storage", () => {
-  test("FBA fulfillment matches verified tier fees with no weight surcharge", () => {
-    close(calculateFees({ ...base, weightLb: 3 }).fulfillmentFee, 3.22);
-    close(calculateFees({ ...base, sizeTier: "large_standard" }).fulfillmentFee, 5.87);
-    close(calculateFees({ ...base, sizeTier: "small_oversize" }).fulfillmentFee, 9.61);
-    close(calculateFees({ ...base, sizeTier: "medium_oversize" }).fulfillmentFee, 14.32);
+  test("FBA complex current schedule is not approximated with retired universal flat values", () => {
+    for (const sizeTier of ["small_standard","large_standard","small_oversize","medium_oversize"] as const) {
+      const r = calculateFees({ ...base, sizeTier });
+      expect(r.fulfillmentFee).toBe(0);
+      expect(r.unsupported.some((u) => u.includes("Amazon FBA fulfillment"))).toBe(true);
+    }
   });
 
-  test("Amazon storage uses $0.87/cu ft (Jan–Sep)", () => {
-    close(calculateFees({ ...base, storageMonths: 2 }).storageFee, 0.05 * 0.87 * 2);
+  test("Amazon storage cannot infer season and volume from months alone", () => {
+    const r = calculateFees({ ...base, storageMonths: 2 });
+    expect(r.storageFee).toBe(0);
+    expect(r.unsupported.some((u) => u.includes("Amazon storage"))).toBe(true);
   });
 });
 
-describe("Supported marketplaces never report unsupported components", () => {
-  test("Amazon, Shopify, Etsy produce no unsupported flags", () => {
-    for (const marketplace of ["amazon", "shopify", "etsy"] as const) {
-      expect(calculateFees({ ...base, marketplace }).unsupported).toEqual([]);
+describe("Excluded components are explicit", () => {
+  test("Shopify and Etsy disclose applicable exclusions rather than imply all-in totals", () => {
+    for (const marketplace of ["shopify", "etsy"] as const) {
+      expect(calculateFees({ ...base, marketplace }).unsupported.length).toBeGreaterThan(0);
     }
+  });
+  test("Amazon Books charges $1.80 separately and includes it exactly once", () => {
+    const r = calculateFees({ ...base, category:"books" });
+    expect(r.closingFee).toBe(1.80);
+    expect(r.referralFee).toBe(4.50);
+    expect(r.totalFees).toBeCloseTo(r.referralFee+r.closingFee+r.fulfillmentFee+r.storageFee+r.returnCost,2);
+    expect(calculateFees(base).closingFee).toBe(0);
   });
 });

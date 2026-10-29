@@ -104,7 +104,7 @@ export type Database = {
         Row: {
           category: string
           created_at: string
-          effective_date: string
+          effective_date: string | null
           fee_name: string
           fee_type: string
           id: string
@@ -116,11 +116,12 @@ export type Database = {
           source_url: string
           value: number
           value_type: string
+          verification_status: string
         }
         Insert: {
           category: string
           created_at?: string
-          effective_date: string
+          effective_date?: string | null
           fee_name: string
           fee_type: string
           id?: string
@@ -132,11 +133,12 @@ export type Database = {
           source_url: string
           value: number
           value_type: string
+          verification_status?: string
         }
         Update: {
           category?: string
           created_at?: string
-          effective_date?: string
+          effective_date?: string | null
           fee_name?: string
           fee_type?: string
           id?: string
@@ -148,6 +150,7 @@ export type Database = {
           source_url?: string
           value?: number
           value_type?: string
+          verification_status?: string
         }
         Relationships: []
       }
