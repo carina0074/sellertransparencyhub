@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Diagnose production Policy Archive against canonical data without research/data changes; correct only stale presentation if needed.
+- [ ] Align only Privacy newsletter-purpose wording, run existing tests and preview validation; do not publish.
+
 - [x] Preserve every original policy record and verify claims, timing, scope and taxonomy against first-party evidence.
 - [x] Remediate policy records only and present evidence/date precision without unsupported coverage claims.
 - [x] Independently re-check retained policies, validate filters/UI/tests and excluded datasets, and deliver before/after remediation report without publishing.
