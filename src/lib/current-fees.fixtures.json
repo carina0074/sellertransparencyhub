@@ -1,0 +1,1620 @@
+[
+  {
+    "id": "56d6e086-9084-4069-a923-df33346ae171",
+    "marketplace": "Amazon",
+    "fee_name": "Aged Inventory Surcharge",
+    "category": "271\u2013365 days",
+    "fee_type": "Aged Inventory",
+    "value": 5.45,
+    "value_type": "usd_per_cuft",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/GJQNPA23YWVA4SBD",
+    "source_title": "Amazon Seller Central \u2014 Aged inventory surcharge",
+    "last_verified": "2026-10-29",
+    "notes": "Aged inventory surcharge: $5.45\u2013$5.90 USD/cu ft/month by age band, additional to monthly storage.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "schedule",
+      "unit": "/ cu.ft / month",
+      "basis": "inventory age snapshot on the 15th of each month; FIFO across the network",
+      "scope": "U.S. FBA inventory aged 271\u2013365 days",
+      "tiers": [
+        {
+          "label": "271\u2013300 days",
+          "amount_minor": 545
+        },
+        {
+          "label": "301\u2013330 days",
+          "amount_minor": 570
+        },
+        {
+          "label": "331\u2013365 days",
+          "amount_minor": 590
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "Aged inventory surcharge: $5.45\u2013$5.90 USD/cu ft/month by age band, additional to monthly storage."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/GJQNPA23YWVA4SBD",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "8df97652-1d8d-4d26-865f-d977a701484e",
+    "marketplace": "Amazon",
+    "fee_name": "Low-Inventory-Level Fee",
+    "category": "Eligible standard-size and Small/Large Bulky products",
+    "fee_type": "Low Inventory",
+    "value": 0.32,
+    "value_type": "usd_per_unit",
+    "effective_date": "2026-01-15",
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/GV43F6S76Y9DHYRH",
+    "source_title": "Amazon Seller Central \u2014 Low-inventory-level fee",
+    "last_verified": "2026-10-29",
+    "notes": "Conditional $0.32\u2013$2.09 per unit shipped; size, shipping weight and historical supply determine the charge. Both 30-day and 90-day supply metrics must be below 28 days.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "schedule",
+      "unit": "/ unit shipped",
+      "basis": "larger of 30-day and 90-day historical days of supply, at seller-FNSKU level",
+      "scope": "Eligible U.S. FBA standard-size and Small/Large Bulky products",
+      "tiers": [
+        {
+          "label": "Small standard \u226416 oz; supply 0\u2013<14 days",
+          "amount_minor": 89
+        },
+        {
+          "label": "Small standard \u226416 oz; supply 14\u2013<21 days",
+          "amount_minor": 63
+        },
+        {
+          "label": "Small standard \u226416 oz; supply 21\u2013<28 days",
+          "amount_minor": 32
+        },
+        {
+          "label": "Large standard \u22643 lb; supply 0\u2013<14 days",
+          "amount_minor": 97
+        },
+        {
+          "label": "Large standard \u22643 lb; supply 14\u2013<21 days",
+          "amount_minor": 70
+        },
+        {
+          "label": "Large standard \u22643 lb; supply 21\u2013<28 days",
+          "amount_minor": 36
+        },
+        {
+          "label": "Large standard >3\u201320 lb; supply 0\u2013<14 days",
+          "amount_minor": 111
+        },
+        {
+          "label": "Large standard >3\u201320 lb; supply 14\u2013<21 days",
+          "amount_minor": 87
+        },
+        {
+          "label": "Large standard >3\u201320 lb; supply 21\u2013<28 days",
+          "amount_minor": 47
+        },
+        {
+          "label": "Small Bulky \u226450 lb; supply 0\u2013<14 days",
+          "amount_minor": 185
+        },
+        {
+          "label": "Small Bulky \u226450 lb; supply 14\u2013<21 days",
+          "amount_minor": 102
+        },
+        {
+          "label": "Small Bulky \u226450 lb; supply 21\u2013<28 days",
+          "amount_minor": 51
+        },
+        {
+          "label": "Large Bulky \u226450 lb; supply 0\u2013<14 days",
+          "amount_minor": 209
+        },
+        {
+          "label": "Large Bulky \u226450 lb; supply 14\u2013<21 days",
+          "amount_minor": 115
+        },
+        {
+          "label": "Large Bulky \u226450 lb; supply 21\u2013<28 days",
+          "amount_minor": 57
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "Conditional $0.32\u2013$2.09 per unit shipped; size, shipping weight and historical supply determine the charge. Both 30-day and 90-day supply metrics must be below 28 days.",
+        "Additional to fulfillment fees. Small standard uses unit weight; large standard uses the greater of unit or dimensional weight.",
+        "Exemptions: new Professional sellers first 365 days; qualifying new-to-FBA parent products first 180 days with FBA New Selection enrollment; SKUs at least 70% auto-replenished through AWD in prior 90 days; products with fewer than 20 units sold in past 7 days; Grocery."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/GV43F6S76Y9DHYRH",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "278fab76-d4f8-46ec-8979-982d7baf61b9",
+    "marketplace": "Amazon",
+    "fee_name": "Referral Fee",
+    "category": "Electronics Accessories",
+    "fee_type": "Referral",
+    "value": 0.15,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+    "source_title": "Amazon Seller Central \u2014 Current U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "15% on the portion through $100; 8% on the portion above $100. $0.30 minimum per item. Separate from Consumer Electronics.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "marginal",
+      "unit": "",
+      "basis": "total sales price including delivery and gift wrapping; excluding Amazon-calculated taxes",
+      "scope": "U.S. Electronics Accessories, not Consumer Electronics",
+      "tiers": [
+        {
+          "rate": 0.15,
+          "label": "Portion of total sales price up to $100",
+          "upper_minor": 10000
+        },
+        {
+          "rate": 0.08,
+          "label": "Portion above $100",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "Apply 15% to the first $100 and 8% only to the excess; this is not a whole-price threshold."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+          "quote": "15% for the portion of the total sales price up to $100.00, and 8% for any portion of the total sales price greater than $100.00",
+          "title": "Amazon U.S. referral fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "minimum_minor": 30
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "0bdd6c6b-3ca2-4e20-9bec-77841a25d3bb",
+    "marketplace": "Amazon",
+    "fee_name": "Referral Fee",
+    "category": "Consumer Electronics",
+    "fee_type": "Referral",
+    "value": 0.08,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+    "source_title": "Amazon Seller Central \u2014 Current U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "Consumer Electronics only: 8%; $0.30 minimum. Electronics Accessories has a separate marginal schedule. Certain cell phones require approval.",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "Total sales price including delivery and gift wrapping; excludes taxes calculated through Amazon tax calculation services",
+      "scope": "U.S. standard selling fee schedule; Amazon Business-specific rates are separate",
+      "conditions": [
+        "Consumer Electronics only: 8%; $0.30 minimum. Electronics Accessories has a separate marginal schedule. Certain cell phones require approval."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "minimum_minor": 30
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "42ebccd0-d268-44b3-af8d-ceee71d4488e",
+    "marketplace": "Amazon",
+    "fee_name": "Referral Fee",
+    "category": "Beauty, Health and Personal Care",
+    "fee_type": "Referral",
+    "value": 0.08,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+    "source_title": "Amazon Seller Central \u2014 Current U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "8% at total sales price \u2264$10; 15% above $10. $0.30 minimum per item.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "threshold",
+      "unit": "",
+      "basis": "Total sales price including delivery and gift wrapping; excludes taxes calculated through Amazon tax calculation services",
+      "scope": "U.S. standard selling fee schedule; Amazon Business-specific rates are separate",
+      "tiers": [
+        {
+          "rate": 0.08,
+          "label": "Total sales price \u2264 $10",
+          "upper_minor": 1000
+        },
+        {
+          "rate": 0.15,
+          "label": "Total sales price > $10",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "8% at total sales price \u2264$10; 15% above $10. $0.30 minimum per item."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "minimum_minor": 30
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "ad6481c1-e887-41ac-8241-d4464504c8d0",
+    "marketplace": "Amazon",
+    "fee_name": "Referral Fee",
+    "category": "Clothing and Accessories",
+    "fee_type": "Referral",
+    "value": 0.05,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+    "source_title": "Amazon Seller Central \u2014 Current U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "Whole-price tiers: 5% at \u2264$15; 10% at >$15\u2013$20; 17% above $20. $0.30 minimum per item.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "threshold",
+      "unit": "",
+      "basis": "Total sales price including delivery and gift wrapping; excludes taxes calculated through Amazon tax calculation services",
+      "scope": "U.S. standard selling fee schedule; Amazon Business-specific rates are separate",
+      "tiers": [
+        {
+          "rate": 0.05,
+          "label": "Total sales price \u2264 $15",
+          "upper_minor": 1500
+        },
+        {
+          "rate": 0.1,
+          "label": "Total sales price > $15 and \u2264 $20",
+          "upper_minor": 2000
+        },
+        {
+          "rate": 0.17,
+          "label": "Total sales price > $20",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "Whole-price tiers: 5% at \u2264$15; 10% at >$15\u2013$20; 17% above $20. $0.30 minimum per item."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "minimum_minor": 30
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "0eecdae0-81fc-4e28-aed5-f5c28b768093",
+    "marketplace": "Amazon",
+    "fee_name": "Referral Fee",
+    "category": "Home & Kitchen",
+    "fee_type": "Referral",
+    "value": 0.15,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+    "source_title": "Amazon Seller Central \u2014 Current U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "Official Home and Kitchen category: 15%; $0.30 minimum per item.",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "Total sales price including delivery and gift wrapping; excludes taxes calculated through Amazon tax calculation services",
+      "scope": "U.S. standard selling fee schedule; Amazon Business-specific rates are separate",
+      "conditions": [
+        "Official Home and Kitchen category: 15%; $0.30 minimum per item."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "minimum_minor": 30
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "4463f577-38e2-4fc7-be6f-75784420364c",
+    "marketplace": "Amazon",
+    "fee_name": "Referral Fee",
+    "category": "Grocery and Gourmet",
+    "fee_type": "Referral",
+    "value": 0.08,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+    "source_title": "Amazon Seller Central \u2014 Current U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "8% at total sales price \u2264$15; 15% above $15. Official minimum column: none.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "threshold",
+      "unit": "",
+      "basis": "Total sales price including delivery and gift wrapping; excludes taxes calculated through Amazon tax calculation services",
+      "scope": "U.S. standard selling fee schedule; Amazon Business-specific rates are separate",
+      "tiers": [
+        {
+          "rate": 0.08,
+          "label": "Total sales price \u2264 $15",
+          "upper_minor": 1500
+        },
+        {
+          "rate": 0.15,
+          "label": "Total sales price > $15",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "8% at total sales price \u2264$15; 15% above $15. Official minimum column: none."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "minimum_minor": null
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "f938c2e4-7d3c-454a-9016-dce29972591b",
+    "marketplace": "Amazon",
+    "fee_name": "Referral Fee",
+    "category": "Books",
+    "fee_type": "Referral",
+    "value": 0.15,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+    "source_title": "Amazon Seller Central \u2014 Current U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "15% referral fee. Separate $1.80 closing fee per item sold; not part of the percentage. Official minimum column: none.",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "Total sales price including delivery and gift wrapping; excludes taxes calculated through Amazon tax calculation services",
+      "scope": "U.S. standard selling fee schedule; Amazon Business-specific rates are separate",
+      "conditions": [
+        "15% referral fee. Separate $1.80 closing fee per item sold; not part of the percentage. Official minimum column: none."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "minimum_minor": null,
+      "separate_closing_minor": 180
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "a18cc4b3-043f-4082-8a4b-1b6dcc5bd723",
+    "marketplace": "Amazon",
+    "fee_name": "Referral Fee",
+    "category": "Tools and Home Improvement",
+    "fee_type": "Referral",
+    "value": 0.15,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+    "source_title": "Amazon Seller Central \u2014 Current U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "15%; $0.30 minimum per item. Excludes the separate Base Equipment Power Tools category (12%).",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "Total sales price including delivery and gift wrapping; excludes taxes calculated through Amazon tax calculation services",
+      "scope": "U.S. standard selling fee schedule; Amazon Business-specific rates are separate",
+      "conditions": [
+        "15%; $0.30 minimum per item. Excludes the separate Base Equipment Power Tools category (12%)."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "minimum_minor": 30
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "342bdebc-5dd9-4366-a24e-cc0e16b2c51b",
+    "marketplace": "Amazon",
+    "fee_name": "Referral Fee",
+    "category": "Toys and Games",
+    "fee_type": "Referral",
+    "value": 0.15,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+    "source_title": "Amazon Seller Central \u2014 Current U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "15%; $0.30 minimum per item.",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "Total sales price including delivery and gift wrapping; excludes taxes calculated through Amazon tax calculation services",
+      "scope": "U.S. standard selling fee schedule; Amazon Business-specific rates are separate",
+      "conditions": [
+        "15%; $0.30 minimum per item."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/200336920",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "minimum_minor": 30
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "3196eac2-34c8-4d33-ad7d-d1b9a21b616b",
+    "marketplace": "Amazon",
+    "fee_name": "Monthly Storage Fee",
+    "category": "Standard size \u2014 Jan\u2013Sep",
+    "fee_type": "Storage",
+    "value": 0.78,
+    "value_type": "usd_per_cuft",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/G3EDYEF6KUCFQTNM",
+    "source_title": "Amazon Seller Central \u2014 Monthly inventory storage fees",
+    "last_verified": "2026-10-29",
+    "notes": "Base monthly storage only: standard-size, non-dangerous goods, January\u2013September. Utilization surcharges and special-program adjustments are additional.",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "daily average packaged inventory volume, per cubic foot per month",
+      "scope": "U.S. FBA standard-size, non-dangerous goods; January\u2013September base rate",
+      "conditions": [
+        "Base monthly storage only: standard-size, non-dangerous goods, January\u2013September. Utilization surcharges and special-program adjustments are additional.",
+        "Storage utilization surcharge can apply to eligible inventory aged over 30 days. Official prose and table disagree at exactly 25 cubic feet / 22 weeks; confirm eligibility in the official schedule rather than infer a boundary.",
+        "Dangerous goods and non-standard sizes use different rates. This is not an all-in storage total."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/G3EDYEF6KUCFQTNM",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "92d41654-5676-49a8-bf9d-32c302e40c14",
+    "marketplace": "Amazon",
+    "fee_name": "Monthly Storage Fee",
+    "category": "Standard size \u2014 Oct\u2013Dec",
+    "fee_type": "Storage",
+    "value": 2.4,
+    "value_type": "usd_per_cuft",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/G3EDYEF6KUCFQTNM",
+    "source_title": "Amazon Seller Central \u2014 Monthly inventory storage fees",
+    "last_verified": "2026-10-29",
+    "notes": "Base monthly storage only: standard-size, non-dangerous goods, October\u2013December. Utilization surcharges and special-program adjustments are additional.",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "daily average packaged inventory volume, per cubic foot per month",
+      "scope": "U.S. FBA standard-size, non-dangerous goods; October\u2013December base rate",
+      "conditions": [
+        "Base monthly storage only: standard-size, non-dangerous goods, October\u2013December. Utilization surcharges and special-program adjustments are additional.",
+        "Storage utilization surcharge can apply to eligible inventory aged over 30 days. Official prose and table disagree at exactly 25 cubic feet / 22 weeks; confirm eligibility in the official schedule rather than infer a boundary.",
+        "Dangerous goods and non-standard sizes use different rates. This is not an all-in storage total."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/G3EDYEF6KUCFQTNM",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "f34e431f-ba9f-4cbd-92bf-5444481476be",
+    "marketplace": "Amazon",
+    "fee_name": "Professional Seller Subscription",
+    "category": "US Professional selling plan",
+    "fee_type": "Subscription",
+    "value": 39.99,
+    "value_type": "usd_per_month",
+    "effective_date": null,
+    "source_url": "https://sellercentral.amazon.com/help/hub/reference/external/G64491",
+    "source_title": "Amazon Seller Central \u2014 Selling plan comparison",
+    "last_verified": "2026-10-29",
+    "notes": "U.S. Professional selling plan only; Individual sellers do not pay this monthly subscription. Other selling fees are additional.",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "monthly plan subscription",
+      "scope": "U.S. Professional selling plan, not Individual",
+      "conditions": [
+        "U.S. Professional selling plan only; Individual sellers do not pay this monthly subscription. Other selling fees are additional."
+      ],
+      "references": [
+        {
+          "url": "https://sellercentral.amazon.com/help/hub/reference/external/G64491",
+          "title": "Current official Amazon U.S. schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "1f1e5897-cba7-4980-b30f-a1526439336c",
+    "marketplace": "eBay",
+    "fee_name": "Final value fee \u2014 Books & Magazines",
+    "category": "Books & Magazines",
+    "fee_type": "Final value",
+    "value": 0.153,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay \u2014 U.S. standard selling fees",
+    "last_verified": "2026-10-29",
+    "notes": "15.3% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. U.S. standard schedule.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "marginal",
+      "unit": "",
+      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
+      "tiers": [
+        {
+          "rate": 0.153,
+          "label": "Total sale portion up to $7,500, calculated per item",
+          "upper_minor": 750000
+        },
+        {
+          "rate": 0.0235,
+          "label": "Portion above $7,500",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "15.3% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. U.S. standard schedule.",
+        "Applicable per-order fee: $0.30 for orders \u2264$10; $0.40 above $10, subject to qualifying Athletic Shoes exemption. This is part of the final value fee, not a second percentage.",
+        "Base schedule only; seller-performance/conduct surcharges and optional upgrades may be additional."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "title": "Official eBay fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "per_order_fee": true
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "0b875c57-3ac8-4425-86db-241b505dba69",
+    "marketplace": "eBay",
+    "fee_name": "Final value fee \u2014 Toys & Hobbies",
+    "category": "Toys & Hobbies",
+    "fee_type": "Final value",
+    "value": 0.136,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay \u2014 U.S. standard selling fees",
+    "last_verified": "2026-10-29",
+    "notes": "Default: 13.6% through $7,500 per item, 2.35% on excess + per-order fee. Collectible Card Games and CCG NFTs have exceptions; expand details.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "marginal",
+      "unit": "",
+      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
+      "tiers": [
+        {
+          "rate": 0.136,
+          "label": "Default total sale portion up to $7,500, calculated per item",
+          "upper_minor": 750000
+        },
+        {
+          "rate": 0.0235,
+          "label": "Default portion above $7,500",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "Default: 13.6% through $7,500 per item, 2.35% on excess + per-order fee. Collectible Card Games and CCG NFTs have exceptions; expand details.",
+        "Collectible Card Games: 13.25% on first $7,500 per item; 2.35% on excess, plus applicable per-order fee.",
+        "CCG NFTs: 5% of total sale, plus applicable per-order fee; not the physical-card schedule.",
+        "Applicable per-order fee: $0.30 for orders \u2264$10; $0.40 above $10, subject to qualifying Athletic Shoes exemption. This is part of the final value fee, not a second percentage.",
+        "Base schedule only; seller-performance/conduct surcharges and optional upgrades may be additional."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "title": "Official eBay fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "per_order_fee": true
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "d3202dd1-0826-4cd0-8c07-d8c69088f4a9",
+    "marketplace": "eBay",
+    "fee_name": "Final value fee \u2014 Health & Beauty",
+    "category": "Health & Beauty",
+    "fee_type": "Final value",
+    "value": 0.136,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay \u2014 U.S. standard selling fees",
+    "last_verified": "2026-10-29",
+    "notes": "13.6% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. Most-category U.S. standard schedule.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "marginal",
+      "unit": "",
+      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
+      "tiers": [
+        {
+          "rate": 0.136,
+          "label": "Total sale portion up to $7,500, calculated per item",
+          "upper_minor": 750000
+        },
+        {
+          "rate": 0.0235,
+          "label": "Portion above $7,500",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "13.6% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. Most-category U.S. standard schedule.",
+        "Applicable per-order fee: $0.30 for orders \u2264$10; $0.40 above $10, subject to qualifying Athletic Shoes exemption. This is part of the final value fee, not a second percentage.",
+        "Base schedule only; seller-performance/conduct surcharges and optional upgrades may be additional."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "title": "Official eBay fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "per_order_fee": true
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "345a4fbb-b1df-4123-9376-bb2bd0ff1a61",
+    "marketplace": "eBay",
+    "fee_name": "Final value fee \u2014 Electronics",
+    "category": "Electronics \u2014 most-category schedule",
+    "fee_type": "Final value",
+    "value": 0.136,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay \u2014 U.S. standard selling fees",
+    "last_verified": "2026-10-29",
+    "notes": "Most-category U.S. standard schedule, not a Store-specific Electronics rate. 13.6% through $7,500 per item; 2.35% on excess; plus applicable per-order fee.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "marginal",
+      "unit": "",
+      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
+      "tiers": [
+        {
+          "rate": 0.136,
+          "label": "Total sale portion up to $7,500, calculated per item",
+          "upper_minor": 750000
+        },
+        {
+          "rate": 0.0235,
+          "label": "Portion above $7,500",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "Most-category U.S. standard schedule, not a Store-specific Electronics rate. 13.6% through $7,500 per item; 2.35% on excess; plus applicable per-order fee.",
+        "Applicable per-order fee: $0.30 for orders \u2264$10; $0.40 above $10, subject to qualifying Athletic Shoes exemption. This is part of the final value fee, not a second percentage.",
+        "Base schedule only; seller-performance/conduct surcharges and optional upgrades may be additional."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "title": "Official eBay fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "per_order_fee": true
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "0e454921-1c5a-44ba-9182-c543f50cacdc",
+    "marketplace": "eBay",
+    "fee_name": "Final value fee \u2014 Clothing, Shoes & Accessories",
+    "category": "Clothing, Shoes & Accessories",
+    "fee_type": "Final value",
+    "value": 0.136,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay \u2014 U.S. standard selling fees",
+    "last_verified": "2026-10-29",
+    "notes": "Default: 13.6% through $7,500 per item, 2.35% on excess + per-order fee. Women\u2019s Bags & Handbags and qualifying Athletic Shoes use different rates; expand details.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "marginal",
+      "unit": "",
+      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
+      "tiers": [
+        {
+          "rate": 0.136,
+          "label": "Default total sale portion up to $7,500, calculated per item",
+          "upper_minor": 750000
+        },
+        {
+          "rate": 0.0235,
+          "label": "Default portion above $7,500",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "Default: 13.6% through $7,500 per item, 2.35% on excess + per-order fee. Women\u2019s Bags & Handbags and qualifying Athletic Shoes use different rates; expand details.",
+        "Women\u2019s Bags & Handbags: 15% of whole total sale when \u2264$2,000; 9% of whole total sale when >$2,000, calculated per item; not marginal tiers.",
+        "Men\u2019s/Women\u2019s Athletic Shoes: 13.6% when total sale <$150; 8% when \u2265$150, with no per-order fee at \u2265$150.",
+        "Applicable per-order fee: $0.30 for orders \u2264$10; $0.40 above $10, subject to qualifying Athletic Shoes exemption. This is part of the final value fee, not a second percentage.",
+        "Base schedule only; seller-performance/conduct surcharges and optional upgrades may be additional."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "title": "Official eBay fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "per_order_fee": true
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "76de0bc8-7c7f-4429-9d56-d1b987d6aa30",
+    "marketplace": "eBay",
+    "fee_name": "Final value fee \u2014 Home & Garden",
+    "category": "Home & Garden",
+    "fee_type": "Final value",
+    "value": 0.136,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay \u2014 U.S. standard selling fees",
+    "last_verified": "2026-10-29",
+    "notes": "13.6% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. Most-category U.S. standard schedule.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "marginal",
+      "unit": "",
+      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
+      "tiers": [
+        {
+          "rate": 0.136,
+          "label": "Total sale portion up to $7,500, calculated per item",
+          "upper_minor": 750000
+        },
+        {
+          "rate": 0.0235,
+          "label": "Portion above $7,500",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "13.6% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. Most-category U.S. standard schedule.",
+        "Applicable per-order fee: $0.30 for orders \u2264$10; $0.40 above $10, subject to qualifying Athletic Shoes exemption. This is part of the final value fee, not a second percentage.",
+        "Base schedule only; seller-performance/conduct surcharges and optional upgrades may be additional."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "title": "Official eBay fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "per_order_fee": true
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "f0ac2676-e870-4686-bc0f-91cf3b9eb374",
+    "marketplace": "eBay",
+    "fee_name": "Insertion fee (above zero-insertion allowance)",
+    "category": "Qualifying U.S. non-Store listings",
+    "fee_type": "Insertion",
+    "value": 0.35,
+    "value_type": "usd_per_listing",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay \u2014 U.S. standard selling fees",
+    "last_verified": "2026-10-29",
+    "notes": "First 250 qualifying listings/month free; then $0.35 per additional listing/category. Store allowances and category exclusions differ.",
+    "pricing_details": {
+      "kind": "allowance",
+      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
+      "currency": "USD",
+      "conditions": [
+        "First 250 qualifying listings/month free; then $0.35 per additional listing/category. Store allowances and category exclusions differ.",
+        "U.S.-registered non-Store sellers on ebay.com. Store schedules differ.",
+        "Exclusions: Real Estate; Motors Boats, Cars & Trucks, Motorcycles, Other Vehicles & Trailers, Powersports; Business & Industrial Heavy Equipment, Food Trucks, Trailers & Carts, Commercial Printing Presses.",
+        "Certain Business & Industrial categories use $20 insertion fees; Guitars & Basses are free; specified men\u2019s/women\u2019s Athletic Shoes are free at starting price \u2265$150.",
+        "Charged per listing/category, including relistings; multiple-quantity listings charged once, not per unit. Good \u2019Til Cancelled monthly renewals count toward allowance. Second-category charges can apply with allowance remaining."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "title": "Official eBay fee schedule"
+        },
+        {
+          "url": "https://www.ebay.com/help/selling/listings/listing-tips/free-listings?id=4163",
+          "title": "eBay zero insertion fee listing exclusions"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "free_listings": 250,
+      "legacy_source": false,
+      "additional_minor": 35
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "b0a96d65-9ab9-4655-a678-ba1364a97804",
+    "marketplace": "eBay",
+    "fee_name": "International fee (cross-border)",
+    "category": "Applicable U.S.-registered sellers",
+    "fee_type": "International",
+    "value": 0.0165,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay \u2014 U.S. standard selling fees",
+    "last_verified": "2026-10-29",
+    "notes": "1.65% of total sale when delivery address OR buyer registered address is outside U.S.; qualifying eBay International Shipping exempt. Canada is not universally exempt.",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "scope": "Applicable U.S.-registered sellers not using qualifying eBay International Shipping",
+      "conditions": [
+        "1.65% of total sale when delivery address OR buyer registered address is outside U.S.; qualifying eBay International Shipping exempt. Canada is not universally exempt.",
+        "Triggered if delivery address outside U.S. OR buyer registered address outside U.S., regardless of delivery address.",
+        "Canada can satisfy these outside-U.S. conditions; no blanket Canada exemption.",
+        "U.S.-registered sellers offering eBay International Shipping on eligible listings are exempt when the eligible item sells."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "title": "Official eBay fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "1da4ded9-fc30-4ea6-819c-7777d04088ba",
+    "marketplace": "eBay",
+    "fee_name": "Per-order fee",
+    "category": "U.S. standard selling schedule",
+    "fee_type": "Per-order",
+    "value": 0.3,
+    "value_type": "usd_per_order",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay \u2014 U.S. standard selling fees",
+    "last_verified": "2026-10-29",
+    "notes": "Orders \u2264$10: $0.30 per order; orders >$10: $0.40 per order. Not per unit. Athletic Shoes with total sale \u2265$150 are exempt.",
+    "pricing_details": {
+      "kind": "order_fee",
+      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
+      "currency": "USD",
+      "conditions": [
+        "Orders \u2264$10: $0.30 per order; orders >$10: $0.40 per order. Not per unit. Athletic Shoes with total sale \u2265$150 are exempt.",
+        "An order is any number of items purchased by the same buyer at checkout with the same shipping method.",
+        "For orders $10.00 or less the per-order fee is $0.30; for orders over $10.00 it is $0.40.",
+        "Qualifying men\u2019s/women\u2019s Athletic Shoes with total sale \u2265$150 have no per-order fee.",
+        "This is the per-order component of final value fees; do not add it twice."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "title": "Official eBay fee schedule"
+        }
+      ],
+      "above_minor": 40,
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "threshold_minor": 1000,
+      "below_or_equal_minor": 30
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "ef9ceedc-ea63-4348-aea6-5589330a9ca4",
+    "marketplace": "eBay",
+    "fee_name": "Basic Store subscription",
+    "category": "U.S. Basic Store subscription",
+    "fee_type": "Subscription",
+    "value": 21.95,
+    "value_type": "usd_per_month",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/selling-fees/store-fees?id=4809",
+    "source_title": "eBay \u2014 U.S. Store fees",
+    "last_verified": "2026-10-29",
+    "notes": "Optional Basic Store: $21.95/month with yearly renewal or $27.95/month with monthly renewal. Both charged monthly; not all sellers.",
+    "pricing_details": {
+      "kind": "subscription",
+      "basis": "monthly subscription charge",
+      "scope": "Optional U.S. Basic Store subscription",
+      "options": [
+        {
+          "label": "yearly renewal, charged monthly",
+          "monthly_minor": 2195
+        },
+        {
+          "label": "monthly renewal",
+          "monthly_minor": 2795
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "Optional Basic Store: $21.95/month with yearly renewal or $27.95/month with monthly renewal. Both charged monthly; not all sellers.",
+        "Both renewal options are charged monthly; a yearly renewal is not an annual upfront billing claim.",
+        "Basic Store fee/allowance schedule is separate from standard non-Store selling fees; do not combine their rates as Basic Store benefits."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/selling-fees/store-fees?id=4809",
+          "title": "Official eBay fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "5aa7bad9-5984-4156-8805-06e63bf60cdf",
+    "marketplace": "Etsy",
+    "fee_name": "Offsite Ads Fee",
+    "category": "Advertising \u2014 attributed orders",
+    "fee_type": "Advertising",
+    "value": 0.15,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://help.etsy.com/hc/en-us/articles/360000338367-How-Etsy-s-Offsite-Ads-Work",
+    "source_title": "Etsy Help \u2014 Offsite Ads",
+    "last_verified": "2026-10-29",
+    "notes": "15% below qualifying $10,000 sales; 12% once at least $10,000 qualifies; maximum $100 USD per attributed order. Enrollment and timing rules apply.",
+    "pricing_details": {
+      "kind": "offsite_ads",
+      "basis": "listing prices plus shipping and gift wrapping; paid personalization included; U.S. sales tax excluded",
+      "scope": "Etsy Offsite Ads attributed orders; U.S. seller fee basis",
+      "currency": "USD",
+      "cap_minor": 10000,
+      "conditions": [
+        "15% below qualifying $10,000 sales; 12% once at least $10,000 qualifies; maximum $100 USD per attributed order. Enrollment and timing rules apply.",
+        "All sellers automatically enrolled; shops always below $10,000 in any consecutive 365-day period may opt out.",
+        "At least $10,000 USD qualifies (not strictly over $10K). Participation then required for lifetime of shop to extent permitted by law; 12% persists if sales decline.",
+        "Sales calculated first day of month; newly qualifying shops pay 12% starting first day of following month.",
+        "Threshold basis: item price \u00d7 quantity less discounts/cancelled orders; excludes Pattern/In Person Payment orders, Etsy fees, separately charged shipping, taxes and gift wrap.",
+        "Buyer must click an Offsite Ad and order from shop within 30 days; multiple orders can qualify. If last click is an Etsy Ad, only Etsy Ads fee applies.",
+        "Maximum Offsite Ads fee $100 USD per attributed order, not per click/month/shop."
+      ],
+      "references": [
+        {
+          "url": "https://help.etsy.com/hc/en-us/articles/360000338367-How-Etsy-s-Offsite-Ads-Work",
+          "title": "Official current fee evidence"
+        },
+        {
+          "url": "https://www.etsy.com/legal/fees/",
+          "title": "Etsy legal fee policy \u2014 threshold timing and basis"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "window_days": 365,
+      "legacy_source": false,
+      "threshold_minor": 1000000,
+      "attribution_days": 30,
+      "threshold_currency": "USD",
+      "below_threshold_rate": 0.15,
+      "threshold_reached_rate": 0.12
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "413b8b13-08a9-4c93-9ffd-7a82cd4e7d4e",
+    "marketplace": "Etsy",
+    "fee_name": "Listing Fee",
+    "category": "Listing",
+    "fee_type": "Listing",
+    "value": 0.2,
+    "value_type": "usd",
+    "effective_date": null,
+    "source_url": "https://www.etsy.com/legal/fees/",
+    "source_title": "Etsy \u2014 Fees and Payments Policy",
+    "last_verified": "2026-10-29",
+    "notes": "$0.20 USD per ordinary Etsy listing, whether it sells or not; renewals and multi-quantity rules apply.",
+    "pricing_details": {
+      "kind": "listing",
+      "basis": "per listing, not universally per sale",
+      "scope": "Ordinary Etsy.com listings",
+      "conditions": [
+        "$0.20 USD per ordinary Etsy listing, whether it sells or not; renewals and multi-quantity rules apply.",
+        "Listings expire after four months; applicable renewals cost $0.20. Editing a listing does not incur a listing fee.",
+        "Multi-quantity listings renew at $0.20 as items sell; multiple quantities sold can incur additional listing fees.",
+        "Private listings charged when sold; Pattern-only listings exempt."
+      ],
+      "references": [
+        {
+          "url": "https://www.etsy.com/legal/fees/",
+          "title": "Official current fee evidence"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "0f1a52ba-5275-4c22-9faa-98dfd0a9aa72",
+    "marketplace": "Etsy",
+    "fee_name": "Payment Processing Fee",
+    "category": "U.S. bank-account pricing",
+    "fee_type": "Payment processing",
+    "value": 0.03,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://help.etsy.com/hc/en-us/articles/115015628847-What-are-Payment-Processing-Fees-for-Selling-on-Etsy",
+    "source_title": "Etsy Help \u2014 Payment processing fees by bank-account country",
+    "last_verified": "2026-10-29",
+    "notes": "U.S. bank-account country / Etsy Payments: 3% + $0.25 USD per order/transaction, including shipping and applicable sales tax.",
+    "pricing_details": {
+      "kind": "processing",
+      "basis": "total sale including shipping and applicable sales tax",
+      "scope": "Etsy Payments, bank account located in United States",
+      "currency": "USD",
+      "conditions": [
+        "U.S. bank-account country / Etsy Payments: 3% + $0.25 USD per order/transaction, including shipping and applicable sales tax.",
+        "Processing rates vary with bank-account country; this is not a universal Etsy rate.",
+        "Processing fee is separate from the 6.5% transaction fee."
+      ],
+      "references": [
+        {
+          "url": "https://help.etsy.com/hc/en-us/articles/115015628847-What-are-Payment-Processing-Fees-for-Selling-on-Etsy",
+          "title": "Official current fee evidence"
+        }
+      ],
+      "fixed_minor": 25,
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "bank_account_country": "US"
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "f4207dd9-af1a-4f58-bccb-f996b2efc595",
+    "marketplace": "Etsy",
+    "fee_name": "Transaction Fee",
+    "category": "Selling \u2014 U.S. fee basis",
+    "fee_type": "Transaction",
+    "value": 0.065,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.etsy.com/legal/fees/",
+    "source_title": "Etsy \u2014 Fees and Payments Policy",
+    "last_verified": "2026-10-29",
+    "notes": "6.5% of listing prices plus shipping and gift wrapping, including paid personalization. U.S. sellers\u2019 sales tax excluded.",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "listing prices plus shipping and gift wrapping; paid personalization included; U.S. sales tax excluded",
+      "scope": "Etsy U.S. sellers",
+      "conditions": [
+        "6.5% of listing prices plus shipping and gift wrapping, including paid personalization. U.S. sellers\u2019 sales tax excluded.",
+        "Transaction fee is separate from Etsy Payments processing fees, which have a different tax-inclusive basis."
+      ],
+      "references": [
+        {
+          "url": "https://www.etsy.com/legal/fees/",
+          "title": "Official current fee evidence"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "490a9db3-282c-4cfe-a7ad-5350a7bd1a9f",
+    "marketplace": "Shopify",
+    "fee_name": "Online Card Rate",
+    "category": "Advanced plan \u2014 U.S. standard online cards",
+    "fee_type": "Card processing",
+    "value": 0.025,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.shopify.com/pricing?product=service",
+    "source_title": "Shopify \u2014 Current U.S. pricing and payment rates",
+    "last_verified": "2026-10-29",
+    "notes": "U.S. Shopify Payments Advanced: standard online cards 2.5% + $0.30; premium 3.1% + $0.30; international +1%.",
+    "pricing_details": {
+      "kind": "processing",
+      "basis": "per online card transaction",
+      "scope": "U.S. Advanced plan, Shopify Payments, standard online cards",
+      "currency": "USD",
+      "conditions": [
+        "U.S. Shopify Payments Advanced: standard online cards 2.5% + $0.30; premium 3.1% + $0.30; international +1%.",
+        "Premium online cards: 3.1% + $0.30; online international +1%. Third-party provider fee separately 0.6%; not included in this card rate.",
+        "Rates differ by card type, country, provider and online/in-person context."
+      ],
+      "references": [
+        {
+          "url": "https://www.shopify.com/pricing?product=service",
+          "title": "Official current fee evidence"
+        },
+        {
+          "url": "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/pricing-overview",
+          "title": "Shopify billing periods and current plan names"
+        }
+      ],
+      "fixed_minor": 30,
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "bank_account_country": "US"
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "f77fe85b-57db-4fdd-8eca-23a0200cced2",
+    "marketplace": "Shopify",
+    "fee_name": "Online Card Rate",
+    "category": "Grow plan \u2014 U.S. standard online cards",
+    "fee_type": "Card processing",
+    "value": 0.027,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.shopify.com/pricing?product=service",
+    "source_title": "Shopify \u2014 Current U.S. pricing and payment rates",
+    "last_verified": "2026-10-29",
+    "notes": "Current Grow plan (not the legacy Shopify plan label): U.S. standard online cards 2.7% + $0.30; premium 3.3% + $0.30; international +1%.",
+    "pricing_details": {
+      "kind": "processing",
+      "basis": "per online card transaction",
+      "scope": "U.S. current Grow plan, Shopify Payments, standard online cards",
+      "currency": "USD",
+      "conditions": [
+        "Current Grow plan (not the legacy Shopify plan label): U.S. standard online cards 2.7% + $0.30; premium 3.3% + $0.30; international +1%.",
+        "Current public plan is Grow; legacy account entitlement or equivalence is not established.",
+        "Premium online cards: 3.3% + $0.30; online international +1%. Third-party provider fee separately 1%; not included in this card rate.",
+        "Rates differ by card type, country, provider and online/in-person context."
+      ],
+      "references": [
+        {
+          "url": "https://www.shopify.com/pricing?product=service",
+          "title": "Official current fee evidence"
+        },
+        {
+          "url": "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/pricing-overview",
+          "title": "Shopify billing periods and current plan names"
+        }
+      ],
+      "fixed_minor": 30,
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "bank_account_country": "US"
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "5e85f0a1-2aa7-4637-9394-e1b3c37a42fd",
+    "marketplace": "Shopify",
+    "fee_name": "Online Card Rate",
+    "category": "Basic plan \u2014 U.S. standard online cards",
+    "fee_type": "Card processing",
+    "value": 0.029,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.shopify.com/pricing?product=service",
+    "source_title": "Shopify \u2014 Current U.S. pricing and payment rates",
+    "last_verified": "2026-10-29",
+    "notes": "U.S. Shopify Payments Basic: standard online cards 2.9% + $0.30/transaction; premium 3.5% + $0.30; international +1%.",
+    "pricing_details": {
+      "kind": "processing",
+      "basis": "per online card transaction",
+      "scope": "U.S. Basic plan, Shopify Payments, standard online cards",
+      "currency": "USD",
+      "conditions": [
+        "U.S. Shopify Payments Basic: standard online cards 2.9% + $0.30/transaction; premium 3.5% + $0.30; international +1%.",
+        "Premium online cards: 3.5% + $0.30; online international +1%.",
+        "Not universal across cards, countries, providers, wallets or in-person payments. Third-party provider fee for Basic is separately 2%; not a Shopify Payments card-processing charge."
+      ],
+      "references": [
+        {
+          "url": "https://www.shopify.com/pricing?product=service",
+          "title": "Official current fee evidence"
+        },
+        {
+          "url": "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/pricing-overview",
+          "title": "Shopify billing periods and current plan names"
+        }
+      ],
+      "fixed_minor": 30,
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "bank_account_country": "US"
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "0313eff8-fa79-41a8-a2f8-89b874cf41b8",
+    "marketplace": "Shopify",
+    "fee_name": "Plan Subscription",
+    "category": "Basic plan \u2014 U.S. billing options",
+    "fee_type": "Subscription",
+    "value": 39,
+    "value_type": "usd_per_month",
+    "effective_date": null,
+    "source_url": "https://www.shopify.com/pricing?product=service",
+    "source_title": "Shopify \u2014 Current U.S. pricing and payment rates",
+    "last_verified": "2026-10-29",
+    "notes": "$39 USD/month billed monthly; $29 USD/month equivalent billed annually, full year upfront. Promotional offers excluded.",
+    "pricing_details": {
+      "kind": "subscription",
+      "basis": "plan subscription, separate from payment processing",
+      "scope": "U.S. Shopify Basic subscription",
+      "options": [
+        {
+          "label": "monthly billing",
+          "monthly_minor": 3900
+        },
+        {
+          "label": "annual billing equivalent, full year upfront",
+          "monthly_minor": 2900
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "$39 USD/month billed monthly; $29 USD/month equivalent billed annually, full year upfront. Promotional offers excluded.",
+        "Annual billing charges the full year upfront. Promotional offers are not ongoing plan prices."
+      ],
+      "references": [
+        {
+          "url": "https://www.shopify.com/pricing?product=service",
+          "title": "Official current fee evidence"
+        },
+        {
+          "url": "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/pricing-overview",
+          "title": "Shopify billing periods and current plan names"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "77b58d70-8ab9-4285-8dab-b9d73b4cf727",
+    "marketplace": "Walmart",
+    "fee_name": "Referral Fee",
+    "category": "Consumer Electronics",
+    "fee_type": "Referral",
+    "value": 0.08,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://marketplace.walmart.com/pricing/",
+    "source_title": "Walmart Marketplace \u2014 U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "8% for official Consumer Electronics category. Electronics Accessories has a separate schedule, not this flat rate.",
+    "pricing_details": {
+      "kind": "simple",
+      "scope": "Walmart Marketplace U.S. Consumer Electronics",
+      "conditions": [
+        "8% for official Consumer Electronics category. Electronics Accessories has a separate schedule, not this flat rate.",
+        "Category and product type selected during item setup determine applicability.",
+        "Electronics Accessories separately charges 15% on the portion through $100 and 8% on the portion above $100; not covered by this record."
+      ],
+      "references": [
+        {
+          "url": "https://marketplace.walmart.com/pricing/",
+          "title": "Official current fee evidence"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "216c5e45-e94e-430a-9a91-f42097290024",
+    "marketplace": "Walmart",
+    "fee_name": "Referral Fee",
+    "category": "Apparel & Accessories",
+    "fee_type": "Referral",
+    "value": 0.05,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://marketplace.walmart.com/pricing/",
+    "source_title": "Walmart Marketplace \u2014 U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "Whole-price tiers: 5% at \u2264$15; 10% at >$15\u2013$20; 15% above $20.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "threshold",
+      "unit": "",
+      "basis": "total sales price",
+      "scope": "Walmart Marketplace U.S. Apparel & Accessories",
+      "tiers": [
+        {
+          "rate": 0.05,
+          "label": "Total sales price $15 or less",
+          "upper_minor": 1500
+        },
+        {
+          "rate": 0.1,
+          "label": "Total sales price > $15 and \u2264 $20",
+          "upper_minor": 2000
+        },
+        {
+          "rate": 0.15,
+          "label": "Total sales price > $20",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "Whole-price tiers: 5% at \u2264$15; 10% at >$15\u2013$20; 15% above $20.",
+        "Official middle-tier wording: \u2018between $15 \u2013 $20\u2019. The first tier explicitly includes $15; the middle tier here excludes $15 to avoid overlap.",
+        "Referral fees vary with category and product type chosen during item setup."
+      ],
+      "references": [
+        {
+          "url": "https://marketplace.walmart.com/pricing/",
+          "title": "Official current fee evidence"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "ef8fbc12-b63e-49bf-860b-2d3474f7e1c8",
+    "marketplace": "Walmart",
+    "fee_name": "Referral Fee",
+    "category": "Home, Kitchen, Decor & Garden",
+    "fee_type": "Referral",
+    "value": 0.15,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://marketplace.walmart.com/pricing/",
+    "source_title": "Walmart Marketplace \u2014 U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "15% for official Home, Kitchen, Decor & Garden category. Furniture uses a separate schedule.",
+    "pricing_details": {
+      "kind": "simple",
+      "scope": "Walmart Marketplace U.S. Home, Kitchen, Decor & Garden",
+      "conditions": [
+        "15% for official Home, Kitchen, Decor & Garden category. Furniture uses a separate schedule.",
+        "Category and product type selected during item setup determine applicability.",
+        "Furniture is separate: 15% on the portion through $200 and 10% on the portion above $200; not covered by this record."
+      ],
+      "references": [
+        {
+          "url": "https://marketplace.walmart.com/pricing/",
+          "title": "Official current fee evidence"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "fedc66e2-5136-4c48-bbf0-441be2764aa0",
+    "marketplace": "Walmart",
+    "fee_name": "Referral Fee",
+    "category": "Outdoors Products and Sports",
+    "fee_type": "Referral",
+    "value": 0.15,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://marketplace.walmart.com/pricing/",
+    "source_title": "Walmart Marketplace \u2014 U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "15% except 8% for Hunting Trail Monitors, Binoculars, Telescopes, Spotting Scopes and Night Vision Goggles.",
+    "pricing_details": {
+      "kind": "simple",
+      "scope": "Walmart Marketplace U.S. Outdoors Products and Sports",
+      "conditions": [
+        "15% except 8% for Hunting Trail Monitors, Binoculars, Telescopes, Spotting Scopes and Night Vision Goggles.",
+        "15% headline rate excludes these 8% product types: Hunting Trail Monitors, Binoculars, Telescopes, Spotting Scopes, Night Vision Goggles.",
+        "Category and product type selected during item setup determine applicability."
+      ],
+      "references": [
+        {
+          "url": "https://marketplace.walmart.com/pricing/",
+          "title": "Official current fee evidence"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "82503753-6736-4229-8043-ffe3371ed8a1",
+    "marketplace": "Walmart",
+    "fee_name": "WFS Fulfillment Fee",
+    "category": "Standard base; calculated shipping weight \u22641 lb",
+    "fee_type": "WFS fulfillment",
+    "value": 3.45,
+    "value_type": "usd_per_unit",
+    "effective_date": null,
+    "source_url": "https://marketplacelearn.walmart.com/guides/Shipping%20&%20fulfillment/Walmart%20Fulfillment%20Services%20(WFS)/WFS-fees",
+    "source_title": "Walmart Marketplace Learn \u2014 WFS fees",
+    "last_verified": "2026-10-29",
+    "notes": "$3.45 base per unit only for calculated WFS shipping weight \u22641 lb; apparel, hazmat, low-price and oversize charges can be additional.",
+    "pricing_details": {
+      "kind": "simple",
+      "basis": "per unit fulfilled; calculated shipping weight, not simply unit weight",
+      "scope": "WFS U.S. standard items with final calculated shipping weight \u22641 lb",
+      "conditions": [
+        "$3.45 base per unit only for calculated WFS shipping weight \u22641 lb; apparel, hazmat, low-price and oversize charges can be additional.",
+        "Standard eligibility: packaged unit weight \u2264150 lb; longest side \u2264108 inches; longest side + girth \u2264165 inches. Girth = 2 \u00d7 (width + height). Exceeding any limit means big and bulky, a separate schedule.",
+        "Unit weight <1 lb: use unit weight; 1\u2013150 lb: use greater of unit weight or dimensional weight (L \u00d7 W \u00d7 H /139, inches including packaging). Add 0.25 lb packaging allowance and round up to nearest pound.",
+        "Additional per-unit charges for standard items: Apparel +$0.50; hazardous materials (chemical, aerosol, pesticide or battery) +$0.50; retail price under $10 +$1.",
+        "Oversize 1 +$3 if longest side >48\u201396 inches, median side >30 inches, or longest side + girth >105\u2013130 inches. Oversize 2 +$20 if longest side >96\u2013108 inches or longest side + girth >130\u2013165 inches; unit weight priced starting at 90-lb rate.",
+        "These additional standard-item fees do not apply to big and bulky items. April 2025 is month-level schedule evidence, not an exact effective day."
+      ],
+      "references": [
+        {
+          "url": "https://marketplacelearn.walmart.com/guides/Shipping%20&%20fulfillment/Walmart%20Fulfillment%20Services%20(WFS)/WFS-fees",
+          "title": "Official current fee evidence"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
+    "id": "b9f4e783-2517-435e-8093-ab23c91a9042",
+    "marketplace": "Walmart",
+    "fee_name": "WFS Storage Fee",
+    "category": "WFS seasonal and inventory-age storage",
+    "fee_type": "WFS storage",
+    "value": 0.75,
+    "value_type": "usd_per_cuft",
+    "effective_date": null,
+    "source_url": "https://marketplacelearn.walmart.com/guides/Shipping%20&%20fulfillment/Walmart%20Fulfillment%20Services%20(WFS)/WFS-fees",
+    "source_title": "Walmart Marketplace Learn \u2014 WFS fees",
+    "last_verified": "2026-10-29",
+    "notes": "$0.75\u2013$7.50 USD/cu ft/month depending on season and inventory age; October\u2013December long-storage uplift applies.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "schedule",
+      "unit": "/ cu.ft / month",
+      "basis": "30 days of storage; volume = length \u00d7 width \u00d7 height in inches /1728",
+      "scope": "WFS U.S. storage",
+      "tiers": [
+        {
+          "label": "Inventory up to 365 days, January\u2013September",
+          "amount_minor": 75
+        },
+        {
+          "label": "Inventory up to 365 days, October\u2013December, stored up to 30 days",
+          "amount_minor": 75
+        },
+        {
+          "label": "Inventory up to 365 days, October\u2013December, stored more than 30 days ($0.75 + $1.50)",
+          "amount_minor": 225
+        },
+        {
+          "label": "Inventory 366\u2013450 days",
+          "amount_minor": 225,
+          "effective_date": "2026-06-30"
+        },
+        {
+          "label": "Inventory more than 450 days",
+          "amount_minor": 750,
+          "effective_date": "2026-06-30"
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "$0.75\u2013$7.50 USD/cu ft/month depending on season and inventory age; October\u2013December long-storage uplift applies.",
+        "Only aged-storage subtiers have an independently stated exact effective date: June 30, 2026. No exact date established for the whole schedule."
+      ],
+      "references": [
+        {
+          "url": "https://marketplacelearn.walmart.com/guides/Shipping%20&%20fulfillment/Walmart%20Fulfillment%20Services%20(WFS)/WFS-fees",
+          "title": "Official current fee evidence"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  }
+]
