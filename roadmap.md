@@ -1,5 +1,9 @@
 # Roadmap
 
+- [ ] Preserve all original historical fee-change rows and independently audit each transition/date with first-party historical evidence.
+- [ ] Correct supported historical events, represent genuine date precision and retire unverifiable claims with a complete audit trail; link only defensible same-concept current records.
+- [ ] Validate historical page/API, filters, zero-baseline behavior and excluded data; deliver master before/after report and final counts.
+
 - [x] Verify fresh first-party evidence for every current fee; correct supported structures and label inaccessible sources without inventing dates.
 - [x] Apply current-fee schema/data remediation and necessary Fee Database presentation; reconcile only supported calculator contradictions.
 - [x] Run regression/UI/data-integrity checks and final read-only re-audit; deliver per-record evidence report and scope confirmation.
