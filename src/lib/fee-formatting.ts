@@ -19,7 +19,7 @@ const tier = z.object({
 export const pricingDetailsSchema = z.discriminatedUnion("kind", [
   z.object({ ...common, kind: z.literal("simple") }),
   z.object({ ...common, kind: z.literal("listing") }),
-  z.object({ ...common, kind: z.literal("processing"), bank_account_country: z.literal("US"), fixed_minor: minor, currency: z.literal("USD") }),
+  z.object({ ...common, kind: z.literal("processing"), bank_account_country: z.literal("US"), fixed_minor: minor, currency: z.literal("USD"), unit: z.enum(["order", "transaction"]).optional() }),
   z.object({ ...common, kind: z.literal("offsite_ads"), below_threshold_rate: fraction, threshold_reached_rate: fraction, threshold_minor: minor.positive(), threshold_currency: z.literal("USD"), window_days: z.number().int().positive(), attribution_days: z.number().int().positive(), cap_minor: minor, currency: z.literal("USD") }),
   z.object({ ...common, kind: z.literal("tiered"), mode: z.enum(["threshold", "marginal", "schedule"]), currency: z.literal("USD"), unit: z.string(), tiers: z.array(tier).min(1), per_order_fee: z.boolean().optional() }),
   z.object({ ...common, kind: z.literal("order_fee"), threshold_minor: minor, below_or_equal_minor: minor, above_minor: minor, currency: z.literal("USD") }),
@@ -44,6 +44,8 @@ export function formatFeeValue(value: number, valueType: string): string {
     case "usd_per_unit": return `$${value.toFixed(2)} / unit`;
     case "usd_per_cuft": return `$${value.toFixed(2)} / cu.ft`;
     case "usd_per_month": return `$${value.toFixed(2)} / mo`;
+    case "usd_per_order": return `$${value.toFixed(2)} USD / order`;
+    case "usd_per_listing": return `$${value.toFixed(2)} USD / listing`;
     default: return value.toString();
   }
 }
@@ -97,7 +99,7 @@ export function presentFee(record: DisplayRecord): { value: string; details: Pri
   if (!parsed.success) return { value: "Pricing details unavailable", details: null };
   const details = parsed.data;
   if (details.kind === "processing") {
-    return { value: `${plain} + ${formatFeeValue(details.fixed_minor / 100, "usd")} / order (${details.bank_account_country})`, details };
+    return { value: `${plain} + ${formatFeeValue(details.fixed_minor / 100, "usd")} / ${details.unit ?? "order"} (${details.bank_account_country})`, details };
   }
   if (details.kind === "offsite_ads") {
     return { value: `${formatFeeValue(details.threshold_reached_rate, "percent")} or ${formatFeeValue(details.below_threshold_rate, "percent")} — conditional`, details };

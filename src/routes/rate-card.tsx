@@ -126,6 +126,9 @@ function RateCardPage() {
         <p className="text-xs text-muted-foreground">
           Latest fee verification: {formatVerificationDate(stats.lastUpdated)} · <a href="/methodology" className="text-primary hover:underline">Methodology</a> · <a href="/api/public/fees" className="text-primary hover:underline">Public API</a>
         </p>
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          Amazon FBA fulfillment varies by dimensions, shipping weight, price, product class, season and program eligibility. Former flat-fee records have been retired; consult the <a href="https://sellercentral.amazon.com/help/hub/reference/external/GABBX6GZPA8MSZGW" target="_blank" rel="noreferrer" className="text-primary hover:underline">current official FBA schedule</a> and its fuel/logistics surcharge. Current-value verification does not establish a fee’s original effective date.
+        </p>
 
         <div className="grid gap-3 sm:grid-cols-[1fr_180px_200px]">
           <div className="relative">
