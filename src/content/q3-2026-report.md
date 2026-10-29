@@ -184,7 +184,7 @@ Current values come from the Seller Transparency Hub Current Fee Database as rev
 - [S6](https://sellercentral.amazon.com/seller-forums/discussions/t/7cbc0233-ee5b-4359-978a-dee7cad5c6f4) Amazon (News_Amazon, Seller Forums) — Fuel and logistics-related surcharge: FBA, MCF, and BWP in US and CA
 - [S7](https://sellercentral.amazon.com/seller-forums/discussions/t/3e31fbb7-04e0-4ed4-873e-f74b1052e2ff) Amazon Seller Forums announcement — Holiday 2026: Same fees, same eligibility, earlier deadlines
 - [S8](https://marketplace.walmart.com/pricing/) Walmart Marketplace — Pricing (referral fees)
-- [S9](https://marketplacelearn.walmart.com/guides/Shipping%20&%20fulfillment/Walmart%20Fulfillment%20Services%20(WFS)/WFS-fees) Walmart Marketplace Learn — WFS fees
+- [S9](https://marketplacelearn.walmart.com/guides/Shipping%20&%20fulfillment/Walmart%20Fulfillment%20Services%20%28WFS%29/WFS-fees) Walmart Marketplace Learn — WFS fees
 - [S10](https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822) eBay Help — Selling fees
 - [S11](https://www.ebay.com/help/selling/selling-fees/store-fees?id=4809) eBay Help — Store fees
 - [S12](https://www.ebay.de/verkaeuferportal/news/seller-news/2026-juni/gebuehrenaenderungen) eBay.de Verkäuferportal — Gebührenänderungen (June 2026)
