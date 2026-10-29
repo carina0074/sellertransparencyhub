@@ -9,14 +9,15 @@ export const MARKETPLACES: { id: Marketplace; label: string }[] = [
 ];
 
 export const CATEGORIES = [
-  { id: "electronics", label: "Electronics" },
+  { id: "electronics", label: "Consumer Electronics" },
+  { id: "electronics_accessories", label: "Electronics Accessories" },
   { id: "home", label: "Home & Kitchen" },
   { id: "beauty", label: "Beauty & Personal Care" },
   { id: "apparel", label: "Apparel" },
   { id: "toys", label: "Toys & Games" },
   { id: "grocery", label: "Grocery" },
   { id: "books", label: "Books" },
-  { id: "tools", label: "Tools & Home Improvement" },
+  { id: "tools", label: "Tools & Home Improvement (excluding Base Equipment Power Tools)" },
 ] as const;
 
 export const SIZE_TIERS: { id: SizeTier; label: string }[] = [
@@ -44,37 +45,32 @@ export const AMAZON_REFERRAL_RATES: Record<string, number> = {
  * - Apparel: 5% ≤ $15, 10% > $15–$20, 17% > $20
  * - Beauty: 8% ≤ $10, 15% above
  * - Grocery: 8% ≤ $15, 15% above
- * - Electronics: 15% on the portion ≤ $100, 8% on the portion above
+ * - Consumer Electronics: 8%; Electronics Accessories: marginal 15%/8%
  */
 export function amazonReferralFee(category: string, price: number): number {
+  let fee: number;
   switch (category) {
     case "apparel":
-      return price * (price <= 15 ? 0.05 : price <= 20 ? 0.1 : 0.17);
+      fee = price * (price <= 15 ? 0.05 : price <= 20 ? 0.1 : 0.17); break;
     case "beauty":
-      return price * (price <= 10 ? 0.08 : 0.15);
+      fee = price * (price <= 10 ? 0.08 : 0.15); break;
     case "grocery":
       return price * (price <= 15 ? 0.08 : 0.15);
     case "electronics":
-      return Math.min(price, 100) * 0.15 + Math.max(0, price - 100) * 0.08;
+      fee = price * 0.08; break;
+    case "electronics_accessories":
+      fee = Math.min(price, 100) * 0.15 + Math.max(0, price - 100) * 0.08; break;
     default:
-      return price * (AMAZON_REFERRAL_RATES[category] ?? 0.15);
+      fee = price * (AMAZON_REFERRAL_RATES[category] ?? 0.15);
   }
+  return category === "books" ? fee : Math.max(0.30, fee);
 }
 
 /**
- * Amazon FBA fulfillment fee — base per-unit (USD) by size tier.
- * Source: https://sellercentral.amazon.com/help/hub/reference/external/G201074400
- * Last reviewed: 2026-06.
+ * FBA flat fees retired after current first-party review (2026-10-29).
+ * The calculator lacks the dimensions, price/program and season inputs required
+ * by https://sellercentral.amazon.com/help/hub/reference/external/GABBX6GZPA8MSZGW.
  */
-export const AMAZON_FULFILLMENT_FEES: Record<SizeTier, number> = {
-  small_standard: 3.22,
-  large_standard: 5.87,
-  small_oversize: 9.61,
-  medium_oversize: 14.32,
-};
-
-/** Amazon FBA monthly storage fee per cubic foot (Jan–Sep, standard size). */
-export const AMAZON_STORAGE_PER_CUFT = 0.87;
 
 /**
  * Verified Walmart referral rates (fee_records, verified 2026-06-11 / 2026-10-24).
@@ -83,7 +79,7 @@ export const AMAZON_STORAGE_PER_CUFT = 0.87;
 export const WALMART_REFERRAL_RATES: Record<string, number | null> = {
   electronics: 0.08,
   home: 0.15, // Walmart "Home & Garden" record
-  apparel: 0.15,
+  apparel: null, // whole-price tiers handled below, not a universal 15%
   beauty: null,
   toys: null,
   grocery: null,
@@ -92,8 +88,8 @@ export const WALMART_REFERRAL_RATES: Record<string, number | null> = {
 };
 
 /**
- * Verified Walmart WFS values. The only verified WFS fulfillment record is
- * Small ≤ 1 lb at $3.45 — it must not be applied to other sizes/weights.
+ * WFS official base: $3.45 at calculated shipping weight ≤1 lb.
+ * Calculator cannot establish packaged dimensions, hazmat or oversize eligibility.
  */
 export const WALMART_WFS_SMALL_MAX_LB = 1;
 export const WALMART_WFS_SMALL_FEE = 3.45;
@@ -140,7 +136,9 @@ export function calculateFees(i: FeeInputs): FeeBreakdown {
     referralFee = amazonReferralFee(i.category, i.price);
   } else if (i.marketplace === "walmart") {
     const rate = WALMART_REFERRAL_RATES[i.category];
-    if (rate == null) {
+    if (i.category === "apparel") {
+      referralFee = i.price * (i.price <= 15 ? 0.05 : i.price <= 20 ? 0.10 : 0.15);
+    } else if (rate == null) {
       referralFee = 0;
       unsupported.push("Walmart referral fee for this category (no verified rate)");
     } else {
@@ -156,27 +154,18 @@ export function calculateFees(i: FeeInputs): FeeBreakdown {
   if (i.marketplace === "shopify" || i.marketplace === "etsy") {
     fulfillmentFee = i.shipping; // self-fulfillment assumption
   } else if (i.marketplace === "walmart") {
-    if (i.sizeTier === "small_standard" && i.weightLb <= WALMART_WFS_SMALL_MAX_LB) {
-      fulfillmentFee = WALMART_WFS_SMALL_FEE;
-    } else {
-      fulfillmentFee = 0;
-      unsupported.push("WFS fulfillment fee for this size/weight (only Small ≤ 1 lb is verified)");
-    }
+    fulfillmentFee = 0;
+    unsupported.push("WFS fulfillment: packaged dimensions, calculated shipping weight and surcharge eligibility are required");
   } else {
-    fulfillmentFee = AMAZON_FULFILLMENT_FEES[i.sizeTier];
+    fulfillmentFee = 0;
+    unsupported.push("Amazon FBA fulfillment: current size/weight/price/season and program schedule cannot be modeled from these inputs");
   }
 
   // Cubic-foot estimates are modeling assumptions, not verified data.
-  const cuftEstimate = ({
-    small_standard: 0.05, large_standard: 0.12,
-    small_oversize: 0.6, medium_oversize: 1.4,
-  } as Record<SizeTier, number>)[i.sizeTier];
-  const storageFee =
-    i.marketplace === "shopify" || i.marketplace === "etsy"
-      ? 0
-      : cuftEstimate *
-        (i.marketplace === "walmart" ? WALMART_STORAGE_PER_CUFT : AMAZON_STORAGE_PER_CUFT) *
-        i.storageMonths;
+  const storageFee = 0;
+  if (i.storageMonths > 0 && (i.marketplace === "amazon" || i.marketplace === "walmart")) {
+    unsupported.push(`${i.marketplace === "amazon" ? "Amazon" : "WFS"} storage: actual packaged volume, season, inventory age and applicable surcharges are required`);
+  }
 
   const rRate = RETURN_RATE[i.category] ?? 0.08;
   const returnCost = rRate * (i.price * 0.25 + 2.5);

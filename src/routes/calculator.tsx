@@ -27,6 +27,8 @@ export const Route = createFileRoute("/calculator")({
       { name: "description", content: "Free marketplace profit calculator for Amazon FBA, Walmart, Shopify, and Etsy sellers. Model referral, fulfillment, and storage fees in seconds." },
       { property: "og:title", content: "Marketplace Profit Calculator" },
       { property: "og:description", content: "Estimate referral, fulfillment, storage, and return costs across Amazon, Walmart, Shopify, and Etsy." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: CalculatorPage,
@@ -253,18 +255,18 @@ function CalculatorPage() {
             </div>
             <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
               <li>Estimates depend on the selected marketplace and category and on the verified fee rules available for that combination.</li>
-              <li>Some marketplace fees are tiered or conditional. Where tiers are verified (for example Amazon Apparel, Beauty, Grocery, and Electronics), the calculator applies the tier matching your selling price.</li>
-              <li>Shopify results use the <strong className="text-foreground">Basic plan online card rate (2.9% + $0.30)</strong>. Other Shopify plans have different rates, and Shopify subscription-plan costs (for example the $39/month Basic plan fee) are <strong className="text-foreground">not included</strong>.</li>
+              <li>Amazon Apparel, Beauty and Grocery and Walmart Apparel use whole-price tiers. Consumer Electronics is 8%; Amazon Electronics Accessories uses 15% on the first $100 and 8% on the excess. Amazon applies a $0.30 referral minimum where applicable; Books and Grocery have no such minimum. Selling price is used as the referral-fee basis here; buyer-paid shipping, gift wrapping and applicable taxes are not entered separately.</li>
+              <li>Shopify results use the <strong className="text-foreground">U.S. Basic Shopify Payments standard online card rate (2.9% + $0.30)</strong>. Premium cards, international uplifts and third-party provider fees are not modeled. Subscription-plan costs are <strong className="text-foreground">not included</strong>.</li>
               <li>Etsy results use the <strong className="text-foreground">US payment-processing rate (3% + $0.25)</strong>; rates vary by country. Etsy Offsite Ads fees (12% or 15%, conditional) are <strong className="text-foreground">not included</strong>. The $0.20 listing fee is charged per sale here, though it actually covers a 4-month listing period.</li>
               <li>Amazon Books results exclude the $1.80 per-item closing fee for Media items.</li>
-              <li>Amazon storage uses the January–September standard-size rate; the Q4 peak rate is not modeled.</li>
-              <li>Walmart estimates cover only categories with a verified Walmart rate (Electronics, Home &amp; Kitchen, Apparel) and the verified WFS Small ≤ 1 lb fulfillment fee. Unsupported combinations are flagged above instead of being estimated.</li>
+              <li>Amazon FBA fulfillment and storage are <strong className="text-foreground">not estimated</strong>: the current schedules need dimensions, shipping weight, price/program eligibility, season, inventory age and surcharge information that these inputs cannot establish.</li>
+              <li>Walmart referral estimates cover Consumer Electronics, Home &amp; Kitchen (excluding Furniture) and Apparel tiers. WFS fulfillment and storage are <strong className="text-foreground">not estimated</strong>: calculated shipping weight includes packaging and may use dimensional weight, and eligibility, surcharges and storage season/age cannot be established here.</li>
               <li><strong className="text-foreground">eBay is not currently supported</strong> by this calculator. See the <Link to="/rate-card" className="text-primary underline underline-offset-2">Marketplace Fee Database</Link> for verified eBay fees.</li>
-              <li>Return-cost and package-size (cubic-foot) figures are rough modeling assumptions, not verified marketplace fee data.</li>
+              <li>Return-cost figures are rough modeling assumptions, not verified marketplace fee data. Components marked “Not estimated” are excluded, so displayed totals and profit are incomplete rather than all-in costs.</li>
               <li>Results are estimates. Always confirm current applicable fees in the official marketplace sources linked in the <Link to="/rate-card" className="text-primary underline underline-offset-2">Fee Database</Link>.</li>
             </ul>
             <p className="mt-4 text-xs text-muted-foreground">
-              Fee data last reviewed: June–October 2026, varying by marketplace and fee. Per-fee verification dates are shown in the Fee Database.
+              Current-fee reconciliation reviewed October 29, 2026. Per-fee current-value reviews and effective-date evidence are shown separately in the Fee Database.
             </p>
           </CardContent>
         </Card>
