@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Compass, Eye, HeartHandshake, ShieldCheck } from "lucide-react";
+import { Eye, HeartHandshake, ShieldCheck } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About Seller Transparency Hub — Mission for E-commerce Sellers" },
-      { name: "description", content: "Empowering small businesses through transparency, education, and operational resilience across Amazon, Walmart, and Shopify." },
+      { name: "description", content: "Independent marketplace transparency research, source-linked fee information, educational tools, and research publications." },
       { property: "og:title", content: "About Seller Transparency Hub" },
       { property: "og:description", content: "Why marketplace transparency matters for small and medium businesses." },
     ],
@@ -29,8 +29,7 @@ function AboutPage() {
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-foreground">Why seller transparency matters</h2>
             <p className="mt-3 text-muted-foreground">
-              Small and medium businesses generate the majority of marketplace listings — but they
-              shoulder the most operational risk. A fee restructure, a policy update, or an
+              Small and medium businesses selling on marketplaces often operate on thin margins. A fee restructure, a policy update, or an
               unexpected verification request can wipe out months of margin.
             </p>
           </div>
@@ -47,18 +46,17 @@ function AboutPage() {
             <h2 className="text-2xl font-semibold tracking-tight text-foreground">Helping sellers make better decisions</h2>
             <p className="mt-3 text-muted-foreground">
               Seller Transparency Hub takes the public information that already exists and turns it
-              into decision-ready tools. Free profit modeling, account health scoring, suspension
-              playbooks, and a fee change feed — all built for operators, not influencers.
+              into source-linked fee information, educational tools such as the profit calculator, and
+              research publications such as quarterly fee reports.
             </p>
           </div>
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2">
           {[
-            { icon: Eye, title: "Transparency by default", desc: "We publish how every number is calculated. No black boxes." },
-            { icon: Compass, title: "Operator-led design", desc: "Built by people who have shipped, listed, and appealed." },
+            { icon: Eye, title: "Source-linked information", desc: "Current fee records list their source documentation. Our Methodology explains how information is sourced, reviewed, and qualified." },
             { icon: ShieldCheck, title: "Independent voice", desc: "We are not affiliated with any marketplace. Our incentive is your durability." },
-            { icon: HeartHandshake, title: "Free public resources", desc: "Our most valuable tools are free, forever. Pro features fund the mission." },
+            { icon: HeartHandshake, title: "Free public resources", desc: "Our research and tools are free to use." },
           ].map((v) => (
             <Card key={v.title} className="border-border">
               <CardContent className="p-6">

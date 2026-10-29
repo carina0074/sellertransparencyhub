@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { notFound, createFileRoute, Link } from "@tanstack/react-router";
 import {
   BookOpen, LineChart, ShieldCheck, PackageOpen, Gavel, ArrowRight,
 } from "lucide-react";
@@ -7,14 +7,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export const Route = createFileRoute("/resources")({
-  head: () => ({
-    meta: [
-      { title: "Seller Resources — Guides, Profitability, & Policy Updates" },
-      { name: "description", content: "Seller guides, profitability articles, account health tutorials, inventory planning resources, and marketplace policy updates." },
-      { property: "og:title", content: "Seller Resource Center" },
-      { property: "og:description", content: "Practical, vendor-neutral resources for marketplace sellers." },
-    ],
-  }),
+  // Hidden before publication (unsupported claims); source kept for future redevelopment.
+  beforeLoad: () => {
+    throw notFound();
+  },
+  head: () => ({ meta: [{ title: "Page not found | Seller Transparency Hub" }, { name: "robots", content: "noindex, nofollow" }] }),
   component: ResourcesPage,
 });
 

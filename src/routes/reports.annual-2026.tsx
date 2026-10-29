@@ -9,9 +9,9 @@ export const Route = createFileRoute("/reports/annual-2026")({
   head: () => ({
     meta: [
       { title: "Annual Marketplace Transparency Review 2026 — Coming Soon" },
-      { name: "description", content: "The 2026 Annual Marketplace Transparency Review is currently being compiled. A comprehensive year-in-review of fee changes across all major marketplaces." },
+      { name: "description", content: "Placeholder for a planned 2026 annual review. No report content has been published yet." },
       { property: "og:title", content: "Annual Marketplace Transparency Review 2026 — Coming Soon" },
-      { property: "og:description", content: "Comprehensive year-in-review of 2026 marketplace fee changes. Coming soon." },
+      { property: "og:description", content: "Placeholder for a planned 2026 annual review. Not yet published." },
     ],
   }),
   component: Annual_2026_ComingSoonPage,
@@ -34,9 +34,7 @@ function Annual_2026_ComingSoonPage() {
             Report in Progress
           </h2>
           <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto">
-            The 2026 Annual Marketplace Transparency Review is currently being compiled.
-            This comprehensive report will analyze the full year of fee changes across Amazon, Walmart, Shopify, eBay, Etsy, and other major marketplaces —
-            with trend analysis, year-over-year comparisons, and forward-looking projections for 2027.
+            A 2026 annual review is planned. No report content has been published yet.
           </p>
           <p className="text-sm text-muted-foreground">
             Expected publish date: <span className="font-medium text-foreground">January 2027</span>
@@ -47,7 +45,7 @@ function Annual_2026_ComingSoonPage() {
           <EmailCapture
             topic="policy_updates"
             title="Get notified when the annual review publishes"
-            description="Be the first to receive the 2026 Annual Review. One email — no spam."
+            description="Occasional updates when new research, reports, or dataset updates are published."
           />
         </div>
 
@@ -57,9 +55,6 @@ function Annual_2026_ComingSoonPage() {
               <ArrowLeft className="mr-2 h-4 w-4" />
               Previous: Q3 2026
             </Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link to="/impact-reports">All Reports →</Link>
           </Button>
         </div>
       </section>

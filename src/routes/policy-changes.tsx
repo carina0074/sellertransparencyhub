@@ -107,13 +107,12 @@ function PolicyChangesPage() {
 
         <div className="rounded-2xl border border-border bg-secondary/40 p-6 sm:p-8">
           <h2 className="text-xl font-semibold tracking-tight text-foreground">
-            Part of the public dataset suite
+            Part of Seller Transparency Hub's curated research resources
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            This archive sits alongside three other public resources — the{" "}
-            <Link to="/rate-card" className="text-primary hover:underline">Fee Database</Link>, the{" "}
-            <Link to="/fees" className="text-primary hover:underline">Fee Change Tracker</Link>, and the{" "}
-            <Link to="/suspension-prevention" className="text-primary hover:underline">Seller Suspension Appeal Library</Link>.
+            See also the{" "}
+            <Link to="/rate-card" className="text-primary hover:underline">Fee Database</Link> and the{" "}
+            <Link to="/fees" className="text-primary hover:underline">Fee Change Feed</Link>.
           </p>
         </div>
       </section>
@@ -203,8 +202,8 @@ function PolicyCard({ c }: { c: PolicyChange }) {
             <details className="rounded-md border border-border p-3">
               <summary className="cursor-pointer font-medium text-primary">First-party evidence</summary>
               <p className="mt-3 text-xs text-muted-foreground">Review dates are evidence checks, not historical effective dates.</p>
-              {evidence.references.map((reference) => (
-                <div key={reference.url} className="mt-3 space-y-2">
+              {evidence.references.map((reference, index) => (
+                <div key={`${reference.url}-${index}`} className="mt-3 space-y-2">
                   <a href={reference.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>
                   <p className="text-xs text-muted-foreground">{reference.evidence_type} · {reference.heading}</p>
                   <blockquote className="border-l-2 border-border pl-3 text-muted-foreground">{reference.quote}</blockquote>

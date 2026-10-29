@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { notFound, createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import {
   Microscope, Calendar, FileText, ChevronRight, ArrowRight, Layers,
@@ -21,14 +21,11 @@ const impactReportsQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/impact-reports")({
-  head: () => ({
-    meta: [
-      { title: "Marketplace Fee Impact Reports — Original Analysis for Sellers" },
-      { name: "description", content: "Original research on Amazon, Walmart, and Shopify fee changes. Methodology, affected categories, sample sizes, and per-unit impact estimates." },
-      { property: "og:title", content: "Marketplace Fee Impact Reports" },
-      { property: "og:description", content: "Original analyses quantifying how marketplace fee changes affect seller margin." },
-    ],
-  }),
+  // Hidden before publication (unsupported claims); source kept for future redevelopment.
+  beforeLoad: () => {
+    throw notFound();
+  },
+  head: () => ({ meta: [{ title: "Page not found | Seller Transparency Hub" }, { name: "robots", content: "noindex, nofollow" }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(impactReportsQuery),
   errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">

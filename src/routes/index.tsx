@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import {
-  ArrowRight, Database, TrendingUp, Shield, BookOpen,
+  ArrowRight, Database, TrendingUp, BookOpen,
   CheckCircle2, Sparkles, Lock, FileText, BarChart3, Mail, History,
 } from "lucide-react";
 import { useState } from "react";
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Independent Marketplace Transparency Research for U.S. Small Businesses" },
-      { name: "description", content: "Independent research and public datasets for U.S. small business marketplace sellers: fee database, fee change tracker, suspension appeal library, and policy archive." },
+      { name: "description", content: "Independent research and public datasets for U.S. small business marketplace sellers: fee database, fee change feed, calculator, and policy archive." },
       { property: "og:title", content: "Independent Marketplace Transparency Research for U.S. Small Businesses" },
       { property: "og:description", content: "Independent research and public datasets for U.S. small business marketplace sellers." },
       { property: "og:type", content: "website" },
@@ -109,17 +109,10 @@ const datasets = [
   },
   {
     icon: TrendingUp,
-    title: "Fee Change Tracker",
+    title: "Fee Change Feed",
     desc: "Recorded marketplace fee-change events with available source and effective-date information.",
     to: "/fees",
     cta: "Track fee changes",
-  },
-  {
-    icon: Shield,
-    title: "Seller Suspension Appeal Database",
-    desc: "Searchable composite case examples and corrective-action guidance for suspension categories; outcomes are illustrative, not verified reinstatement results.",
-    to: "/suspension-prevention",
-    cta: "Explore appeals",
   },
   {
     icon: BookOpen,
@@ -272,7 +265,7 @@ function Index() {
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Four public resources, independently maintained.
+            Public research tools and datasets.
           </h2>
           <p className="mt-4 text-muted-foreground">
             Tangible data assets you can search, filter, and reference — not gated reports or vague summaries.
@@ -353,7 +346,7 @@ function Index() {
             Join Marketplace Transparency Updates
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            Monthly digest of new fee changes, policy updates, and dataset releases. No spam, unsubscribe anytime.
+            Occasional updates when new research, reports, or dataset updates are published. No spam, unsubscribe anytime.
           </p>
           <SubscribeForm />
         </div>

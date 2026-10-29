@@ -7,29 +7,27 @@ import { Input } from "@/components/ui/input";
 
 const columns = [
   {
-    title: "Tools",
+    title: "Products",
     links: [
-      { to: "/calculator", label: "Profit Calculator" },
+      { to: "/rate-card", label: "Fee Database" },
+      { to: "/fees", label: "Fee Change Feed" },
+      { to: "/calculator", label: "Calculator" },
       { to: "/health-check", label: "Account Health Checker" },
-      { to: "/fees", label: "Fee Dashboard" },
-      { to: "/suspension-prevention", label: "Suspension Prevention" },
     ],
   },
   {
-    title: "Resources",
+    title: "Research",
     links: [
-      { to: "/resources", label: "Seller Guides" },
-      { to: "/resources", label: "Profitability Articles" },
-      { to: "/resources", label: "Policy Updates" },
-      { to: "/resources", label: "Inventory Planning" },
+      { to: "/reports/q3-2026", label: "Marketplace Fee Reports" },
+      { to: "/methodology", label: "Methodology" },
+      { to: "/policy-changes", label: "Policy Archive" },
     ],
   },
   {
     title: "Company",
     links: [
       { to: "/about", label: "About" },
-      { to: "/about", label: "Mission" },
-      { to: "/about", label: "Contact" },
+      { to: "/privacy", label: "Privacy" },
     ],
   },
 ] as const;
@@ -62,7 +60,7 @@ function NewsletterSignup() {
     <div className="rounded-xl border border-border bg-background p-6 shadow-sm">
       <h3 className="text-lg font-semibold text-foreground">Join Marketplace Transparency Updates</h3>
       <p className="mt-2 text-sm text-muted-foreground">
-        Quarterly Reports • Fee Changes • Policy Updates • Database Releases
+        Occasional updates when new research, reports, or dataset updates are published.
       </p>
       {status === "success" ? (
         <div className="mt-4 flex items-center gap-2 text-sm font-medium text-green-600">
@@ -112,8 +110,8 @@ export function SiteFooter() {
               Seller Transparency Hub
             </Link>
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-              Free, data-driven tools that help e-commerce sellers understand marketplace
-              economics and operate with confidence.
+              Independent marketplace transparency research, source-linked fee information,
+              and educational tools for e-commerce sellers.
             </p>
           </div>
           {columns.map((col) => (
