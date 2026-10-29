@@ -1,5 +1,9 @@
 # Roadmap
 
+- [ ] Verify fresh first-party evidence for every current fee; correct supported structures and label inaccessible sources without inventing dates.
+- [ ] Apply current-fee schema/data remediation and necessary Fee Database presentation; reconcile only supported calculator contradictions.
+- [ ] Run regression/UI/data-integrity checks and final read-only re-audit; deliver per-record evidence report and scope confirmation.
+
 - [x] Credibility cleanup: fee-feed/policy/history/shared capability wording only; hide local-only fee alerts; preserve all rows, counts, dates, calculator, feedback and Q3 content.
 - [x] Verify zero-baseline display regression, tests, preview checks and unchanged public data; report exact wording and files without publishing.
 
