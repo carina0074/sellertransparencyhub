@@ -1,8 +1,8 @@
 # Roadmap
 
-- [ ] Preserve every original policy record and verify claims, timing, scope and taxonomy against first-party evidence.
-- [ ] Remediate policy records only and present evidence/date precision without unsupported coverage claims.
-- [ ] Independently re-check retained policies, validate filters/UI/tests and excluded datasets, and deliver before/after remediation report without publishing.
+- [x] Preserve every original policy record and verify claims, timing, scope and taxonomy against first-party evidence.
+- [x] Remediate policy records only and present evidence/date precision without unsupported coverage claims.
+- [x] Independently re-check retained policies, validate filters/UI/tests and excluded datasets, and deliver before/after remediation report without publishing.
 
 - [x] Preserve all original historical fee-change rows and independently audit each transition/date with first-party historical evidence.
 - [x] Correct supported historical events, represent genuine date precision and retire unverifiable claims with a complete audit trail; link only defensible same-concept current records.
