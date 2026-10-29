@@ -1,7 +1,7 @@
 /// <reference types="bun" />
 import { describe, expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
-import { formatFeeValue, presentFee, pricingDetailsSchema, resolveOffsiteAdsRate } from "./fee-formatting";
+import { formatFeeValue, presentFee, pricingDetailsSchema, resolveOffsiteAdsRate, relativeFeeChange } from "./fee-formatting";
 
 const rows = JSON.parse(readFileSync(new URL("./fee-formatting.fixtures.json", import.meta.url), "utf8")) as Array<{ marketplace: string; fee_name: string; value: number; value_type: string; pricing_details: unknown }>;
 const row = (name: string) => {
@@ -13,6 +13,12 @@ describe("fee amount formatting", () => {
   test.each([[0.065, "6.5%"], [0.03, "3.0%"], [0.12, "12.0%"], [0.15, "15.0%"], [0.1325, "13.25%"], [0.0165, "1.65%"], [0.136, "13.6%"], [0.153, "15.3%"]])("fraction %s", (value, output) => expect(formatFeeValue(Number(value), "percent")).toBe(output));
   test("USD listing unit", () => expect(formatFeeValue(0.20, "usd")).toBe("$0.20 USD"));
   test.each([[3.45, "usd_per_unit", "$3.45 / unit"], [0.75, "usd_per_cuft", "$0.75 / cu.ft"], [39, "usd_per_month", "$39.00 / mo"]])("existing unit %s", (value, unit, output) => expect(formatFeeValue(Number(value), String(unit))).toBe(output));
+});
+describe("relative fee changes", () => {
+  test("zero to $3.80 has no defined percentage increase", () => expect(relativeFeeChange(0, 3.80)).toBeNull());
+  test("zero to zero also has no defined percentage change", () => expect(relativeFeeChange(0, 0)).toBeNull());
+  test("nonzero increases retain their relative value", () => expect(relativeFeeChange(10, 12)).toBe(0.2));
+  test("nonzero decreases retain their relative value", () => expect(relativeFeeChange(10, 8)).toBe(-0.2));
 });
 test("US processing includes its fixed minor-unit component", () => {
   const record = row("Payment Processing Fee");

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Calendar, CheckCircle2, ExternalLink, FileText } from "lucide-react";
+import { ArrowLeft, Calendar, ExternalLink, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getChangelogEntry, type ChangelogEntry } from "@/data/changelog";
@@ -15,6 +15,10 @@ export const Route = createFileRoute("/changelog/$slug")({
       ? [
           { title: `${loaderData.title} — Changelog` },
           { name: "description", content: loaderData.summary },
+          { property: "og:title", content: `${loaderData.title} — Changelog` },
+          { property: "og:description", content: loaderData.summary },
+          { property: "og:type", content: "website" },
+          { name: "twitter:card", content: "summary" },
         ]
       : [{ title: "Changelog entry not found" }],
   }),
@@ -52,7 +56,7 @@ function ChangelogDetail() {
           <Calendar className="h-4 w-4" />
           <span>{entry.date}</span>
           <span>·</span>
-          <span>Updated {entry.updatedAt}</span>
+          <span>Entry date: {entry.updatedAt}</span>
         </div>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           {entry.title}
@@ -61,12 +65,12 @@ function ChangelogDetail() {
       </div>
 
       <section className="mt-10">
-        <h2 className="text-lg font-semibold text-foreground">New records</h2>
+        <h2 className="text-lg font-semibold text-foreground">Milestone notes</h2>
         <div className="mt-4 space-y-3">
           {entry.records.map((r) => (
             <Card key={r.name} className="border-border">
               <CardContent className="flex gap-3 p-4">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                <FileText className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" />
                 <div>
                   <div className="font-medium text-foreground">{r.name}</div>
                   <div className="mt-1 text-sm text-muted-foreground">{r.detail}</div>
@@ -78,7 +82,7 @@ function ChangelogDetail() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-lg font-semibold text-foreground">Data sources</h2>
+        <h2 className="text-lg font-semibold text-foreground">Marketplace reference links</h2>
         <ul className="mt-4 space-y-2">
           {entry.sources.map((s) => (
             <li key={s.url}>

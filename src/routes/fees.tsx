@@ -9,8 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
-import { EmailCapture } from "@/components/email-capture";
 import { getFeeChanges, formatFeeValue } from "@/lib/fees.functions";
+import { relativeFeeChange } from "@/lib/fee-formatting";
 
 const feeChangesQuery = queryOptions({
   queryKey: ["fee-changes"],
@@ -20,10 +20,10 @@ const feeChangesQuery = queryOptions({
 export const Route = createFileRoute("/fees")({
   head: () => ({
     meta: [
-      { title: "Seller Fee Change Feed — Amazon, Walmart, Shopify, Etsy rate changes" },
-      { name: "description", content: "Recorded marketplace fee-change events in one feed. Old vs new rate, effective date, source link, and estimated seller impact." },
+      { title: "Seller Fee Change Feed — Recorded Marketplace Fee Changes" },
+      { name: "description", content: "Recorded marketplace fee-change events with available source and effective-date information." },
       { property: "og:title", content: "Seller Fee Change Feed" },
-      { property: "og:description", content: "Subscribe to marketplace fee change alerts across Amazon, Walmart, Shopify, and Etsy." },
+      { property: "og:description", content: "Recorded marketplace fee-change events with available source and effective-date information." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -70,9 +70,9 @@ function FeesPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Live feed"
+        eyebrow="HISTORICAL DATASET"
         title="Seller Fee Change Feed"
-        description="Recorded historical and upcoming fee-change events, sourced from official marketplace documentation. Old rate, new rate, effective date, and source link — all in one place."
+        description="Recorded marketplace fee-change events with available source and effective-date information."
         actions={
           <Link
             to="/impact-reports"
@@ -107,7 +107,7 @@ function FeesPage() {
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {filtered.map((c) => {
-            const pct = c.old_value === 0 ? 1 : (c.new_value - c.old_value) / c.old_value;
+            const pct = relativeFeeChange(c.old_value, c.new_value);
             const direction: "up" | "down" = c.new_value >= c.old_value ? "up" : "down";
             return (
               <Card key={c.id} className="border-border transition-shadow hover:shadow-md">
@@ -144,7 +144,7 @@ function FeesPage() {
                       {c.source_title} <ExternalLink className="h-3 w-3" />
                     </a>
                     <span className="font-medium text-foreground tabular-nums">
-                      {direction === "up" ? "+" : ""}{(pct * 100).toFixed(1)}%
+                      {pct === null ? "New fee" : `${direction === "up" ? "+" : ""}${(pct * 100).toFixed(1)}%`}
                     </span>
                   </div>
                 </CardContent>
@@ -157,13 +157,6 @@ function FeesPage() {
           <p className="mt-12 text-center text-sm text-muted-foreground">No fee changes match your filters.</p>
         )}
 
-        <div className="mt-12">
-          <EmailCapture
-            topic="fee_changes"
-            title="Get fee change alerts in your inbox"
-            description="The moment Amazon, Walmart, or Shopify publishes a fee update, you'll get a short email with the old rate, new rate, and impact estimate. No spam — only material changes."
-          />
-        </div>
       </section>
     </>
   );

@@ -16,6 +16,11 @@ export const pricingDetailsSchema = z.discriminatedUnion("kind", [
 ]);
 export type PricingDetails = z.infer<typeof pricingDetailsSchema>;
 
+// A zero baseline has no defined relative percentage change.
+export function relativeFeeChange(oldValue: number, newValue: number): number | null {
+  return oldValue === 0 ? null : (newValue - oldValue) / oldValue;
+}
+
 export function formatFeeValue(value: number, valueType: string): string {
   switch (valueType) {
     case "percent": {
