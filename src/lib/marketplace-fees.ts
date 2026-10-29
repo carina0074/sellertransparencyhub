@@ -122,6 +122,7 @@ export type FeeInputs = {
 
 export type FeeBreakdown = {
   referralFee: number; fulfillmentFee: number; storageFee: number;
+  closingFee: number;
   returnCost: number; totalFees: number; netProfit: number;
   margin: number; recommendation: "healthy" | "moderate" | "warning";
   /** Fee components that could not be estimated from verified data. */
@@ -146,8 +147,10 @@ export function calculateFees(i: FeeInputs): FeeBreakdown {
     }
   } else if (i.marketplace === "shopify") {
     referralFee = i.price * SHOPIFY_TXN_RATE + SHOPIFY_TXN_FLAT;
+    unsupported.push("Shopify subscription allocation and other applicable card/provider charges (assumes U.S. Basic standard online Shopify Payments)");
   } else {
     referralFee = i.price * ETSY_TXN_RATE + i.price * ETSY_PAYMENT_RATE + ETSY_PAYMENT_FLAT + ETSY_LISTING_FEE;
+    unsupported.push("Etsy Offsite Ads and other applicable fees (assumes U.S. Etsy Payments and one ordinary listing charge per modeled sale)");
   }
 
   let fulfillmentFee: number;
@@ -170,13 +173,14 @@ export function calculateFees(i: FeeInputs): FeeBreakdown {
   const rRate = RETURN_RATE[i.category] ?? 0.08;
   const returnCost = rRate * (i.price * 0.25 + 2.5);
   const shippingCost = i.marketplace === "shopify" || i.marketplace === "etsy" ? 0 : i.shipping;
-  const totalFees = referralFee + fulfillmentFee + storageFee + returnCost;
+  const closingFee = i.marketplace === "amazon" && i.category === "books" ? 1.80 : 0;
+  const totalFees = referralFee + closingFee + fulfillmentFee + storageFee + returnCost;
   const netProfit = i.price - i.cost - shippingCost - totalFees;
   const margin = i.price > 0 ? netProfit / i.price : 0;
   let recommendation: FeeBreakdown["recommendation"] = "healthy";
   if (margin < 0.1) recommendation = "warning";
   else if (margin < 0.2) recommendation = "moderate";
-  return { referralFee, fulfillmentFee, storageFee, returnCost, totalFees, netProfit, margin, recommendation, unsupported };
+  return { referralFee, closingFee, fulfillmentFee, storageFee, returnCost, totalFees, netProfit, margin, recommendation, unsupported };
 }
 
 export const fmtUSD = (n: number) =>

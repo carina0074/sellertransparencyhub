@@ -125,10 +125,17 @@ describe("Amazon fulfillment and storage", () => {
   });
 });
 
-describe("Supported marketplaces never report unsupported components", () => {
-  test("Shopify and Etsy produce no unsupported flags for their explicit scope", () => {
+describe("Excluded components are explicit", () => {
+  test("Shopify and Etsy disclose applicable exclusions rather than imply all-in totals", () => {
     for (const marketplace of ["shopify", "etsy"] as const) {
-      expect(calculateFees({ ...base, marketplace }).unsupported).toEqual([]);
+      expect(calculateFees({ ...base, marketplace }).unsupported.length).toBeGreaterThan(0);
     }
+  });
+  test("Amazon Books charges $1.80 separately and includes it exactly once", () => {
+    const r = calculateFees({ ...base, category:"books" });
+    expect(r.closingFee).toBe(1.80);
+    expect(r.referralFee).toBe(4.50);
+    expect(r.totalFees).toBeCloseTo(r.referralFee+r.closingFee+r.fulfillmentFee+r.storageFee+r.returnCost,2);
+    expect(calculateFees(base).closingFee).toBe(0);
   });
 });
