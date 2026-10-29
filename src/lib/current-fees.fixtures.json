@@ -598,18 +598,18 @@
     "verification_status": "verified_current_value"
   },
   {
-    "id": "1f1e5897-cba7-4980-b30f-a1526439336c",
+    "id": "76de0bc8-7c7f-4429-9d56-d1b987d6aa30",
     "marketplace": "eBay",
-    "fee_name": "Final value fee \u2014 Books & Magazines",
-    "category": "Books & Magazines",
+    "fee_name": "Final value fee \u2014 Home & Garden",
+    "category": "Home & Garden",
     "fee_type": "Final value",
-    "value": 0.153,
+    "value": 0.136,
     "value_type": "percent",
     "effective_date": null,
     "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
     "source_title": "eBay \u2014 U.S. standard selling fees",
     "last_verified": "2026-10-29",
-    "notes": "15.3% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. U.S. standard schedule.",
+    "notes": "13.6% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. Most-category U.S. standard schedule.",
     "pricing_details": {
       "kind": "tiered",
       "mode": "marginal",
@@ -618,7 +618,7 @@
       "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
       "tiers": [
         {
-          "rate": 0.153,
+          "rate": 0.136,
           "label": "Total sale portion up to $7,500, calculated per item",
           "upper_minor": 750000
         },
@@ -630,7 +630,7 @@
       ],
       "currency": "USD",
       "conditions": [
-        "15.3% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. U.S. standard schedule.",
+        "13.6% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. Most-category U.S. standard schedule.",
         "Applicable per-order fee: $0.30 for orders \u2264$10; $0.40 above $10, subject to qualifying Athletic Shoes exemption. This is part of the final value fee, not a second percentage.",
         "Base schedule only; seller-performance/conduct surcharges and optional upgrades may be additional."
       ],
@@ -796,6 +796,55 @@
     "verification_status": "verified_current_value"
   },
   {
+    "id": "1f1e5897-cba7-4980-b30f-a1526439336c",
+    "marketplace": "eBay",
+    "fee_name": "Final value fee \u2014 Books & Magazines",
+    "category": "Books & Magazines",
+    "fee_type": "Final value",
+    "value": 0.153,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+    "source_title": "eBay \u2014 U.S. standard selling fees",
+    "last_verified": "2026-10-29",
+    "notes": "15.3% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. U.S. standard schedule.",
+    "pricing_details": {
+      "kind": "tiered",
+      "mode": "marginal",
+      "unit": "",
+      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
+      "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
+      "tiers": [
+        {
+          "rate": 0.153,
+          "label": "Total sale portion up to $7,500, calculated per item",
+          "upper_minor": 750000
+        },
+        {
+          "rate": 0.0235,
+          "label": "Portion above $7,500",
+          "upper_minor": null
+        }
+      ],
+      "currency": "USD",
+      "conditions": [
+        "15.3% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. U.S. standard schedule.",
+        "Applicable per-order fee: $0.30 for orders \u2264$10; $0.40 above $10, subject to qualifying Athletic Shoes exemption. This is part of the final value fee, not a second percentage.",
+        "Base schedule only; seller-performance/conduct surcharges and optional upgrades may be additional."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "title": "Official eBay fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "per_order_fee": true
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
     "id": "0e454921-1c5a-44ba-9182-c543f50cacdc",
     "marketplace": "eBay",
     "fee_name": "Final value fee \u2014 Clothing, Shoes & Accessories",
@@ -831,55 +880,6 @@
         "Default: 13.6% through $7,500 per item, 2.35% on excess + per-order fee. Women\u2019s Bags & Handbags and qualifying Athletic Shoes use different rates; expand details.",
         "Women\u2019s Bags & Handbags: 15% of whole total sale when \u2264$2,000; 9% of whole total sale when >$2,000, calculated per item; not marginal tiers.",
         "Men\u2019s/Women\u2019s Athletic Shoes: 13.6% when total sale <$150; 8% when \u2265$150, with no per-order fee at \u2265$150.",
-        "Applicable per-order fee: $0.30 for orders \u2264$10; $0.40 above $10, subject to qualifying Athletic Shoes exemption. This is part of the final value fee, not a second percentage.",
-        "Base schedule only; seller-performance/conduct surcharges and optional upgrades may be additional."
-      ],
-      "references": [
-        {
-          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-          "title": "Official eBay fee schedule"
-        }
-      ],
-      "reviewed_on": "2026-10-29",
-      "legacy_source": false,
-      "per_order_fee": true
-    },
-    "verification_status": "verified_current_value"
-  },
-  {
-    "id": "76de0bc8-7c7f-4429-9d56-d1b987d6aa30",
-    "marketplace": "eBay",
-    "fee_name": "Final value fee \u2014 Home & Garden",
-    "category": "Home & Garden",
-    "fee_type": "Final value",
-    "value": 0.136,
-    "value_type": "percent",
-    "effective_date": null,
-    "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-    "source_title": "eBay \u2014 U.S. standard selling fees",
-    "last_verified": "2026-10-29",
-    "notes": "13.6% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. Most-category U.S. standard schedule.",
-    "pricing_details": {
-      "kind": "tiered",
-      "mode": "marginal",
-      "unit": "",
-      "basis": "Total sale includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees",
-      "scope": "U.S. standard selling schedule; Store-specific, vehicle and eBay Live schedules are separate",
-      "tiers": [
-        {
-          "rate": 0.136,
-          "label": "Total sale portion up to $7,500, calculated per item",
-          "upper_minor": 750000
-        },
-        {
-          "rate": 0.0235,
-          "label": "Portion above $7,500",
-          "upper_minor": null
-        }
-      ],
-      "currency": "USD",
-      "conditions": [
-        "13.6% through $7,500 per item; 2.35% on excess; plus applicable per-order fee. Most-category U.S. standard schedule.",
         "Applicable per-order fee: $0.30 for orders \u2264$10; $0.40 above $10, subject to qualifying Athletic Shoes exemption. This is part of the final value fee, not a second percentage.",
         "Base schedule only; seller-performance/conduct surcharges and optional upgrades may be additional."
       ],
@@ -1206,6 +1206,47 @@
     "verification_status": "verified_current_value"
   },
   {
+    "id": "5e85f0a1-2aa7-4637-9394-e1b3c37a42fd",
+    "marketplace": "Shopify",
+    "fee_name": "Online Card Rate",
+    "category": "Basic plan \u2014 U.S. standard online cards",
+    "fee_type": "Card processing",
+    "value": 0.029,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://www.shopify.com/pricing?product=service",
+    "source_title": "Shopify \u2014 Current U.S. pricing and payment rates",
+    "last_verified": "2026-10-29",
+    "notes": "U.S. Shopify Payments Basic: standard online cards 2.9% + $0.30/transaction; premium 3.5% + $0.30; international +1%.",
+    "pricing_details": {
+      "kind": "processing",
+      "unit": "transaction",
+      "basis": "per online card transaction",
+      "scope": "U.S. Basic plan, Shopify Payments, standard online cards",
+      "currency": "USD",
+      "conditions": [
+        "U.S. Shopify Payments Basic: standard online cards 2.9% + $0.30/transaction; premium 3.5% + $0.30; international +1%.",
+        "Premium online cards: 3.5% + $0.30; online international +1%.",
+        "Not universal across cards, countries, providers, wallets or in-person payments. Third-party provider fee for Basic is separately 2%; not a Shopify Payments card-processing charge."
+      ],
+      "references": [
+        {
+          "url": "https://www.shopify.com/pricing?product=service",
+          "title": "Official current fee evidence"
+        },
+        {
+          "url": "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/pricing-overview",
+          "title": "Shopify billing periods and current plan names"
+        }
+      ],
+      "fixed_minor": 30,
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false,
+      "bank_account_country": "US"
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
     "id": "490a9db3-282c-4cfe-a7ad-5350a7bd1a9f",
     "marketplace": "Shopify",
     "fee_name": "Online Card Rate",
@@ -1220,6 +1261,7 @@
     "notes": "U.S. Shopify Payments Advanced: standard online cards 2.5% + $0.30; premium 3.1% + $0.30; international +1%.",
     "pricing_details": {
       "kind": "processing",
+      "unit": "transaction",
       "basis": "per online card transaction",
       "scope": "U.S. Advanced plan, Shopify Payments, standard online cards",
       "currency": "USD",
@@ -1260,6 +1302,7 @@
     "notes": "Current Grow plan (not the legacy Shopify plan label): U.S. standard online cards 2.7% + $0.30; premium 3.3% + $0.30; international +1%.",
     "pricing_details": {
       "kind": "processing",
+      "unit": "transaction",
       "basis": "per online card transaction",
       "scope": "U.S. current Grow plan, Shopify Payments, standard online cards",
       "currency": "USD",
@@ -1268,46 +1311,6 @@
         "Current public plan is Grow; legacy account entitlement or equivalence is not established.",
         "Premium online cards: 3.3% + $0.30; online international +1%. Third-party provider fee separately 1%; not included in this card rate.",
         "Rates differ by card type, country, provider and online/in-person context."
-      ],
-      "references": [
-        {
-          "url": "https://www.shopify.com/pricing?product=service",
-          "title": "Official current fee evidence"
-        },
-        {
-          "url": "https://help.shopify.com/en/manual/intro-to-shopify/pricing-plans/pricing-overview",
-          "title": "Shopify billing periods and current plan names"
-        }
-      ],
-      "fixed_minor": 30,
-      "reviewed_on": "2026-10-29",
-      "legacy_source": false,
-      "bank_account_country": "US"
-    },
-    "verification_status": "verified_current_value"
-  },
-  {
-    "id": "5e85f0a1-2aa7-4637-9394-e1b3c37a42fd",
-    "marketplace": "Shopify",
-    "fee_name": "Online Card Rate",
-    "category": "Basic plan \u2014 U.S. standard online cards",
-    "fee_type": "Card processing",
-    "value": 0.029,
-    "value_type": "percent",
-    "effective_date": null,
-    "source_url": "https://www.shopify.com/pricing?product=service",
-    "source_title": "Shopify \u2014 Current U.S. pricing and payment rates",
-    "last_verified": "2026-10-29",
-    "notes": "U.S. Shopify Payments Basic: standard online cards 2.9% + $0.30/transaction; premium 3.5% + $0.30; international +1%.",
-    "pricing_details": {
-      "kind": "processing",
-      "basis": "per online card transaction",
-      "scope": "U.S. Basic plan, Shopify Payments, standard online cards",
-      "currency": "USD",
-      "conditions": [
-        "U.S. Shopify Payments Basic: standard online cards 2.9% + $0.30/transaction; premium 3.5% + $0.30; international +1%.",
-        "Premium online cards: 3.5% + $0.30; online international +1%.",
-        "Not universal across cards, countries, providers, wallets or in-person payments. Third-party provider fee for Basic is separately 2%; not a Shopify Payments card-processing charge."
       ],
       "references": [
         {
@@ -1374,38 +1377,6 @@
     "verification_status": "verified_current_value"
   },
   {
-    "id": "77b58d70-8ab9-4285-8dab-b9d73b4cf727",
-    "marketplace": "Walmart",
-    "fee_name": "Referral Fee",
-    "category": "Consumer Electronics",
-    "fee_type": "Referral",
-    "value": 0.08,
-    "value_type": "percent",
-    "effective_date": null,
-    "source_url": "https://marketplace.walmart.com/pricing/",
-    "source_title": "Walmart Marketplace \u2014 U.S. referral fee schedule",
-    "last_verified": "2026-10-29",
-    "notes": "8% for official Consumer Electronics category. Electronics Accessories has a separate schedule, not this flat rate.",
-    "pricing_details": {
-      "kind": "simple",
-      "scope": "Walmart Marketplace U.S. Consumer Electronics",
-      "conditions": [
-        "8% for official Consumer Electronics category. Electronics Accessories has a separate schedule, not this flat rate.",
-        "Category and product type selected during item setup determine applicability.",
-        "Electronics Accessories separately charges 15% on the portion through $100 and 8% on the portion above $100; not covered by this record."
-      ],
-      "references": [
-        {
-          "url": "https://marketplace.walmart.com/pricing/",
-          "title": "Official current fee evidence"
-        }
-      ],
-      "reviewed_on": "2026-10-29",
-      "legacy_source": false
-    },
-    "verification_status": "verified_current_value"
-  },
-  {
     "id": "216c5e45-e94e-430a-9a91-f42097290024",
     "marketplace": "Walmart",
     "fee_name": "Referral Fee",
@@ -1459,6 +1430,38 @@
     "verification_status": "verified_current_value"
   },
   {
+    "id": "fedc66e2-5136-4c48-bbf0-441be2764aa0",
+    "marketplace": "Walmart",
+    "fee_name": "Referral Fee",
+    "category": "Outdoors Products and Sports",
+    "fee_type": "Referral",
+    "value": 0.15,
+    "value_type": "percent",
+    "effective_date": null,
+    "source_url": "https://marketplace.walmart.com/pricing/",
+    "source_title": "Walmart Marketplace \u2014 U.S. referral fee schedule",
+    "last_verified": "2026-10-29",
+    "notes": "15% except 8% for Hunting Trail Monitors, Binoculars, Telescopes, Spotting Scopes and Night Vision Goggles.",
+    "pricing_details": {
+      "kind": "simple",
+      "scope": "Walmart Marketplace U.S. Outdoors Products and Sports",
+      "conditions": [
+        "15% except 8% for Hunting Trail Monitors, Binoculars, Telescopes, Spotting Scopes and Night Vision Goggles.",
+        "15% headline rate excludes these 8% product types: Hunting Trail Monitors, Binoculars, Telescopes, Spotting Scopes, Night Vision Goggles.",
+        "Category and product type selected during item setup determine applicability."
+      ],
+      "references": [
+        {
+          "url": "https://marketplace.walmart.com/pricing/",
+          "title": "Official current fee evidence"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "legacy_source": false
+    },
+    "verification_status": "verified_current_value"
+  },
+  {
     "id": "ef8fbc12-b63e-49bf-860b-2d3474f7e1c8",
     "marketplace": "Walmart",
     "fee_name": "Referral Fee",
@@ -1491,25 +1494,25 @@
     "verification_status": "verified_current_value"
   },
   {
-    "id": "fedc66e2-5136-4c48-bbf0-441be2764aa0",
+    "id": "77b58d70-8ab9-4285-8dab-b9d73b4cf727",
     "marketplace": "Walmart",
     "fee_name": "Referral Fee",
-    "category": "Outdoors Products and Sports",
+    "category": "Consumer Electronics",
     "fee_type": "Referral",
-    "value": 0.15,
+    "value": 0.08,
     "value_type": "percent",
     "effective_date": null,
     "source_url": "https://marketplace.walmart.com/pricing/",
     "source_title": "Walmart Marketplace \u2014 U.S. referral fee schedule",
     "last_verified": "2026-10-29",
-    "notes": "15% except 8% for Hunting Trail Monitors, Binoculars, Telescopes, Spotting Scopes and Night Vision Goggles.",
+    "notes": "8% for official Consumer Electronics category. Electronics Accessories has a separate schedule, not this flat rate.",
     "pricing_details": {
       "kind": "simple",
-      "scope": "Walmart Marketplace U.S. Outdoors Products and Sports",
+      "scope": "Walmart Marketplace U.S. Consumer Electronics",
       "conditions": [
-        "15% except 8% for Hunting Trail Monitors, Binoculars, Telescopes, Spotting Scopes and Night Vision Goggles.",
-        "15% headline rate excludes these 8% product types: Hunting Trail Monitors, Binoculars, Telescopes, Spotting Scopes, Night Vision Goggles.",
-        "Category and product type selected during item setup determine applicability."
+        "8% for official Consumer Electronics category. Electronics Accessories has a separate schedule, not this flat rate.",
+        "Category and product type selected during item setup determine applicability.",
+        "Electronics Accessories separately charges 15% on the portion through $100 and 8% on the portion above $100; not covered by this record."
       ],
       "references": [
         {
