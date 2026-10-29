@@ -8,7 +8,7 @@ import { useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getDatabaseStats, getFeeRecords } from "@/lib/fees.functions";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
-import { formatFeeValue } from "@/lib/fee-formatting";
+import { presentFee } from "@/lib/fee-formatting";
 import type { FeeRecord } from "@/lib/fees.functions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -46,19 +46,24 @@ const trust = [
 
 const marketplaces = ["Amazon", "eBay", "Walmart", "Etsy", "Shopify"];
 
-// Real verified records shown in the hero preview, matched from the live database.
+// Representative picks resolved against the live current fee records (no fee values here).
 const previewPicks: { marketplace: string; feeName: string; category: string; label: string }[] = [
-  { marketplace: "Amazon", feeName: "Referral Fee", category: "Home & Kitchen", label: "Home & Kitchen" },
-  { marketplace: "eBay", feeName: "Final value fee — Books & Magazines", category: "books", label: "Books & Magazines" },
-  { marketplace: "Walmart", feeName: "Referral Fee", category: "Sporting Goods", label: "Sporting Goods" },
-  { marketplace: "Shopify", feeName: "Online Card Rate", category: "Basic plan", label: "Basic online card rate" },
+  { marketplace: "Amazon", feeName: "Referral Fee", category: "Home & Kitchen", label: "Home & Kitchen referral fee" },
+  { marketplace: "eBay", feeName: "Final value fee — Books & Magazines", category: "Books & Magazines", label: "Books & Magazines final value fee" },
+  { marketplace: "Walmart", feeName: "Referral Fee", category: "Home, Kitchen, Decor & Garden", label: "Home, Kitchen, Decor & Garden referral fee" },
+  { marketplace: "Etsy", feeName: "Transaction Fee", category: "Selling — U.S. fee basis", label: "Transaction fee" },
+  { marketplace: "Shopify", feeName: "Online Card Rate", category: "Basic plan — U.S. standard online cards", label: "Basic plan online card rate" },
 ];
 
 function FeePreview({ records }: { records: FeeRecord[] }) {
   const rows = previewPicks
     .map((p) => {
       const record = records.find(
-        (r) => r.marketplace === p.marketplace && r.fee_name === p.feeName && r.category === p.category,
+        (r) =>
+          r.marketplace === p.marketplace &&
+          r.fee_name === p.feeName &&
+          r.category === p.category &&
+          r.verification_status === "verified_current_value",
       );
       return record ? { record, label: p.label } : null;
     })
@@ -69,21 +74,21 @@ function FeePreview({ records }: { records: FeeRecord[] }) {
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-sm font-semibold text-foreground">Marketplace Fee Comparison</h2>
           <span className="rounded-full border border-border bg-secondary/60 px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
-            Official source
+            Source-linked records
           </span>
         </div>
-        <ul className="mt-4 divide-y divide-border">
+        <p className="mt-1 text-xs text-muted-foreground">
+          Representative current fees — examples from the current fee database, not comparable total selling costs.
+        </p>
+        <ul className="mt-3 divide-y divide-border">
           {rows.map(({ record: r, label }) => (
-            <li key={r.id} className="flex items-center justify-between gap-4 py-3">
+            <li key={r.id} className="flex items-center justify-between gap-4 py-2.5">
               <div className="min-w-0">
                 <div className="text-sm font-medium text-foreground">{r.marketplace}</div>
-                <div className="truncate text-xs text-muted-foreground">{label}</div>
-                {r.notes ? (
-                  <div className="truncate text-xs text-muted-foreground">{r.notes}</div>
-                ) : null}
+                <div className="text-xs text-muted-foreground">{label}</div>
               </div>
               <div className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
-                {formatFeeValue(r.value, r.value_type)}
+                {presentFee(r).value}
               </div>
             </li>
           ))}
