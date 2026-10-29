@@ -10,7 +10,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import { getFeeChanges, formatFeeValue } from "@/lib/fees.functions";
-import { relativeFeeChange } from "@/lib/fee-formatting";
+import { historicalChangeLabel, historicalEffectiveDate, historicalEvidenceSchema } from "@/lib/historical-fee-formatting";
 
 const feeChangesQuery = queryOptions({
   queryKey: ["fee-changes"],
@@ -21,9 +21,9 @@ export const Route = createFileRoute("/fees")({
   head: () => ({
     meta: [
       { title: "Seller Fee Change Feed — Recorded Marketplace Fee Changes" },
-      { name: "description", content: "Recorded marketplace fee-change events with available source and effective-date information." },
+      { name: "description", content: "A manually maintained collection of documented historical marketplace fee changes with first-party evidence, applicability and effective-date precision." },
       { property: "og:title", content: "Seller Fee Change Feed" },
-      { property: "og:description", content: "Recorded marketplace fee-change events with available source and effective-date information." },
+      { property: "og:description", content: "Documented historical marketplace fee changes with first-party evidence and clearly stated effective-date precision; not exhaustive marketplace coverage." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -72,7 +72,7 @@ function FeesPage() {
       <PageHeader
         eyebrow="HISTORICAL DATASET"
         title="Seller Fee Change Feed"
-        description="Recorded marketplace fee-change events with available source and effective-date information."
+        description="A manually maintained, evidence-backed collection of documented marketplace fee-change events, not an exhaustive history of every marketplace change."
         actions={
           <Link
             to="/impact-reports"
@@ -107,7 +107,8 @@ function FeesPage() {
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {filtered.map((c) => {
-            const pct = relativeFeeChange(c.old_value, c.new_value);
+            const parsedEvidence = historicalEvidenceSchema.safeParse(c.evidence_details);
+            const evidence = parsedEvidence.success ? parsedEvidence.data : null;
             const direction: "up" | "down" = c.new_value >= c.old_value ? "up" : "down";
             return (
               <Card key={c.id} className="border-border transition-shadow hover:shadow-md">
@@ -118,7 +119,7 @@ function FeesPage() {
                         <Badge variant="secondary" className="rounded-full">{c.marketplace}</Badge>
                         <Badge variant="outline" className="rounded-full">{c.fee_type}</Badge>
                         <span className="tabular-nums">
-                          {new Date(c.effective_date).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                          {historicalEffectiveDate(c)}
                         </span>
                       </div>
                       <h3 className="mt-2 text-base font-semibold text-foreground">{c.title}</h3>
@@ -136,7 +137,20 @@ function FeesPage() {
                   {c.summary && (
                     <p className="mt-3 text-sm text-muted-foreground">{c.summary}</p>
                   )}
-                  <div className="mt-4 flex items-center justify-between border-t border-border pt-3 text-xs">
+                  {evidence && <details className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                    <summary className="cursor-pointer font-medium text-primary">Historical evidence &amp; applicability</summary>
+                    <div className="mt-2 space-y-2">
+                      <p><strong>Scope:</strong> {evidence.scope}</p>
+                      {evidence.conditions.map((condition) => <p key={condition}>{condition}</p>)}
+                      {evidence.references.map((reference) => <div key={reference.url}>
+                        <a href={reference.url} target="_blank" rel="noreferrer" className="text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>
+                        <blockquote className="mt-1 border-l-2 border-border pl-2">{reference.quote}</blockquote>
+                      </div>)}
+                      <p>Evidence reviewed {evidence.reviewed_on}; review date is not an effective date.</p>
+                      <p>{c.record_id ? "Linked to the same current fee concept." : "No current-record link."} {evidence.linkage_reason}</p>
+                    </div>
+                  </details>}
+                  <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3 text-xs">
                     <a
                       href={c.source_url} target="_blank" rel="noreferrer"
                       className="inline-flex items-center gap-1 text-primary hover:underline"
@@ -144,7 +158,7 @@ function FeesPage() {
                       {c.source_title} <ExternalLink className="h-3 w-3" />
                     </a>
                     <span className="font-medium text-foreground tabular-nums">
-                      {pct === null ? "New fee" : `${direction === "up" ? "+" : ""}${(pct * 100).toFixed(1)}%`}
+                      {historicalChangeLabel(c.old_value, c.new_value)}
                     </span>
                   </div>
                 </CardContent>

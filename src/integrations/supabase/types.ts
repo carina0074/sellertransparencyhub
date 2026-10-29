@@ -38,7 +38,10 @@ export type Database = {
           category: string
           change_amount: number
           created_at: string
-          effective_date: string
+          effective_date: string | null
+          effective_date_precision: string
+          effective_period: string | null
+          evidence_details: Json | null
           fee_type: string
           id: string
           impact_level: string
@@ -57,7 +60,10 @@ export type Database = {
           category: string
           change_amount: number
           created_at?: string
-          effective_date: string
+          effective_date?: string | null
+          effective_date_precision?: string
+          effective_period?: string | null
+          evidence_details?: Json | null
           fee_type: string
           id?: string
           impact_level: string
@@ -76,7 +82,10 @@ export type Database = {
           category?: string
           change_amount?: number
           created_at?: string
-          effective_date?: string
+          effective_date?: string | null
+          effective_date_precision?: string
+          effective_period?: string | null
+          evidence_details?: Json | null
           fee_type?: string
           id?: string
           impact_level?: string

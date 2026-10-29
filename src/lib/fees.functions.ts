@@ -29,6 +29,7 @@ export type FeeRecord = {
 
 export type FeeChange = {
   id: string;
+  record_id: string | null;
   marketplace: string;
   fee_type: string;
   category: string;
@@ -37,7 +38,10 @@ export type FeeChange = {
   new_value: number;
   value_type: string;
   change_amount: number;
-  effective_date: string;
+  effective_date: string | null;
+  effective_date_precision: "exact" | "month" | "year" | "unknown";
+  effective_period: string | null;
+  evidence_details: Json | null;
   announcement_date: string | null;
   impact_level: "low" | "medium" | "high";
   source_url: string;
@@ -110,7 +114,7 @@ export const getFeeChanges = createServerFn({ method: "GET" }).handler(
   async (): Promise<FeeChange[]> => {
     const { data, error } = await supabase
       .from("fee_changes")
-      .select("id,marketplace,fee_type,category,title,old_value,new_value,value_type,change_amount,effective_date,announcement_date,impact_level,source_url,source_title,summary")
+      .select("id,record_id,marketplace,fee_type,category,title,old_value,new_value,value_type,change_amount,effective_date,announcement_date,impact_level,source_url,source_title,summary,effective_date_precision,effective_period,evidence_details")
       .order("effective_date", { ascending: false });
     if (error) throw new Error(error.message);
     return (data ?? []).map((r) => ({

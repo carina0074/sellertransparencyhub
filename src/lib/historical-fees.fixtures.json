@@ -1,0 +1,149 @@
+[
+  {
+    "id": "2ab83dc6-dd91-45de-a5b8-4633f3d102bb",
+    "record_id": "0e454921-1c5a-44ba-9182-c543f50cacdc",
+    "marketplace": "eBay",
+    "fee_type": "Final value",
+    "category": "Most Clothing, Shoes & Accessories \u2014 no Store or Starter Store",
+    "title": "eBay standard Clothing, Shoes & Accessories final value fee increase",
+    "old_value": 0.1325,
+    "new_value": 0.136,
+    "value_type": "percent",
+    "change_amount": 0.0035,
+    "effective_date": "2025-02-14",
+    "announcement_date": null,
+    "impact_level": "medium",
+    "source_url": "https://www.ebay.com/sellercenter/resources/seller-updates/2025-january/final-value-fee",
+    "source_title": "eBay January 2025 Seller Update \u2014 Final value fee changes",
+    "summary": "U.S. most-category apparel rate increased from 13.25% to 13.6% on the first $7,500 per item effective February 14, 2025. The 2.35% marginal rate above $7,500 remained unchanged; applicable per-order fees are additional. Separate category and Store schedules apply.",
+    "effective_date_precision": "exact",
+    "effective_period": null,
+    "evidence_details": {
+      "scope": "U.S. standard schedule for sellers without a Store or with a Starter Store; most Clothing, Shoes & Accessories listings",
+      "status": "verified_historical_event",
+      "conditions": [
+        "13.25% to 13.6% applies to the first $7,500 of total sale calculated per item, not the whole amount above the threshold; 2.35% on the excess unchanged.",
+        "Women\u2019s Bags & Handbags were unchanged at 15% of whole sale \u2264$2,000 or 9% above $2,000 under this standard schedule.",
+        "Specified men\u2019s/women\u2019s Athletic Shoes: 13.25% to 13.6% below $150 total sale; 8% and no per-order fee remained unchanged at \u2265$150.",
+        "Basic or above Stores had a distinct 12.35% to 12.7% most-apparel change at a $2,500 breakpoint, not this $7,500 standard schedule.",
+        "This is the final value fee percentage, not a separate referral surcharge; applicable per-order charge is additional.",
+        "Exact announcement day was not established; announcement_date is null."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/sellercenter/resources/seller-updates/2025-january/final-value-fee",
+          "quote": "We\u2019ll be adjusting final value fees in most categories starting February 14, 2025.",
+          "title": "eBay January 2025 final value fee announcement",
+          "evidence_type": "official historical fee-change announcement"
+        },
+        {
+          "url": "https://www.ebay.com/sellercenter/resources/seller-updates/2025-january/final-value-fee#",
+          "quote": "13.25%\n2.35% on portion of the sale over $7,500\n13.6%\n2.35% on portion of the sale over $7,500",
+          "title": "eBay paired old/new standard seller table",
+          "evidence_type": "official historical paired fee schedule"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "linkage_reason": "Same U.S. standard apparel final-value-fee concept and category exceptions as the current record; historical paired rates and date are established by the dated change notice independently of current values."
+    }
+  },
+  {
+    "id": "47d5cb5e-2ac5-4d02-9c26-d66295efe60a",
+    "record_id": "1da4ded9-fc30-4ea6-819c-7777d04088ba",
+    "marketplace": "eBay",
+    "fee_type": "Per-order",
+    "category": "U.S. orders totaling over $10",
+    "title": "eBay per-order fee increase for orders over $10",
+    "old_value": 0.3,
+    "new_value": 0.4,
+    "value_type": "usd_per_order",
+    "change_amount": 0.1,
+    "effective_date": "2024-03-15",
+    "announcement_date": null,
+    "impact_level": "high",
+    "source_url": "https://www.ebay.com/sellercenter/resources/seller-updates/2024-winter/financials",
+    "source_title": "eBay 2024 Winter Seller Update \u2014 Fees & financials",
+    "summary": "U.S. per-order final value fee increased from $0.30 to $0.40 on March 15, 2024 for orders over $10. Orders $10 and under remained $0.30. This is per order, not per item.",
+    "effective_date_precision": "exact",
+    "effective_period": null,
+    "evidence_details": {
+      "scope": "U.S. ebay.com sellers subject to the per-order final value fee; not the Canadian implementation date",
+      "status": "verified_historical_event",
+      "conditions": [
+        "An order is any number of items bought by the same buyer at checkout with the same shipping method.",
+        "Order total includes item price, handling, buyer-paid shipping subject to source exceptions, sales tax and applicable fees.",
+        "The announcement describes orders over $10 across categories; it does not override category-specific exemptions.",
+        "Exact announcement day was not established; announcement_date is null."
+      ],
+      "references": [
+        {
+          "url": "https://www.ebay.com/sellercenter/resources/seller-updates/2024-winter/financials",
+          "quote": "Starting March 15, 2024, the per-order fee on orders over $10 will increase from $0.30 to $0.40 across all categories.",
+          "title": "eBay 2024 Winter Seller Update \u2014 Fees & financials",
+          "evidence_type": "official historical fee-change announcement"
+        },
+        {
+          "url": "https://www.ebay.com/sellercenter/resources/seller-updates/2024-winter/financials#our-per-order-fee-is-changing-",
+          "quote": "For orders $10 and under, there\u2019ll be no change and you\u2019ll continue to be charged the current rate of $0.30.",
+          "title": "eBay unchanged lower-order tier",
+          "evidence_type": "official historical fee-change announcement"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "linkage_reason": "Same per-order final-value-fee component as current record, specifically its above-$10 tier; the current lower-tier scalar does not establish history."
+    }
+  },
+  {
+    "id": "0cb1ef44-8e6f-4d77-940b-065d85aa990a",
+    "record_id": "0313eff8-fa79-41a8-a2f8-89b874cf41b8",
+    "marketplace": "Shopify",
+    "fee_type": "Subscription",
+    "category": "Basic \u2014 USD monthly billing; existing merchant cohort",
+    "title": "Shopify Basic monthly plan price increase \u2014 cohort-based rollout",
+    "old_value": 29,
+    "new_value": 39,
+    "value_type": "usd_per_month",
+    "change_amount": 10,
+    "effective_date": "2023-04-23",
+    "announcement_date": null,
+    "impact_level": "high",
+    "source_url": "https://www.shopify.com/blog/pricing-updates-2023",
+    "source_title": "Shopify \u2014 Changes to 2023 Plan Pricing",
+    "summary": "Basic monthly-billed USD list price changed from $29 to $39. New merchants received updated pricing January 24, 2023; the existing-merchant policy took effect April 23, 2023. Existing merchants could switch to yearly terms before that deadline to retain the former monthly price as an annual-plan equivalent. This is not one universal account charge date.",
+    "effective_date_precision": "exact",
+    "effective_period": null,
+    "evidence_details": {
+      "scope": "Shopify Basic USD monthly-billing plan price; April 23, 2023 applies to merchants existing before January 24, 2023, not all accounts",
+      "status": "verified_historical_event",
+      "conditions": [
+        "New merchants: January 24, 2023. Existing merchants: policy effectiveness April 23, 2023, subject to annual-switch protection and account billing cycle.",
+        "Monthly subscription charge changed from $29 to $39; $29/month equivalent under annual terms is not the new monthly-billed rate.",
+        "Switching to annual terms before April 23 could retain the prior monthly price as an annual-plan equivalent; perpetual grandfathering is not established.",
+        "First-party blog publication is January 24, 2023; investor release says announced January 23. Neither is treated as a universal account charge day; announcement_date left null to avoid conflating first announcement with blog publication.",
+        "Dollar endpoints are corroborated by the dated original Shopify representative response, not the community page\u2019s AI summary."
+      ],
+      "references": [
+        {
+          "url": "https://www.shopify.com/blog/pricing-updates-2023",
+          "quote": "Switch from monthly to yearly terms to keep your current monthly price before new prices take effect on April 23, 2023.",
+          "title": "Shopify 2023 dated pricing announcement",
+          "evidence_type": "official dated historical pricing announcement"
+        },
+        {
+          "url": "https://community.shopify.com/t/new-2023-pricing-for-shopify-store-owners/188091/6",
+          "quote": "With the new pricing, the \u2018Basic\u2019 plan will be $39/monthly, or $29/monthly if opting into the annual plan and taking advantage of the annual discount.\n\nEssentially, all plans have had their monthly price increased. If you opt into the annual subscription, you will be able to take advantage of discounted subscription prices that match the monthly pricing before the price change.",
+          "title": "Shopify original representative response, February 13, 2023",
+          "evidence_type": "dated first-party representative pricing response, not seller commentary or AI summary"
+        },
+        {
+          "url": "https://www.shopify.com/news/shopify-announces-first-quarter-2023-financial-results-agrees-to-sell-shopify-logistics-to-flexport",
+          "quote": "New pricing went into effect for new merchants on January 24, 2023 and for existing merchants prior to January 24, 2023 on April 23, 2023.",
+          "title": "Shopify first-quarter 2023 investor release",
+          "evidence_type": "official dated corporate historical release"
+        }
+      ],
+      "reviewed_on": "2026-10-29",
+      "linkage_reason": "Same Basic USD monthly-subscription fee concept as current billing-options record; historical cohort timing and original dollar endpoints come from independent historical first-party evidence."
+    }
+  }
+]
