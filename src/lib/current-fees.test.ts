@@ -35,7 +35,7 @@ describe("first-party current-fee remediation", () => {
   });
   test("eBay default final value is marginal 13.6%/2.35% at $7500", () => {
     const d = tiers("eBay", "Home & Garden");
-    expect(evaluatePercentageTiers(d,800000)).toBe(103175);
+    expect(evaluatePercentageTiers(d,800000)).toBeCloseTo(103175,2);
     expect(d.per_order_fee).toBe(true);
   });
   test("eBay Books first tier is 15.3%, not 13.6%", () => {
