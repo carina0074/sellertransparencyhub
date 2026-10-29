@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getFeedbackSubmissions, type FeedbackSubmission } from "@/lib/admin.functions";
-import { USEFULNESS_LABELS, type Usefulness } from "@/lib/feedback.functions";
+import { USEFULNESS_LABELS, USER_TYPE_LABELS, INFO_ACCESS_LABELS, type Usefulness, type UserType, type InfoAccess } from "@/lib/feedback.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 
@@ -18,12 +18,13 @@ function csvEscape(value: string): string {
 
 function toCsv(rows: FeedbackSubmission[]): string {
   const header = [
-    "submitted_at", "resource_type", "resource_path", "usefulness",
+    "submitted_at", "resource_type", "resource_path", "usefulness", "user_type", "info_access",
     "marketplaces", "use_cases", "feedback_text", "follow_up_opt_in", "follow_up_email",
   ];
   const lines = rows.map((r) =>
     [
       r.created_at, r.resource_type, r.resource_path, r.usefulness_response,
+      r.user_type ?? "", r.information_access_response ?? "",
       r.marketplaces.join("; "), r.use_cases.join("; "), r.free_text_feedback ?? "",
       r.follow_up_opt_in ? "yes" : "no", r.follow_up_email ?? "",
     ].map(csvEscape).join(","),
@@ -98,6 +99,8 @@ function FeedbackAdminPage() {
                 <th className="px-4 py-3">Submitted</th>
                 <th className="px-4 py-3">Resource</th>
                 <th className="px-4 py-3">Useful?</th>
+                <th className="px-4 py-3">User type</th>
+                <th className="px-4 py-3">Info access</th>
                 <th className="px-4 py-3">Marketplaces</th>
                 <th className="px-4 py-3">Use cases</th>
                 <th className="px-4 py-3">Feedback</th>
@@ -113,6 +116,12 @@ function FeedbackAdminPage() {
                   <td className="px-4 py-3 font-medium">{s.resource_path}</td>
                   <td className="px-4 py-3">
                     {USEFULNESS_LABELS[s.usefulness_response as Usefulness] ?? s.usefulness_response}
+                  </td>
+                  <td className="px-4 py-3 text-muted-foreground">
+                    {s.user_type ? USER_TYPE_LABELS[s.user_type as UserType] ?? s.user_type : "—"}
+                  </td>
+                  <td className="px-4 py-3 text-muted-foreground">
+                    {s.information_access_response ? INFO_ACCESS_LABELS[s.information_access_response as InfoAccess] ?? s.information_access_response : "—"}
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">{s.marketplaces.join(", ") || "—"}</td>
                   <td className="px-4 py-3 text-muted-foreground">{s.use_cases.join(", ") || "—"}</td>
