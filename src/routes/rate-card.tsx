@@ -152,17 +152,6 @@ function RateCardPage() {
           </Select>
         </div>
 
-        {showContextualFeedback && (
-          <FeedbackPrompt
-            variant="contextual"
-            resourceType="fee_database"
-            resourcePath="/rate-card"
-            question="Was this fee database useful?"
-            supportingText="Your feedback helps improve this free public resource."
-            onClose={() => setShowContextualFeedback(false)}
-          />
-        )}
-
         <Card className="border-border">
           <CardContent className="p-0">
             <div className="overflow-x-auto">
@@ -249,7 +238,7 @@ function RateCardPage() {
           </CardContent>
         </Card>
 
-        <FeedbackPrompt id="feedback" resourceType="fee_database" resourcePath="/rate-card" />
+        <FeedbackPrompt id="feedback" variant="survey" resourceType="fee_database" resourcePath="/rate-card" />
       </section>
 
     </>

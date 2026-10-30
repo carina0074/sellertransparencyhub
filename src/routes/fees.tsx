@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { Search, TrendingUp, TrendingDown, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { FeedbackPrompt } from "@/components/feedback-prompt";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -162,6 +163,10 @@ function FeesPage() {
         {filtered.length === 0 && (
           <p className="mt-12 text-center text-sm text-muted-foreground">No fee changes match your filters.</p>
         )}
+
+        <div className="mt-10">
+          <FeedbackPrompt variant="survey" resourceType="fee_change_feed" resourcePath="/fees" />
+        </div>
 
       </section>
     </>
