@@ -74,27 +74,6 @@ function RateCardPage() {
   const [mkt, setMkt] = useState<string>("all");
   const [ft, setFt] = useState<string>("all");
 
-  // Contextual feedback prompt: appears inline ~8s after the first meaningful
-  // interaction (search, filter change, or source-link click), never on load,
-  // and at most once per browser session (including after dismiss/submit).
-  const [hasInteracted, setHasInteracted] = useState(false);
-  const [showContextualFeedback, setShowContextualFeedback] = useState(false);
-  const markInteraction = () => setHasInteracted(true);
-
-  useEffect(() => {
-    if (!hasInteracted) return;
-    const timer = window.setTimeout(() => {
-      if (document.visibilityState !== "visible") return;
-      try {
-        if (window.sessionStorage.getItem("sthub.contextualFeedbackShown")) return;
-        window.sessionStorage.setItem("sthub.contextualFeedbackShown", "1");
-      } catch {
-        // sessionStorage unavailable — fall through and show once per page view
-      }
-      setShowContextualFeedback(true);
-    }, 8000);
-    return () => window.clearTimeout(timer);
-  }, [hasInteracted]);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -133,17 +112,17 @@ function RateCardPage() {
         <div className="grid gap-3 sm:grid-cols-[1fr_180px_200px]">
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input value={q} onChange={(e) => { setQ(e.target.value); markInteraction(); }}
+            <Input value={q} onChange={(e) => { setQ(e.target.value); }}
               placeholder="Search by category, type, marketplace…" className="pl-9" />
           </div>
-          <Select value={mkt} onValueChange={(v) => { setMkt(v); markInteraction(); trackEvent("marketplace_filter_used", { marketplace: v }); }}>
+          <Select value={mkt} onValueChange={(v) => { setMkt(v); trackEvent("marketplace_filter_used", { marketplace: v }); }}>
             <SelectTrigger><SelectValue placeholder="Marketplace" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All marketplaces</SelectItem>
               {marketplaces.map((m) => <SelectItem key={m} value={m}>{m}</SelectItem>)}
             </SelectContent>
           </Select>
-          <Select value={ft} onValueChange={(v) => { setFt(v); markInteraction(); }}>
+          <Select value={ft} onValueChange={(v) => { setFt(v); }}>
             <SelectTrigger><SelectValue placeholder="Fee type" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All fee types</SelectItem>
@@ -207,7 +186,7 @@ function RateCardPage() {
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
-                          onClick={() => { markInteraction(); trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); }}
+                          onClick={() => { trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); }}
                         >
                           <Badge variant="outline" className="rounded-full text-[10px] font-normal">{presentation.details?.legacy_source ? "Legacy reference" : "Official source"}</Badge>
                           {r.source_title} <ExternalLink className="h-3 w-3" />
