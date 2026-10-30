@@ -55,6 +55,7 @@ export function FeedbackPrompt({
   const startedRef = useRef(false);
   const contextual = variant === "contextual";
   const survey = variant === "survey";
+  const [surveyOpen, setSurveyOpen] = useState(false);
   const submit = useServerFn(submitFeedback);
 
   const answer = (u: Usefulness) => {
@@ -120,16 +121,23 @@ export function FeedbackPrompt({
           <MessageSquareText className="h-4 w-4 shrink-0 text-primary" /> {survey ? "Help improve this research" : question}
         </div>
         {survey && (
-          <p className="mt-1.5 text-xs text-muted-foreground">
-            Optional 2-minute survey. Your feedback helps us understand how marketplace sellers and
-            researchers use these public resources.
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            Marketplace seller or researcher? Share 2 minutes of feedback about how you use
+            marketplace fee information.
           </p>
         )}
         {supportingText && (
           <p className="mt-1.5 text-xs text-muted-foreground">{supportingText}</p>
         )}
 
-        {status === "done" ? (
+        {survey && !surveyOpen && status !== "done" ? (
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <Button type="button" size="sm" aria-expanded={false} onClick={() => setSurveyOpen(true)}>
+              Take the 2-minute survey
+            </Button>
+            <span className="text-xs text-muted-foreground">Optional • No newsletter signup required</span>
+          </div>
+        ) : status === "done" ? (
           <p className="mt-3 text-sm text-muted-foreground">
             Thank you — your feedback helps us improve this resource. It is stored privately and
             is never published.
