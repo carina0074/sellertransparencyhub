@@ -40,7 +40,7 @@ export function FeedbackPrompt({
   question?: string;
   supportingText?: string;
   id?: string;
-  variant?: "inline" | "contextual";
+  variant?: "inline" | "contextual" | "survey";
   onClose?: () => void;
 }) {
   const [usefulness, setUsefulness] = useState<Usefulness | null>(null);
@@ -53,10 +53,13 @@ export function FeedbackPrompt({
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
   const startedRef = useRef(false);
+  const contextual = variant === "contextual";
+  const survey = variant === "survey";
   const submit = useServerFn(submitFeedback);
 
   const answer = (u: Usefulness) => {
-    if (usefulness) return;
+    if (usefulness && !survey) return;
+    if (usefulness === u) return;
     setUsefulness(u);
     trackEvent("feedback_prompt_answered", { resource_type: resourceType, response: u });
   };
@@ -92,7 +95,6 @@ export function FeedbackPrompt({
     }
   };
 
-  const contextual = variant === "contextual";
 
   const card = (
     <Card
@@ -103,7 +105,7 @@ export function FeedbackPrompt({
       }
       id={id}
     >
-      <CardContent className={contextual ? "relative p-5" : "p-6"}>
+      <CardContent className={contextual || survey ? "relative p-5" : "p-6"}>
         {contextual && onClose && (
           <button
             type="button"
@@ -115,8 +117,14 @@ export function FeedbackPrompt({
           </button>
         )}
         <div className="flex items-center gap-2 pr-6 text-sm font-medium text-foreground">
-          <MessageSquareText className="h-4 w-4 shrink-0 text-primary" /> {question}
+          <MessageSquareText className="h-4 w-4 shrink-0 text-primary" /> {survey ? "Help improve this research" : question}
         </div>
+        {survey && (
+          <p className="mt-1.5 text-xs text-muted-foreground">
+            Optional 2-minute survey. Your feedback helps us understand how marketplace sellers and
+            researchers use these public resources.
+          </p>
+        )}
         {supportingText && (
           <p className="mt-1.5 text-xs text-muted-foreground">{supportingText}</p>
         )}
@@ -128,12 +136,16 @@ export function FeedbackPrompt({
           </p>
         ) : (
           <>
-            <div className="mt-3 flex flex-wrap gap-2">
+            {survey && (
+              <p className="mt-4 text-sm font-medium text-foreground">{question}</p>
+            )}
+            <div className={survey ? "mt-2 flex flex-wrap gap-2" : "mt-3 flex flex-wrap gap-2"}>
               {USEFULNESS_OPTIONS.map((u) => (
                 <Button
                   key={u}
                   type="button"
                   size="sm"
+                  aria-pressed={usefulness === u}
                   variant={usefulness === u ? "default" : "outline"}
                   onClick={() => answer(u)}
                 >
@@ -142,8 +154,8 @@ export function FeedbackPrompt({
               ))}
             </div>
 
-            {usefulness && (
-              <div className="mt-5 space-y-5 border-t border-border pt-5">
+            {(survey || usefulness) && (
+              <div className={survey ? "mt-4 space-y-4 border-t border-border pt-4" : "mt-5 space-y-5 border-t border-border pt-5"}>
                 <fieldset>
                   <legend className="text-sm font-medium text-foreground">What best describes you? <span className="font-normal text-muted-foreground">(optional)</span></legend>
                   <div className="mt-2 flex flex-wrap gap-2">
@@ -255,9 +267,14 @@ export function FeedbackPrompt({
                   </p>
                 )}
 
-                <Button type="button" onClick={onSubmit} disabled={status === "submitting"}>
-                  {status === "submitting" ? "Sending…" : "Send feedback"}
-                </Button>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button type="button" onClick={onSubmit} disabled={status === "submitting" || !usefulness}>
+                    {status === "submitting" ? "Sending…" : "Send feedback"}
+                  </Button>
+                  {!usefulness && (
+                    <span className="text-xs text-muted-foreground">Answer "{question}" to send.</span>
+                  )}
+                </div>
               </div>
             )}
           </>
