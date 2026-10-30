@@ -240,6 +240,8 @@ function CalculatorPage() {
                 </CardContent>
               </Card>
             </div>
+
+            <FeedbackPrompt variant="survey" resourceType="calculator" resourcePath="/calculator" />
           </div>
         </div>
 
@@ -266,7 +268,6 @@ function CalculatorPage() {
           </CardContent>
         </Card>
 
-        <FeedbackPrompt variant="survey" resourceType="calculator" resourcePath="/calculator" />
       </section>
     </>
   );

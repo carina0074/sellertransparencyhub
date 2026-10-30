@@ -208,6 +208,8 @@ function RateCardPage() {
           <p className="text-center text-sm text-muted-foreground">No fees match your filters.</p>
         )}
 
+        <FeedbackPrompt id="feedback" variant="survey" resourceType="fee_database" resourcePath="/rate-card" />
+
         <Card className="border-border bg-muted/40">
           <CardContent className="flex items-start gap-3 p-6 text-sm text-muted-foreground">
             <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
@@ -217,8 +219,7 @@ function RateCardPage() {
           </CardContent>
         </Card>
 
-        <FeedbackPrompt id="feedback" variant="survey" resourceType="fee_database" resourcePath="/rate-card" />
-      </section>
+              </section>
 
     </>
   );
