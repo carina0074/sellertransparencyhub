@@ -171,14 +171,6 @@ function CalculatorPage() {
 
             {result.unsupported.length > 0 ? <p className="border-l-2 border-warning bg-warning/15 p-4 text-sm font-medium text-warning-foreground">Profitability cannot be assessed: material costs are excluded.</p> : <RecommendationBanner level={result.recommendation} margin={result.margin} />}
 
-            {hasCalculated && (
-              <FeedbackPrompt
-                question="Was this estimate useful?"
-                resourceType="calculator_estimate"
-                resourcePath="/calculator"
-              />
-            )}
-
             {result.unsupported.length > 0 && (
               <div className="flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/15 p-4 text-warning-foreground">
                 <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" />
@@ -274,7 +266,7 @@ function CalculatorPage() {
           </CardContent>
         </Card>
 
-        <FeedbackPrompt resourceType="calculator" resourcePath="/calculator" />
+        <FeedbackPrompt variant="survey" resourceType="calculator" resourcePath="/calculator" />
       </section>
     </>
   );
