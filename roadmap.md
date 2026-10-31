@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Replace calculator result analytics only, classify model coverage, and preserve first-interaction behavior.
+- [ ] Run full tests and preview build validation; verify event deduplication and unchanged calculator results without publishing.
+
 - [x] Diagnose production Policy Archive against canonical data without research/data changes; production page and public API already match the single canonical event, so no policy fix required.
 - [x] Align only Privacy newsletter-purpose wording, run existing tests and preview validation; 97 tests passed, automatic build OK, no publishing.
 
