@@ -11,8 +11,9 @@
  * - marketplace_filter_used        — marketplace filter changed (param: marketplace)
  * - fee_source_clicked             — official source link clicked (params: marketplace, fee_type)
  * - calculator_started             — first calculator input change
- * - calculator_completed           — calculation viewed for a marketplace+category (params: marketplace, category)
- * - calculator_unsupported_combination — a combination with no verified rate was viewed (params: marketplace, category)
+ * - calculator_result_viewed        — first post-interaction result for each marketplace/category per mounted page
+ *   (params: marketplace, category, support_status: modeled_with_exclusions | partially_supported | unsupported)
+ *   Historical calculator_completed and calculator_unsupported_combination events are no longer emitted.
  * - transparency_report_viewed     — report page mounted (param: report)
  * - feedback_prompt_answered       — usefulness button clicked (params: resource_type, response)
  * - feedback_started               — first interaction with the expanded feedback form (param: resource_type)

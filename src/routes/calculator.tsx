@@ -19,6 +19,7 @@ import {
 } from "@/lib/marketplace-fees";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
 import { trackEvent } from "@/lib/analytics";
+import { createCalculatorResultTracker } from "@/lib/calculator-analytics";
 
 export const Route = createFileRoute("/calculator")({
   head: () => ({
@@ -44,20 +45,11 @@ function CalculatorPage() {
   const result = useMemo(() => calculateFees(inputs), [inputs]);
 
   const startedRef = useRef(false);
-  const completedRef = useRef(new Set<string>());
-  const unsupportedRef = useRef(new Set<string>());
+  const resultTrackerRef = useRef(createCalculatorResultTracker());
 
   useEffect(() => {
-    if (!startedRef.current) return;
-    const key = `${inputs.marketplace}|${inputs.category}`;
-    if (!completedRef.current.has(key)) {
-      completedRef.current.add(key);
-      trackEvent("calculator_completed", { marketplace: inputs.marketplace, category: inputs.category });
-    }
-    if (result.unsupported.length > 0 && !unsupportedRef.current.has(key)) {
-      unsupportedRef.current.add(key);
-      trackEvent("calculator_unsupported_combination", { marketplace: inputs.marketplace, category: inputs.category });
-    }
+    const params = resultTrackerRef.current(startedRef.current, inputs.marketplace, inputs.category);
+    if (params) trackEvent("calculator_result_viewed", params);
   }, [inputs.marketplace, inputs.category, result.unsupported]);
 
   const feeData = [
