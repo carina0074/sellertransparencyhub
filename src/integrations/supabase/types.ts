@@ -49,6 +49,7 @@ export type Database = {
           new_value: number
           old_value: number
           record_id: string | null
+          region: string | null
           source_title: string
           source_url: string
           summary: string | null
@@ -71,6 +72,7 @@ export type Database = {
           new_value: number
           old_value: number
           record_id?: string | null
+          region?: string | null
           source_title: string
           source_url: string
           summary?: string | null
@@ -93,6 +95,7 @@ export type Database = {
           new_value?: number
           old_value?: number
           record_id?: string | null
+          region?: string | null
           source_title?: string
           source_url?: string
           summary?: string | null
@@ -151,6 +154,7 @@ export type Database = {
           marketplace: string
           notes: string | null
           pricing_details: Json | null
+          region: string | null
           source_title: string
           source_url: string
           updated_at: string | null
@@ -169,6 +173,7 @@ export type Database = {
           marketplace: string
           notes?: string | null
           pricing_details?: Json | null
+          region?: string | null
           source_title: string
           source_url: string
           updated_at?: string | null
@@ -187,6 +192,7 @@ export type Database = {
           marketplace?: string
           notes?: string | null
           pricing_details?: Json | null
+          region?: string | null
           source_title?: string
           source_url?: string
           updated_at?: string | null
@@ -322,6 +328,7 @@ export type Database = {
           last_verified: string
           marketplace: string
           policy_area: string
+          region: string | null
           source_title: string
           source_url: string
           summary: string
@@ -342,6 +349,7 @@ export type Database = {
           last_verified: string
           marketplace: string
           policy_area: string
+          region?: string | null
           source_title: string
           source_url: string
           summary: string
@@ -362,6 +370,7 @@ export type Database = {
           last_verified?: string
           marketplace?: string
           policy_area?: string
+          region?: string | null
           source_title?: string
           source_url?: string
           summary?: string
