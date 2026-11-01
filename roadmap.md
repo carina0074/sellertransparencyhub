@@ -1,5 +1,9 @@
 # Roadmap
 
+- [ ] Apply next-batch Fee Database, calculator, score explanation, reports, Policy Archive and changelog-index presentation fixes; keep storage values and October entry unchanged pending review.
+- [ ] Verify newsletter blocks, add domain-hosted share image metadata on public pages, and add shared plain-language export dictionary meanings.
+- [ ] Deliver storage evidence and October changelog draft, exact file/line change list, tests and preview checks without publishing.
+
 - [x] Restore readable methodology explanations and move field details to a bottom Technical reference; preserve hidden TODO sections.
 - [x] Enforce prospective current-fee evidence standards without changing existing records; list missing quotes/headings for review.
 - [x] Store the unchanged unreleased 0.0.0 snapshot in research-exports/0.0.0-sample/; validate tests, preview and build without publishing.
