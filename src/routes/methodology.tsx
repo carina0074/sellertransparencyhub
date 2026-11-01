@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Database, ClipboardList, FileText, Archive } from "lucide-react";
-import { MethodologyDataModel } from "@/components/methodology-data-model";
+import { MethodologyDataModel, MethodologyTechnicalReference } from "@/components/methodology-data-model";
 
 export const Route = createFileRoute("/methodology")({
   head: () => ({
@@ -69,9 +69,9 @@ function MethodologyPage() {
         <Section title="What we track">
           <Bullets
             items={[
-              <Link to="/rate-card" className={linkClass}>Fee Database</Link>,
-              <Link to="/fees" className={linkClass}>Fee Change Feed</Link>,
-              <Link to="/policy-changes" className={linkClass}>Policy Archive</Link>,
+              <><span className="font-medium text-foreground">Current fee records</span> (<Link to="/rate-card" className={linkClass}>Fee Database</Link>): current marketplace fees reviewed against identified source documentation, with their scope, conditions and verification status.</>,
+              <><span className="font-medium text-foreground">Historical fee changes</span> (<Link to="/fees" className={linkClass}>Fee Change Feed</Link>): documented transitions where the evidence supports the previous value, the new value, the timing, and who was affected.</>,
+              <><span className="font-medium text-foreground">Policy events</span> (<Link to="/policy-changes" className={linkClass}>Policy Archive</Link>): selected marketplace policy developments supported by their own sources, scope and timing evidence.</>,
             ]}
           />
           <p>Coverage currently spans Amazon, eBay, Walmart Marketplace, Etsy, and Shopify. All three collections are curated and non-exhaustive.</p>
@@ -101,8 +101,13 @@ function MethodologyPage() {
 
         <Section title="Current fee verification">
           <p>
-            Verification applies to the value and scope as written in the record.
+            Each current fee record lists its source and the date it was last reviewed against current first-party evidence. Verification applies to the value and scope as written in the record. It does not establish when that value first took effect.
           </p>
+          <Bullets items={[
+            <><strong>Verified current value:</strong> the current value and recorded applicability have been reviewed against first-party evidence.</>,
+            <><strong>Partially verified:</strong> the headline value is confirmed in a first-party source, but at least one stated condition, tier or scope element is not. The record's notes must say which part is unconfirmed.</>,
+            <><strong>Verification pending:</strong> the numeric headline is withheld while verification remains unresolved; readers are directed to the source.</>,
+          ]} />
         </Section>
 
         <Section title="Historical fee changes and policy events">
@@ -116,13 +121,13 @@ function MethodologyPage() {
 
         <Section title="Dates and verification">
           <p>
-            Effective dates are never inferred from page access dates, page update timestamps, current pricing pages, or database modification dates.
+            Each date has its own meaning: the effective date is when a rule took effect; the announcement date is when the marketplace published the change; the review date is when its evidence was successfully checked. Record creation and edit dates describe our records, not marketplace timing. Effective dates are never inferred from page access dates, page update timestamps, current pricing pages, or database modification dates. Historical events record dates to the precision the evidence supports: an exact day, a month, a year, or unknown. Current fee records whose start date is not established show no effective date.
           </p>
         </Section>
 
         <Section title="Conditional and tiered fees">
           <p>
-            Many marketplace fees depend on conditions such as marketplace, seller plan, category, item price or price band, fulfillment method, product size and weight, storage duration, season, geography, advertising attribution, or seller eligibility. The Fee Database does not calculate every possible seller cost.
+            Many marketplace fees depend on conditions such as marketplace, seller plan, category, item price or price band, fulfillment method, product size and weight, storage duration, season, geography, advertising attribution, or seller eligibility. Conditional fees are not turned into misleading universal flat rates. Instead, records may show tiers explicitly, attach conditions, limit their stated scope, or be retired if a single value would oversimplify the fee. The Fee Database does not calculate every possible seller cost.
           </p>
         </Section>
 
@@ -176,6 +181,8 @@ function MethodologyPage() {
         <Section title="Independence">
           <p>Seller Transparency Hub is independently maintained and is not affiliated with or endorsed by the marketplaces it covers.</p>
         </Section>
+
+        <MethodologyTechnicalReference />
 
         <p className="pt-2 text-center text-xs text-muted-foreground">
           Methodology last reviewed October 2026. Corrections are welcome. Current fee records list their source documentation.
