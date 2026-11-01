@@ -1,11 +1,12 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { shareImageMeta } from "@/lib/share-metadata";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
   component: AuthPage,
-  head: () => ({ meta: [{ title: "Sign in — Seller Transparency Hub" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Sign in — Seller Transparency Hub" }, { name: "description", content: "Sign in to Seller Transparency Hub’s administrative pages." }, { property: "og:title", content: "Sign in — Seller Transparency Hub" }, { property: "og:description", content: "Sign in to Seller Transparency Hub’s administrative pages." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ...shareImageMeta, { name: "robots", content: "noindex" }] }),
 });
 
 function AuthPage() {

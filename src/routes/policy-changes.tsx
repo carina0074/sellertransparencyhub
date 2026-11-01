@@ -211,7 +211,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
               <p className="mt-3 text-xs text-muted-foreground">Review dates are evidence checks, not historical effective dates.</p>
               {evidence.references.map((reference, index) => (
                 <div key={`${reference.url}-${index}`} className="mt-3 space-y-2">
-                  <a href={reference.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>
+                  {evidence.references.findIndex(r => r.url === reference.url) === index && <a href={reference.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>}
                   <p className="text-xs text-muted-foreground">{reference.evidence_type} · {reference.heading}</p>
                   <blockquote className="border-l-2 border-border pl-3 text-muted-foreground">{reference.quote}</blockquote>
                   <p className="text-xs text-muted-foreground">Supports: {reference.supported_fields.join(", ")}</p>
@@ -227,14 +227,14 @@ function PolicyCard({ c }: { c: PolicyChange }) {
             </span>
             {c.source_title}
           </span>
-          <a
+          {!evidence?.references.some(r => r.url === c.source_url) && <a
             href={c.source_url}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
           >
             Source <ExternalLink className="h-3 w-3" />
-          </a>
+          </a>}
         </div>
       </CardContent>
     </Card>
