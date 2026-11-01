@@ -14,6 +14,8 @@ export const Route = createFileRoute("/health-check")({
       { name: "description", content: "An educational self-assessment that gives a rough heuristic score from common seller performance metrics. Not an official marketplace score." },
       { property: "og:title", content: "Account Health Checker" },
       { property: "og:description", content: "Educational heuristic self-assessment for marketplace sellers. Not an official marketplace score." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: HealthCheckPage,
@@ -132,7 +134,7 @@ function HealthCheckPage() {
               </div>
               <div className="mt-5 flex items-start gap-2 rounded-md border border-warning/30 bg-warning/10 p-3 text-xs text-warning-foreground">
                 <AlertTriangle className="h-4 w-4 shrink-0" />
-                Sample data shown. Final risk assessment depends on your category, tenure, and marketplace.
+                Sample data shown. This educational score uses only the six metrics above. It does not account for product category, account tenure or marketplace, and it is not an official marketplace score.
               </div>
             </CardContent>
           </Card>
