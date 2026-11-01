@@ -147,6 +147,13 @@ function MethodologyPage() {
           <p>
             Public records may be updated when first-party documentation changes, better historical evidence becomes available, a scope was overgeneralized, a fee was oversimplified, a source no longer supports what was published, or an error is found. Accuracy comes before record counts. Research-integrity reviews may correct a record, narrow its scope, improve its sourcing, or retire an unsupported historical claim. A retired historical record means the available evidence was not strong enough to keep publishing the original claim as established fact. It does not necessarily mean the event never happened.
           </p>
+          <p>
+            To report an error, email{" "}
+            <a href="mailto:research@sellertransparency.com" className={linkClass}>
+              research@sellertransparency.com
+            </a>{" "}
+            with the record, what's wrong and a link to the source.
+          </p>
         </Section>
 
         <Section title="Coverage and limitations">

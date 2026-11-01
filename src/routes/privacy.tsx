@@ -94,6 +94,19 @@ function PrivacyPage() {
             </p>
           </CardContent>
         </Card>
+
+        <Card className="border-border">
+          <CardContent className="space-y-3 p-6 text-sm text-muted-foreground">
+            <h2 className="text-base font-semibold text-foreground">Contact</h2>
+            <p>
+              Questions about this policy or your data, including requests to access or delete
+              your information or unsubscribe:{" "}
+              <a href="mailto:research@sellertransparency.com" className="text-primary hover:underline">
+                research@sellertransparency.com
+              </a>
+            </p>
+          </CardContent>
+        </Card>
       </section>
     </>
   );
