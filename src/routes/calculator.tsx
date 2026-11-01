@@ -6,7 +6,7 @@ import {
   PieChart, Pie,
 } from "recharts";
 import { Calculator, TrendingUp, AlertTriangle, CheckCircle2, Info } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { ClientOnly, Link } from "@tanstack/react-router";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -196,7 +196,7 @@ function CalculatorPage() {
                 <CardContent className="p-6">
                   <h3 className="text-sm font-medium text-foreground">Fee breakdown</h3>
                   {feeData.length > 0 && <div className="mt-4 h-64">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 300, height: 256 }}>
+                    <ClientOnly><ResponsiveContainer width="100%" height="100%" minWidth={0}>
                       <PieChart>
                         <Pie data={feeData} dataKey="value" nameKey="name"
                           innerRadius={50} outerRadius={90} paddingAngle={2}>
@@ -204,16 +204,16 @@ function CalculatorPage() {
                         </Pie>
                         <Tooltip formatter={(v: number) => fmtUSD(v)} />
                       </PieChart>
-                    </ResponsiveContainer>
+                    </ResponsiveContainer></ClientOnly>
                   </div>}
                   <ul className="mt-2 space-y-1 text-sm">
                     {feeRows.map((d, i) => (
-                      <li key={d.name} className="flex items-center justify-between">
-                        <span className="flex items-center gap-2 text-muted-foreground">
-                          <span className="h-2.5 w-2.5 rounded-sm" style={{ background: PIE_COLORS[i % PIE_COLORS.length] }} />
+                      <li key={d.name} className="flex items-start justify-between gap-3">
+                        <span className="flex min-w-0 items-start gap-2 text-muted-foreground">
+                          <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-sm" style={{ background: d.value === null ? "var(--color-muted-foreground)" : PIE_COLORS[Math.max(0, feeData.findIndex(row => row.name === d.name)) % PIE_COLORS.length] }} />
                           {d.name}
                         </span>
-                        <span className="font-medium text-foreground">{d.value === null ? "Not estimated" : fmtUSD(d.value)}</span>
+                        <span className="shrink-0 font-medium text-foreground">{d.value === null ? "Not estimated" : fmtUSD(d.value)}</span>
                       </li>
                     ))}
                   </ul>
@@ -225,7 +225,7 @@ function CalculatorPage() {
                   <h3 className="text-sm font-medium text-foreground">Where your revenue goes</h3>
                   {result.unsupported.length > 0 && <p className="mt-1 text-xs text-muted-foreground">* Surplus before excluded costs; not net profit.</p>}
                   <div className="mt-4 h-64">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 300, height: 256 }}>
+                    <ClientOnly><ResponsiveContainer width="100%" height="100%" minWidth={0}>
                       <BarChart data={profitData}>
                         <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" vertical={false} />
                         <XAxis dataKey="name" stroke="var(--color-muted-foreground)" fontSize={12} tickLine={false} axisLine={false} />
@@ -238,7 +238,7 @@ function CalculatorPage() {
                           ))}
                         </Bar>
                       </BarChart>
-                    </ResponsiveContainer>
+                    </ResponsiveContainer></ClientOnly>
                   </div>
                 </CardContent>
               </Card>}
