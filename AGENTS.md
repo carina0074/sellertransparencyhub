@@ -2,6 +2,11 @@
 
 - Region is explicit in all research collections, with UNSPECIFIED where first-party historical country scope is absent; do not infer countries from currency or current-record linkage.
 - Research export runs only as an operator CLI script using one read-only database statement for records and schema; files remain outside public app paths and share one version and timestamp to avoid mixed snapshots.
+- Enforce current-fee evidence prospectively with a database trigger on new records and evidence/headline/status changes; retain unchanged legacy evidence on unrelated edits so omissions can be reviewed without invented backfills. Partial verification stores a reviewer confirmation and explicit unconfirmed elements repeated in notes; database validation cannot establish source truth.
+- Keep legacy-compatible pricing readers separate from write validation so older reference omissions do not suppress supported fee displays.
+- Keep methodology field-level tables in the bottom collapsible Technical reference; the seller-facing narrative describes research rather than implementation.
+- Current IDs are not enforced immutable; fee_type is free text and policy supported_fields is not a column enum. Public projections omit some internal timestamps; retain these implementation facts here rather than public prose.
+- Store unreleased sample snapshots under research-exports, never public app paths; preserve the original version and timestamp for review.
 - Methodology’s release/license/citation TODOs remain in unrendered source until approved; describe current evidence variants rather than implying a universal schema or released dataset.
 
 - Fee edits are timestamped and logged per changed business field by database triggers; history is admin-readable and mutation-protected, without cascading record deletion, so all write paths share durable append-only provenance.
