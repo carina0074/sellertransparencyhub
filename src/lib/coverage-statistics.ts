@@ -40,6 +40,6 @@ export async function readCoverageStatistics(reader: CoverageReader): Promise<Da
 export function formatVerificationDate(date: string | null): string {
   if (!date) return "Not yet verified";
   return new Intl.DateTimeFormat("en-US", {
-    month: "long", day: "numeric", year: "numeric", timeZone: "UTC",
+    month: "short", day: "numeric", year: "numeric", timeZone: "UTC",
   }).format(new Date(`${date}T00:00:00Z`));
 }

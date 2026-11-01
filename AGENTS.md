@@ -1,5 +1,9 @@
 # Architecture rules
 
+- Share image metadata is explicit on public leaf routes, never root or hidden routes; the approved image is served from the site's public images directory.
+- Field meanings are shared between Methodology's Technical reference and the export dictionary so both use the same interpretation.
+- Account health scoring lives in a pure tested module; preserve the heuristic formula independently of marketplace-published targets and recommendation triggers.
+
 - Region is explicit in all research collections, with UNSPECIFIED where first-party historical country scope is absent; do not infer countries from currency or current-record linkage.
 - Research export runs only as an operator CLI script using one read-only database statement for records and schema; files remain outside public app paths and share one version and timestamp to avoid mixed snapshots.
 - Enforce current-fee evidence prospectively with a database trigger on new records and evidence/headline/status changes; retain unchanged legacy evidence on unrelated edits so omissions can be reviewed without invented backfills. Partial verification stores a reviewer confirmation and explicit unconfirmed elements repeated in notes; database validation cannot establish source truth.

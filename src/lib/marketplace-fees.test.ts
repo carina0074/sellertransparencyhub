@@ -103,6 +103,14 @@ describe("Shopify Basic online card rate", () => {
 });
 
 describe("Etsy verified values", () => {
+  test("modeled processing and listing are separate without changing the aggregate", () => {
+    const r = calculateFees({ ...base, marketplace: "etsy", price: 20 });
+    close(r.transactionFee, 1.3);
+    close(r.paymentProcessingFee, 0.85);
+    close(r.listingFee, 0.20);
+    close(r.referralFee, r.transactionFee + r.paymentProcessingFee + r.listingFee);
+    close(calculateFees({ ...base, marketplace: "shopify", price: 50 }).paymentProcessingFee, 1.75);
+  });
   test("$20 sale → 6.5% + 3% + $0.25 + $0.20 = $2.35", () => {
     const r = calculateFees({ ...base, marketplace: "etsy", price: 20 });
     close(r.referralFee, 1.3 + 0.6 + 0.25 + 0.2);

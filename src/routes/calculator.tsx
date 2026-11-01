@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -5,7 +6,7 @@ import {
   PieChart, Pie,
 } from "recharts";
 import { Calculator, TrendingUp, AlertTriangle, CheckCircle2, Info } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { ClientOnly, Link } from "@tanstack/react-router";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,6 +25,7 @@ import { createCalculatorResultTracker } from "@/lib/calculator-analytics";
 export const Route = createFileRoute("/calculator")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
       { title: "Marketplace Selling Cost Estimator: Amazon, Walmart, Etsy, Shopify" },
       { name: "description", content: "Model selected U.S. marketplace selling costs with current referral tiers, while unsupported fulfillment, storage and other charges are explicitly excluded." },
       { property: "og:title", content: "Marketplace Profit Calculator" },
@@ -52,13 +54,22 @@ function CalculatorPage() {
     if (params) trackEvent("calculator_result_viewed", params);
   }, [inputs.marketplace, inputs.category, result.unsupported]);
 
-  const feeData = [
-    { name: "Referral", value: result.referralFee },
+  const feeRows: { name: string; value: number | null }[] = [
+    ...(inputs.marketplace === "etsy" ? [
+      { name: "Transaction", value: result.transactionFee },
+      { name: "Payment processing", value: result.paymentProcessingFee },
+      { name: "Listing", value: result.listingFee },
+    ] : inputs.marketplace === "shopify" ? [{ name: "Payment processing", value: result.paymentProcessingFee }] : [
+      { name: "Referral", value: result.unsupported.some(u => u.includes("referral fee")) ? null : result.referralFee },
+    ]),
     ...(result.closingFee > 0 ? [{ name: "Books closing fee", value: result.closingFee }] : []),
-    { name: "Fulfillment", value: result.fulfillmentFee },
-    { name: "Storage", value: result.storageFee },
-    { name: "Returns", value: result.returnCost },
+    { name: inputs.marketplace === "shopify" || inputs.marketplace === "etsy" ? "Self-fulfillment shipping" : "Fulfillment", value: inputs.marketplace === "shopify" || inputs.marketplace === "etsy" ? result.fulfillmentFee : null },
+    { name: "Storage", value: null },
+    { name: "Returns (assumption)", value: result.returnCost },
+    ...(inputs.marketplace === "shopify" ? [{ name: "Subscription and other card/provider charges", value: null }] : []),
+    ...(inputs.marketplace === "etsy" ? [{ name: "Offsite Ads and other applicable fees", value: null }] : []),
   ];
+  const feeData = feeRows.filter((row): row is { name: string; value: number } => row.value !== null && row.value > 0);
 
   const profitData = [
     { name: "Cost", value: inputs.cost },
@@ -67,7 +78,7 @@ function CalculatorPage() {
     { name: result.unsupported.length ? "Surplus*" : "Net profit", value: Math.max(0, result.netProfit) },
   ];
 
-  const PIE_COLORS = ["#2563eb", "#60a5fa", "#94a3b8", "#cbd5e1", "#64748b"];
+  const PIE_COLORS = ["var(--color-chart-1)", "var(--color-chart-2)", "var(--color-chart-3)", "var(--color-chart-4)", "var(--color-chart-5)"];
 
   const [hasCalculated, setHasCalculated] = useState(false);
 
@@ -154,7 +165,7 @@ function CalculatorPage() {
             </CardContent>
           </Card>
 
-          <div className="space-y-6">
+          <div className="min-w-0 space-y-6">
             <div className="grid gap-4 sm:grid-cols-3">
               <Stat label={result.unsupported.length ? "Modeled surplus before excluded costs" : "Net profit"} value={fmtUSD(result.netProfit)} accent="primary" />
               <Stat label={result.unsupported.length ? "Modeled margin before excluded costs" : "Profit margin"} value={fmtPct(result.margin)} />
@@ -184,53 +195,53 @@ function CalculatorPage() {
               <Card className="border-border">
                 <CardContent className="p-6">
                   <h3 className="text-sm font-medium text-foreground">Fee breakdown</h3>
-                  <div className="mt-4 h-64">
-                    <ResponsiveContainer width="100%" height="100%">
+                  {feeData.length > 0 && <div className="mt-4 h-64">
+                    <ClientOnly><ResponsiveContainer width="100%" height="100%" minWidth={0}>
                       <PieChart>
                         <Pie data={feeData} dataKey="value" nameKey="name"
                           innerRadius={50} outerRadius={90} paddingAngle={2}>
-                          {feeData.map((_, i) => <Cell key={i} fill={PIE_COLORS[i]} />)}
+                          {feeData.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />)}
                         </Pie>
                         <Tooltip formatter={(v: number) => fmtUSD(v)} />
                       </PieChart>
-                    </ResponsiveContainer>
-                  </div>
+                    </ResponsiveContainer></ClientOnly>
+                  </div>}
                   <ul className="mt-2 space-y-1 text-sm">
-                    {feeData.map((d, i) => (
-                      <li key={d.name} className="flex items-center justify-between">
-                        <span className="flex items-center gap-2 text-muted-foreground">
-                          <span className="h-2.5 w-2.5 rounded-sm" style={{ background: PIE_COLORS[i] }} />
+                    {feeRows.map((d, i) => (
+                      <li key={d.name} className="flex items-start justify-between gap-3">
+                        <span className="flex min-w-0 items-start gap-2 text-muted-foreground">
+                          <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-sm" style={{ background: d.value === null ? "var(--color-muted-foreground)" : PIE_COLORS[Math.max(0, feeData.findIndex(row => row.name === d.name)) % PIE_COLORS.length] }} />
                           {d.name}
                         </span>
-                        <span className="font-medium text-foreground">{fmtUSD(d.value)}</span>
+                        <span className="shrink-0 font-medium text-foreground">{d.value === null ? "Not estimated" : fmtUSD(d.value)}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
               </Card>
 
-              <Card className="border-border">
+              {profitData.some(d => d.value > 0) && <Card className="min-w-0 border-border">
                 <CardContent className="p-6">
                   <h3 className="text-sm font-medium text-foreground">Where your revenue goes</h3>
                   {result.unsupported.length > 0 && <p className="mt-1 text-xs text-muted-foreground">* Surplus before excluded costs; not net profit.</p>}
                   <div className="mt-4 h-64">
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ClientOnly><ResponsiveContainer width="100%" height="100%" minWidth={0}>
                       <BarChart data={profitData}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-                        <XAxis dataKey="name" stroke="#64748b" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis stroke="#64748b" fontSize={12} tickLine={false} axisLine={false}
+                        <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" vertical={false} />
+                        <XAxis dataKey="name" stroke="var(--color-muted-foreground)" fontSize={12} tickLine={false} axisLine={false} />
+                        <YAxis stroke="var(--color-muted-foreground)" fontSize={12} tickLine={false} axisLine={false}
                           tickFormatter={(v) => `$${v}`} />
                         <Tooltip formatter={(v: number) => fmtUSD(v)} />
                         <Bar dataKey="value" radius={[6, 6, 0, 0]}>
                           {profitData.map((d, i) => (
-                            <Cell key={i} fill={d.name === "Net profit" || d.name === "Surplus*" ? "#16a34a" : "#2563eb"} />
+                            <Cell key={i} fill={d.name === "Net profit" || d.name === "Surplus*" ? "var(--color-success)" : "var(--color-primary)"} />
                           ))}
                         </Bar>
                       </BarChart>
-                    </ResponsiveContainer>
+                    </ResponsiveContainer></ClientOnly>
                   </div>
                 </CardContent>
-              </Card>
+              </Card>}
             </div>
 
             <FeedbackPrompt variant="survey" resourceType="calculator" resourcePath="/calculator" />

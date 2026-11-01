@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
@@ -17,6 +18,7 @@ import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { FeedbackPrompt } from "@/components/feedback-prompt";
 import { trackEvent } from "@/lib/analytics";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const feeRecordsQuery = queryOptions({
   queryKey: ["fee-records"],
@@ -31,6 +33,7 @@ const statsQuery = queryOptions({
 export const Route = createFileRoute("/rate-card")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
       { title: "Marketplace Fee Database — Amazon, Walmart, eBay, Shopify, Etsy rates" },
       { name: "description", content: "Current U.S. seller fees for Amazon, Walmart, eBay, Shopify, and Etsy, with pricing tiers, applicability, first-party evidence and current-value review status." },
       { property: "og:title", content: "Marketplace Fee Database" },
@@ -98,10 +101,14 @@ function RateCardPage() {
       <section className="mx-auto max-w-7xl space-y-6 px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <StatCard label="Current Fee Records" value={`${stats.activeRecords}`} />
-          <StatCard label="Historical Fee-Change Events" value={`${stats.historicalChanges}`} />
+          <a href="/fees" className="hover:underline"><StatCard label="Historical Fee-Change Events" value={`${stats.historicalChanges}`} /></a>
           <StatCard label="Marketplaces Tracked" value={`${stats.marketplaces}`} />
-          <StatCard label="Category Labels" value={`${stats.categories}`} />
+          <a href="#category-labels" className="hover:underline"><StatCard label="Category Labels" value={`${stats.categories}`} /></a>
         </div>
+        <details id="category-labels" className="text-sm text-muted-foreground">
+          <summary className="cursor-pointer font-medium text-primary">{stats.categories} category labels</summary>
+          <ul className="mt-3 grid list-inside list-disc gap-2 sm:grid-cols-2 lg:grid-cols-3">{Array.from(new Set(records.map(r => r.category))).sort().map(category => <li key={category}>{category}</li>)}</ul>
+        </details>
         <p className="text-xs text-muted-foreground">
           Latest fee verification: {formatVerificationDate(stats.lastUpdated)} · <a href="/methodology" className="text-primary hover:underline">Methodology</a> · <a href="/api/public/fees" className="text-primary hover:underline">Public API</a>
         </p>
@@ -177,8 +184,8 @@ function RateCardPage() {
                       </TableCell>
                       <TableCell className="max-w-40 whitespace-normal text-xs text-muted-foreground tabular-nums">{effectiveDateLabel(r.effective_date)}</TableCell>
                       <TableCell className="text-muted-foreground tabular-nums">
-                        <Badge variant="outline" className="max-w-40 whitespace-normal text-xs">{verificationLabel(r.verification_status)}</Badge>
-                        <p className="mt-1 text-xs">{r.verification_status === "verification_pending" ? "Previous review: " : "Reviewed: "}{r.last_verified}</p>
+                        <TooltipProvider><Tooltip><TooltipTrigger asChild><Badge tabIndex={0} variant="outline" className="max-w-48 whitespace-normal text-xs">{verificationLabel(r.verification_status)}</Badge></TooltipTrigger><TooltipContent className="max-w-72">Checking the current value against its source does not establish when the fee took effect.</TooltipContent></Tooltip></TooltipProvider>
+                        <p className="mt-1 text-xs">{r.verification_status === "verification_pending" ? "Previous review: " : "Reviewed: "}{formatVerificationDate(r.last_verified)}</p>
                       </TableCell>
                       <TableCell className="text-right">
                         <a
@@ -193,7 +200,7 @@ function RateCardPage() {
                         </a>
                         {presentation.details && <div className="mt-2 space-y-2 whitespace-normal text-xs">
                           {presentation.details.references.map((reference) => <a key={reference.url} href={reference.url} target="_blank" rel="noreferrer" className="block text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>)}
-                          <p className="text-muted-foreground">Current-value evidence reviewed {presentation.details.reviewed_on}.</p>
+                          <p className="text-muted-foreground">Current-value evidence reviewed {formatVerificationDate(presentation.details.reviewed_on)}.</p>
                         </div>}
                       </TableCell>
                     </TableRow>

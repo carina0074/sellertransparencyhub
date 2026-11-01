@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eye, HeartHandshake, ShieldCheck } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -7,6 +8,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "About Seller Transparency Hub — Mission for E-commerce Sellers" },
       { name: "description", content: "Independent marketplace transparency research, source-linked fee information, educational tools, and research publications." },
       { property: "og:title", content: "About Seller Transparency Hub" },

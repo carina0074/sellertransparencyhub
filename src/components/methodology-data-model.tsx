@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { fieldMeaning } from "@/lib/research-field-meanings";
 
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return <section className="space-y-3 border-b border-border pb-6 text-sm leading-relaxed text-muted-foreground"><h2 className="text-base font-semibold text-foreground">{title}</h2>{children}</section>;
@@ -41,24 +42,13 @@ export function MethodologyTechnicalReference() {
         </Block>
         <Block title="Record fields">
       <h3 className="font-semibold text-foreground">Core fields — current fee records</h3>
-      <Fields rows={[
-        ["id", "Record identifier, used for current-record relationships and prospective edit history."],
-        ["marketplace", "Recorded values: Amazon, eBay, Walmart, Etsy and Shopify. Walmart Marketplace is the display name."],
-        ["region", "Explicit geographic scope. US and UK identify countries; UNSPECIFIED means the evidence does not establish a country. Currency alone is not geography."],
-        ["fee_name", "The record’s fee label."],
-        ["category", "Recorded category, schedule, price band or applicability grouping; not a unified taxonomy."],
-        ["fee_type", "Observed current values: Advertising, Aged Inventory, Card processing, Final value, Insertion, International, Listing, Low Inventory, Payment processing, Per-order, Referral, Storage, Subscription, Transaction, WFS fulfillment, WFS storage."],
-        ["value, value_type", "Headline value and unit. Current percentages are decimal fractions; monetary headlines use the unit stated by value_type. Read conditional values with pricing_details."],
-        ["pricing_details", "Structured pricing, conditions and supporting references; see Normalization rules."],
-        ["source_url, source_title", "Recorded primary source link and title."],
-        ["effective_date", "Nullable effective day, only where established. Current records have no separate effective-date-precision field."],
-        ["last_verified", "Last successful first-party current-value review, not an effective date or a failed access attempt."],
-        ["verification_status", "verified_current_value: reviewed current value and recorded applicability, not proof of its start date. partially_verified: headline value confirmed in a first-party source; at least one stated condition, tier or scope element is unconfirmed and identified in notes. verification_pending: pending; the public formatter suppresses the numeric headline and directs readers to the source."],
-        ["notes", "Plain-language conditions and exceptions."],
-        ["created_at, updated_at", "Creation timestamp and prospective current-fee edit timestamp. Earlier edits have not been backfilled."],
-      ]} />
+      <Fields rows={"id,marketplace,region,fee_name,category,fee_type,value,value_type,pricing_details,source_url,source_title,effective_date,last_verified,verification_status,notes,created_at,updated_at".split(",").map(field => [field, fieldMeaning("fee_records", field)])} />
       <p>Historical fee changes are a separate shape, not current records with extra columns. Their fields are <code>id, record_id, marketplace, region, fee_type, category, title, old_value, new_value, value_type, change_amount, effective_date, announcement_date, impact_level, source_url, source_title, summary, created_at, effective_date_precision, effective_period, evidence_details</code>. <code>record_id</code> is nullable; <code>change_amount</code> is the stored difference, while the displayed relative change is calculated separately. A zero baseline displays “New fee”.</p>
       <p>Policy events have <code>id, marketplace, region, policy_area, title, summary, body_markdown, effective_date, announcement_date, impact_level, affected_sellers, source_url, source_title, last_verified, created_at, updated_at, effective_date_precision, effective_period, evidence_details</code>. They do not inherit current-fee values or pricing details.</p>
+      {([
+        ["fee_changes", "Historical change field meanings", "id,record_id,marketplace,region,fee_type,category,title,old_value,new_value,value_type,change_amount,effective_date,announcement_date,impact_level,source_url,source_title,summary,created_at,effective_date_precision,effective_period,evidence_details"],
+        ["policy_changes", "Policy event field meanings", "id,marketplace,region,policy_area,title,summary,body_markdown,effective_date,announcement_date,impact_level,affected_sellers,source_url,source_title,last_verified,created_at,updated_at,effective_date_precision,effective_period,evidence_details"],
+      ] as const).map(([collection, title, fields]) => <details key={collection} className="mt-4"><summary className="cursor-pointer font-semibold text-primary">{title}</summary><Fields rows={fields.split(",").map(field => [field, fieldMeaning(collection, field)])} /></details>)}
         </Block>
         <Block title="Pricing representation">
       <ol className="ml-5 list-decimal space-y-2">

@@ -26,6 +26,7 @@ import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SuspensionPreventionRouteImport } from './routes/suspension-prevention'
+import { Route as ChangelogIndexRouteImport } from './routes/changelog.index'
 import { Route as ChangelogSlugRouteImport } from './routes/changelog.$slug'
 import { Route as DownloadsQ22026ReportRouteImport } from './routes/downloads.q2-2026-report'
 import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
@@ -122,6 +123,11 @@ const SuspensionPreventionRoute = SuspensionPreventionRouteImport.update({
   path: '/suspension-prevention',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChangelogIndexRoute = ChangelogIndexRouteImport.update({
+  id: '/changelog/',
+  path: '/changelog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChangelogSlugRoute = ChangelogSlugRouteImport.update({
   id: '/changelog/$slug',
   path: '/changelog/$slug',
@@ -202,6 +208,7 @@ export interface FileRoutesByFullPath {
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
+  '/changelog/': typeof ChangelogIndexRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
@@ -231,6 +238,7 @@ export interface FileRoutesByTo {
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
+  '/changelog': typeof ChangelogIndexRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
@@ -262,6 +270,7 @@ export interface FileRoutesById {
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
+  '/changelog/': typeof ChangelogIndexRoute
   '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/_authenticated/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
@@ -293,6 +302,7 @@ export interface FileRouteTypes {
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
+    | '/changelog/'
     | '/admin/feedback'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
@@ -322,6 +332,7 @@ export interface FileRouteTypes {
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
+    | '/changelog'
     | '/admin/feedback'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
@@ -352,6 +363,7 @@ export interface FileRouteTypes {
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
+    | '/changelog/'
     | '/_authenticated/admin/feedback'
     | '/_authenticated/admin/subscribers'
     | '/api/public/fee-changes'
@@ -380,6 +392,7 @@ export interface RootRouteChildren {
   SuspensionPreventionRoute: typeof SuspensionPreventionRoute
   ChangelogSlugRoute: typeof ChangelogSlugRoute
   DownloadsQ22026ReportRoute: typeof DownloadsQ22026ReportRoute
+  ChangelogIndexRoute: typeof ChangelogIndexRoute
   ApiPublicFeeChangesRoute: typeof ApiPublicFeeChangesRoute
   ApiPublicFeesRoute: typeof ApiPublicFeesRoute
   ApiPublicMarketplacesRoute: typeof ApiPublicMarketplacesRoute
@@ -505,6 +518,13 @@ declare module '@tanstack/react-router' {
       path: '/suspension-prevention'
       fullPath: '/suspension-prevention'
       preLoaderRoute: typeof SuspensionPreventionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/changelog/': {
+      id: '/changelog/'
+      path: '/changelog'
+      fullPath: '/changelog/'
+      preLoaderRoute: typeof ChangelogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/changelog/$slug': {
@@ -635,6 +655,7 @@ const rootRouteChildren: RootRouteChildren = {
   SuspensionPreventionRoute: SuspensionPreventionRoute,
   ChangelogSlugRoute: ChangelogSlugRoute,
   DownloadsQ22026ReportRoute: DownloadsQ22026ReportRoute,
+  ChangelogIndexRoute: ChangelogIndexRoute,
   ApiPublicFeeChangesRoute: ApiPublicFeeChangesRoute,
   ApiPublicFeesRoute: ApiPublicFeesRoute,
   ApiPublicMarketplacesRoute: ApiPublicMarketplacesRoute,

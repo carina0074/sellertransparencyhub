@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
@@ -5,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
       { title: "Privacy & Data Practices — Seller Transparency Hub" },
       { name: "description", content: "How Seller Transparency Hub uses analytics, voluntary research feedback, and newsletter subscriptions — and what we do not collect." },
       { property: "og:title", content: "Privacy & Data Practices" },
