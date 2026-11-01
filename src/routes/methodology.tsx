@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Database, ClipboardList, FileText, Archive } from "lucide-react";
+import { MethodologyDataModel } from "@/components/methodology-data-model";
 
 export const Route = createFileRoute("/methodology")({
   head: () => ({
@@ -61,11 +62,11 @@ function MethodologyPage() {
           <p>
             Seller Transparency Hub collects and reviews publicly available fee and policy information from major e-commerce marketplaces. Research is carried out manually. Records are reviewed and updated as research is conducted and source documentation is re-evaluated. There is no automated or real-time monitoring of marketplace pages, and no fixed review schedule.
           </p>
-          <p>Material records are meant to be traceable to identifiable evidence wherever that evidence is available.</p>
         </Section>
 
+        <MethodologyDataModel />
+
         <Section title="What we track">
-          <p>The research covers three separate kinds of records:</p>
           <Bullets
             items={[
               <><span className="font-medium text-foreground">Current fee records</span> (<Link to="/rate-card" className={linkClass}>Fee Database</Link>): current marketplace fees that have been reviewed against identified source documentation, including their scope and conditions.</>,
@@ -114,15 +115,6 @@ function MethodologyPage() {
         </Section>
 
         <Section title="Dates and verification">
-          <p>Each date has its own meaning:</p>
-          <Bullets
-            items={[
-              <><span className="font-medium text-foreground">Effective date:</span> when a fee or policy took effect, recorded only when evidence supports it.</>,
-              <><span className="font-medium text-foreground">Announcement date:</span> when the marketplace published the change. This can differ from the effective date.</>,
-              <><span className="font-medium text-foreground">Last reviewed / verified:</span> when the record was checked against evidence. This is not when the marketplace changed the fee, and not a review of the whole dataset.</>,
-              <><span className="font-medium text-foreground">Record created / updated:</span> internal bookkeeping dates, never used as evidence of marketplace timing.</>,
-            ]}
-          />
           <p>
             Effective dates are never inferred from page access dates, page update timestamps, current pricing pages, or database modification dates. Historical events record dates to the precision the evidence supports: an exact day, a month, a year, or unknown. Current fee records whose start date is not established show no effective date.
           </p>
