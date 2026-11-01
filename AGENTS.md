@@ -1,5 +1,9 @@
 # Architecture rules
 
+- Region is explicit in all research collections, with UNSPECIFIED where first-party historical country scope is absent; do not infer countries from currency or current-record linkage.
+- Research export runs only as an operator CLI script using one read-only database statement for records and schema; files remain outside public app paths and share one version and timestamp to avoid mixed snapshots.
+- Methodology’s release/license/citation TODOs remain in unrendered source until approved; describe current evidence variants rather than implying a universal schema or released dataset.
+
 - Fee edits are timestamped and logged per changed business field by database triggers; history is admin-readable and mutation-protected, without cascading record deletion, so all write paths share durable append-only provenance.
 - Test database trigger behavior against the applied SQL in isolated PGlite PostgreSQL; never validate audit logging by changing production research records.
 
