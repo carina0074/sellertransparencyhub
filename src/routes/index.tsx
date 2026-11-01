@@ -104,7 +104,7 @@ const datasets = [
   {
     icon: Database,
     title: "Marketplace Fee Database",
-    desc: "Searchable rate cards across Amazon, Walmart, eBay, Shopify, and Etsy. Referral, fulfillment, storage, and ad fees — all sourced from official documentation.",
+    desc: "Searchable, source-linked fee records for Amazon, Walmart, eBay, Shopify and Etsy, covering selected referral, transaction, fulfillment, storage and subscription fees. Coverage is curated, not exhaustive.",
     to: "/rate-card",
     cta: "Browse fee database",
   },
@@ -264,7 +264,7 @@ function Index() {
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="rounded-2xl border border-border bg-foreground px-8 py-12 text-center text-background sm:px-12">
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Stop guessing. Start working with real data.
+            Stop guessing. Start from source-linked fee records.
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-base opacity-80">
             Search the fee database or browse the latest policy changes — no signup required.

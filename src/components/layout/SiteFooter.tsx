@@ -60,7 +60,7 @@ function NewsletterSignup() {
     <div className="rounded-xl border border-border bg-background p-6 shadow-sm">
       <h3 className="text-lg font-semibold text-foreground">Join Marketplace Transparency Updates</h3>
       <p className="mt-2 text-sm text-muted-foreground">
-        Occasional updates when new research, reports, or dataset updates are published.
+        Occasional updates when new research, reports, or data updates are published.
       </p>
       {status === "success" ? (
         <div className="mt-4 flex items-center gap-2 text-sm font-medium text-green-600">

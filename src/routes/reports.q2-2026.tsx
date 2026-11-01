@@ -64,8 +64,11 @@ function Q2_2026_ReportPage() {
         description="Independent analysis of fee transparency across Amazon, Walmart Marketplace, eBay, and Etsy — April through June 2026."
       />
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-6 flex justify-end print:hidden">
-          <Button asChild variant="outline" size="sm">
+        <div className="mb-6 flex flex-col items-start gap-3 sm:flex-row sm:items-start print:hidden">
+          <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
+            This PDF is the original June 2026 publication, preserved unchanged. Some statements in it were later corrected or qualified. See the review notes on the report page.
+          </p>
+          <Button asChild variant="outline" size="sm" className="shrink-0">
             <Link to="/downloads/q2-2026-report">
               <Download className="mr-2 h-4 w-4" />
               Download PDF

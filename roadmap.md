@@ -1,5 +1,10 @@
 # Roadmap
 
+- [x] Apply only approved homepage, health-check and footer wording after confirming fee-type coverage.
+- [x] Preserve original Q2 PDF; show notice beside report download and replace automatic redirect with manual download.
+- [x] Export full hidden-page text, including database-backed reports, and available addition/hiding history; report Q3 code dates separately from unavailable deployment evidence without editing its entry.
+- [x] Verify requested pages, unchanged hidden routes/PDF, tests and build; report exact files and lines without publishing.
+
 - [x] List sitewide claim occurrences before any public-text changes; confirm calculator marketplace list and newsletter flow.
 - [x] Remove homepage edit-date placeholder; add prospective fee timestamps and append-only field history without backfill.
 - [x] Remove obsolete root social-image metadata; no eligible existing same-page image was found.
