@@ -204,7 +204,6 @@ function Index() {
           ))}
         </div>
         <p className="pb-6 text-center text-xs text-muted-foreground">Latest fee verification: {formatVerificationDate(coverage.lastUpdated)}</p>
-        <p className="-mt-4 pb-6 text-center text-xs text-muted-foreground">Last updated: [PLACEHOLDER – record update date not stored]</p>
       </section>
 
       {/* Datasets */}

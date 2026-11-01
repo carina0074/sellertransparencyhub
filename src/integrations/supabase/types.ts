@@ -109,6 +109,36 @@ export type Database = {
           },
         ]
       }
+      fee_record_edit_history: {
+        Row: {
+          changed_at: string
+          field_changed: string
+          id: string
+          new_value: Json | null
+          old_value: Json | null
+          record_id: string
+          source_url: string | null
+        }
+        Insert: {
+          changed_at?: string
+          field_changed: string
+          id?: string
+          new_value?: Json | null
+          old_value?: Json | null
+          record_id: string
+          source_url?: string | null
+        }
+        Update: {
+          changed_at?: string
+          field_changed?: string
+          id?: string
+          new_value?: Json | null
+          old_value?: Json | null
+          record_id?: string
+          source_url?: string | null
+        }
+        Relationships: []
+      }
       fee_records: {
         Row: {
           category: string
@@ -123,6 +153,7 @@ export type Database = {
           pricing_details: Json | null
           source_title: string
           source_url: string
+          updated_at: string | null
           value: number
           value_type: string
           verification_status: string
@@ -140,6 +171,7 @@ export type Database = {
           pricing_details?: Json | null
           source_title: string
           source_url: string
+          updated_at?: string | null
           value: number
           value_type: string
           verification_status?: string
@@ -157,6 +189,7 @@ export type Database = {
           pricing_details?: Json | null
           source_title?: string
           source_url?: string
+          updated_at?: string | null
           value?: number
           value_type?: string
           verification_status?: string

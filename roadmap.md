@@ -1,5 +1,11 @@
 # Roadmap
 
+- [x] List sitewide claim occurrences before any public-text changes; confirm calculator marketplace list and newsletter flow.
+- [x] Remove homepage edit-date placeholder; add prospective fee timestamps and append-only field history without backfill.
+- [x] Remove obsolete root social-image metadata; no eligible existing same-page image was found.
+- [ ] Set a domain-hosted replacement share image — blocked pending an existing suitable page image or explicit approval to create one.
+- [x] Validate history rules, unchanged records, all tests, build and homepage/calculator preview; report badge steps without publishing.
+
 - [x] Replace calculator result analytics only, classify model coverage, and preserve first-interaction behavior.
 - [x] Run full tests and preview build validation; 106 tests and browser regressions passed, automatic build OK, unchanged calculator results verified, no publishing.
 
