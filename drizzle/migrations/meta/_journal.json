@@ -57,6 +57,13 @@
       "when": 1793291494766,
       "tag": "0007_feedback_research_fields",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1793497371501,
+      "tag": "0008_fee_record_edit_history",
+      "breakpoints": true
     }
   ]
 }
