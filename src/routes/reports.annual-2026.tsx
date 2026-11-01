@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Clock, BarChart3 } from "lucide-react";
@@ -7,6 +8,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/reports/annual-2026")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Annual Marketplace Transparency Review 2026 — Coming Soon" },
       { name: "description", content: "Placeholder for a planned 2026 annual review. No report content has been published yet." },
       { property: "og:title", content: "Annual Marketplace Transparency Review 2026 — Coming Soon" },

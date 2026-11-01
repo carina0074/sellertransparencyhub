@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
@@ -10,6 +11,7 @@ import { trackEvent } from "@/lib/analytics";
 export const Route = createFileRoute("/reports/q2-2026")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
       { title: "Q2 2026 Marketplace Fee Transparency Report — Seller Transparency Hub" },
       { name: "description", content: "Historical Q2 2026 analysis of marketplace fee transparency across Amazon, Walmart, eBay, and Etsy, with source citations added in an October 2026 review." },
       { property: "og:title", content: "Q2 2026 Marketplace Fee Transparency Report" },

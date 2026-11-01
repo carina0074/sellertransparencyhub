@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
@@ -18,6 +19,7 @@ const policyChangesQuery = queryOptions({
 export const Route = createFileRoute("/policy-changes")({
   head: () => ({
       meta: [
+      ...shareImageMeta,
         { title: "Marketplace Policy Archive — Documented Changes | Seller Transparency Hub" },
       { name: "description", content: "A manually maintained, source-linked collection of documented marketplace policy changes with evidence, applicable scope and qualified historical dates." },
       { property: "og:title", content: "Marketplace Policy Archive" },

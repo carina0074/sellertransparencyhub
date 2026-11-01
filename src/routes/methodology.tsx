@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -8,6 +9,7 @@ import { MethodologyDataModel, MethodologyTechnicalReference } from "@/component
 export const Route = createFileRoute("/methodology")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
       { title: "Methodology — Seller Transparency Hub" },
       { name: "description", content: "How Seller Transparency Hub sources, reviews, dates, and qualifies marketplace fee and policy information, and the limits of its coverage." },
       { property: "og:title", content: "Methodology — Seller Transparency Hub" },

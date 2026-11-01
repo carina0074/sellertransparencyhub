@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Calendar, ExternalLink, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,7 @@ export const Route = createFileRoute("/changelog/$slug")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
+          ...shareImageMeta,
           { title: `${loaderData.title} — Changelog` },
           { name: "description", content: loaderData.summary },
           { property: "og:title", content: `${loaderData.title} — Changelog` },

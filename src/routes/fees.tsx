@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
@@ -22,6 +23,7 @@ const feeChangesQuery = queryOptions({
 export const Route = createFileRoute("/fees")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
       { title: "Seller Fee Change Feed — Recorded Marketplace Fee Changes" },
       { name: "description", content: "A manually maintained collection of documented historical marketplace fee changes with first-party evidence, applicability and effective-date precision." },
       { property: "og:title", content: "Seller Fee Change Feed" },

@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
@@ -32,6 +33,7 @@ const statsQuery = queryOptions({
 export const Route = createFileRoute("/rate-card")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
       { title: "Marketplace Fee Database — Amazon, Walmart, eBay, Shopify, Etsy rates" },
       { name: "description", content: "Current U.S. seller fees for Amazon, Walmart, eBay, Shopify, and Etsy, with pricing tiers, applicability, first-party evidence and current-value review status." },
       { property: "og:title", content: "Marketplace Fee Database" },

@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import {
@@ -18,6 +19,7 @@ const feeRecordsQuery = queryOptions({ queryKey: ["fee-records"], queryFn: () =>
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
       { title: "Independent Marketplace Transparency Research for U.S. Small Businesses" },
       { name: "description", content: "Independent research and searchable, source-linked fee records for U.S. small business marketplace sellers: fee database, fee change feed, calculator, and policy archive." },
       { property: "og:title", content: "Independent Marketplace Transparency Research for U.S. Small Businesses" },

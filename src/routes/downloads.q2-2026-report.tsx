@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,6 +7,7 @@ import reportAsset from "@/assets/Marketplace-Fee-Transparency-Report-Q2-2026.pd
 export const Route = createFileRoute("/downloads/q2-2026-report")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
       { title: "Download — Q2 2026 Marketplace Fee Transparency Report" },
       { name: "description", content: "Download the Q2 2026 Marketplace Fee Transparency Report PDF." },
       { property: "og:title", content: "Download — Q2 2026 Marketplace Fee Transparency Report" },

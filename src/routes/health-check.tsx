@@ -1,3 +1,4 @@
+import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ShieldCheck, AlertTriangle, Activity } from "lucide-react";
@@ -6,10 +7,12 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { scoreFromInputs, type HealthInputs as Inputs } from "@/lib/health-score";
 
 export const Route = createFileRoute("/health-check")({
   head: () => ({
     meta: [
+      ...shareImageMeta,
       { title: "Account Health Checker — Educational Self-Assessment" },
       { name: "description", content: "An educational self-assessment that gives a rough heuristic score from common seller performance metrics. Not an official marketplace score." },
       { property: "og:title", content: "Account Health Checker" },
@@ -20,36 +23,6 @@ export const Route = createFileRoute("/health-check")({
   }),
   component: HealthCheckPage,
 });
-
-type Inputs = {
-  odr: number; lateShip: number; cancellation: number;
-  complaints: number; ipi: number; returnRate: number;
-};
-
-function clamp(n: number, a: number, b: number) { return Math.max(a, Math.min(b, n)); }
-
-function scoreFromInputs(i: Inputs) {
-  const odrScore = clamp(100 - i.odr * 100, 0, 100);
-  const lateScore = clamp(100 - i.lateShip * 25, 0, 100);
-  const cancelScore = clamp(100 - i.cancellation * 40, 0, 100);
-  const complaintsScore = clamp(100 - i.complaints * 2, 0, 100);
-  const ipiScore = clamp((i.ipi / 800) * 100, 0, 100);
-  const returnScore = clamp(100 - (i.returnRate - 0.05) * 200, 0, 100);
-  const score =
-    odrScore * 0.25 + lateScore * 0.2 + cancelScore * 0.15 +
-    complaintsScore * 0.1 + ipiScore * 0.15 + returnScore * 0.15;
-  let level: "healthy" | "attention" | "high" = "healthy";
-  if (score < 55) level = "high";
-  else if (score < 78) level = "attention";
-  const recs: { title: string; desc: string }[] = [];
-  if (odrScore < 70) recs.push({ title: "Drive Order Defect Rate below 1%", desc: "Audit recent A-to-z claims and negative reviews. Tighten QC on the top 3 SKUs producing defects." });
-  if (lateScore < 70) recs.push({ title: "Improve shipping consistency", desc: "Switch your top SKUs to a same-day cut-off carrier pickup. Late shipment rate is a leading suspension driver." });
-  if (cancelScore < 70) recs.push({ title: "Reduce seller-initiated cancellations", desc: "Sync inventory hourly. Most cancellations come from overselling stale stock." });
-  if (ipiScore < 60) recs.push({ title: "Raise IPI above 500", desc: "Remove aged inventory, fix stranded listings, and improve sell-through on slow SKUs." });
-  if (returnScore < 70) recs.push({ title: "Address return root causes", desc: "Tag returns by reason. Updating listing accuracy alone often reduces returns 15-25%." });
-  if (recs.length === 0) recs.push({ title: "Maintain your edge", desc: "Set a weekly review of ODR, late shipment, and IPI. Document SOPs so health stays consistent at scale." });
-  return { score: Math.round(score), level, recs };
-}
 
 function HealthCheckPage() {
   const [inputs, setInputs] = useState<Inputs>({
@@ -80,9 +53,9 @@ function HealthCheckPage() {
                 <Activity className="h-4 w-4 text-primary" /> Performance metrics
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <Num label="Order Defect Rate (%)" v={inputs.odr} step={0.1} onChange={(v) => set("odr", v)} />
-                <Num label="Late Shipment Rate (%)" v={inputs.lateShip} step={0.1} onChange={(v) => set("lateShip", v)} />
-                <Num label="Cancellation Rate (%)" v={inputs.cancellation} step={0.1} onChange={(v) => set("cancellation", v)} />
+                <Num target="Amazon: under 1% (60-day window)" label="Order Defect Rate (%)" v={inputs.odr} step={0.1} onChange={(v) => set("odr", v)} />
+                <Num target="Amazon: under 4% (10- and 30-day windows; seller-fulfilled)" label="Late Shipment Rate (%)" v={inputs.lateShip} step={0.1} onChange={(v) => set("lateShip", v)} />
+                <Num target="Amazon: under 2.5% (7-day window; seller-fulfilled)" label="Cancellation Rate (%)" v={inputs.cancellation} step={0.1} onChange={(v) => set("cancellation", v)} />
                 <Num label="Customer Complaints (90d)" v={inputs.complaints} step={1} onChange={(v) => set("complaints", v)} />
                 <Num label="Inventory Performance Index" v={inputs.ipi} step={10} onChange={(v) => set("ipi", v)} />
                 <Num label="Return Rate (e.g. 0.08)" v={inputs.returnRate} step={0.01} onChange={(v) => set("returnRate", v)} />
@@ -139,17 +112,32 @@ function HealthCheckPage() {
             </CardContent>
           </Card>
         </div>
+        <details className="mt-8 space-y-4 border-t border-border pt-6 text-sm text-muted-foreground">
+          <summary className="cursor-pointer font-semibold text-primary">How this score works</summary>
+          <p className="mt-4">This is the site’s educational formula, not a marketplace formula. ODR, late shipment and cancellation use the entered percentage number (0.6 means 0.6%). Return rate uses a fraction (0.08 means 8%).</p>
+          <ul className="mt-3 list-inside list-disc space-y-2">
+            <li>Order defects: 100 minus ODR × 100; weight 25%.</li>
+            <li>Late shipments: 100 minus late shipment rate × 25; weight 20%.</li>
+            <li>Cancellations: 100 minus cancellation rate × 40; weight 15%.</li>
+            <li>Complaints: 100 minus complaint count × 2; weight 10%.</li>
+            <li>Inventory performance: IPI divided by 800, multiplied by 100; weight 15%.</li>
+            <li>Returns: 100 minus (return-rate fraction minus 0.05) × 200; weight 15%.</li>
+          </ul>
+          <p className="mt-3">Each component is limited to 0–100, then multiplied by its weight and added. The displayed total is rounded. Before rounding, below 55 is “High risk”; 55 to below 78 is “Needs attention”; 78 or above is “Healthy”. These are site-defined labels, not official risk thresholds or predictions.</p>
+          <p className="mt-3">Recommendation triggers are separate: late-shipment component below 70, cancellation component below 70, IPI component below 60 and return component below 70. ODR advice to get below 1% appears only at 1% or above. The bar colors use separate display rules, not official targets.</p>
+        </details>
       </section>
     </>
   );
 }
 
-function Num({ label, v, onChange, step = 1 }: { label: string; v: number; onChange: (n: number) => void; step?: number }) {
+function Num({ label, v, onChange, step = 1, target }: { label: string; v: number; onChange: (n: number) => void; step?: number; target?: string }) {
   return (
     <div className="space-y-1.5">
       <Label className="text-xs font-medium text-muted-foreground">{label}</Label>
       <Input type="number" value={v} step={step}
         onChange={(e) => onChange(+e.target.value || 0)} />
+      {target ? <a href="https://sellercentral.amazon.com/seller-forums/discussions/t/8a41416f-e1ad-4221-9675-7145d5cc5e28" target="_blank" rel="noreferrer" className="block text-xs text-primary hover:underline">{target}</a> : <p className="text-xs text-muted-foreground">No official target published for this exact metric in the reviewed sources.</p>}
     </div>
   );
 }
