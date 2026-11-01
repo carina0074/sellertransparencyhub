@@ -23,7 +23,7 @@ export const changelog: ChangelogEntry[] = [
       { name: "Current fee records", detail: "Reviewed against current marketplace-published documentation. Tiered and conditional fees are shown as structured pricing instead of single flat rates, and review dates are kept separate from effective dates." },
       { name: "Historical fee changes and policy events", detail: "Each event was checked for dated evidence. Unsupported events were retired from public view, and dates are shown only to the precision the evidence supports." },
       { name: "Q2 2026 report review", detail: "The June 2026 report is kept as a historical publication. Source citations and labeled review notes were added separately." },
-      { name: "Q3 2026 report", detail: "Research and claim-level sourcing completed. Not yet publicly released at the time of this entry." },
+      { name: "Q3 2026 report", detail: "Research and claim-level sourcing completed. Released publicly in October 2026." },
       { name: "Methodology", detail: "Rewritten to describe manual, source-reviewed research with no automated monitoring, along with its limitations." },
     ],
     sources: [],
