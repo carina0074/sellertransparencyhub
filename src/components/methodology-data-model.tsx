@@ -10,20 +10,13 @@ function Fields({ rows }: { rows: [string, string][] }) {
 export function MethodologyDataModel() {
   return <>
     <Block title="Data model">
-      <p>Seller Transparency Hub publishes three separate record collections. They use related source and date conventions, but different fields and evidence structures. Historical fee changes and policy events share a precision-aware effective-date model.</p>
-      <div className="overflow-x-auto"><table className="w-full text-left"><thead><tr className="border-b border-border"><th className="py-2 pr-3">Collection</th><th className="py-2 pr-3">One record represents</th><th className="py-2">Public endpoint</th></tr></thead><tbody>
-        {[
-          ["Current fee records", "One fee as currently documented for its recorded scope", "/api/public/fees"],
-          ["Historical fee changes", "One documented fee transition, with old/new values and timing evidence", "/api/public/fee-changes"],
-          ["Policy events", "One documented marketplace policy or governance change", "/api/public/policy-changes"],
-        ].map(([name, meaning, endpoint]) => <tr key={endpoint} className="border-b border-border"><td className="py-2 pr-3 align-top">{name}</td><td className="py-2 pr-3">{meaning}</td><td className="py-2 break-all"><a href={endpoint} className="text-primary hover:underline">{endpoint}</a></td></tr>)}
-      </tbody></table></div>
+      <p>Seller Transparency Hub publishes three separate collections: current fees, historical fee changes and policy events. Each records its own sources and geographic scope. Historical fee changes and policy events state how precisely their effective timing is known.</p>
+
     </Block>
     <Block title="Normalization rules">
       <p>Fees retain their stated units, conditions and geographic scope. Tiered pricing distinguishes a rate applied to the whole price from rates applied to portions of it, and from schedules based on other conditions. Records may be narrowed, corrected or retired when the evidence is insufficient. Fees awaiting verification may remain visible without a numeric headline.</p>
     </Block>
     <Block title="Evidence model">
-      <p>Evidence is record-specific, but its structure differs by collection:</p>
       <p>Each record links to its own supporting sources. From now on, every current-fee reference must include a short supporting quote and the source section heading. Existing omissions are awaiting review and have not been filled in.</p>
       <p>Historical and policy sources support the stated change, its scope and its timing. The strength of the evidence and the precision of the effective date are recorded separately.</p>
     </Block>
@@ -37,6 +30,15 @@ export function MethodologyTechnicalReference() {
     <AccordionItem value="technical-reference">
       <AccordionTrigger className="text-base font-semibold text-foreground">Technical reference</AccordionTrigger>
       <AccordionContent className="space-y-6 text-muted-foreground">
+        <Block title="Collections and public endpoints">
+      <div className="overflow-x-auto"><table className="w-full text-left"><thead><tr className="border-b border-border"><th className="py-2 pr-3">Collection</th><th className="py-2 pr-3">One record represents</th><th className="py-2">Public endpoint</th></tr></thead><tbody>
+        {[
+          ["Current fee records", "One fee as currently documented for its recorded scope", "/api/public/fees"],
+          ["Historical fee changes", "One documented fee transition, with old/new values and timing evidence", "/api/public/fee-changes"],
+          ["Policy events", "One documented marketplace policy or governance change", "/api/public/policy-changes"],
+        ].map(([name, meaning, endpoint]) => <tr key={endpoint} className="border-b border-border"><td className="py-2 pr-3 align-top">{name}</td><td className="py-2 pr-3">{meaning}</td><td className="py-2 break-all"><a href={endpoint} className="text-primary hover:underline">{endpoint}</a></td></tr>)}
+      </tbody></table></div>
+        </Block>
         <Block title="Record fields">
       <h3 className="font-semibold text-foreground">Core fields — current fee records</h3>
       <Fields rows={[

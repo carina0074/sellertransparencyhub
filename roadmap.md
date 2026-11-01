@@ -1,8 +1,8 @@
 # Roadmap
 
-- [ ] Restore readable methodology explanations and move field details to a bottom Technical reference; preserve hidden TODO sections.
-- [ ] Enforce prospective current-fee evidence standards without changing existing records; list missing quotes/headings for review.
-- [ ] Store the unchanged unreleased 0.0.0 snapshot in research-exports/0.0.0-sample/; validate tests, preview and build without publishing.
+- [x] Restore readable methodology explanations and move field details to a bottom Technical reference; preserve hidden TODO sections.
+- [x] Enforce prospective current-fee evidence standards without changing existing records; list missing quotes/headings for review.
+- [x] Store the unchanged unreleased 0.0.0 snapshot in research-exports/0.0.0-sample/; validate tests, preview and build without publishing.
 
 - [x] Add evidence-qualified methodology sections from uploaded draft; preserve existing sections and document duplicate removals/mismatches.
 - [x] Verify public fee-change endpoint; add evidence-based explicit regions to all three collections without altering fee facts.
