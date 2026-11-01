@@ -1,8 +1,8 @@
 # Roadmap
 
-- [ ] Apply next-batch Fee Database, calculator, score explanation, reports, Policy Archive and changelog-index presentation fixes; keep storage values and October entry unchanged pending review.
-- [ ] Verify newsletter blocks, add domain-hosted share image metadata on public pages, and add shared plain-language export dictionary meanings.
-- [ ] Deliver storage evidence and October changelog draft, exact file/line change list, tests and preview checks without publishing.
+- [x] Apply next-batch Fee Database, calculator, score explanation, reports, Policy Archive and changelog-index presentation fixes; keep storage values and October entry unchanged pending review.
+- [x] Verify newsletter blocks, add domain-hosted share image metadata on public pages, and add shared plain-language export dictionary meanings.
+- [x] Deliver storage evidence and October changelog draft, exact file/line change list, tests and preview checks without publishing.
 
 - [x] Restore readable methodology explanations and move field details to a bottom Technical reference; preserve hidden TODO sections.
 - [x] Enforce prospective current-fee evidence standards without changing existing records; list missing quotes/headings for review.
@@ -21,7 +21,7 @@
 - [x] List sitewide claim occurrences before any public-text changes; confirm calculator marketplace list and newsletter flow.
 - [x] Remove homepage edit-date placeholder; add prospective fee timestamps and append-only field history without backfill.
 - [x] Remove obsolete root social-image metadata; no eligible existing same-page image was found.
-- [ ] Set a domain-hosted replacement share image — blocked pending an existing suitable page image or explicit approval to create one.
+- [x] Set a domain-hosted replacement share image — user approved creation in the next-batch brief; production image awaits publishing.
 - [x] Validate history rules, unchanged records, all tests, build and homepage/calculator preview; report badge steps without publishing.
 
 - [x] Replace calculator result analytics only, classify model coverage, and preserve first-interaction behavior.
