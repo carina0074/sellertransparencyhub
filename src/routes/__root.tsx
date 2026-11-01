@@ -89,8 +89,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "Seller Transparency Hub | Fees & Profit Tools" },
       { name: "twitter:description", content: "Independent marketplace fee research and educational tools for Amazon, Walmart, eBay, Shopify, and Etsy sellers: fee database, fee change feed, calculator, and quarterly reports." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/251cacf0-ca97-4b8b-8b77-a0487a1b4a3c/id-preview-6854b118--57626a55-63a3-4565-b480-7d737f1b59ad.lovable.app-1781232291696.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/251cacf0-ca97-4b8b-8b77-a0487a1b4a3c/id-preview-6854b118--57626a55-63a3-4565-b480-7d737f1b59ad.lovable.app-1781232291696.png" },
     ],
     links: [
       {

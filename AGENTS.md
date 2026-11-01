@@ -1,5 +1,8 @@
 # Architecture rules
 
+- Fee edits are timestamped and logged per changed business field by database triggers; history is admin-readable and mutation-protected, without cascading record deletion, so all write paths share durable append-only provenance.
+- Test database trigger behavior against the applied SQL in isolated PGlite PostgreSQL; never validate audit logging by changing production research records.
+
 - Store current percentage fees as decimal fractions; preserve historical data conventions independently to avoid rewriting past events.
 - Store optional fee applicability and composite pricing in `fee_records.pricing_details`; monetary components use integer minor units and explicit currency, and pure formatting lives in `src/lib/fee-formatting.ts` so UI and tests share one interpretation.
 - Model current whole-price thresholds, marginal portions, schedule conditions and billing options as distinct structured pricing kinds; this prevents a base value from masquerading as a universal fee.
