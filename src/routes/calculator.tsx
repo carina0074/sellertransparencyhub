@@ -24,7 +24,7 @@ import { createCalculatorResultTracker } from "@/lib/calculator-analytics";
 export const Route = createFileRoute("/calculator")({
   head: () => ({
     meta: [
-      { title: "Amazon FBA Fee Calculator & Seller Profit Calculator" },
+      { title: "Marketplace Selling Cost Estimator: Amazon, Walmart, Etsy, Shopify" },
       { name: "description", content: "Model selected U.S. marketplace selling costs with current referral tiers, while unsupported fulfillment, storage and other charges are explicitly excluded." },
       { property: "og:title", content: "Marketplace Profit Calculator" },
       { property: "og:description", content: "Selected marketplace selling-cost estimates with pricing tiers and explicit excluded-cost limitations, not an all-in profitability assessment." },

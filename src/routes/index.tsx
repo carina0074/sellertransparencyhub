@@ -19,9 +19,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Independent Marketplace Transparency Research for U.S. Small Businesses" },
-      { name: "description", content: "Independent research and public datasets for U.S. small business marketplace sellers: fee database, fee change feed, calculator, and policy archive." },
+      { name: "description", content: "Independent research and searchable, source-linked fee records for U.S. small business marketplace sellers: fee database, fee change feed, calculator, and policy archive." },
       { property: "og:title", content: "Independent Marketplace Transparency Research for U.S. Small Businesses" },
-      { property: "og:description", content: "Independent research and public datasets for U.S. small business marketplace sellers." },
+      { property: "og:description", content: "Independent research and searchable, source-linked fee records for U.S. small business marketplace sellers." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -204,6 +204,7 @@ function Index() {
           ))}
         </div>
         <p className="pb-6 text-center text-xs text-muted-foreground">Latest fee verification: {formatVerificationDate(coverage.lastUpdated)}</p>
+        <p className="-mt-4 pb-6 text-center text-xs text-muted-foreground">Last updated: [PLACEHOLDER – record update date not stored]</p>
       </section>
 
       {/* Datasets */}
@@ -247,7 +248,7 @@ function Index() {
           {[
             { icon: Lock, title: "Independent by design", desc: "We don't sell leads to marketplaces. Our datasets exist to protect your margin and your account." },
             { icon: FileText, title: "Documented source links", desc: "Fee and policy records include source links and date information where available." },
-            { icon: BarChart3, title: "Decision-ready outputs", desc: "Data you can act on immediately. Filter by marketplace, category, date, or impact level." },
+            { icon: BarChart3, title: "Decision-ready outputs", desc: "Data you can act on immediately. Filter by marketplace or fee type." },
           ].map((p) => (
             <div key={p.title}>
               <span className="grid h-10 w-10 place-items-center rounded-lg bg-background text-primary ring-1 ring-border">
