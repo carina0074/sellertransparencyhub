@@ -70,7 +70,17 @@ function AboutPage() {
           ))}
         </div>
 
-        <div className="mt-16 rounded-2xl border border-border bg-secondary/40 p-8 text-center">
+          <div className="mt-12 text-sm text-muted-foreground">
+            <h3 className="text-base font-semibold text-foreground">Contact</h3>
+            <p className="mt-2">
+              Corrections, research questions and data requests:{" "}
+              <a href="mailto:research@sellertransparency.com" className="text-primary hover:underline">
+                research@sellertransparency.com
+              </a>
+            </p>
+          </div>
+
+          <div className="mt-12 rounded-2xl border border-border bg-secondary/40 p-8 text-center">
           <h3 className="text-2xl font-semibold tracking-tight text-foreground">Try the tools that started it all.</h3>
           <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
             Free, no signup. Run a profitability check on a product or assess your account health in under two minutes.

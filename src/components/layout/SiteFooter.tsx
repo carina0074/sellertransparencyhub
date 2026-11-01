@@ -128,6 +128,16 @@ export function SiteFooter() {
                     </Link>
                   </li>
                 ))}
+                {col.title === "Company" && (
+                  <li>
+                    <a
+                      href="mailto:research@sellertransparency.com"
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      research@sellertransparency.com
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
           ))}
