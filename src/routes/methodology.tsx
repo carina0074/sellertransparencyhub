@@ -69,9 +69,9 @@ function MethodologyPage() {
         <Section title="What we track">
           <Bullets
             items={[
-              <><span className="font-medium text-foreground">Current fee records</span> (<Link to="/rate-card" className={linkClass}>Fee Database</Link>): current marketplace fees that have been reviewed against identified source documentation, including their scope and conditions.</>,
-              <><span className="font-medium text-foreground">Historical fee changes</span> (<Link to="/fees" className={linkClass}>Fee Change Feed</Link>): documented transitions where the evidence supports the previous value, the new value, the timing, and who was affected.</>,
-              <><span className="font-medium text-foreground">Policy events</span> (<Link to="/policy-changes" className={linkClass}>Policy Archive</Link>): selected marketplace policy developments that meet the same evidence standard.</>,
+              <Link to="/rate-card" className={linkClass}>Fee Database</Link>,
+              <Link to="/fees" className={linkClass}>Fee Change Feed</Link>,
+              <Link to="/policy-changes" className={linkClass}>Policy Archive</Link>,
             ]}
           />
           <p>Coverage currently spans Amazon, eBay, Walmart Marketplace, Etsy, and Shopify. All three collections are curated and non-exhaustive.</p>
@@ -101,7 +101,7 @@ function MethodologyPage() {
 
         <Section title="Current fee verification">
           <p>
-            Each current fee record lists its source and the date it was last reviewed against current first-party evidence. Verification applies to the value and scope as written in the record. It does not establish when that value first took effect.
+            Verification applies to the value and scope as written in the record.
           </p>
         </Section>
 
@@ -116,13 +116,13 @@ function MethodologyPage() {
 
         <Section title="Dates and verification">
           <p>
-            Effective dates are never inferred from page access dates, page update timestamps, current pricing pages, or database modification dates. Historical events record dates to the precision the evidence supports: an exact day, a month, a year, or unknown. Current fee records whose start date is not established show no effective date.
+            Effective dates are never inferred from page access dates, page update timestamps, current pricing pages, or database modification dates.
           </p>
         </Section>
 
         <Section title="Conditional and tiered fees">
           <p>
-            Many marketplace fees depend on conditions such as marketplace, seller plan, category, item price or price band, fulfillment method, product size and weight, storage duration, season, geography, advertising attribution, or seller eligibility. Conditional fees are not turned into misleading universal flat rates. Instead, records may show tiers explicitly, attach conditions, limit their stated scope, or be retired if a single value would oversimplify the fee. The Fee Database does not calculate every possible seller cost.
+            Many marketplace fees depend on conditions such as marketplace, seller plan, category, item price or price band, fulfillment method, product size and weight, storage duration, season, geography, advertising attribution, or seller eligibility. The Fee Database does not calculate every possible seller cost.
           </p>
         </Section>
 

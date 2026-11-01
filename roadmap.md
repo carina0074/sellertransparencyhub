@@ -1,9 +1,9 @@
 # Roadmap
 
-- [ ] Add evidence-qualified methodology sections from uploaded draft; preserve existing sections and document duplicate removals/mismatches.
-- [ ] Verify public fee-change endpoint; add evidence-based explicit regions to all three collections without altering fee facts.
-- [ ] Build private, single-snapshot CSV/JSON exporter with version/timestamp and schema dictionary; deliver sample without public downloads.
-- [ ] Validate regions, snapshot consistency, methodology/endpoint, tests and build; do not publish.
+- [x] Add evidence-qualified methodology sections from uploaded draft; preserve existing sections and document duplicate removals/mismatches.
+- [x] Verify public fee-change endpoint; add evidence-based explicit regions to all three collections without altering fee facts.
+- [x] Build private, single-snapshot CSV/JSON exporter with version/timestamp and schema dictionary; deliver sample without public downloads.
+- [x] Validate regions, snapshot consistency, methodology/endpoint, tests and build; do not publish.
 
 - [x] Apply only approved homepage, health-check and footer wording after confirming fee-type coverage.
 - [x] Preserve original Q2 PDF; show notice beside report download and replace automatic redirect with manual download.
