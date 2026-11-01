@@ -122,6 +122,7 @@ export type FeeInputs = {
 
 export type FeeBreakdown = {
   referralFee: number; fulfillmentFee: number; storageFee: number;
+  transactionFee: number; paymentProcessingFee: number; listingFee: number;
   closingFee: number;
   returnCost: number; totalFees: number; netProfit: number;
   margin: number; recommendation: "healthy" | "moderate" | "warning";
@@ -180,7 +181,11 @@ export function calculateFees(i: FeeInputs): FeeBreakdown {
   let recommendation: FeeBreakdown["recommendation"] = "healthy";
   if (margin < 0.1) recommendation = "warning";
   else if (margin < 0.2) recommendation = "moderate";
-  return { referralFee, closingFee, fulfillmentFee, storageFee, returnCost, totalFees, netProfit, margin, recommendation, unsupported };
+  // Presentation decomposition only: retain the original aggregate and totals.
+  const transactionFee = i.marketplace === "etsy" ? i.price * ETSY_TXN_RATE : 0;
+  const paymentProcessingFee = i.marketplace === "shopify" ? referralFee : i.marketplace === "etsy" ? i.price * ETSY_PAYMENT_RATE + ETSY_PAYMENT_FLAT : 0;
+  const listingFee = i.marketplace === "etsy" ? ETSY_LISTING_FEE : 0;
+  return { referralFee, transactionFee, paymentProcessingFee, listingFee, closingFee, fulfillmentFee, storageFee, returnCost, totalFees, netProfit, margin, recommendation, unsupported };
 }
 
 export const fmtUSD = (n: number) =>

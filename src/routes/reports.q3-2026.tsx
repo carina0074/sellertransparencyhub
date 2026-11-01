@@ -28,7 +28,7 @@ function inline(text: string): ReactNode[] {
     if (link) {
       return (
         <a key={i} href={link[2]} target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline-offset-2 hover:underline">
-          [{link[1]}]
+          {link[1]}
         </a>
       );
     }
@@ -92,6 +92,14 @@ function Q3Report() {
           <Calendar className="h-4 w-4" /> Reporting Period: July 1 – September 30, 2026
         </div>
         {renderMarkdown(body)}
+        <section className="space-y-3 border-t border-border pt-6">
+          <h2 className="text-lg font-semibold text-foreground">Data</h2>
+          <ul className="space-y-2 text-sm text-primary">
+            <li><Link to="/rate-card" className="hover:underline">Fee Database</Link></li>
+            <li><Link to="/fees" className="hover:underline">Fee Change Feed</Link></li>
+            <li><Link to="/policy-changes" className="hover:underline">Policy Archive</Link></li>
+          </ul>
+        </section>
         <div className="flex flex-wrap gap-4 border-t border-border pt-8">
           <Button asChild variant="ghost">
             <Link to="/reports/q2-2026"><ArrowLeft className="mr-2 h-4 w-4" />Previous: Q2 2026</Link>

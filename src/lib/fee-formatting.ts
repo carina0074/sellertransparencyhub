@@ -58,10 +58,10 @@ export function resolveOffsiteAdsRate(details: Extract<PricingDetails, { kind: "
 
 export type VerificationStatus = "verified_current_value" | "partially_verified" | "verification_pending";
 export function verificationLabel(status?: string): string {
-  return status === "verified_current_value" ? "Verified current value" : status === "partially_verified" ? "Partially verified" : "Verification pending";
+  return status === "verified_current_value" ? "Current value checked against source" : status === "partially_verified" ? "Partially verified" : "Verification pending";
 }
 export function effectiveDateLabel(date: string | null): string {
-  return date ?? "Not independently established";
+  return date ? new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`)) : "Not independently established";
 }
 
 // Whole-price thresholds and marginal portions are intentionally different operations.
