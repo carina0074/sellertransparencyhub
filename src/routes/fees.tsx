@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { getFeeChanges, formatFeeValue } from "@/lib/fees.functions";
 import { historicalChangeLabel, historicalEffectiveDate, historicalEvidenceSchema } from "@/lib/historical-fee-formatting";
+import { formatVerificationDate } from "@/lib/coverage-statistics";
 
 const feeChangesQuery = queryOptions({
   queryKey: ["fee-changes"],
@@ -139,7 +140,7 @@ function FeesPage() {
                         <a href={reference.url} target="_blank" rel="noreferrer" className="text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>
                         <blockquote className="mt-1 border-l-2 border-border pl-2">{reference.quote}</blockquote>
                       </div>)}
-                      <p>Evidence reviewed {evidence.reviewed_on}; review date is not an effective date.</p>
+                      <p>Evidence reviewed {formatVerificationDate(evidence.reviewed_on)}; review date is not an effective date.</p>
                       <p>{c.record_id ? "Linked to the same current fee concept." : "No current-record link."} {evidence.linkage_reason}</p>
                     </div>
                   </details>}

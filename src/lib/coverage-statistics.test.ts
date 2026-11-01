@@ -29,7 +29,7 @@ test("category labels are globally distinct, not summed by marketplace", async (
 });
 test("latest verification is June 20, 2026, from record verification dates", async () => {
   expect((await readCoverageStatistics(reader(snapshot, 12))).lastUpdated).toBe("2026-06-20");
-  expect(formatVerificationDate("2026-06-20")).toBe("June 20, 2026");
+  expect(formatVerificationDate("2026-06-20")).toBe("Jun 20, 2026");
 });
 test("counts have no minimum and empty data has no invented verification", async () => {
   expect(await readCoverageStatistics(reader([], 0))).toEqual({

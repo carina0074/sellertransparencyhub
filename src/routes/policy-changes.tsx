@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getPolicyChanges, type PolicyChange } from "@/lib/fees.functions";
 import { policyEffectiveDate, policyEvidenceSchema } from "@/lib/policy-evidence";
+import { formatVerificationDate } from "@/lib/coverage-statistics";
 
 const policyChangesQuery = queryOptions({
   queryKey: ["policy-changes"],
@@ -62,7 +63,10 @@ function PolicyChangesPage() {
   );
 
   const officialSources = useMemo(
-    () => new Set(changes.map((c) => c.source_url)).size,
+    () => new Set(changes.flatMap((c) => {
+      const parsed = policyEvidenceSchema.safeParse(c.evidence_details);
+      return [c.source_url, ...(parsed.success ? parsed.data.references.map(r => r.url) : [])];
+    })).size,
     [changes],
   );
 
@@ -82,7 +86,7 @@ function PolicyChangesPage() {
       />
       <section className="mx-auto max-w-7xl space-y-8 px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard icon={BookOpen} label="Source links recorded" value={officialSources.toString()} />
+          <StatCard icon={BookOpen} label="Unique source URLs" value={officialSources.toString()} />
           <StatCard icon={Layers} label="Policy records archived" value={changes.length.toString()} />
           <StatCard icon={Building2} label="Marketplaces covered" value={(marketplaces.length - 1).toString()} />
           <StatCard icon={RefreshCw} label="Maintenance" value="Manually maintained" />
@@ -170,6 +174,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
       <CardContent className="space-y-4 p-6">
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <Badge variant="secondary" className="rounded-full">{c.marketplace}</Badge>
+          <Badge variant="outline">{c.region}</Badge>
           <Badge variant="outline" className="rounded-full">{c.policy_area}</Badge>
           {evidence && <Badge variant="outline">{evidence.status === "verified_policy_event" ? "Evidence reviewed" : "Timing not established"}</Badge>}
           <span className="ml-auto tabular-nums text-muted-foreground">
@@ -190,9 +195,9 @@ function PolicyCard({ c }: { c: PolicyChange }) {
             <Detail label="Affected sellers" value={c.affected_sellers} />
           )}
           {c.announcement_date && (
-            <Detail label="Announced" value={c.announcement_date} />
+            <Detail label="Announced" value={formatVerificationDate(c.announcement_date)} />
           )}
-          <Detail label="Evidence reviewed" value={evidence?.reviewed_on ?? "Review not established"} />
+          <Detail label="Evidence reviewed" value={evidence ? formatVerificationDate(evidence.reviewed_on) : "Review not established"} />
         </dl>
         {evidence && (
           <div className="space-y-3 border-t border-border pt-3 text-sm">
@@ -214,7 +219,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
           </div>
         )}
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3 text-xs">
-          <span className="text-muted-foreground">
+          <span className="inline-flex flex-wrap items-center gap-2 text-muted-foreground">
             <span className="mr-1 rounded-full bg-primary-soft px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
               Source
             </span>

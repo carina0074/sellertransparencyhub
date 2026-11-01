@@ -1,3 +1,4 @@
+import { fieldMeaning } from "./research-field-meanings";
 export const COLLECTIONS = ["fee_records", "fee_changes", "policy_changes"] as const;
 export type Collection = typeof COLLECTIONS[number];
 export type SchemaField = { table_name: Collection; column_name: string; data_type: string; is_nullable: string; column_default: string | null; ordinal_position: number };
@@ -30,7 +31,7 @@ export function snapshotCsv(snapshot: Snapshot, collection: Collection): string 
 
 export function dataDictionary(snapshot: Snapshot): string {
   return ["# Research snapshot data dictionary", `Version: ${snapshot.version}`, `Exported: ${snapshot.exported_at}`, "Status: unreleased sample; no license, DOI or public release is asserted.", "Generated from information_schema.columns in the same database snapshot as the records.", "CSV uses schema column order, quoted RFC-style cells, empty cells for SQL NULL, and JSON strings for structured values. JSON preserves nulls, numbers, arrays and objects. Regions use explicit source scope; UNSPECIFIED is not a country or a U.S. inference.", ...COLLECTIONS.flatMap((collection) => [
-    `\n## ${collection}\n`, "| Field | SQL type | Nullable | Default |", "|---|---|---|---|",
-    ...snapshot.schema.filter((field) => field.table_name === collection).sort((a, b) => a.ordinal_position - b.ordinal_position).map((field) => `| ${field.column_name} | ${field.data_type} | ${field.is_nullable} | ${(field.column_default ?? "—").replaceAll("|", "\\|")} |`),
+    `\n## ${collection}\n`, "| Field | SQL type | Nullable | Default | Meaning |", "|---|---|---|---|---|",
+    ...snapshot.schema.filter((field) => field.table_name === collection).sort((a, b) => a.ordinal_position - b.ordinal_position).map((field) => `| ${field.column_name} | ${field.data_type} | ${field.is_nullable} | ${(field.column_default ?? "—").replaceAll("|", "\\|")} | ${fieldMeaning(collection, field.column_name).replaceAll("|", "\\|")} |`),
   ])].join("\n");
 }

@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { COLLECTIONS, dataDictionary, snapshotCsv, validateSnapshot, type Snapshot } from "./research-snapshot";
+import { fieldMeaning } from "./research-field-meanings";
 const fixture: Snapshot = {
   version: "0.0.0", exported_at: "2026-11-01T00:00:00Z", status: "unreleased_sample",
   schema: COLLECTIONS.flatMap((table_name) => ["id", "region", "notes"].map((column_name, index) => ({ table_name, column_name, data_type: "text", is_nullable: "YES", column_default: null, ordinal_position: index + 1 }))),
@@ -23,5 +24,11 @@ describe("Private three-collection research snapshots", () => {
     expect(dataDictionary(fixture)).toContain("## fee_changes");
     expect(dataDictionary(fixture)).toContain("| region | text | YES | — |");
     expect(() => validateSnapshot({ ...fixture, collections: { ...fixture.collections, fee_records: [{ id: "fee", region: "US" }] } })).toThrow("Incomplete");
+  });
+  test("dictionary uses the same meaning as methodology for every exported field", () => {
+    const dictionary = dataDictionary(fixture);
+    for (const field of fixture.schema) {
+      expect(dictionary).toContain(fieldMeaning(field.table_name, field.column_name));
+    }
   });
 });

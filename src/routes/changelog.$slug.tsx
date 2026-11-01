@@ -3,6 +3,7 @@ import { ArrowLeft, Calendar, ExternalLink, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getChangelogEntry, type ChangelogEntry } from "@/data/changelog";
+import { formatVerificationDate } from "@/lib/coverage-statistics";
 
 export const Route = createFileRoute("/changelog/$slug")({
   loader: ({ params }): ChangelogEntry => {
@@ -56,7 +57,7 @@ function ChangelogDetail() {
           <Calendar className="h-4 w-4" />
           <span>{entry.date}</span>
           <span>·</span>
-          <span>Entry last revised: {entry.updatedAt}</span>
+          <span>Entry last revised: {formatVerificationDate(entry.updatedAt)}</span>
         </div>
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
           {entry.title}

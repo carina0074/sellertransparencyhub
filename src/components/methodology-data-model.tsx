@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { fieldMeaning } from "@/lib/research-field-meanings";
 
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return <section className="space-y-3 border-b border-border pb-6 text-sm leading-relaxed text-muted-foreground"><h2 className="text-base font-semibold text-foreground">{title}</h2>{children}</section>;
@@ -59,6 +60,11 @@ export function MethodologyTechnicalReference() {
       ]} />
       <p>Historical fee changes are a separate shape, not current records with extra columns. Their fields are <code>id, record_id, marketplace, region, fee_type, category, title, old_value, new_value, value_type, change_amount, effective_date, announcement_date, impact_level, source_url, source_title, summary, created_at, effective_date_precision, effective_period, evidence_details</code>. <code>record_id</code> is nullable; <code>change_amount</code> is the stored difference, while the displayed relative change is calculated separately. A zero baseline displays “New fee”.</p>
       <p>Policy events have <code>id, marketplace, region, policy_area, title, summary, body_markdown, effective_date, announcement_date, impact_level, affected_sellers, source_url, source_title, last_verified, created_at, updated_at, effective_date_precision, effective_period, evidence_details</code>. They do not inherit current-fee values or pricing details.</p>
+      {([
+        ["fee_records", "Current fee field meanings", "id,marketplace,region,fee_name,category,fee_type,value,value_type,pricing_details,source_url,source_title,effective_date,last_verified,verification_status,notes,created_at,updated_at"],
+        ["fee_changes", "Historical change field meanings", "id,record_id,marketplace,region,fee_type,category,title,old_value,new_value,value_type,change_amount,effective_date,announcement_date,impact_level,source_url,source_title,summary,created_at,effective_date_precision,effective_period,evidence_details"],
+        ["policy_changes", "Policy event field meanings", "id,marketplace,region,policy_area,title,summary,body_markdown,effective_date,announcement_date,impact_level,affected_sellers,source_url,source_title,last_verified,created_at,updated_at,effective_date_precision,effective_period,evidence_details"],
+      ] as const).map(([collection, title, fields]) => <details key={collection} className="mt-4"><summary className="cursor-pointer font-semibold text-primary">{title}</summary><Fields rows={fields.split(",").map(field => [field, fieldMeaning(collection, field)])} /></details>)}
         </Block>
         <Block title="Pricing representation">
       <ol className="ml-5 list-decimal space-y-2">
