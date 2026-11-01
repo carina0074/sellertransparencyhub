@@ -60,6 +60,7 @@
         "zod": "^3.24.2",
       },
       "devDependencies": {
+        "@electric-sql/pglite": "^0.5.13",
         "@eslint/js": "^9.32.0",
         "@lovable.dev/vite-tanstack-config": "2.26.5",
         "@types/bun": "^1.4.3",
@@ -128,6 +129,8 @@
     "@date-fns/tz": ["@date-fns/tz@1.4.1", "", {}, "sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA=="],
 
     "@drizzle-team/brocli": ["@drizzle-team/brocli@0.10.2", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@drizzle-team/brocli/-/brocli-0.10.2.tgz", {}, "sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w=="],
+
+    "@electric-sql/pglite": ["@electric-sql/pglite@0.5.13", "", {}, "sha512-4rZuxK1k07w6sSpJzjMri0B9+HuXuC7V9pxVB51pR0T9KPqXg6TD0mdaEwBA9rkcL4jdht4tGDf/wYzAiGhT7g=="],
 
     "@emnapi/core": ["@emnapi/core@1.10.0", "", { "dependencies": { "@emnapi/wasi-threads": "1.2.1", "tslib": "^2.4.0" } }, "sha512-yq6OkJ4p82CAfPl0u9mQebQHKPJkY7WrIuk205cTYnYe+k2Z8YBh11FrbRG/H6ihirqcacOgl2BIO8oyMQLeXw=="],
 
