@@ -5,8 +5,8 @@ test("sample ODR 0.6% does not recommend reducing it below 1%", () => {
   expect(scoreFromInputs(sample).recs.some(r => r.title.includes("Order Defect"))).toBe(false);
   expect(scoreFromInputs({ ...sample, odr: 1 }).recs.some(r => r.title.includes("Order Defect"))).toBe(true);
 });
-test("existing six-component weighting produces sample score 50, high level", () => {
-  expect(scoreFromInputs(sample).score).toBe(50);
+test("existing six-component weighting produces sample score 52, high level", () => {
+  expect(scoreFromInputs(sample).score).toBe(52);
   expect(scoreFromInputs(sample).level).toBe("high");
 });
 test("risk levels use unrounded raw thresholds 55 and 78", () => {

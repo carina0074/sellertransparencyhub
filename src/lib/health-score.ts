@@ -11,7 +11,7 @@ export function scoreFromInputs(i: HealthInputs) {
   const ipiScore = clamp((i.ipi / 800) * 100);
   const returnScore = clamp(100 - (i.returnRate - 0.05) * 200);
   const score = odrScore * 0.25 + lateScore * 0.2 + cancelScore * 0.15 + complaintsScore * 0.1 + ipiScore * 0.15 + returnScore * 0.15;
-  const level = score < 55 ? "high" : score < 78 ? "attention" : "healthy";
+  const level: "high" | "attention" | "healthy" = score < 55 ? "high" : score < 78 ? "attention" : "healthy";
   const recs: { title: string; desc: string }[] = [];
   if (i.odr >= 1) recs.push({ title: "Drive Order Defect Rate below 1%", desc: "Audit recent A-to-z claims and negative reviews. Tighten QC on the top 3 SKUs producing defects." });
   if (lateScore < 70) recs.push({ title: "Improve shipping consistency", desc: "Switch your top SKUs to a same-day cut-off carrier pickup. Late shipment rate is a leading suspension driver." });
