@@ -78,7 +78,7 @@ export type PolicyChange = {
   effective_period: string | null;
   evidence_details: Json | null;
   announcement_date: string | null;
-  impact_level: "low" | "medium" | "high";
+  impact_level: "low" | "medium" | "high" | null;
   affected_sellers: string | null;
   source_url: string;
   source_title: string;
@@ -95,7 +95,7 @@ export const getPolicyChanges = createServerFn({ method: "GET" }).handler(
     if (error) throw new Error(error.message);
     return (data ?? []).map((r) => ({
       ...r,
-      impact_level: r.impact_level as "low" | "medium" | "high",
+      impact_level: r.impact_level as "low" | "medium" | "high" | null,
     })) as PolicyChange[];
   },
 );

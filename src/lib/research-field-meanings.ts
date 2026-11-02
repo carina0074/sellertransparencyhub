@@ -13,7 +13,7 @@ const common: Record<string, string> = {
   announcement_date: "When the marketplace published the change; distinct from when it took effect.",
   effective_date_precision: "How precisely the effective timing is established: exact day, month, year or unknown.",
   effective_period: "Effective month (YYYY-MM) or year (YYYY) when no exact day is established; empty for exact or unknown timing.",
-  impact_level: "Recorded impact classification; not an official marketplace rating.",
+  impact_level: "Recorded impact classification; not an official marketplace rating. Empty means not assessed.",
   created_at: "Internal creation timestamp, never proof of marketplace timing.",
   updated_at: "Internal edit timestamp, never proof of marketplace timing.",
   effective_date: "Established effective day; empty when an exact day is not established.",
