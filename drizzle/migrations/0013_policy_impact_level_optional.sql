@@ -1,0 +1,2 @@
+ALTER TABLE public.policy_changes ALTER COLUMN impact_level DROP NOT NULL;
+COMMENT ON COLUMN public.policy_changes.impact_level IS 'Optional. NULL = not assessed. Do not assign until a written impact rule exists.';

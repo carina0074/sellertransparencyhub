@@ -336,7 +336,7 @@ export type Database = {
           effective_period: string | null
           evidence_details: Json | null
           id: string
-          impact_level: string
+          impact_level: string | null
           last_verified: string
           marketplace: string
           policy_area: string
@@ -357,7 +357,7 @@ export type Database = {
           effective_period?: string | null
           evidence_details?: Json | null
           id?: string
-          impact_level: string
+          impact_level?: string | null
           last_verified: string
           marketplace: string
           policy_area: string
@@ -378,7 +378,7 @@ export type Database = {
           effective_period?: string | null
           evidence_details?: Json | null
           id?: string
-          impact_level?: string
+          impact_level?: string | null
           last_verified?: string
           marketplace?: string
           policy_area?: string
