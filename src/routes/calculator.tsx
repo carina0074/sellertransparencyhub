@@ -15,8 +15,8 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import {
-  calculateFees, MARKETPLACES, CATEGORIES, SIZE_TIERS, fmtUSD, fmtPct,
-  type FeeInputs, type Marketplace, type SizeTier,
+  calculateFees, MARKETPLACES, CATEGORIES, fmtUSD, fmtPct,
+  type FeeInputs, type Marketplace,
 } from "@/lib/marketplace-fees";
 import { QuickFeedback } from "@/components/quick-feedback";
 import { trackEvent } from "@/lib/analytics";
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/calculator")({
 function CalculatorPage() {
   const [inputs, setInputs] = useState<FeeInputs>({
     price: 29.99, cost: 8.5, shipping: 2.5,
-    marketplace: "amazon", category: "home",
+    marketplace: "etsy", category: "home",
     weightLb: 1.2, sizeTier: "small_standard", storageMonths: 2,
   });
 
@@ -119,10 +119,6 @@ function CalculatorPage() {
                   <Input type="number" min={0} step="0.01" value={inputs.shipping}
                     onChange={(e) => set("shipping", +e.target.value || 0)} />
                 </Field>
-                <Field label="Weight (lb)">
-                  <Input type="number" min={0} step="0.1" disabled title="Fulfillment is not estimated from these inputs" value={inputs.weightLb}
-                    onChange={(e) => set("weightLb", +e.target.value || 0)} />
-                </Field>
               </div>
               <p className="text-xs leading-relaxed text-muted-foreground">Percentages apply to entered item price only. Buyer-paid shipping, gift wrapping and applicable tax-inclusive processing bases are not separately modeled; shipping cost is a seller expense.</p>
               <Field label="Marketplace">
@@ -146,47 +142,36 @@ function CalculatorPage() {
                   </SelectContent>
                 </Select>
               </Field>
-              <div className="grid grid-cols-2 gap-4">
-                <Field label="Size tier">
-                  <Select value={inputs.sizeTier}
-                    onValueChange={(v) => set("sizeTier", v as SizeTier)}>
-                    <SelectTrigger disabled title="Fulfillment is not estimated from these inputs"><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      {SIZE_TIERS.map((s) => (
-                        <SelectItem key={s.id} value={s.id}>{s.label}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </Field>
+              {(inputs.marketplace === "amazon" || inputs.marketplace === "walmart") && (
                 <Field label="Storage (months)">
                   <Input type="number" min={0} step="1" value={inputs.storageMonths}
                     onChange={(e) => set("storageMonths", +e.target.value || 0)} />
                 </Field>
-              </div>
+              )}
             </CardContent>
           </Card>
 
           <div className="min-w-0 space-y-6">
             <div className="grid gap-4 sm:grid-cols-3">
-              <Stat label={result.unsupported.length ? "Modeled surplus before excluded costs" : "Net profit"} value={fmtUSD(result.netProfit)} accent="primary" />
-              <Stat label={result.unsupported.length ? "Modeled margin before excluded costs" : "Profit margin"} value={fmtPct(result.margin)} />
-              <Stat label={result.unsupported.length ? "Included modeled costs" : "Total fees"} value={fmtUSD(result.totalFees)} />
+              <Stat label={result.unsupported.length ? "Left after included fees" : "Net profit"} value={fmtUSD(result.netProfit)} accent="primary" />
+              <Stat label={result.unsupported.length ? "Margin after included fees" : "Profit margin"} value={fmtPct(result.margin)} />
+              <Stat label={result.unsupported.length ? "Included fees" : "Total fees"} value={fmtUSD(result.totalFees)} />
             </div>
 
-            {result.unsupported.length > 0 ? <p className="border-l-2 border-warning bg-warning/15 p-4 text-sm font-medium text-warning-foreground">Profitability cannot be assessed: material costs are excluded.</p> : <RecommendationBanner level={result.recommendation} margin={result.margin} />}
+            {result.unsupported.length === 0 && <RecommendationBanner level={result.recommendation} margin={result.margin} />}
 
             {result.unsupported.length > 0 && (
               <div className="flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/15 p-4 text-warning-foreground">
                 <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" />
                 <div>
-                  <p className="text-sm font-semibold">Not estimated</p>
+                  <p className="text-sm font-semibold">Not included in this estimate</p>
                   <ul className="mt-1 list-inside list-disc text-sm opacity-90">
                     {result.unsupported.map((u) => (
                       <li key={u}>{u}</li>
                     ))}
                   </ul>
                   <p className="mt-1 text-sm opacity-90">
-                    These are excluded from the totals above rather than estimated from another marketplace.
+                    These are excluded from the totals above rather than estimated from another marketplace, so profitability cannot be assessed.
                   </p>
                 </div>
               </div>

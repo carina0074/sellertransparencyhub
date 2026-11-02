@@ -2,7 +2,7 @@ import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { Search, TrendingUp, TrendingDown, ExternalLink } from "lucide-react";
+import { Search, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { QuickFeedback } from "@/components/quick-feedback";
 import { isValueMomentClick, recordFromClick, type ValueRecord } from "@/lib/quick-feedback";
@@ -173,19 +173,5 @@ function FeesPage() {
 
       </section>
     </div>
-  );
-}
-
-export function ImpactBadge({ level, direction }: { level: "low" | "medium" | "high"; direction: "up" | "down" }) {
-  const map = {
-    high: "bg-destructive/10 text-destructive",
-    medium: "bg-warning/15 text-warning-foreground",
-    low: "bg-success/10 text-success",
-  } as const;
-  const Icon = direction === "up" ? TrendingUp : TrendingDown;
-  return (
-    <span className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${map[level]}`}>
-      <Icon className="h-3.5 w-3.5" /> {level} impact
-    </span>
   );
 }
