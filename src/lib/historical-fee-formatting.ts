@@ -42,3 +42,21 @@ export function historicalChangeLabel(oldValue: number, newValue: number): strin
   const relative = relativeFeeChange(oldValue, newValue);
   return relative === null ? "New fee" : `${relative >= 0 ? "+" : ""}${(relative * 100).toFixed(1)}%`;
 }
+/** Earliest possible date implied by a historical change's evidence; null when the date is not established. */
+export function historicalSortDate(value: { effective_date: string | null; effective_date_precision?: string; effective_period?: string | null }): string | null {
+  if (value.effective_date_precision === "unknown") return null;
+  if (value.effective_date_precision === "year" && value.effective_period) return `${value.effective_period}-01-01`;
+  if (value.effective_date_precision === "month" && value.effective_period) return `${value.effective_period}-01`;
+  return value.effective_date ?? null;
+}
+
+/** Most recent documented change by effective timing; changes without an established date are skipped. */
+export function latestDocumentedChange<T extends { effective_date: string | null; effective_date_precision?: string; effective_period?: string | null }>(changes: T[]): T | null {
+  let best: T | null = null;
+  let bestKey = "";
+  for (const c of changes) {
+    const key = historicalSortDate(c);
+    if (key && key > bestKey) { best = c; bestKey = key; }
+  }
+  return best;
+}
