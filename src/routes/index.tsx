@@ -17,7 +17,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const statsQuery = queryOptions({ queryKey: ["fee-stats"], queryFn: () => getDatabaseStats() });
 const feeRecordsQuery = queryOptions({ queryKey: ["fee-records"], queryFn: () => getFeeRecords() });
-const feeChangesQuery = queryOptions({ queryKey: ["fee-changes"], queryFn: () => getFeeChanges() });
+const homeFeeChangesQuery = queryOptions({ queryKey: ["fee-changes"], queryFn: () => getFeeChanges() });
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
     Promise.all([
       context.queryClient.ensureQueryData(statsQuery),
       context.queryClient.ensureQueryData(feeRecordsQuery),
-      context.queryClient.ensureQueryData(feeChangesQuery),
+      context.queryClient.ensureQueryData(homeFeeChangesQuery),
     ]),
   component: Index,
 });
@@ -172,7 +172,7 @@ function LatestChangeCard({ change }: { change: FeeChange }) {
 function Index() {
   const { data: coverage } = useSuspenseQuery(statsQuery);
   const { data: feeRecords } = useSuspenseQuery(feeRecordsQuery);
-  const { data: feeChanges } = useSuspenseQuery(feeChangesQuery);
+  const { data: feeChanges } = useSuspenseQuery(homeFeeChangesQuery);
   const latestChange = latestDocumentedChange(feeChanges);
   const stats = [
     { value: coverage.activeRecords, label: "Current fee records" },
