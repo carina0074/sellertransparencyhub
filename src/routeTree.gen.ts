@@ -39,6 +39,7 @@ import { Route as ApiPublicFeeChangesRouteImport } from './routes/api/public/fee
 import { Route as ApiPublicFeesRouteImport } from './routes/api/public/fees'
 import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
 import { Route as ApiPublicPolicyChangesRouteImport } from './routes/api/public/policy-changes'
+import { Route as ApiPublicHooksSourceMonitorRouteImport } from './routes/api/public/hooks/source-monitor'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -191,6 +192,12 @@ const ApiPublicPolicyChangesRoute = ApiPublicPolicyChangesRouteImport.update({
   path: '/api/public/policy-changes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHooksSourceMonitorRoute =
+  ApiPublicHooksSourceMonitorRouteImport.update({
+    id: '/api/public/hooks/source-monitor',
+    path: '/api/public/hooks/source-monitor',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -222,6 +229,7 @@ export interface FileRoutesByFullPath {
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
   '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
+  '/api/public/hooks/source-monitor': typeof ApiPublicHooksSourceMonitorRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -252,6 +260,7 @@ export interface FileRoutesByTo {
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
   '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
+  '/api/public/hooks/source-monitor': typeof ApiPublicHooksSourceMonitorRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -285,6 +294,7 @@ export interface FileRoutesById {
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
   '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
+  '/api/public/hooks/source-monitor': typeof ApiPublicHooksSourceMonitorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -318,6 +328,7 @@ export interface FileRouteTypes {
     | '/api/public/fees'
     | '/api/public/marketplaces'
     | '/api/public/policy-changes'
+    | '/api/public/hooks/source-monitor'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -348,6 +359,7 @@ export interface FileRouteTypes {
     | '/api/public/fees'
     | '/api/public/marketplaces'
     | '/api/public/policy-changes'
+    | '/api/public/hooks/source-monitor'
   id:
     | '__root__'
     | '/'
@@ -380,6 +392,7 @@ export interface FileRouteTypes {
     | '/api/public/fees'
     | '/api/public/marketplaces'
     | '/api/public/policy-changes'
+    | '/api/public/hooks/source-monitor'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -407,6 +420,7 @@ export interface RootRouteChildren {
   ApiPublicFeesRoute: typeof ApiPublicFeesRoute
   ApiPublicMarketplacesRoute: typeof ApiPublicMarketplacesRoute
   ApiPublicPolicyChangesRoute: typeof ApiPublicPolicyChangesRoute
+  ApiPublicHooksSourceMonitorRoute: typeof ApiPublicHooksSourceMonitorRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -621,6 +635,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPolicyChangesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/source-monitor': {
+      id: '/api/public/hooks/source-monitor'
+      path: '/api/public/hooks/source-monitor'
+      fullPath: '/api/public/hooks/source-monitor'
+      preLoaderRoute: typeof ApiPublicHooksSourceMonitorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -679,6 +700,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicFeesRoute: ApiPublicFeesRoute,
   ApiPublicMarketplacesRoute: ApiPublicMarketplacesRoute,
   ApiPublicPolicyChangesRoute: ApiPublicPolicyChangesRoute,
+  ApiPublicHooksSourceMonitorRoute: ApiPublicHooksSourceMonitorRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
