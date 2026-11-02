@@ -86,9 +86,6 @@ export function QuickFeedback({
   const dismissed = step === "ask" && blocked && !visible;
   if (variant === "floating" && !visible) return null;
   if (variant === "inline" && dismissed) return null;
-  if (variant === "inline" && !visible && step === "ask" && !blocked) {
-    // placeholder for the observer before the prompt counts as shown
-  }
 
   const tap = (a: QuickAnswer) => {
     if (answer) return;

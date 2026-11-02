@@ -5,7 +5,7 @@ import { useEffect, type ReactNode } from "react";
 import { Calendar, Download, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
-import { FeedbackPrompt } from "@/components/feedback-prompt";
+import { QuickFeedback } from "@/components/quick-feedback";
 import { trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/reports/q2-2026")({
@@ -496,7 +496,7 @@ function Q2_2026_ReportPage() {
         </div>
 
         <div className="mt-8">
-          <FeedbackPrompt resourceType="transparency_report" resourcePath="/reports/q2-2026" />
+          <QuickFeedback variant="inline" resourceType="transparency_report" resourcePath="/reports/q2-2026" />
         </div>
       </article>
     </>

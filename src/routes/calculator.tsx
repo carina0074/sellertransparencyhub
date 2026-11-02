@@ -18,7 +18,7 @@ import {
   calculateFees, MARKETPLACES, CATEGORIES, SIZE_TIERS, fmtUSD, fmtPct,
   type FeeInputs, type Marketplace, type SizeTier,
 } from "@/lib/marketplace-fees";
-import { FeedbackPrompt } from "@/components/feedback-prompt";
+import { QuickFeedback } from "@/components/quick-feedback";
 import { trackEvent } from "@/lib/analytics";
 import { createCalculatorResultTracker } from "@/lib/calculator-analytics";
 
@@ -48,10 +48,11 @@ function CalculatorPage() {
 
   const startedRef = useRef(false);
   const resultTrackerRef = useRef(createCalculatorResultTracker());
+  const [resultSeen, setResultSeen] = useState(false);
 
   useEffect(() => {
     const params = resultTrackerRef.current(startedRef.current, inputs.marketplace, inputs.category);
-    if (params) trackEvent("calculator_result_viewed", params);
+    if (params) { trackEvent("calculator_result_viewed", params); setResultSeen(true); }
   }, [inputs.marketplace, inputs.category, result.unsupported]);
 
   const feeRows: { name: string; value: number | null }[] = [
@@ -244,7 +245,7 @@ function CalculatorPage() {
               </Card>}
             </div>
 
-            <FeedbackPrompt variant="survey" resourceType="calculator" resourcePath="/calculator" />
+            <QuickFeedback resourceType="calculator" resourcePath="/calculator" active={resultSeen} />
           </div>
         </div>
 
