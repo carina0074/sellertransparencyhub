@@ -18,7 +18,7 @@ import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { trackEvent } from "@/lib/analytics";
 import { QuickFeedback } from "@/components/quick-feedback";
-import { isValueMomentClick } from "@/lib/quick-feedback";
+import { isValueMomentClick, recordFromClick, type ValueRecord } from "@/lib/quick-feedback";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const feeRecordsQuery = queryOptions({
@@ -78,6 +78,7 @@ function RateCardPage() {
   const [mkt, setMkt] = useState<string>("all");
   const [ft, setFt] = useState<string>("all");
   const [valueMoment, setValueMoment] = useState(false);
+  const [record, setRecord] = useState<ValueRecord | null>(null);
 
 
   const filtered = useMemo(() => {
@@ -94,7 +95,7 @@ function RateCardPage() {
   }, [records, q, mkt, ft]);
 
   return (
-    <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) setValueMoment(true); }}>
+    <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) { setValueMoment(true); setRecord(recordFromClick(e.target)); } }}>
       <PageHeader
         eyebrow="Public data asset"
         title="Marketplace Fee Database"
@@ -159,7 +160,7 @@ function RateCardPage() {
                   {filtered.map((r) => {
                     const presentation = presentFee(r);
                     return (
-                    <TableRow key={r.id}>
+                    <TableRow key={r.id} data-record-id={r.id} data-record-type="fee_record">
                       <TableCell>
                         <Badge variant="secondary" className="rounded-full">{r.marketplace}</Badge>
                       </TableCell>
@@ -217,7 +218,7 @@ function RateCardPage() {
           <p className="text-center text-sm text-muted-foreground">No fees match your filters.</p>
         )}
 
-        <QuickFeedback resourceType="fee_database" resourcePath="/rate-card" active={valueMoment} />
+        <QuickFeedback resourceType="fee_database" resourcePath="/rate-card" active={valueMoment} recordId={record?.id} recordType={record?.type} />
 
         <Card className="border-border bg-muted/40">
           <CardContent className="flex items-start gap-3 p-6 text-sm text-muted-foreground">

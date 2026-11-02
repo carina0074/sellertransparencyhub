@@ -50,6 +50,7 @@ export type FeedbackSubmission = {
   follow_up_email: string | null;
   answer: string | null;
   record_id: string | null;
+  record_type: string | null;
   follow_up: string | null;
 };
 
@@ -61,7 +62,7 @@ export const getFeedbackSubmissions = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
       .from("feedback_submissions")
-      .select("id, created_at, resource_type, resource_path, usefulness_response, user_type, information_access_response, marketplaces, use_cases, free_text_feedback, follow_up_opt_in, follow_up_email, answer, record_id, follow_up")
+      .select("id, created_at, resource_type, resource_path, usefulness_response, user_type, information_access_response, marketplaces, use_cases, free_text_feedback, follow_up_opt_in, follow_up_email, answer, record_id, record_type, follow_up")
       .order("created_at", { ascending: false });
 
     if (error) throw new Error("Unable to load feedback submissions.");

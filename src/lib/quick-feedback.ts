@@ -38,3 +38,17 @@ export function isValueMomentClick(target: EventTarget | null): boolean {
   if (!el || typeof el.closest !== "function") return false;
   return Boolean(el.closest("summary") || el.closest('a[target="_blank"]'));
 }
+
+export const RECORD_TYPES = ["fee_record", "fee_change", "policy_change"] as const;
+export type RecordType = (typeof RECORD_TYPES)[number];
+export type ValueRecord = { id: string; type: RecordType };
+
+/** The record (if any) a value-moment click happened inside, from data-record-id/type attributes. */
+export function recordFromClick(target: EventTarget | null): ValueRecord | null {
+  const el = target as Element | null;
+  if (!el || typeof el.closest !== "function") return null;
+  const host = el.closest("[data-record-id]");
+  const id = host?.getAttribute("data-record-id");
+  const type = host?.getAttribute("data-record-type") as RecordType | null;
+  return id && type && (RECORD_TYPES as readonly string[]).includes(type) ? { id, type } : null;
+}

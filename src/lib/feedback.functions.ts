@@ -162,6 +162,7 @@ export const quickAnswerSchema = z.object({
   resourceType: z.enum(QUICK_RESOURCE_TYPES),
   resourcePath: z.string().trim().min(1).max(500),
   recordId: z.string().trim().min(1).max(200).optional(),
+  recordType: z.enum(["fee_record", "fee_change", "policy_change"]).optional(),
   answer: z.enum(QUICK_ANSWERS),
 });
 
@@ -174,6 +175,7 @@ export const submitQuickAnswer = createServerFn({ method: "POST" })
       resource_type: data.resourceType,
       resource_path: data.resourcePath,
       record_id: data.recordId ?? null,
+      record_type: data.recordId ? data.recordType ?? null : null,
       answer: data.answer,
       usefulness_response: QUICK_TO_USEFULNESS[data.answer],
     });

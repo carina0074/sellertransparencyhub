@@ -36,12 +36,14 @@ export function QuickFeedback({
   resourceType,
   resourcePath,
   recordId,
+  recordType,
   active = true,
   variant = "floating",
 }: {
   resourceType: QuickResourceType;
   resourcePath: string;
   recordId?: string;
+  recordType?: "fee_record" | "fee_change" | "policy_change";
   active?: boolean;
   variant?: "floating" | "inline";
 }) {
@@ -94,7 +96,7 @@ export function QuickFeedback({
     trackEvent("feedback_answered", { answer: a, resource_type: resourceType });
     const id = crypto.randomUUID();
     idRef.current = id;
-    savedRef.current = saveAnswer({ data: { id, resourceType, resourcePath, recordId, answer: a } }).catch(() => undefined);
+    savedRef.current = saveAnswer({ data: { id, resourceType, resourcePath, recordId, recordType, answer: a } }).catch(() => undefined);
   };
 
   const follow = async (value: string) => {
