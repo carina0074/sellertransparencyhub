@@ -16,8 +16,9 @@ import {
 import { getFeeRecords, getDatabaseStats } from "@/lib/fees.functions";
 import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@/lib/fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
-import { FeedbackPrompt } from "@/components/feedback-prompt";
 import { trackEvent } from "@/lib/analytics";
+import { QuickFeedback } from "@/components/quick-feedback";
+import { isValueMomentClick } from "@/lib/quick-feedback";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const feeRecordsQuery = queryOptions({
@@ -76,6 +77,7 @@ function RateCardPage() {
   const [q, setQ] = useState("");
   const [mkt, setMkt] = useState<string>("all");
   const [ft, setFt] = useState<string>("all");
+  const [valueMoment, setValueMoment] = useState(false);
 
 
   const filtered = useMemo(() => {
@@ -92,7 +94,7 @@ function RateCardPage() {
   }, [records, q, mkt, ft]);
 
   return (
-    <>
+    <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) setValueMoment(true); }}>
       <PageHeader
         eyebrow="Public data asset"
         title="Marketplace Fee Database"
@@ -122,14 +124,14 @@ function RateCardPage() {
             <Input value={q} onChange={(e) => { setQ(e.target.value); }}
               placeholder="Search by category, type, marketplace…" className="pl-9" />
           </div>
-          <Select value={mkt} onValueChange={(v) => { setMkt(v); trackEvent("marketplace_filter_used", { marketplace: v }); }}>
+          <Select value={mkt} onValueChange={(v) => { setMkt(v); setValueMoment(true); trackEvent("marketplace_filter_used", { marketplace: v }); }}>
             <SelectTrigger><SelectValue placeholder="Marketplace" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All marketplaces</SelectItem>
               {marketplaces.map((m) => <SelectItem key={m} value={m}>{m}</SelectItem>)}
             </SelectContent>
           </Select>
-          <Select value={ft} onValueChange={(v) => { setFt(v); }}>
+          <Select value={ft} onValueChange={(v) => { setFt(v); setValueMoment(true); }}>
             <SelectTrigger><SelectValue placeholder="Fee type" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All fee types</SelectItem>
@@ -215,7 +217,7 @@ function RateCardPage() {
           <p className="text-center text-sm text-muted-foreground">No fees match your filters.</p>
         )}
 
-        <FeedbackPrompt id="feedback" variant="survey" resourceType="fee_database" resourcePath="/rate-card" />
+        <QuickFeedback resourceType="fee_database" resourcePath="/rate-card" active={valueMoment} />
 
         <Card className="border-border bg-muted/40">
           <CardContent className="flex items-start gap-3 p-6 text-sm text-muted-foreground">
@@ -228,7 +230,7 @@ function RateCardPage() {
 
               </section>
 
-    </>
+    </div>
   );
 }
 
