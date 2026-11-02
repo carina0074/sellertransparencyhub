@@ -204,13 +204,16 @@ export type Database = {
       }
       feedback_submissions: {
         Row: {
+          answer: string | null
           created_at: string
+          follow_up: string | null
           follow_up_email: string | null
           follow_up_opt_in: boolean
           free_text_feedback: string | null
           id: string
           information_access_response: string | null
           marketplaces: string[]
+          record_id: string | null
           resource_path: string
           resource_type: string
           use_cases: string[]
@@ -218,13 +221,16 @@ export type Database = {
           user_type: string | null
         }
         Insert: {
+          answer?: string | null
           created_at?: string
+          follow_up?: string | null
           follow_up_email?: string | null
           follow_up_opt_in?: boolean
           free_text_feedback?: string | null
           id?: string
           information_access_response?: string | null
           marketplaces?: string[]
+          record_id?: string | null
           resource_path: string
           resource_type: string
           use_cases?: string[]
@@ -232,13 +238,16 @@ export type Database = {
           user_type?: string | null
         }
         Update: {
+          answer?: string | null
           created_at?: string
+          follow_up?: string | null
           follow_up_email?: string | null
           follow_up_opt_in?: boolean
           free_text_feedback?: string | null
           id?: string
           information_access_response?: string | null
           marketplaces?: string[]
+          record_id?: string | null
           resource_path?: string
           resource_type?: string
           use_cases?: string[]
@@ -405,6 +414,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      add_feedback_follow_up: {
+        Args: { _follow_up: string; _id: string }
+        Returns: boolean
+      }
       is_valid_email: { Args: { email: string }; Returns: boolean }
     }
     Enums: {

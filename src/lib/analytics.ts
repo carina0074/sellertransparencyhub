@@ -15,6 +15,11 @@
  *   (params: marketplace, category, support_status: modeled_with_exclusions | partially_supported | unsupported)
  *   Historical calculator_completed and calculator_unsupported_combination events are no longer emitted.
  * - transparency_report_viewed     — report page mounted (param: report)
+ * - feedback_prompt_shown        — one-tap prompt displayed (param: resource_type)
+ * - feedback_answered            — Yes/No tapped (params: answer: yes|no, resource_type)
+ * - feedback_followup            — follow-up chosen (param: option — a fixed use option, or
+ *   "missing_text_provided"; the free text itself is never sent)
+ * Legacy long-survey events (no longer rendered):
  * - feedback_prompt_answered       — usefulness button clicked (params: resource_type, response)
  * - feedback_started               — first interaction with the expanded feedback form (param: resource_type)
  * - feedback_submitted             — feedback successfully stored (params: resource_type, usefulness)

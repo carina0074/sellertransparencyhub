@@ -4,7 +4,7 @@ import { ArrowLeft, Calendar } from "lucide-react";
 import { useEffect, type ReactNode } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
-import { FeedbackPrompt } from "@/components/feedback-prompt";
+import { QuickFeedback } from "@/components/quick-feedback";
 import { trackEvent } from "@/lib/analytics";
 import reportMd from "@/content/q3-2026-report.md?raw";
 
@@ -108,7 +108,7 @@ function Q3Report() {
           </Button>
           <Button asChild variant="outline"><Link to="/reports/annual-2026">Annual Review 2026 →</Link></Button>
         </div>
-        <FeedbackPrompt resourceType="transparency_report" resourcePath="/reports/q3-2026" />
+        <QuickFeedback variant="inline" resourceType="transparency_report" resourcePath="/reports/q3-2026" />
       </article>
     </>
   );

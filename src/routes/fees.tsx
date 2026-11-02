@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { Search, TrendingUp, TrendingDown, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { FeedbackPrompt } from "@/components/feedback-prompt";
+import { QuickFeedback } from "@/components/quick-feedback";
+import { isValueMomentClick } from "@/lib/quick-feedback";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -57,6 +58,7 @@ function FeesPage() {
   const [q, setQ] = useState("");
   const [marketplace, setMarketplace] = useState<string>("all");
   const [feeType, setFeeType] = useState<string>("all");
+  const [valueMoment, setValueMoment] = useState(false);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -72,7 +74,7 @@ function FeesPage() {
   }, [changes, q, marketplace, feeType]);
 
   return (
-    <>
+    <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) setValueMoment(true); }}>
       <PageHeader
         eyebrow="HISTORICAL DATASET"
         title="Seller Fee Change Feed"
@@ -85,14 +87,14 @@ function FeesPage() {
             <Input value={q} onChange={(e) => setQ(e.target.value)}
               placeholder="Search fee changes…" className="pl-9" />
           </div>
-          <Select value={marketplace} onValueChange={setMarketplace}>
+          <Select value={marketplace} onValueChange={(v) => { setMarketplace(v); setValueMoment(true); }}>
             <SelectTrigger><SelectValue placeholder="Marketplace" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All marketplaces</SelectItem>
               {marketplaces.map((m) => <SelectItem key={m} value={m}>{m}</SelectItem>)}
             </SelectContent>
           </Select>
-          <Select value={feeType} onValueChange={setFeeType}>
+          <Select value={feeType} onValueChange={(v) => { setFeeType(v); setValueMoment(true); }}>
             <SelectTrigger><SelectValue placeholder="Fee type" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All fee types</SelectItem>
@@ -167,12 +169,10 @@ function FeesPage() {
           <p className="mt-12 text-center text-sm text-muted-foreground">No fee changes match your filters.</p>
         )}
 
-        <div className="mt-10">
-          <FeedbackPrompt variant="survey" resourceType="fee_change_feed" resourcePath="/fees" />
-        </div>
+        <QuickFeedback resourceType="fee_change_feed" resourcePath="/fees" active={valueMoment} />
 
       </section>
-    </>
+    </div>
   );
 }
 

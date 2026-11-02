@@ -2,6 +2,8 @@ import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
+import { QuickFeedback } from "@/components/quick-feedback";
+import { isValueMomentClick } from "@/lib/quick-feedback";
 import { ExternalLink, BookOpen, RefreshCw, Layers, Building2, Filter } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
@@ -44,6 +46,7 @@ function PolicyChangesPage() {
   const { data: changes } = useSuspenseQuery(policyChangesQuery);
   const [marketplace, setMarketplace] = useState<string>(ALL);
   const [area, setArea] = useState<string>(ALL);
+  const [valueMoment, setValueMoment] = useState(false);
 
   const marketplaces = useMemo(
     () => [ALL, ...Array.from(new Set(changes.map((c) => c.marketplace))).sort()],
@@ -73,7 +76,7 @@ function PolicyChangesPage() {
   );
 
   return (
-    <>
+    <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) setValueMoment(true); }}>
       <PageHeader
         eyebrow="Public dataset"
         title="Marketplace Policy Archive"
@@ -96,8 +99,8 @@ function PolicyChangesPage() {
 
         <div className="flex flex-wrap items-center gap-3 rounded-xl border border-border bg-secondary/40 p-3">
           <Filter className="ml-1 h-4 w-4 text-muted-foreground" />
-          <FilterGroup label="Marketplace" value={marketplace} options={marketplaces} onChange={setMarketplace} />
-          <FilterGroup label="Policy area" value={area} options={areas} onChange={setArea} />
+          <FilterGroup label="Marketplace" value={marketplace} options={marketplaces} onChange={(v) => { setMarketplace(v); setValueMoment(true); }} />
+          <FilterGroup label="Policy area" value={area} options={areas} onChange={(v) => { setArea(v); setValueMoment(true); }} />
         </div>
 
         <div className="space-y-4">
@@ -121,8 +124,9 @@ function PolicyChangesPage() {
             <Link to="/fees" className="text-primary hover:underline">Fee Change Feed</Link>.
           </p>
         </div>
+        <QuickFeedback resourceType="policy_archive" resourcePath="/policy-changes" active={valueMoment} />
       </section>
-    </>
+    </div>
   );
 }
 
