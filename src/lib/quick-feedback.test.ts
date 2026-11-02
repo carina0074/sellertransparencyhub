@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "bun:test";
 import { followUpAnalyticsOption, markShownThisSession, wasShownThisSession, RESEARCH_SURVEY_URL } from "./quick-feedback";
 import { quickFollowUpSchema, quickAnswerSchema, QUICK_TO_USEFULNESS } from "./feedback.functions";
 
