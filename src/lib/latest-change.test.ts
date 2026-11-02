@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from "bun:test";
 import { latestDocumentedChange } from "./historical-fee-formatting";
 
 describe("latestDocumentedChange", () => {
