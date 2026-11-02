@@ -211,7 +211,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
           {c.announcement_date && (
             <Detail label="Announced" value={formatVerificationDate(c.announcement_date)} />
           )}
-          <Detail label="Evidence reviewed" value={evidence ? formatVerificationDate(evidence.reviewed_on) : "Review not established"} />
+          <Detail label="Source checked" value={evidence ? formatVerificationDate(evidence.reviewed_on) : "Review not established"} />
         </dl>
         {evidence && (
           <div className="space-y-3 border-t border-border pt-3 text-sm">
