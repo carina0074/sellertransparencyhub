@@ -2,19 +2,21 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, LineChart, ChevronDown } from "lucide-react";
 
-const products = [
-  { to: "/rate-card", label: "Fee Database" },
-  { to: "/fees", label: "Fee Change Feed" },
-  { to: "/calculator", label: "Calculator" },
-] as const;
-
-const research = [
-  { to: "/reports/q3-2026", label: "Marketplace Fee Reports" },
-  { to: "/methodology", label: "Methodology" },
-] as const;
-
-const company = [
-  { to: "/about", label: "About" },
+export const navGroups = [
+  { key: "data", title: "Data", items: [
+    { to: "/rate-card", label: "Fee Database" },
+    { to: "/fees", label: "Fee Change Feed" },
+    { to: "/policy-changes", label: "Policy Archive" },
+  ] },
+  { key: "tools", title: "Tools", items: [
+    { to: "/calculator", label: "Calculator" },
+    { to: "/health-check", label: "Account Health Checker" },
+  ] },
+  { key: "research", title: "Research", items: [
+    { to: "/reports", label: "Reports" },
+    { to: "/methodology", label: "Methodology" },
+    { to: "/changelog", label: "Changelog" },
+  ] },
 ] as const;
 
 function Dropdown({
@@ -62,9 +64,7 @@ function Dropdown({
 
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileSection, setMobileSection] = useState<
-    "products" | "research" | "company" | null
-  >(null);
+  const [mobileSection, setMobileSection] = useState<string | null>(null);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur">
@@ -77,9 +77,8 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
-          <Dropdown title="Data & Tools" items={products} />
-          <Dropdown title="Research" items={research} />
-          <Dropdown title="About" items={company} />
+          {navGroups.map((g) => <Dropdown key={g.key} title={g.title} items={g.items} />)}
+          <Link to="/about" className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground" activeProps={{ className: "text-foreground" }}>About</Link>
         </nav>
 
 
@@ -96,21 +95,13 @@ export function SiteHeader() {
       {mobileOpen && (
         <div className="border-t border-border bg-background lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3">
-            {[
-              { key: "products", title: "Data & Tools", items: products },
-              { key: "research", title: "Research", items: research },
-              { key: "company", title: "About", items: company },
-            ].map((section) => (
+            {navGroups.map((section) => (
               <div key={section.key}>
                 <button
                   type="button"
                   className="flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
                   onClick={() =>
-                    setMobileSection((s) =>
-                      s === (section.key as "products" | "research" | "company")
-                        ? null
-                        : (section.key as "products" | "research" | "company")
-                    )
+                    setMobileSection((s) => (s === section.key ? null : section.key))
                   }
                 >
                   {section.title}
@@ -139,6 +130,8 @@ export function SiteHeader() {
                 )}
               </div>
             ))}
+            <Link to="/about" onClick={() => { setMobileOpen(false); setMobileSection(null); }}
+              className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">About</Link>
           </div>
         </div>
       )}

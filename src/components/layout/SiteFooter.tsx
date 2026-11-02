@@ -4,32 +4,14 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { navGroups } from "@/components/layout/SiteHeader";
 
 const columns = [
-  {
-    title: "Products",
-    links: [
-      { to: "/rate-card", label: "Fee Database" },
-      { to: "/fees", label: "Fee Change Feed" },
-      { to: "/calculator", label: "Calculator" },
-      { to: "/health-check", label: "Account Health Checker" },
-    ],
-  },
-  {
-    title: "Research",
-    links: [
-      { to: "/reports/q3-2026", label: "Marketplace Fee Reports" },
-      { to: "/methodology", label: "Methodology" },
-      { to: "/policy-changes", label: "Policy Archive" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { to: "/about", label: "About" },
-      { to: "/privacy", label: "Privacy" },
-    ],
-  },
+  ...navGroups,
+  { key: "about", title: "About", items: [
+    { to: "/about", label: "About" },
+    { to: "/privacy", label: "Privacy" },
+  ] },
 ] as const;
 
 function NewsletterSignup() {
@@ -101,7 +83,7 @@ export function SiteFooter() {
         <div className="mb-10">
           <NewsletterSignup />
         </div>
-        <div className="grid gap-10 lg:grid-cols-[1.5fr_repeat(3,1fr)]">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_repeat(4,1fr)]">
           <div>
             <Link to="/" className="flex items-center gap-2 font-semibold">
               <span className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground">
@@ -118,7 +100,7 @@ export function SiteFooter() {
             <div key={col.title}>
               <h4 className="text-sm font-semibold text-foreground">{col.title}</h4>
               <ul className="mt-3 space-y-2">
-                {col.links.map((l) => (
+                {col.items.map((l) => (
                   <li key={l.label}>
                     <Link
                       to={l.to}
@@ -128,7 +110,7 @@ export function SiteFooter() {
                     </Link>
                   </li>
                 ))}
-                {col.title === "Company" && (
+                {col.key === "about" && (
                   <li>
                     <a
                       href="mailto:research@sellertransparency.com"
@@ -146,8 +128,7 @@ export function SiteFooter() {
           <p className="w-full sm:order-last sm:basis-full">For information only. Not financial, tax or accounting advice. Fees change; confirm with each marketplace.</p>
           <p>© {new Date().getFullYear()} Seller Transparency Hub. All rights reserved.</p>
           <p>
-            Built for sellers. Independent and unaffiliated with marketplaces.{" "}
-            <Link to="/privacy" className="text-primary hover:underline">Privacy</Link>
+            Built for sellers. Independent and unaffiliated with marketplaces.
           </p>
         </div>
       </div>
