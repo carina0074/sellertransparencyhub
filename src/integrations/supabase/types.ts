@@ -214,6 +214,7 @@ export type Database = {
           information_access_response: string | null
           marketplaces: string[]
           record_id: string | null
+          record_type: string | null
           resource_path: string
           resource_type: string
           use_cases: string[]
@@ -231,6 +232,7 @@ export type Database = {
           information_access_response?: string | null
           marketplaces?: string[]
           record_id?: string | null
+          record_type?: string | null
           resource_path: string
           resource_type: string
           use_cases?: string[]
@@ -248,6 +250,7 @@ export type Database = {
           information_access_response?: string | null
           marketplaces?: string[]
           record_id?: string | null
+          record_type?: string | null
           resource_path?: string
           resource_type?: string
           use_cases?: string[]

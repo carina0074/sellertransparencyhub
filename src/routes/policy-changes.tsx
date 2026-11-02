@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { QuickFeedback } from "@/components/quick-feedback";
-import { isValueMomentClick } from "@/lib/quick-feedback";
+import { isValueMomentClick, recordFromClick, type ValueRecord } from "@/lib/quick-feedback";
 import { ExternalLink, BookOpen, RefreshCw, Layers, Building2, Filter } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
@@ -47,6 +47,7 @@ function PolicyChangesPage() {
   const [marketplace, setMarketplace] = useState<string>(ALL);
   const [area, setArea] = useState<string>(ALL);
   const [valueMoment, setValueMoment] = useState(false);
+  const [record, setRecord] = useState<ValueRecord | null>(null);
 
   const marketplaces = useMemo(
     () => [ALL, ...Array.from(new Set(changes.map((c) => c.marketplace))).sort()],
@@ -76,7 +77,7 @@ function PolicyChangesPage() {
   );
 
   return (
-    <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) setValueMoment(true); }}>
+    <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) { setValueMoment(true); setRecord(recordFromClick(e.target)); } }}>
       <PageHeader
         eyebrow="Public dataset"
         title="Marketplace Policy Archive"
@@ -124,7 +125,7 @@ function PolicyChangesPage() {
             <Link to="/fees" className="text-primary hover:underline">Fee Change Feed</Link>.
           </p>
         </div>
-        <QuickFeedback resourceType="policy_archive" resourcePath="/policy-changes" active={valueMoment} />
+        <QuickFeedback resourceType="policy_archive" resourcePath="/policy-changes" active={valueMoment} recordId={record?.id} recordType={record?.type} />
       </section>
     </div>
   );
@@ -176,7 +177,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
   const parsed = policyEvidenceSchema.safeParse(c.evidence_details);
   const evidence = parsed.success ? parsed.data : null;
   return (
-    <Card className="border-border">
+    <Card className="border-border" data-record-id={c.id} data-record-type="policy_change">
       <CardContent className="space-y-4 p-6">
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <Badge variant="secondary" className="rounded-full">{c.marketplace}</Badge>

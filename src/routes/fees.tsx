@@ -5,7 +5,7 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { Search, TrendingUp, TrendingDown, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { QuickFeedback } from "@/components/quick-feedback";
-import { isValueMomentClick } from "@/lib/quick-feedback";
+import { isValueMomentClick, recordFromClick, type ValueRecord } from "@/lib/quick-feedback";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -59,6 +59,7 @@ function FeesPage() {
   const [marketplace, setMarketplace] = useState<string>("all");
   const [feeType, setFeeType] = useState<string>("all");
   const [valueMoment, setValueMoment] = useState(false);
+  const [record, setRecord] = useState<ValueRecord | null>(null);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -74,7 +75,7 @@ function FeesPage() {
   }, [changes, q, marketplace, feeType]);
 
   return (
-    <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) setValueMoment(true); }}>
+    <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) { setValueMoment(true); setRecord(recordFromClick(e.target)); } }}>
       <PageHeader
         eyebrow="HISTORICAL DATASET"
         title="Seller Fee Change Feed"
@@ -109,7 +110,7 @@ function FeesPage() {
             const evidence = parsedEvidence.success ? parsedEvidence.data : null;
             const direction: "up" | "down" = c.new_value >= c.old_value ? "up" : "down";
             return (
-              <Card key={c.id} className="border-border transition-shadow hover:shadow-md">
+              <Card key={c.id} data-record-id={c.id} data-record-type="fee_change" className="border-border transition-shadow hover:shadow-md">
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
@@ -169,7 +170,7 @@ function FeesPage() {
           <p className="mt-12 text-center text-sm text-muted-foreground">No fee changes match your filters.</p>
         )}
 
-        <QuickFeedback resourceType="fee_change_feed" resourcePath="/fees" active={valueMoment} />
+        <QuickFeedback resourceType="fee_change_feed" resourcePath="/fees" active={valueMoment} recordId={record?.id} recordType={record?.type} />
 
       </section>
     </div>

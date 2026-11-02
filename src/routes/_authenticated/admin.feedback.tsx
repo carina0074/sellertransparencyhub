@@ -18,12 +18,12 @@ function csvEscape(value: string): string {
 
 function toCsv(rows: FeedbackSubmission[]): string {
   const header = [
-    "submitted_at", "resource_type", "resource_path", "record_id", "answer", "follow_up", "usefulness", "user_type", "info_access",
+    "submitted_at", "resource_type", "resource_path", "record_type", "record_id", "answer", "follow_up", "usefulness", "user_type", "info_access",
     "marketplaces", "use_cases", "feedback_text", "follow_up_opt_in", "follow_up_email",
   ];
   const lines = rows.map((r) =>
     [
-      r.created_at, r.resource_type, r.resource_path, r.record_id ?? "", r.answer ?? "", r.follow_up ?? "", r.usefulness_response,
+      r.created_at, r.resource_type, r.resource_path, r.record_type ?? "", r.record_id ?? "", r.answer ?? "", r.follow_up ?? "", r.usefulness_response,
       r.user_type ?? "", r.information_access_response ?? "",
       r.marketplaces.join("; "), r.use_cases.join("; "), r.free_text_feedback ?? "",
       r.follow_up_opt_in ? "yes" : "no", r.follow_up_email ?? "",
@@ -154,7 +154,7 @@ function FeedbackAdminPage() {
                   <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                     {new Date(s.created_at).toLocaleString()}
                   </td>
-                  <td className="px-4 py-3 font-medium">{s.resource_path}{s.record_id ? <span className="block text-xs text-muted-foreground">{s.record_id}</span> : null}</td>
+                  <td className="px-4 py-3 font-medium">{s.resource_path}{s.record_id ? <span className="block text-xs text-muted-foreground">{s.record_type ? `${s.record_type}: ` : ""}{s.record_id}</span> : null}</td>
                   <td className="px-4 py-3">{s.answer === "yes" ? "Yes" : s.answer === "no" ? "No" : "—"}</td>
                   <td className="max-w-72 px-4 py-3 text-muted-foreground">{s.follow_up || "—"}</td>
                   <td className="px-4 py-3">

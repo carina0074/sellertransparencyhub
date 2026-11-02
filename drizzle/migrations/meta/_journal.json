@@ -85,6 +85,13 @@
       "when": 1793585673833,
       "tag": "0011_quick_feedback_fields",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1793586120803,
+      "tag": "0012_feedback_record_type",
+      "breakpoints": true
     }
   ]
 }

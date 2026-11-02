@@ -34,3 +34,14 @@ describe("quick feedback", () => {
     expect(RESEARCH_SURVEY_URL).toBe("");
   });
 });
+
+describe("record capture", () => {
+  it("returns the enclosing record id and type, or null outside a record", async () => {
+    const { recordFromClick } = await import("./quick-feedback");
+    const host = { getAttribute: (k: string) => (k === "data-record-id" ? "abc" : "fee_change") };
+    expect(recordFromClick({ closest: () => host } as unknown as EventTarget)).toEqual({ id: "abc", type: "fee_change" });
+    expect(recordFromClick({ closest: () => null } as unknown as EventTarget)).toBeNull();
+    const bad = { getAttribute: (k: string) => (k === "data-record-id" ? "abc" : "other") };
+    expect(recordFromClick({ closest: () => bad } as unknown as EventTarget)).toBeNull();
+  });
+});
