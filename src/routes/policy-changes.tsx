@@ -239,14 +239,17 @@ function PolicyCard({ c }: { c: PolicyChange }) {
             </span>{" "}
             {c.source_title}
           </span>
-          {!evidence?.references.some(r => r.url === c.source_url) && <a
-            href={c.source_url}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
-          >
-            Source <ExternalLink className="h-3 w-3" />
-          </a>}
+          {!evidence?.references.some(r => r.url === c.source_url) && <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
+            <a
+              href={c.source_url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+            >
+              Source <ExternalLink className="h-3 w-3" />
+            </a>
+            <ArchiveCopyLink url={c.source_url} />
+          </span>}
         </div>
       </CardContent>
     </Card>

@@ -31,9 +31,8 @@ function SubscribersPage() {
           <h1 className="text-2xl font-semibold">Email Subscribers</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {data ? `${data.length} subscriber${data.length === 1 ? "" : "s"}` : "Loading…"}
-            {" · "}
-            <Link to="/admin/feedback" className="text-primary hover:underline">Feedback</Link>
           </p>
+          <div className="mt-2"><AdminNav /></div>
         </div>
         <button onClick={handleSignOut} className="text-sm text-muted-foreground hover:underline">
           Sign out

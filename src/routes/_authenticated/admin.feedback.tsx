@@ -76,9 +76,8 @@ function FeedbackAdminPage() {
           <h1 className="text-2xl font-semibold">Research Feedback</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {data ? `${data.length} submission${data.length === 1 ? "" : "s"}` : "Loading…"}
-            {" · "}
-            <Link to="/admin/subscribers" className="text-primary hover:underline">Subscribers</Link>
           </p>
+          <div className="mt-2"><AdminNav /></div>
         </div>
         <div className="flex items-center gap-4">
           {data && data.length > 0 && (

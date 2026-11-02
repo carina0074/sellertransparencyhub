@@ -149,12 +149,15 @@ function FeesPage() {
                     </div>
                   </details>}
                   <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3 text-xs">
-                    <a
-                      href={c.source_url} target="_blank" rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-primary hover:underline"
-                    >
-                      {c.source_title} <ExternalLink className="h-3 w-3" />
-                    </a>
+                    <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <a
+                        href={c.source_url} target="_blank" rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-primary hover:underline"
+                      >
+                        {c.source_title} <ExternalLink className="h-3 w-3" />
+                      </a>
+                      <ArchiveCopyLink url={c.source_url} />
+                    </span>
                     <span className="font-medium text-foreground tabular-nums">
                       {historicalChangeLabel(c.old_value, c.new_value) === "New fee" ? "New fee" : `${historicalChangeLabel(c.old_value, c.new_value)} change`}
                     </span>
