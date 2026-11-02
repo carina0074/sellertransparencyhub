@@ -67,6 +67,24 @@ function ChangelogDetail() {
         <p className="mt-4 text-muted-foreground">{entry.summary}</p>
       </div>
 
+      {entry.sections ? (
+        <div className="mt-10 space-y-10">
+          {entry.sections.map((sec) => (
+            <section key={sec.heading}>
+              <h2 className="text-lg font-semibold text-foreground">{sec.heading}</h2>
+              {sec.intro && <p className="mt-3 text-sm text-muted-foreground">{sec.intro}</p>}
+              {sec.groups?.map((g) => <GroupList key={g.label} group={g} />)}
+              {sec.collapsible && (
+                <details className="mt-4 rounded-md border border-border p-4">
+                  <summary className="cursor-pointer text-sm font-medium text-primary">{sec.collapsible.summary}</summary>
+                  {sec.collapsible.groups.map((g) => <GroupList key={g.label} group={g} />)}
+                </details>
+              )}
+              {sec.outro && <p className="mt-3 text-sm text-muted-foreground">{sec.outro}</p>}
+            </section>
+          ))}
+        </div>
+      ) : (
       <section className="mt-10">
         <h2 className="text-lg font-semibold text-foreground">Milestone notes</h2>
         <div className="mt-4 space-y-3">
@@ -83,6 +101,7 @@ function ChangelogDetail() {
           ))}
         </div>
       </section>
+      )}
 
       {entry.sources.length > 0 && (
       <section className="mt-10">
@@ -105,6 +124,16 @@ function ChangelogDetail() {
         </ul>
       </section>
       )}
+    </div>
+  );
+}
+function GroupList({ group }: { group: { label: string; items: string[] } }) {
+  return (
+    <div className="mt-4">
+      <p className="text-sm font-medium text-foreground">{group.label}</p>
+      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+        {group.items.map((i) => <li key={i}>{i}</li>)}
+      </ul>
     </div>
   );
 }
