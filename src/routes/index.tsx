@@ -216,7 +216,7 @@ function Index() {
       <section className="border-b border-border bg-secondary/40">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-3 lg:px-8">
           {[
-            { icon: Lock, title: "Independent by design", desc: "We don't sell leads to marketplaces. No ads, no lead selling, no paid placements." },
+            { icon: Lock, title: "Independent by design", desc: "No ads, no lead selling, no paid placements." },
             { icon: FileText, title: "Documented source links", desc: "Fee and policy records include source links and date information where available." },
             { icon: Search, title: "Search and filter", desc: "Filter by marketplace or fee type, and open any record to see its conditions and source." },
           ].map((p) => (
