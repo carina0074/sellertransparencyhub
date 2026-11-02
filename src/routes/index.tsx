@@ -6,7 +6,9 @@ import {
   CheckCircle2, Lock, FileText, Search, History, Calculator, Link2,
 } from "lucide-react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { getDatabaseStats, getFeeRecords } from "@/lib/fees.functions";
+import { getDatabaseStats, getFeeRecords, getFeeChanges, formatFeeValue } from "@/lib/fees.functions";
+import type { FeeChange } from "@/lib/fees.functions";
+import { historicalEffectiveDate, latestDocumentedChange } from "@/lib/historical-fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { presentFee } from "@/lib/fee-formatting";
 import type { FeeRecord } from "@/lib/fees.functions";
@@ -15,6 +17,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const statsQuery = queryOptions({ queryKey: ["fee-stats"], queryFn: () => getDatabaseStats() });
 const feeRecordsQuery = queryOptions({ queryKey: ["fee-records"], queryFn: () => getFeeRecords() });
+const feeChangesQuery = queryOptions({ queryKey: ["fee-changes"], queryFn: () => getFeeChanges() });
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,6 +35,7 @@ export const Route = createFileRoute("/")({
     Promise.all([
       context.queryClient.ensureQueryData(statsQuery),
       context.queryClient.ensureQueryData(feeRecordsQuery),
+      context.queryClient.ensureQueryData(feeChangesQuery),
     ]),
   component: Index,
 });
@@ -137,9 +141,39 @@ const datasets = [
 import { changelog } from "@/data/changelog";
 
 
+function LatestChangeCard({ change }: { change: FeeChange }) {
+  return (
+    <Card className="border-border bg-background/90 shadow-sm">
+      <CardContent className="p-6">
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Latest documented change</p>
+        <p className="mt-3 text-sm font-medium text-foreground">{change.marketplace}</p>
+        <h2 className="text-lg font-semibold tracking-tight text-foreground">{change.title}</h2>
+        <div className="mt-4 flex items-baseline gap-2 text-2xl font-semibold tabular-nums">
+          <span className="text-muted-foreground line-through decoration-muted-foreground/60">
+            {change.old_value === 0 ? "—" : formatFeeValue(change.old_value, change.value_type)}
+          </span>
+          <ArrowRight className="h-4 w-4 self-center text-muted-foreground" aria-label="to" />
+          <span className="text-foreground">{formatFeeValue(change.new_value, change.value_type)}</span>
+        </div>
+        <p className="mt-2 text-sm text-muted-foreground">Effective {historicalEffectiveDate(change)}</p>
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
+          <a href={change.source_url} target="_blank" rel="noreferrer" className="inline-flex items-center text-primary hover:text-foreground">
+            Official source <Link2 className="ml-1 h-4 w-4" />
+          </a>
+          <Link to="/fees" className="inline-flex items-center text-primary hover:text-foreground">
+            See all changes <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 function Index() {
   const { data: coverage } = useSuspenseQuery(statsQuery);
   const { data: feeRecords } = useSuspenseQuery(feeRecordsQuery);
+  const { data: feeChanges } = useSuspenseQuery(feeChangesQuery);
+  const latestChange = latestDocumentedChange(feeChanges);
   const stats = [
     { value: coverage.activeRecords, label: "Current fee records" },
     { value: coverage.historicalChanges, label: "Historical fee-change events" },
@@ -155,8 +189,8 @@ function Index() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,var(--color-primary-soft)_0%,transparent_70%)]"
         />
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <div className="max-w-3xl">
-            <div>
+          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_380px]">
+            <div className="max-w-3xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
                 Independent research for U.S. marketplace sellers
               </span>
@@ -195,6 +229,11 @@ function Index() {
                 ))}
               </ul>
             </div>
+            {latestChange && (
+              <div className="hidden lg:block">
+                <LatestChangeCard change={latestChange} />
+              </div>
+            )}
           </div>
         </div>
       </section>
