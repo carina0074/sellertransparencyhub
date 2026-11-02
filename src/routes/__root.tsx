@@ -81,14 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Seller Transparency Hub | Fees & Profit Tools" },
-      { name: "description", content: "Independent marketplace fee research and educational tools for Amazon, Walmart, eBay, Shopify, and Etsy sellers: fee database, fee change feed, calculator, and quarterly reports." },
+      { name: "description", content: "Independent fee research and educational tools for sellers on marketplaces and selling platforms (Amazon, Walmart, eBay, Etsy and Shopify): fee database, fee change feed, calculator, and quarterly reports." },
       { name: "author", content: "Seller Transparency Hub" },
       { property: "og:title", content: "Seller Transparency Hub | Fees & Profit Tools" },
-      { property: "og:description", content: "Independent marketplace fee research and educational tools for Amazon, Walmart, eBay, Shopify, and Etsy sellers: fee database, fee change feed, calculator, and quarterly reports." },
+      { property: "og:description", content: "Independent fee research and educational tools for sellers on marketplaces and selling platforms (Amazon, Walmart, eBay, Etsy and Shopify): fee database, fee change feed, calculator, and quarterly reports." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "Seller Transparency Hub | Fees & Profit Tools" },
-      { name: "twitter:description", content: "Independent marketplace fee research and educational tools for Amazon, Walmart, eBay, Shopify, and Etsy sellers: fee database, fee change feed, calculator, and quarterly reports." },
+      { name: "twitter:description", content: "Independent fee research and educational tools for sellers on marketplaces and selling platforms (Amazon, Walmart, eBay, Etsy and Shopify): fee database, fee change feed, calculator, and quarterly reports." },
     ],
     links: [
       {

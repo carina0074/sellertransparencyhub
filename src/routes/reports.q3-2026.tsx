@@ -13,9 +13,9 @@ export const Route = createFileRoute("/reports/q3-2026")({
     meta: [
       ...shareImageMeta,
       { title: "Q3 2026 Marketplace Fee Transparency Report | Seller Transparency Hub" },
-      { name: "description", content: "Q3 2026 (July–September) analysis of marketplace fees and seller policies across Amazon, Walmart Marketplace, eBay, Etsy, and Shopify." },
+      { name: "description", content: "Q3 2026 (July–September) analysis of marketplace fees and seller policies across marketplaces and selling platforms: Amazon, Walmart Marketplace, eBay, Etsy, and Shopify." },
       { property: "og:title", content: "Q3 2026 Marketplace Fee Transparency Report" },
-      { property: "og:description", content: "Quarterly tracking of fee and policy changes across Amazon, Walmart Marketplace, eBay, Etsy, and Shopify for July–September 2026." },
+      { property: "og:description", content: "Quarterly tracking of fee and policy changes across marketplaces and selling platforms (Amazon, Walmart Marketplace, eBay, Etsy, and Shopify) for July–September 2026." },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

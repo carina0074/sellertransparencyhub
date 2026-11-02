@@ -142,7 +142,8 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center">
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:items-center">
+          <p className="w-full sm:order-last sm:basis-full">For information only. Not financial, tax or accounting advice. Fees change; confirm with each marketplace.</p>
           <p>© {new Date().getFullYear()} Seller Transparency Hub. All rights reserved.</p>
           <p>
             Built for sellers. Independent and unaffiliated with marketplaces.{" "}

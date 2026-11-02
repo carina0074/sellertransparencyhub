@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, LineChart, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const products = [
   { to: "/rate-card", label: "Fee Database" },
@@ -78,16 +77,11 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
-          <Dropdown title="Products" items={products} />
+          <Dropdown title="Data & Tools" items={products} />
           <Dropdown title="Research" items={research} />
-          <Dropdown title="Company" items={company} />
+          <Dropdown title="About" items={company} />
         </nav>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <Button asChild variant="ghost" size="sm">
-            <Link to="/auth">Sign in</Link>
-          </Button>
-        </div>
 
         <button
           type="button"
@@ -103,9 +97,9 @@ export function SiteHeader() {
         <div className="border-t border-border bg-background lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3">
             {[
-              { key: "products", title: "Products", items: products },
+              { key: "products", title: "Data & Tools", items: products },
               { key: "research", title: "Research", items: research },
-              { key: "company", title: "Company", items: company },
+              { key: "company", title: "About", items: company },
             ].map((section) => (
               <div key={section.key}>
                 <button
