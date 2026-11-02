@@ -29,6 +29,7 @@ import { Route as SuspensionPreventionRouteImport } from './routes/suspension-pr
 import { Route as ChangelogIndexRouteImport } from './routes/changelog.index'
 import { Route as ChangelogSlugRouteImport } from './routes/changelog.$slug'
 import { Route as DownloadsQ22026ReportRouteImport } from './routes/downloads.q2-2026-report'
+import { Route as ReportsIndexRouteImport } from './routes/reports.index'
 import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
 import { Route as ReportsQ22026RouteImport } from './routes/reports.q2-2026'
 import { Route as ReportsQ32026RouteImport } from './routes/reports.q3-2026'
@@ -138,6 +139,11 @@ const DownloadsQ22026ReportRoute = DownloadsQ22026ReportRouteImport.update({
   path: '/downloads/q2-2026-report',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportsIndexRoute = ReportsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ReportsRoute,
+} as any)
 const ReportsAnnual2026Route = ReportsAnnual2026RouteImport.update({
   id: '/annual-2026',
   path: '/annual-2026',
@@ -209,6 +215,7 @@ export interface FileRoutesByFullPath {
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog/': typeof ChangelogIndexRoute
+  '/reports/': typeof ReportsIndexRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
@@ -229,7 +236,6 @@ export interface FileRoutesByTo {
   '/policy-changes': typeof PolicyChangesRoute
   '/privacy': typeof PrivacyRoute
   '/rate-card': typeof RateCardRoute
-  '/reports': typeof ReportsRouteWithChildren
   '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/suspension-prevention': typeof SuspensionPreventionRoute
@@ -239,6 +245,7 @@ export interface FileRoutesByTo {
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog': typeof ChangelogIndexRoute
+  '/reports': typeof ReportsIndexRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
@@ -271,6 +278,7 @@ export interface FileRoutesById {
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog/': typeof ChangelogIndexRoute
+  '/reports/': typeof ReportsIndexRoute
   '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/_authenticated/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
@@ -303,6 +311,7 @@ export interface FileRouteTypes {
     | '/reports/q2-2026'
     | '/reports/q3-2026'
     | '/changelog/'
+    | '/reports/'
     | '/admin/feedback'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
@@ -323,7 +332,6 @@ export interface FileRouteTypes {
     | '/policy-changes'
     | '/privacy'
     | '/rate-card'
-    | '/reports'
     | '/resources'
     | '/sitemap.xml'
     | '/suspension-prevention'
@@ -333,6 +341,7 @@ export interface FileRouteTypes {
     | '/reports/q2-2026'
     | '/reports/q3-2026'
     | '/changelog'
+    | '/reports'
     | '/admin/feedback'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
@@ -364,6 +373,7 @@ export interface FileRouteTypes {
     | '/reports/q2-2026'
     | '/reports/q3-2026'
     | '/changelog/'
+    | '/reports/'
     | '/_authenticated/admin/feedback'
     | '/_authenticated/admin/subscribers'
     | '/api/public/fee-changes'
@@ -541,6 +551,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DownloadsQ22026ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reports/': {
+      id: '/reports/'
+      path: '/'
+      fullPath: '/reports/'
+      preLoaderRoute: typeof ReportsIndexRouteImport
+      parentRoute: typeof ReportsRoute
+    }
     '/reports/annual-2026': {
       id: '/reports/annual-2026'
       path: '/annual-2026'
@@ -624,12 +641,14 @@ interface ReportsRouteChildren {
   ReportsAnnual2026Route: typeof ReportsAnnual2026Route
   ReportsQ22026Route: typeof ReportsQ22026Route
   ReportsQ32026Route: typeof ReportsQ32026Route
+  ReportsIndexRoute: typeof ReportsIndexRoute
 }
 
 const ReportsRouteChildren: ReportsRouteChildren = {
   ReportsAnnual2026Route: ReportsAnnual2026Route,
   ReportsQ22026Route: ReportsQ22026Route,
   ReportsQ32026Route: ReportsQ32026Route,
+  ReportsIndexRoute: ReportsIndexRoute,
 }
 
 const ReportsRouteWithChildren =
