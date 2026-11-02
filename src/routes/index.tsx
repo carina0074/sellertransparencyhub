@@ -141,13 +141,19 @@ const datasets = [
 import { changelog } from "@/data/changelog";
 
 
+// Display-only: drop a leading marketplace name (shown as the label above) and the word "standard" that follows it.
+function titleWithoutMarketplace(title: string, marketplace: string): string {
+  const rest = title.startsWith(marketplace + " ") ? title.slice(marketplace.length + 1).replace(/^standard\s+/i, "") : title;
+  return rest.charAt(0).toUpperCase() + rest.slice(1);
+}
+
 function LatestChangeCard({ change }: { change: FeeChange }) {
   return (
     <Card className="border-border bg-background/90 shadow-sm">
       <CardContent className="p-6">
-        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Latest documented change</p>
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Most recent change in our records</p>
         <p className="mt-3 text-sm font-medium text-foreground">{change.marketplace}</p>
-        <h2 className="text-lg font-semibold tracking-tight text-foreground">{change.title}</h2>
+        <h2 className="text-lg font-semibold tracking-tight text-foreground">{titleWithoutMarketplace(change.title, change.marketplace)}</h2>
         <div className="mt-4 flex items-baseline gap-2 text-2xl font-semibold tabular-nums">
           <span className="text-muted-foreground line-through decoration-muted-foreground/60">
             {change.old_value === 0 ? "—" : formatFeeValue(change.old_value, change.value_type)}

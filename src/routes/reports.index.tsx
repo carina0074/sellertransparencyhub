@@ -21,7 +21,7 @@ export const Route = createFileRoute("/reports/")({
 
 const reports = [
   { to: "/reports/q3-2026", title: "Q3 2026 Marketplace Fee Transparency Report", period: "July–September 2026", scope: "Amazon, Walmart Marketplace, eBay, Etsy and Shopify" },
-  { to: "/reports/q2-2026", title: "Q2 2026 Marketplace Fee Transparency Report", period: "April–June 2026", scope: "Amazon, Walmart Marketplace, eBay and Etsy" },
+  { to: "/reports/q2-2026", title: "Q2 2026 Marketplace Fee Transparency Report", period: "April–June 2026", scope: "Amazon, Walmart Marketplace, eBay and Etsy", published: "Published June 2026" },
 ] as const;
 
 function ReportsIndex() {
@@ -35,6 +35,7 @@ function ReportsIndex() {
               <div className="text-sm text-muted-foreground">{r.period}</div>
               <h2 className="mt-1 text-lg font-semibold text-foreground">{r.title}</h2>
               <p className="mt-1 text-sm text-muted-foreground">{r.scope}</p>
+              {"published" in r && <p className="mt-1 text-sm text-muted-foreground">{r.published}</p>}
               <Link to={r.to} className="mt-3 inline-flex items-center text-sm font-medium text-primary hover:text-foreground">
                 Read report <ArrowRight className="ml-1 h-4 w-4" />
               </Link>

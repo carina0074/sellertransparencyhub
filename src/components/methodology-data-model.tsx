@@ -8,29 +8,21 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 function Fields({ rows }: { rows: [string, string][] }) {
   return <div className="overflow-x-auto"><table className="w-full text-left"><thead><tr className="border-b border-border"><th className="py-2 pr-4">Field</th><th className="py-2">Meaning</th></tr></thead><tbody>{rows.map(([field, meaning]) => <tr key={field} className="border-b border-border"><td className="py-2 pr-4 align-top font-mono text-xs text-foreground">{field}</td><td className="py-2">{meaning}</td></tr>)}</tbody></table></div>;
 }
-export function MethodologyDataModel() {
-  return <>
-    <Block title="Data model">
-      <p>Seller Transparency Hub publishes three separate collections: current fees, historical fee changes and policy events. Each records its own sources and geographic scope. Historical fee changes and policy events state how precisely their effective timing is known.</p>
-
-    </Block>
-    <Block title="Normalization rules">
-      <p>Fees retain their stated units, conditions and geographic scope. Tiered pricing distinguishes a rate applied to the whole price from rates applied to portions of it, and from schedules based on other conditions. Records may be narrowed, corrected or retired when the evidence is insufficient. Fees awaiting verification may remain visible without a numeric headline.</p>
-    </Block>
-    <Block title="Evidence model">
-      <p>Each record links to its own supporting sources. From now on, every current-fee reference must include a short supporting quote and the source section heading. Existing omissions are awaiting review and have not been filled in.</p>
-      <p>Historical and policy sources support the stated change, its scope and its timing. The strength of the evidence and the precision of the effective date are recorded separately.</p>
-    </Block>
-    <Block title="How this differs from typical seller fee tools">
-      <p>This project keeps related record structures across five marketplaces, links each record to its own sources, and keeps selected fee and policy changes as dated history with stated date precision. Its calculator is maintained separately from these records.</p>
-    </Block>
-  </>;
-}
 export function MethodologyTechnicalReference() {
   return <Accordion type="single" collapsible>
     <AccordionItem value="technical-reference">
       <AccordionTrigger className="text-base font-semibold text-foreground">Technical reference</AccordionTrigger>
       <AccordionContent className="space-y-6 text-muted-foreground">
+        <Block title="How records are structured">
+          <p>Seller Transparency Hub publishes three separate collections: current fees, historical fee changes and policy events. Each records its own sources and geographic scope. Historical fee changes and policy events state how precisely their effective timing is known.</p>
+        </Block>
+        <Block title="How fees are recorded">
+          <p>Fees retain their stated units, conditions and geographic scope. Tiered pricing distinguishes a rate applied to the whole price from rates applied to portions of it, and from schedules based on other conditions. Records may be narrowed, corrected or retired when the evidence is insufficient. Fees awaiting verification may remain visible without a numeric headline.</p>
+        </Block>
+        <Block title="How evidence is stored">
+          <p>Every record links to at least one official marketplace source. Since November 2026, new fee records also include a short quote and the section of the source page it comes from. Older records are being reviewed and updated to the same standard.</p>
+          <p>Historical and policy sources support the stated change, its scope and its timing. The strength of the evidence and the precision of the effective date are recorded separately.</p>
+        </Block>
         <Block title="Collections and public endpoints">
       <div className="overflow-x-auto"><table className="w-full text-left"><thead><tr className="border-b border-border"><th className="py-2 pr-3">Collection</th><th className="py-2 pr-3">One record represents</th><th className="py-2">Public endpoint</th></tr></thead><tbody>
         {[
@@ -61,7 +53,7 @@ export function MethodologyTechnicalReference() {
       </ol>        </Block>
         <Block title="Evidence references">
       <Fields rows={[
-        ["Current-fee references", "pricing_details.references: title and HTTPS URL; new or revised evidence requires a short supporting quote and source section heading. Legacy omissions remain awaiting review."],
+        ["Current-fee references", "pricing_details.references: title and HTTPS URL; new or revised evidence requires a short supporting quote and source section heading. Older records are being reviewed and updated to the same standard."],
         ["Historical references", "evidence_details.references: title, HTTPS URL, quote and free-form evidence_type. Other evidence fields include status, reviewed_on, scope, conditions and linkage_reason."],
         ["Policy references", "evidence_details.references: title, HTTPS URL, quote, heading, free-form evidence_type and supported_fields. Other evidence fields include status, reviewed_on, scope, conditions and impact."],
       ]} />

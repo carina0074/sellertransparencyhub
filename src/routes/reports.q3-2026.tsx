@@ -106,7 +106,6 @@ function Q3Report() {
           <Button asChild variant="ghost">
             <Link to="/reports/q2-2026"><ArrowLeft className="mr-2 h-4 w-4" />Previous: Q2 2026</Link>
           </Button>
-          <Button asChild variant="outline"><Link to="/reports/annual-2026">Annual Review 2026 →</Link></Button>
         </div>
         <QuickFeedback variant="inline" resourceType="transparency_report" resourcePath="/reports/q3-2026" />
       </article>

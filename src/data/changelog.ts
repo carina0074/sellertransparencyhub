@@ -74,7 +74,7 @@ export const changelog: ChangelogEntry[] = [
     date: "June 2026",
     title: "Q2 2026 Marketplace Fee Transparency Report",
     summary:
-      "First quarterly research publication: a qualitative review of fee categories and transparency across Amazon, Walmart Marketplace, eBay, and Etsy for April–June 2026.",
+      "First quarterly report, published June 2026: a qualitative review of fee categories on Amazon, Walmart Marketplace, eBay and Etsy, covering information available at publication. Shopify was not included.",
     updatedAt: "2026-10-29",
     records: [
       { name: "Original publication", detail: "Published as a PDF and web page in June 2026. The original PDF remains available unchanged." },

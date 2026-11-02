@@ -175,7 +175,9 @@ function CalculatorPage() {
                     ))}
                   </ul>
                   <p className="mt-1 text-sm opacity-90">
-                    These are excluded from the totals above rather than estimated from another marketplace, so profitability cannot be assessed.
+                    {onlyOptionalExcluded
+                      ? "These are excluded from the totals above rather than estimated from another marketplace. Offsite Ads fees apply only to orders that come from Etsy's off-site ads. Add them if they apply to your sales."
+                      : "These are excluded from the totals above rather than estimated from another marketplace, so profitability cannot be assessed."}
                   </p>
                 </div>
               </div>
