@@ -18,18 +18,30 @@ function csvEscape(value: string): string {
 
 function toCsv(rows: FeedbackSubmission[]): string {
   const header = [
-    "submitted_at", "resource_type", "resource_path", "usefulness", "user_type", "info_access",
+    "submitted_at", "resource_type", "resource_path", "record_id", "answer", "follow_up", "usefulness", "user_type", "info_access",
     "marketplaces", "use_cases", "feedback_text", "follow_up_opt_in", "follow_up_email",
   ];
   const lines = rows.map((r) =>
     [
-      r.created_at, r.resource_type, r.resource_path, r.usefulness_response,
+      r.created_at, r.resource_type, r.resource_path, r.record_id ?? "", r.answer ?? "", r.follow_up ?? "", r.usefulness_response,
       r.user_type ?? "", r.information_access_response ?? "",
       r.marketplaces.join("; "), r.use_cases.join("; "), r.free_text_feedback ?? "",
       r.follow_up_opt_in ? "yes" : "no", r.follow_up_email ?? "",
     ].map(csvEscape).join(","),
   );
   return [header.join(","), ...lines].join("\n");
+}
+
+function answerCounts(rows: FeedbackSubmission[]) {
+  const map = new Map<string, { yes: number; no: number; legacy: number }>();
+  for (const r of rows) {
+    const c = map.get(r.resource_type) ?? { yes: 0, no: 0, legacy: 0 };
+    if (r.answer === "yes") c.yes++;
+    else if (r.answer === "no") c.no++;
+    else c.legacy++;
+    map.set(r.resource_type, c);
+  }
+  return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0]));
 }
 
 function FeedbackAdminPage() {
@@ -96,9 +108,38 @@ function FeedbackAdminPage() {
           <table className="w-full text-sm">
             <thead className="bg-muted/50 text-left text-xs uppercase text-muted-foreground">
               <tr>
+                <th className="px-4 py-3">Resource type</th>
+                <th className="px-4 py-3">Yes</th>
+                <th className="px-4 py-3">No</th>
+                <th className="px-4 py-3">Earlier long survey</th>
+                <th className="px-4 py-3">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {answerCounts(data).map(([type, c]) => (
+                <tr key={type} className="border-t border-border">
+                  <td className="px-4 py-3 font-medium">{type}</td>
+                  <td className="px-4 py-3">{c.yes}</td>
+                  <td className="px-4 py-3">{c.no}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{c.legacy}</td>
+                  <td className="px-4 py-3">{c.yes + c.no + c.legacy}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {data && data.length > 0 && (
+        <div className="mt-8 overflow-x-auto rounded-md border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/50 text-left text-xs uppercase text-muted-foreground">
+              <tr>
                 <th className="px-4 py-3">Submitted</th>
                 <th className="px-4 py-3">Resource</th>
-                <th className="px-4 py-3">Useful?</th>
+                <th className="px-4 py-3">Answer</th>
+                <th className="px-4 py-3">Follow-up answer</th>
+                <th className="px-4 py-3">Useful? (long survey)</th>
                 <th className="px-4 py-3">User type</th>
                 <th className="px-4 py-3">Info access</th>
                 <th className="px-4 py-3">Marketplaces</th>
@@ -113,9 +154,11 @@ function FeedbackAdminPage() {
                   <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                     {new Date(s.created_at).toLocaleString()}
                   </td>
-                  <td className="px-4 py-3 font-medium">{s.resource_path}</td>
+                  <td className="px-4 py-3 font-medium">{s.resource_path}{s.record_id ? <span className="block text-xs text-muted-foreground">{s.record_id}</span> : null}</td>
+                  <td className="px-4 py-3">{s.answer === "yes" ? "Yes" : s.answer === "no" ? "No" : "—"}</td>
+                  <td className="max-w-72 px-4 py-3 text-muted-foreground">{s.follow_up || "—"}</td>
                   <td className="px-4 py-3">
-                    {USEFULNESS_LABELS[s.usefulness_response as Usefulness] ?? s.usefulness_response}
+                    {s.answer ? "—" : USEFULNESS_LABELS[s.usefulness_response as Usefulness] ?? s.usefulness_response}
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">
                     {s.user_type ? USER_TYPE_LABELS[s.user_type as UserType] ?? s.user_type : "—"}
