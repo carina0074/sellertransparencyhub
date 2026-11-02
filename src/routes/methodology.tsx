@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Database, ClipboardList, FileText, Archive } from "lucide-react";
-import { MethodologyDataModel, MethodologyTechnicalReference } from "@/components/methodology-data-model";
+import { MethodologyTechnicalReference } from "@/components/methodology-data-model";
 
 export const Route = createFileRoute("/methodology")({
   head: () => ({
@@ -60,15 +60,10 @@ function MethodologyPage() {
         description="How marketplace fee and policy information is sourced, reviewed, dated, and qualified, and where its limits are."
       />
       <section className="mx-auto max-w-3xl space-y-6 px-4 py-12 sm:px-6">
-        <Section title="Research approach">
+        <Section title="What we track">
           <p>
             Seller Transparency Hub collects and reviews publicly available fee and policy information from major e-commerce marketplaces. Research is carried out manually. Records are reviewed and updated as research is conducted and source documentation is re-evaluated. There is no automated or real-time monitoring of marketplace pages, and no fixed review schedule.
           </p>
-        </Section>
-
-        <MethodologyDataModel />
-
-        <Section title="What we track">
           <Bullets
             items={[
               <><span className="font-medium text-foreground">Current fee records</span> (<Link to="/rate-card" className={linkClass}>Fee Database</Link>): current marketplace fees reviewed against identified source documentation, with their scope, conditions and verification status.</>,
@@ -77,6 +72,12 @@ function MethodologyPage() {
             ]}
           />
           <p>Coverage currently spans marketplaces and selling platforms: Amazon, eBay, Walmart Marketplace, Etsy, and Shopify. All three collections are curated and non-exhaustive.</p>
+        </Section>
+
+        <Section title="What this project does">
+          <p>
+            This project keeps related record structures across five marketplaces, links each record to its own sources, and keeps selected fee and policy changes as dated history with stated date precision. Its calculator is maintained separately from these records.
+          </p>
         </Section>
 
         <Card className="border-border">
@@ -96,29 +97,23 @@ function MethodologyPage() {
               ))}
             </ul>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Different source types support different claims. A current help page can support a current rule, but it doesn't prove when that rule began or what came before it. Not every source is an announcement, and records are labeled by the kind of evidence behind them. Third-party summaries, forums, and search snippets are not used as the sole basis for material facts.
+              Different source types support different claims. Not every source is an announcement, and records are labeled by the kind of evidence behind them. Third-party summaries, forums, and search snippets are not used as the sole basis for material facts.
+            </p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Every record links to at least one official marketplace source. Since November 2026, new fee records also include a short quote and the section of the source page it comes from. Older records are being reviewed and updated to the same standard.
             </p>
           </CardContent>
         </Card>
 
         <Section title="Current fee verification">
           <p>
-            Each current fee record lists its source and the date it was last reviewed against current first-party evidence. Verification applies to the value and scope as written in the record. It does not establish when that value first took effect.
+            Each current fee record lists its source and the date it was last reviewed against the marketplace's own current documentation. Verification applies to the value and scope as written in the record. It does not establish when that value first took effect.
           </p>
           <Bullets items={[
-            <><strong>Verified current value:</strong> the current value and recorded applicability have been reviewed against first-party evidence.</>,
-            <><strong>Partially verified:</strong> the headline value is confirmed in a first-party source, but at least one stated condition, tier or scope element is not. The record's notes must say which part is unconfirmed.</>,
-            <><strong>Verification pending:</strong> the numeric headline is withheld while verification remains unresolved; readers are directed to the source.</>,
+            <><strong>Verified current value:</strong> the current value and recorded applicability have been reviewed against the marketplace's own documentation.</>,
+            <><strong>Partially verified:</strong> the main figure is confirmed in the marketplace's own source, but at least one stated condition, tier or scope element is not. The record's notes must say which part is unconfirmed.</>,
+            <><strong>Verification pending:</strong> the main figure is withheld while verification remains unresolved; readers are directed to the source.</>,
           ]} />
-        </Section>
-
-        <Section title="Historical fee changes and policy events">
-          <p>
-            Historical research needs stronger evidence about timing than current-value research does. Suitable evidence includes dated official announcements, archived official pages, dated marketplace documentation, and official historical notices. A current pricing or policy page on its own is generally not enough to establish a previous value, a transition date, or who a change applied to.
-          </p>
-          <p>
-            Missing records don't mean nothing happened. The absence of a record does not mean a fee never changed or a policy was never updated.
-          </p>
         </Section>
 
         <Section title="Dates and verification">
@@ -129,13 +124,25 @@ function MethodologyPage() {
 
         <Section title="Conditional and tiered fees">
           <p>
-            Many marketplace fees depend on conditions such as marketplace, seller plan, category, item price or price band, fulfillment method, product size and weight, storage duration, season, geography, advertising attribution, or seller eligibility. Conditional fees are not turned into misleading universal flat rates. Instead, records may show tiers explicitly, attach conditions, limit their stated scope, or be retired if a single value would oversimplify the fee. The Fee Database does not calculate every possible seller cost.
+            Many marketplace fees depend on conditions such as marketplace, seller plan, category, item price or price band, fulfillment method, product size and weight, storage duration, season, geography, advertising attribution, or seller eligibility. Conditional fees are not turned into misleading universal flat rates. Instead, records may show tiers explicitly, attach conditions, limit their stated scope, or be removed from public view if a single value would oversimplify the fee. The Fee Database does not calculate every possible seller cost.
+          </p>
+        </Section>
+
+        <Section title="Historical fee changes and policy events">
+          <p>
+            Historical research needs stronger evidence about timing than current-value research does. Suitable evidence includes dated official announcements, archived official pages, dated marketplace documentation, and official historical notices.
           </p>
         </Section>
 
         <Section title="Calculator method">
           <p>
             The <Link to="/calculator" className={linkClass}>Calculator</Link> is an educational estimation tool. It uses supported fee logic and states its assumptions. Its rates are maintained separately and are not generated automatically from every Fee Database record. It is not a quote, a billing statement, or a full invoice simulator, and it may not include every seller-specific charge. When the inputs or evidence aren't enough to estimate a complex component, such as some fulfillment or storage fees, it shows "Not estimated" rather than making up a figure.
+          </p>
+        </Section>
+
+        <Section title="Account health checker">
+          <p>
+            The <Link to="/health-check" className={linkClass}>Account Health Checker</Link> is an educational self-check. Its score uses six inputs, with the weights and thresholds shown on the tool page. The weights are this site's own, not a marketplace's. Three metrics link to Amazon's published targets. It does not predict enforcement.
           </p>
         </Section>
 
@@ -147,7 +154,7 @@ function MethodologyPage() {
 
         <Section title="Corrections">
           <p>
-            Public records may be updated when first-party documentation changes, better historical evidence becomes available, a scope was overgeneralized, a fee was oversimplified, a source no longer supports what was published, or an error is found. Accuracy comes before record counts. Research-integrity reviews may correct a record, narrow its scope, improve its sourcing, or retire an unsupported historical claim. A retired historical record means the available evidence was not strong enough to keep publishing the original claim as established fact. It does not necessarily mean the event never happened.
+            Public records may be updated when the marketplace's own documentation changes, better historical evidence becomes available, a scope was overgeneralized, a fee was oversimplified, a source no longer supports what was published, or an error is found. Accuracy comes before record counts. Research-integrity reviews may correct a record, narrow its scope, improve its sourcing, or remove an unsupported historical claim from public view. A historical record removed from public view means the available evidence was not strong enough to keep publishing the original claim as established fact. It does not necessarily mean the event never happened.
           </p>
           <p>
             To report an error, email{" "}
@@ -160,12 +167,13 @@ function MethodologyPage() {
 
         <Section title="Coverage and limitations">
           <p>
-            Coverage is selected, curated, and non-exhaustive. It does not aim to capture every fee, category, seller plan, geographic market, historical change, or policy event. The main focus is information relevant to U.S. sellers. Some records cover other marketplace regions, such as an eBay UK policy event, and are labeled with that geographic scope rather than presented as U.S. events.
+            Coverage does not aim to capture every fee, category, seller plan, geographic market, historical change, or policy event. The main focus is information relevant to U.S. sellers. Some records cover other marketplace regions, such as an eBay UK policy event, and are labeled with that geographic scope rather than presented as U.S. events.
           </p>
           <Bullets
             items={[
               "Marketplace documentation changes, and historical pages may become unavailable.",
               "Current pages may not establish historical timing.",
+              "A missing record doesn't mean there was no fee or that nothing changed.",
               "Fees can depend on seller, product, and geographic conditions.",
               "Complex fulfillment and storage pricing may need inputs that a simplified database doesn't capture.",
               "Terminology differs across marketplaces.",
@@ -179,8 +187,6 @@ function MethodologyPage() {
                 "Exhaustive marketplace coverage",
                 "Real-time monitoring or automatic detection of marketplace changes",
                 "Guaranteed seller-specific cost calculations",
-                "That a missing record means there was no fee or no change",
-                "That current documentation proves historical timing",
                 "Perfect reproducibility for records whose original evidence is no longer available",
               ]}
             />
