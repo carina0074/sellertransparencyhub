@@ -65,7 +65,7 @@ export function extractMainText(html: string): string {
   let h = html.replace(/<!--[\s\S]*?-->/g, " ");
   h = h.replace(/<(script|style|noscript|svg|template|iframe)[^>]*>[\s\S]*?<\/\1>/gi, " ");
   const main = h.match(/<main[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? h.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? h;
-  let body = main.replace(/<(nav|header|footer)[^>]*>[\s\S]*?<\/\1>/gi, " ");
+  let body = main.replace(/\s+/g, " ").replace(/<(nav|header|footer)[^>]*>[\s\S]*?<\/\1>/gi, " ");
   body = body.replace(/<\/?(p|div|li|h[1-6]|tr|br|section|article|table|ul|ol|dt|dd)[^>]*>/gi, "\n");
   body = body.replace(/<[^>]+>/g, " ");
   body = body.replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (m, e: string) => {
