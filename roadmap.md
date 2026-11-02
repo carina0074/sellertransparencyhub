@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] After publication, run one-time Wayback backfill for existing fee records, fee changes and policy events: deduplicate public source/reference URLs, reuse held captures, skip login-only Seller Central; store results only in private evidence captures without editing records or edit logs. Report successful, failed and skipped URL counts and every failure. Blocker: awaiting publication.
+
 - [x] Apply next-batch Fee Database, calculator, score explanation, reports, Policy Archive and changelog-index presentation fixes; keep storage values and October entry unchanged pending review.
 - [x] Verify newsletter blocks, add domain-hosted share image metadata on public pages, and add shared plain-language export dictionary meanings.
 - [x] Deliver storage evidence and October changelog draft, exact file/line change list, tests and preview checks without publishing.
