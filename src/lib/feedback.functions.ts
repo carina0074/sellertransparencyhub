@@ -106,3 +106,91 @@ export const submitFeedback = createServerFn({ method: "POST" })
     if (error) throw new Error("Unable to submit feedback. Please try again.");
     return { ok: true as const };
   });
+
+// ---------------------------------------------------------------------------
+// One-tap "Did this answer your question?" prompt
+// ---------------------------------------------------------------------------
+
+export const QUICK_RESOURCE_TYPES = [
+  "calculator",
+  "fee_database",
+  "fee_change_feed",
+  "policy_archive",
+  "transparency_report",
+] as const;
+export type QuickResourceType = (typeof QUICK_RESOURCE_TYPES)[number];
+
+export const QUICK_ANSWERS = ["yes", "no"] as const;
+export type QuickAnswer = (typeof QUICK_ANSWERS)[number];
+
+export const QUICK_USE_OPTIONS = [
+  "Setting prices",
+  "Choosing a marketplace",
+  "Estimating profit",
+  "Comparing fulfillment options",
+  "Research or reporting",
+  "Other",
+] as const;
+
+export const QUICK_MISSING_MAX = 300;
+
+/** Legacy usefulness column is required; quick answers map onto it. */
+export const QUICK_TO_USEFULNESS: Record<QuickAnswer, Usefulness> = { yes: "yes", no: "not_really" };
+
+function publicClient() {
+  return import("@supabase/supabase-js").then(({ createClient }) => {
+    const url = process.env["SUPABASE_URL"];
+    const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
+    if (!url || !key) throw new Error("Feedback submission is unavailable");
+    return createClient(url, key, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+      global: {
+        fetch: Object.assign((input: RequestInfo | URL, init?: RequestInit) => {
+          const headers = new Headers(init?.headers);
+          if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`)
+            headers.delete("Authorization");
+          headers.set("apikey", key);
+          return fetch(input, { ...init, headers });
+        }, fetch),
+      },
+    });
+  });
+}
+
+export const quickAnswerSchema = z.object({
+  id: z.string().uuid(),
+  resourceType: z.enum(QUICK_RESOURCE_TYPES),
+  resourcePath: z.string().trim().min(1).max(500),
+  recordId: z.string().trim().min(1).max(200).optional(),
+  answer: z.enum(QUICK_ANSWERS),
+});
+
+export const submitQuickAnswer = createServerFn({ method: "POST" })
+  .inputValidator((input: unknown) => quickAnswerSchema.parse(input))
+  .handler(async ({ data }) => {
+    const client = await publicClient();
+    const { error } = await client.from("feedback_submissions").insert({
+      id: data.id,
+      resource_type: data.resourceType,
+      resource_path: data.resourcePath,
+      record_id: data.recordId ?? null,
+      answer: data.answer,
+      usefulness_response: QUICK_TO_USEFULNESS[data.answer],
+    });
+    if (error) throw new Error("Unable to save your answer.");
+    return { ok: true as const };
+  });
+
+export const quickFollowUpSchema = z.discriminatedUnion("answer", [
+  z.object({ id: z.string().uuid(), answer: z.literal("yes"), followUp: z.enum(QUICK_USE_OPTIONS) }),
+  z.object({ id: z.string().uuid(), answer: z.literal("no"), followUp: z.string().trim().min(1).max(QUICK_MISSING_MAX) }),
+]);
+
+export const submitQuickFollowUp = createServerFn({ method: "POST" })
+  .inputValidator((input: unknown) => quickFollowUpSchema.parse(input))
+  .handler(async ({ data }) => {
+    const client = await publicClient();
+    const { error } = await client.rpc("add_feedback_follow_up", { _id: data.id, _follow_up: data.followUp });
+    if (error) throw new Error("Unable to save your answer.");
+    return { ok: true as const };
+  });
