@@ -20,7 +20,7 @@ export const Route = createFileRoute("/reports/")({
 });
 
 const reports = [
-  { to: "/reports/q3-2026", title: "Q3 2026 Marketplace Fee Transparency Report", period: "July–September 2026", scope: "Amazon, Walmart Marketplace, eBay, Etsy and Shopify" },
+  { to: "/reports/q3-2026", title: "Q3 2026 Marketplace Fee Transparency Report", period: "July–September 2026", scope: "Amazon, Walmart Marketplace, eBay, Etsy and Shopify", published: "Published October 2026" },
   { to: "/reports/q2-2026", title: "Q2 2026 Marketplace Fee Transparency Report", period: "April–June 2026", scope: "Amazon, Walmart Marketplace, eBay and Etsy", published: "Published June 2026" },
 ] as const;
 

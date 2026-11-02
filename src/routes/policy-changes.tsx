@@ -80,7 +80,7 @@ function PolicyChangesPage() {
   return (
     <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) { setValueMoment(true); setRecord(recordFromClick(e.target)); } }}>
       <PageHeader
-        eyebrow="Public dataset"
+        eyebrow="Policy archive"
         title="Marketplace Policy Archive"
         description="A manually maintained, source-linked collection of documented marketplace policy changes. Coverage is not exhaustive; dates and applicability reflect the available evidence."
         actions={
@@ -92,11 +92,18 @@ function PolicyChangesPage() {
         }
       />
       <section className="mx-auto max-w-7xl space-y-8 px-4 py-12 sm:px-6 lg:px-8">
+        {changes.length < 5 ? (
+          // Fewer than 5 records: a single compact line instead of cards.
+          <p className="text-sm text-muted-foreground">
+            {changes.length} {changes.length === 1 ? "record" : "records"} · {marketplaces.length - 1} {marketplaces.length - 1 === 1 ? "marketplace" : "marketplaces"} · {officialSources} {officialSources === 1 ? "source" : "sources"}
+          </p>
+        ) : (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
           <StatCard icon={BookOpen} label={officialSources === 1 ? "Unique source URL" : "Unique source URLs"} value={officialSources.toString()} />
           <StatCard icon={Layers} label={changes.length === 1 ? "Policy record archived" : "Policy records archived"} value={changes.length.toString()} />
           <StatCard icon={Building2} label={marketplaces.length - 1 === 1 ? "Marketplace covered" : "Marketplaces covered"} value={(marketplaces.length - 1).toString()} />
         </div>
+        )}
 
         <div className="flex flex-wrap items-center gap-3 rounded-xl border border-border bg-secondary/40 p-3">
           <Filter className="ml-1 h-4 w-4 text-muted-foreground" />
@@ -183,7 +190,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
           <Badge variant="secondary" className="rounded-full">{c.marketplace}</Badge>
           <Badge variant="outline">{c.region}</Badge>
           <Badge variant="outline" className="rounded-full">{c.policy_area}</Badge>
-          {evidence && <Badge variant="outline">{evidence.status === "verified_policy_event" ? "Evidence reviewed" : "Timing not established"}</Badge>}
+          {evidence && <Badge variant="outline">{evidence.status === "verified_policy_event" ? "Source checked" : "Timing not established"}</Badge>}
           <span className="ml-auto tabular-nums text-muted-foreground">
             {policyDateLabel(c, evidence?.effective_date_basis)}
           </span>

@@ -77,7 +77,7 @@ function FeesPage() {
   return (
     <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) { setValueMoment(true); setRecord(recordFromClick(e.target)); } }}>
       <PageHeader
-        eyebrow="HISTORICAL DATASET"
+        eyebrow="Fee change feed"
         title="Seller Fee Change Feed"
         description="A manually maintained, evidence-backed collection of documented marketplace fee-change events, not an exhaustive history of every marketplace change."
       />
