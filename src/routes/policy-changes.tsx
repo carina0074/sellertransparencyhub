@@ -229,7 +229,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
           <span className="inline-flex flex-wrap items-center gap-2 text-muted-foreground">
             <span className="mr-1 rounded-full bg-primary-soft px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
               Source
-            </span>
+            </span>{" "}
             {c.source_title}
           </span>
           {!evidence?.references.some(r => r.url === c.source_url) && <a
