@@ -45,7 +45,7 @@ export type FeeChange = {
   effective_period: string | null;
   evidence_details: Json | null;
   announcement_date: string | null;
-  impact_level: "low" | "medium" | "high";
+  impact_level: "low" | "medium" | "high" | null;
   source_url: string;
   source_title: string;
   summary: string | null;
@@ -129,7 +129,7 @@ export const getFeeChanges = createServerFn({ method: "GET" }).handler(
       old_value: Number(r.old_value),
       new_value: Number(r.new_value),
       change_amount: Number(r.change_amount),
-      impact_level: r.impact_level as "low" | "medium" | "high",
+      impact_level: r.impact_level as "low" | "medium" | "high" | null,
     })) as FeeChange[];
   },
 );
