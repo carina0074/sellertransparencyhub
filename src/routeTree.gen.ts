@@ -33,6 +33,7 @@ import { Route as ReportsIndexRouteImport } from './routes/reports.index'
 import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
 import { Route as ReportsQ22026RouteImport } from './routes/reports.q2-2026'
 import { Route as ReportsQ32026RouteImport } from './routes/reports.q3-2026'
+import { Route as AuthenticatedAdminEvidenceRouteImport } from './routes/_authenticated/admin.evidence'
 import { Route as AuthenticatedAdminFeedbackRouteImport } from './routes/_authenticated/admin.feedback'
 import { Route as AuthenticatedAdminSubscribersRouteImport } from './routes/_authenticated/admin.subscribers'
 import { Route as ApiPublicFeeChangesRouteImport } from './routes/api/public/fee-changes'
@@ -160,6 +161,12 @@ const ReportsQ32026Route = ReportsQ32026RouteImport.update({
   path: '/q3-2026',
   getParentRoute: () => ReportsRoute,
 } as any)
+const AuthenticatedAdminEvidenceRoute =
+  AuthenticatedAdminEvidenceRouteImport.update({
+    id: '/admin/evidence',
+    path: '/admin/evidence',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminFeedbackRoute =
   AuthenticatedAdminFeedbackRouteImport.update({
     id: '/admin/feedback',
@@ -223,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog/': typeof ChangelogIndexRoute
   '/reports/': typeof ReportsIndexRoute
+  '/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
@@ -254,6 +262,7 @@ export interface FileRoutesByTo {
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog': typeof ChangelogIndexRoute
   '/reports': typeof ReportsIndexRoute
+  '/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
@@ -288,6 +297,7 @@ export interface FileRoutesById {
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog/': typeof ChangelogIndexRoute
   '/reports/': typeof ReportsIndexRoute
+  '/_authenticated/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/_authenticated/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
@@ -322,6 +332,7 @@ export interface FileRouteTypes {
     | '/reports/q3-2026'
     | '/changelog/'
     | '/reports/'
+    | '/admin/evidence'
     | '/admin/feedback'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
@@ -353,6 +364,7 @@ export interface FileRouteTypes {
     | '/reports/q3-2026'
     | '/changelog'
     | '/reports'
+    | '/admin/evidence'
     | '/admin/feedback'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
@@ -386,6 +398,7 @@ export interface FileRouteTypes {
     | '/reports/q3-2026'
     | '/changelog/'
     | '/reports/'
+    | '/_authenticated/admin/evidence'
     | '/_authenticated/admin/feedback'
     | '/_authenticated/admin/subscribers'
     | '/api/public/fee-changes'
@@ -593,6 +606,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportsQ32026RouteImport
       parentRoute: typeof ReportsRoute
     }
+    '/_authenticated/admin/evidence': {
+      id: '/_authenticated/admin/evidence'
+      path: '/admin/evidence'
+      fullPath: '/admin/evidence'
+      preLoaderRoute: typeof AuthenticatedAdminEvidenceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/feedback': {
       id: '/_authenticated/admin/feedback'
       path: '/admin/feedback'
@@ -646,11 +666,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminEvidenceRoute: typeof AuthenticatedAdminEvidenceRoute
   AuthenticatedAdminFeedbackRoute: typeof AuthenticatedAdminFeedbackRoute
   AuthenticatedAdminSubscribersRoute: typeof AuthenticatedAdminSubscribersRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminEvidenceRoute: AuthenticatedAdminEvidenceRoute,
   AuthenticatedAdminFeedbackRoute: AuthenticatedAdminFeedbackRoute,
   AuthenticatedAdminSubscribersRoute: AuthenticatedAdminSubscribersRoute,
 }
