@@ -95,7 +95,7 @@ function PolicyChangesPage() {
         <div className="grid gap-4 sm:grid-cols-3">
           <StatCard icon={BookOpen} label={officialSources === 1 ? "Unique source URL" : "Unique source URLs"} value={officialSources.toString()} />
           <StatCard icon={Layers} label={changes.length === 1 ? "Policy record archived" : "Policy records archived"} value={changes.length.toString()} />
-          <StatCard icon={Building2} label="Marketplaces covered" value={(marketplaces.length - 1).toString()} />
+          <StatCard icon={Building2} label={marketplaces.length - 1 === 1 ? "Marketplace covered" : "Marketplaces covered"} value={(marketplaces.length - 1).toString()} />
         </div>
 
         <div className="flex flex-wrap items-center gap-3 rounded-xl border border-border bg-secondary/40 p-3">
