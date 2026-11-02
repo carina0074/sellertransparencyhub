@@ -223,7 +223,10 @@ function PolicyCard({ c }: { c: PolicyChange }) {
               <p className="mt-3 text-xs text-muted-foreground">Review dates are evidence checks, not historical effective dates.</p>
               {evidence.references.map((reference, index) => (
                 <div key={`${reference.url}-${index}`} className="mt-3 space-y-2">
-                  {evidence.references.findIndex(r => r.url === reference.url) === index && <a href={reference.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>}
+                  {evidence.references.findIndex(r => r.url === reference.url) === index && <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <a href={reference.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>
+                    <ArchiveCopyLink url={reference.url} />
+                  </span>}
                   <p className="text-xs text-muted-foreground">{reference.evidence_type} · {reference.heading}</p>
                   <blockquote className="border-l-2 border-border pl-3 text-muted-foreground">{reference.quote}</blockquote>
                   <p className="text-xs text-muted-foreground">This quote supports: {reference.supported_fields.join(", ")}</p>

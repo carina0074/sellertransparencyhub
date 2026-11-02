@@ -47,6 +47,7 @@ export const Route = createFileRoute("/rate-card")({
     Promise.all([
       context.queryClient.ensureQueryData(feeRecordsQuery),
       context.queryClient.ensureQueryData(statsQuery),
+      context.queryClient.ensureQueryData(archiveLinksQuery),
     ]),
   errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">

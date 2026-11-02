@@ -141,7 +141,10 @@ function FeesPage() {
                       <p><strong>Scope:</strong> {evidence.scope}</p>
                       {evidence.conditions.map((condition) => <p key={condition}>{condition}</p>)}
                       {evidence.references.map((reference) => <div key={reference.url}>
-                        <a href={reference.url} target="_blank" rel="noreferrer" className="text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>
+                        <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
+                          <a href={reference.url} target="_blank" rel="noreferrer" className="text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>
+                          <ArchiveCopyLink url={reference.url} />
+                        </span>
                         <blockquote className="mt-1 border-l-2 border-border pl-2">{reference.quote}</blockquote>
                       </div>)}
                       <p>Evidence reviewed {formatVerificationDate(evidence.reviewed_on)}; review date is not an effective date.</p>
