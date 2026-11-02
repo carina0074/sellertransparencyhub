@@ -699,6 +699,13 @@ export type Database = {
         Returns: boolean
       }
       is_valid_email: { Args: { email: string }; Returns: boolean }
+      public_archive_links: {
+        Args: never
+        Returns: {
+          archive_url: string
+          url: string
+        }[]
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
