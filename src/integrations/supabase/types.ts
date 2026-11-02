@@ -44,7 +44,7 @@ export type Database = {
           evidence_details: Json | null
           fee_type: string
           id: string
-          impact_level: string
+          impact_level: string | null
           marketplace: string
           new_value: number
           old_value: number
@@ -67,7 +67,7 @@ export type Database = {
           evidence_details?: Json | null
           fee_type: string
           id?: string
-          impact_level: string
+          impact_level?: string | null
           marketplace: string
           new_value: number
           old_value: number
@@ -90,7 +90,7 @@ export type Database = {
           evidence_details?: Json | null
           fee_type?: string
           id?: string
-          impact_level?: string
+          impact_level?: string | null
           marketplace?: string
           new_value?: number
           old_value?: number
@@ -256,6 +256,36 @@ export type Database = {
           use_cases?: string[]
           usefulness_response?: string
           user_type?: string | null
+        }
+        Relationships: []
+      }
+      impact_level_change_log: {
+        Row: {
+          collection: string
+          id: string
+          logged_at: string
+          new_value: string | null
+          old_value: string | null
+          reason: string
+          record_id: string
+        }
+        Insert: {
+          collection: string
+          id?: string
+          logged_at?: string
+          new_value?: string | null
+          old_value?: string | null
+          reason: string
+          record_id: string
+        }
+        Update: {
+          collection?: string
+          id?: string
+          logged_at?: string
+          new_value?: string | null
+          old_value?: string | null
+          reason?: string
+          record_id?: string
         }
         Relationships: []
       }
