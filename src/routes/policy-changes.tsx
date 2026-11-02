@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button";
 import { getPolicyChanges, type PolicyChange } from "@/lib/fees.functions";
 import { policyDateLabel, policyEvidenceSchema } from "@/lib/policy-evidence";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
+import { archiveLinksQuery } from "@/lib/archive-links";
+import { ArchiveCopyLink } from "@/components/archive-copy-link";
 
 const policyChangesQuery = queryOptions({
   queryKey: ["policy-changes"],
@@ -31,7 +33,10 @@ export const Route = createFileRoute("/policy-changes")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(policyChangesQuery),
+  loader: ({ context }) => Promise.all([
+    context.queryClient.ensureQueryData(policyChangesQuery),
+    context.queryClient.ensureQueryData(archiveLinksQuery),
+  ]),
   errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">
       Couldn't load policy changes: {error.message}

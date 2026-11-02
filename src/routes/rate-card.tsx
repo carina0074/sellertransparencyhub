@@ -16,6 +16,8 @@ import {
 import { getFeeRecords, getDatabaseStats, type FeeRecord } from "@/lib/fees.functions";
 import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@/lib/fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
+import { archiveLinksQuery } from "@/lib/archive-links";
+import { ArchiveCopyLink } from "@/components/archive-copy-link";
 import { trackEvent } from "@/lib/analytics";
 import { QuickFeedback } from "@/components/quick-feedback";
 import { isValueMomentClick, recordFromClick, type ValueRecord } from "@/lib/quick-feedback";

@@ -15,6 +15,8 @@ import {
 import { getFeeChanges, formatFeeValue } from "@/lib/fees.functions";
 import { historicalChangeLabel, historicalEffectiveDate, historicalEvidenceSchema } from "@/lib/historical-fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
+import { archiveLinksQuery } from "@/lib/archive-links";
+import { ArchiveCopyLink } from "@/components/archive-copy-link";
 
 const feeChangesQuery = queryOptions({
   queryKey: ["fee-changes"],
@@ -33,7 +35,10 @@ export const Route = createFileRoute("/fees")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(feeChangesQuery),
+  loader: ({ context }) => Promise.all([
+    context.queryClient.ensureQueryData(feeChangesQuery),
+    context.queryClient.ensureQueryData(archiveLinksQuery),
+  ]),
   errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">
       Couldn't load the change feed: {error.message}
