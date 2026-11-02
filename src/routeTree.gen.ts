@@ -33,12 +33,14 @@ import { Route as ReportsIndexRouteImport } from './routes/reports.index'
 import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
 import { Route as ReportsQ22026RouteImport } from './routes/reports.q2-2026'
 import { Route as ReportsQ32026RouteImport } from './routes/reports.q3-2026'
+import { Route as AuthenticatedAdminEvidenceRouteImport } from './routes/_authenticated/admin.evidence'
 import { Route as AuthenticatedAdminFeedbackRouteImport } from './routes/_authenticated/admin.feedback'
 import { Route as AuthenticatedAdminSubscribersRouteImport } from './routes/_authenticated/admin.subscribers'
 import { Route as ApiPublicFeeChangesRouteImport } from './routes/api/public/fee-changes'
 import { Route as ApiPublicFeesRouteImport } from './routes/api/public/fees'
 import { Route as ApiPublicMarketplacesRouteImport } from './routes/api/public/marketplaces'
 import { Route as ApiPublicPolicyChangesRouteImport } from './routes/api/public/policy-changes'
+import { Route as ApiPublicHooksSourceMonitorRouteImport } from './routes/api/public/hooks/source-monitor'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -159,6 +161,12 @@ const ReportsQ32026Route = ReportsQ32026RouteImport.update({
   path: '/q3-2026',
   getParentRoute: () => ReportsRoute,
 } as any)
+const AuthenticatedAdminEvidenceRoute =
+  AuthenticatedAdminEvidenceRouteImport.update({
+    id: '/admin/evidence',
+    path: '/admin/evidence',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminFeedbackRoute =
   AuthenticatedAdminFeedbackRouteImport.update({
     id: '/admin/feedback',
@@ -191,6 +199,12 @@ const ApiPublicPolicyChangesRoute = ApiPublicPolicyChangesRouteImport.update({
   path: '/api/public/policy-changes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHooksSourceMonitorRoute =
+  ApiPublicHooksSourceMonitorRouteImport.update({
+    id: '/api/public/hooks/source-monitor',
+    path: '/api/public/hooks/source-monitor',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -216,12 +230,14 @@ export interface FileRoutesByFullPath {
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog/': typeof ChangelogIndexRoute
   '/reports/': typeof ReportsIndexRoute
+  '/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
   '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
+  '/api/public/hooks/source-monitor': typeof ApiPublicHooksSourceMonitorRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -246,12 +262,14 @@ export interface FileRoutesByTo {
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog': typeof ChangelogIndexRoute
   '/reports': typeof ReportsIndexRoute
+  '/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
   '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
+  '/api/public/hooks/source-monitor': typeof ApiPublicHooksSourceMonitorRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -279,12 +297,14 @@ export interface FileRoutesById {
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog/': typeof ChangelogIndexRoute
   '/reports/': typeof ReportsIndexRoute
+  '/_authenticated/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
   '/_authenticated/admin/subscribers': typeof AuthenticatedAdminSubscribersRoute
   '/api/public/fee-changes': typeof ApiPublicFeeChangesRoute
   '/api/public/fees': typeof ApiPublicFeesRoute
   '/api/public/marketplaces': typeof ApiPublicMarketplacesRoute
   '/api/public/policy-changes': typeof ApiPublicPolicyChangesRoute
+  '/api/public/hooks/source-monitor': typeof ApiPublicHooksSourceMonitorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -312,12 +332,14 @@ export interface FileRouteTypes {
     | '/reports/q3-2026'
     | '/changelog/'
     | '/reports/'
+    | '/admin/evidence'
     | '/admin/feedback'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
     | '/api/public/policy-changes'
+    | '/api/public/hooks/source-monitor'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -342,12 +364,14 @@ export interface FileRouteTypes {
     | '/reports/q3-2026'
     | '/changelog'
     | '/reports'
+    | '/admin/evidence'
     | '/admin/feedback'
     | '/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
     | '/api/public/policy-changes'
+    | '/api/public/hooks/source-monitor'
   id:
     | '__root__'
     | '/'
@@ -374,12 +398,14 @@ export interface FileRouteTypes {
     | '/reports/q3-2026'
     | '/changelog/'
     | '/reports/'
+    | '/_authenticated/admin/evidence'
     | '/_authenticated/admin/feedback'
     | '/_authenticated/admin/subscribers'
     | '/api/public/fee-changes'
     | '/api/public/fees'
     | '/api/public/marketplaces'
     | '/api/public/policy-changes'
+    | '/api/public/hooks/source-monitor'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -407,6 +433,7 @@ export interface RootRouteChildren {
   ApiPublicFeesRoute: typeof ApiPublicFeesRoute
   ApiPublicMarketplacesRoute: typeof ApiPublicMarketplacesRoute
   ApiPublicPolicyChangesRoute: typeof ApiPublicPolicyChangesRoute
+  ApiPublicHooksSourceMonitorRoute: typeof ApiPublicHooksSourceMonitorRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -579,6 +606,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportsQ32026RouteImport
       parentRoute: typeof ReportsRoute
     }
+    '/_authenticated/admin/evidence': {
+      id: '/_authenticated/admin/evidence'
+      path: '/admin/evidence'
+      fullPath: '/admin/evidence'
+      preLoaderRoute: typeof AuthenticatedAdminEvidenceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/feedback': {
       id: '/_authenticated/admin/feedback'
       path: '/admin/feedback'
@@ -621,15 +655,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPolicyChangesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/source-monitor': {
+      id: '/api/public/hooks/source-monitor'
+      path: '/api/public/hooks/source-monitor'
+      fullPath: '/api/public/hooks/source-monitor'
+      preLoaderRoute: typeof ApiPublicHooksSourceMonitorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminEvidenceRoute: typeof AuthenticatedAdminEvidenceRoute
   AuthenticatedAdminFeedbackRoute: typeof AuthenticatedAdminFeedbackRoute
   AuthenticatedAdminSubscribersRoute: typeof AuthenticatedAdminSubscribersRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminEvidenceRoute: AuthenticatedAdminEvidenceRoute,
   AuthenticatedAdminFeedbackRoute: AuthenticatedAdminFeedbackRoute,
   AuthenticatedAdminSubscribersRoute: AuthenticatedAdminSubscribersRoute,
 }
@@ -679,6 +722,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicFeesRoute: ApiPublicFeesRoute,
   ApiPublicMarketplacesRoute: ApiPublicMarketplacesRoute,
   ApiPublicPolicyChangesRoute: ApiPublicPolicyChangesRoute,
+  ApiPublicHooksSourceMonitorRoute: ApiPublicHooksSourceMonitorRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

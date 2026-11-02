@@ -100,6 +100,9 @@ function MethodologyPage() {
               Different source types support different claims. Not every source is an announcement, and records are labeled by the kind of evidence behind them. Third-party summaries, forums, and search snippets are not used as the sole basis for material facts.
             </p>
             <p className="text-sm leading-relaxed text-muted-foreground">
+              Public source pages are checked automatically each week where the site allows automated checks. Pages that require a login or block automated access are reviewed manually at least once a month. Each change is reviewed by the maintainer before any record is updated, and a dated copy of each source page is kept as evidence.
+            </p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
               Every record links to at least one official marketplace source. Since November 2026, new fee records also include a short quote and the section of the source page it comes from. Older records are being reviewed and updated to the same standard.
             </p>
           </CardContent>

@@ -32,6 +32,59 @@ export type Database = {
         }
         Relationships: []
       }
+      evidence_captures: {
+        Row: {
+          error: string | null
+          id: string
+          processed_at: string | null
+          record_id: string
+          record_type: string
+          requested_at: string
+          snapshot_id: string | null
+          snapshot_ok: boolean | null
+          status: string
+          url: string
+          wayback_ok: boolean | null
+          wayback_url: string | null
+        }
+        Insert: {
+          error?: string | null
+          id?: string
+          processed_at?: string | null
+          record_id: string
+          record_type: string
+          requested_at?: string
+          snapshot_id?: string | null
+          snapshot_ok?: boolean | null
+          status?: string
+          url: string
+          wayback_ok?: boolean | null
+          wayback_url?: string | null
+        }
+        Update: {
+          error?: string | null
+          id?: string
+          processed_at?: string | null
+          record_id?: string
+          record_type?: string
+          requested_at?: string
+          snapshot_id?: string | null
+          snapshot_ok?: boolean | null
+          status?: string
+          url?: string
+          wayback_ok?: boolean | null
+          wayback_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evidence_captures_snapshot_id_fkey"
+            columns: ["snapshot_id"]
+            isOneToOne: false
+            referencedRelation: "source_snapshots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       fee_changes: {
         Row: {
           announcement_date: string | null
@@ -334,6 +387,57 @@ export type Database = {
         }
         Relationships: []
       }
+      monitored_sources: {
+        Row: {
+          active: boolean
+          archive_url: string | null
+          consecutive_failures: number
+          created_at: string
+          frequency: string
+          id: string
+          label: string
+          last_checked_at: string | null
+          last_hash: string | null
+          last_manual_check: string | null
+          manual_reason: string | null
+          marketplace: string
+          source_type: string
+          url: string
+        }
+        Insert: {
+          active?: boolean
+          archive_url?: string | null
+          consecutive_failures?: number
+          created_at?: string
+          frequency: string
+          id?: string
+          label: string
+          last_checked_at?: string | null
+          last_hash?: string | null
+          last_manual_check?: string | null
+          manual_reason?: string | null
+          marketplace: string
+          source_type: string
+          url: string
+        }
+        Update: {
+          active?: boolean
+          archive_url?: string | null
+          consecutive_failures?: number
+          created_at?: string
+          frequency?: string
+          id?: string
+          label?: string
+          last_checked_at?: string | null
+          last_hash?: string | null
+          last_manual_check?: string | null
+          manual_reason?: string | null
+          marketplace?: string
+          source_type?: string
+          url?: string
+        }
+        Relationships: []
+      }
       newsletter_subscriptions: {
         Row: {
           created_at: string
@@ -420,6 +524,149 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      source_alert_reviews: {
+        Row: {
+          alert_id: string
+          id: string
+          outcome: string
+          record_id: string | null
+          record_type: string | null
+          reviewed_at: string
+          reviewer_email: string | null
+          reviewer_id: string
+        }
+        Insert: {
+          alert_id: string
+          id?: string
+          outcome: string
+          record_id?: string | null
+          record_type?: string | null
+          reviewed_at?: string
+          reviewer_email?: string | null
+          reviewer_id: string
+        }
+        Update: {
+          alert_id?: string
+          id?: string
+          outcome?: string
+          record_id?: string | null
+          record_type?: string | null
+          reviewed_at?: string
+          reviewer_email?: string | null
+          reviewer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "source_alert_reviews_alert_id_fkey"
+            columns: ["alert_id"]
+            isOneToOne: false
+            referencedRelation: "source_alerts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      source_alerts: {
+        Row: {
+          created_at: string
+          diff: string | null
+          email_status: string
+          id: string
+          kind: string
+          previous_snapshot_id: string | null
+          snapshot_id: string | null
+          source_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          diff?: string | null
+          email_status?: string
+          id?: string
+          kind: string
+          previous_snapshot_id?: string | null
+          snapshot_id?: string | null
+          source_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          diff?: string | null
+          email_status?: string
+          id?: string
+          kind?: string
+          previous_snapshot_id?: string | null
+          snapshot_id?: string | null
+          source_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "source_alerts_previous_snapshot_id_fkey"
+            columns: ["previous_snapshot_id"]
+            isOneToOne: false
+            referencedRelation: "source_snapshots"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "source_alerts_snapshot_id_fkey"
+            columns: ["snapshot_id"]
+            isOneToOne: false
+            referencedRelation: "source_snapshots"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "source_alerts_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "monitored_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      source_snapshots: {
+        Row: {
+          content_hash: string | null
+          content_text: string | null
+          error: string | null
+          fetched_at: string
+          http_status: number | null
+          id: string
+          source_id: string | null
+          trigger_kind: string
+          url: string
+        }
+        Insert: {
+          content_hash?: string | null
+          content_text?: string | null
+          error?: string | null
+          fetched_at?: string
+          http_status?: number | null
+          id?: string
+          source_id?: string | null
+          trigger_kind: string
+          url: string
+        }
+        Update: {
+          content_hash?: string | null
+          content_text?: string | null
+          error?: string | null
+          fetched_at?: string
+          http_status?: number | null
+          id?: string
+          source_id?: string | null
+          trigger_kind?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "source_snapshots_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "monitored_sources"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
