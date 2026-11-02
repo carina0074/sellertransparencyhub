@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight, Database, TrendingUp, BookOpen,
-  CheckCircle2, Sparkles, Lock, FileText, BarChart3, History,
+  CheckCircle2, Lock, FileText, Search, History, Calculator, Link2,
 } from "lucide-react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getDatabaseStats, getFeeRecords } from "@/lib/fees.functions";
@@ -37,7 +37,7 @@ export const Route = createFileRoute("/")({
 });
 
 const trust = [
-  "Official marketplace sources",
+  "Links to official marketplace sources",
   "Free public resource",
   "Independently maintained",
 ];
@@ -45,12 +45,12 @@ const trust = [
 const marketplaces = ["Amazon", "eBay", "Walmart", "Etsy", "Shopify"];
 
 // Representative picks resolved against the live current fee records (no fee values here).
-const previewPicks: { marketplace: string; feeName: string; category: string; label: string }[] = [
-  { marketplace: "Amazon", feeName: "Referral Fee", category: "Home & Kitchen", label: "Home & Kitchen referral fee" },
-  { marketplace: "eBay", feeName: "Final value fee — Books & Magazines", category: "Books & Magazines", label: "Books & Magazines final value fee" },
-  { marketplace: "Walmart", feeName: "Referral Fee", category: "Home, Kitchen, Decor & Garden", label: "Home, Kitchen, Decor & Garden referral fee" },
-  { marketplace: "Etsy", feeName: "Transaction Fee", category: "Selling — U.S. fee basis", label: "Transaction fee" },
-  { marketplace: "Shopify", feeName: "Online Card Rate", category: "Basic plan — U.S. standard online cards", label: "Basic plan online card rate" },
+const previewPicks: { marketplace: string; feeName: string; category: string; feeType: string; label: string }[] = [
+  { marketplace: "Amazon", feeName: "Referral Fee", category: "Home & Kitchen", feeType: "Referral fee", label: "Home & Kitchen" },
+  { marketplace: "eBay", feeName: "Final value fee — Books & Magazines", category: "Books & Magazines", feeType: "Final value fee", label: "Books & Magazines" },
+  { marketplace: "Walmart", feeName: "Referral Fee", category: "Home, Kitchen, Decor & Garden", feeType: "Referral fee", label: "Home, Kitchen, Decor & Garden" },
+  { marketplace: "Etsy", feeName: "Transaction Fee", category: "Selling — U.S. fee basis", feeType: "Transaction fee", label: "U.S. fee basis" },
+  { marketplace: "Shopify", feeName: "Online Card Rate", category: "Basic plan — U.S. standard online cards", feeType: "Card processing", label: "Basic plan, U.S. standard online cards" },
 ];
 
 function FeePreview({ records }: { records: FeeRecord[] }) {
@@ -63,26 +63,27 @@ function FeePreview({ records }: { records: FeeRecord[] }) {
           r.category === p.category &&
           r.verification_status === "verified_current_value",
       );
-      return record ? { record, label: p.label } : null;
+      return record ? { record, label: p.label, feeType: p.feeType } : null;
     })
-    .filter((r): r is { record: FeeRecord; label: string } => Boolean(r));
+    .filter((r): r is { record: FeeRecord; label: string; feeType: string } => Boolean(r));
   return (
     <Card className="border-border shadow-sm">
       <CardContent className="p-6">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-sm font-semibold text-foreground">Marketplace Fee Comparison</h2>
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">A sample of current fees</h2>
           <span className="rounded-full border border-border bg-secondary/60 px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
             Source-linked records
           </span>
         </div>
-        <p className="mt-1 text-xs text-muted-foreground">
-          Representative current fees — examples from the current fee database, not comparable total selling costs.
+        <p className="mt-1 text-sm text-muted-foreground">
+          Different fee types. Not comparable total selling costs.
         </p>
         <ul className="mt-3 divide-y divide-border">
-          {rows.map(({ record: r, label }) => (
-            <li key={r.id} className="flex items-start justify-between gap-4 py-2.5">
+          {rows.map(({ record: r, label, feeType }) => (
+            <li key={r.id} className="flex items-start justify-between gap-4 py-3">
               <div className="min-w-0 flex-1">
                 <div className="text-sm font-medium text-foreground">{r.marketplace}</div>
+                <div className="text-sm font-semibold text-foreground">{feeType}</div>
                 <div className="text-xs text-muted-foreground">{label}</div>
               </div>
               <div className="max-w-[55%] text-right text-sm font-semibold tabular-nums text-foreground">
@@ -106,7 +107,7 @@ const datasets = [
   {
     icon: Database,
     title: "Marketplace Fee Database",
-    desc: "Searchable, source-linked fee records for Amazon, Walmart, eBay, Shopify and Etsy, covering selected referral, transaction, fulfillment, storage and subscription fees. Coverage is curated, not exhaustive.",
+    desc: "Searchable, source-linked fee records for marketplaces and selling platforms (Amazon, Walmart, eBay, Etsy and Shopify), covering selected referral, transaction, fulfillment, storage and subscription fees. Coverage is curated, not exhaustive.",
     to: "/rate-card",
     cta: "Browse fee database",
   },
@@ -124,6 +125,13 @@ const datasets = [
     to: "/policy-changes",
     cta: "Browse policy archive",
   },
+  {
+    icon: Calculator,
+    title: "Selling Cost Calculator",
+    desc: "Estimate selected fees for Amazon, Walmart, Etsy and Shopify. Costs the tool can't model are listed, not guessed.",
+    to: "/calculator",
+    cta: "Open calculator",
+  },
 ];
 
 import { changelog } from "@/data/changelog";
@@ -135,8 +143,8 @@ function Index() {
   const stats = [
     { value: coverage.activeRecords, label: "Current fee records" },
     { value: coverage.historicalChanges, label: "Historical fee-change events" },
-    { value: coverage.marketplaces, label: "Marketplaces tracked" },
-    { value: coverage.categories, label: "Category labels" },
+    { value: coverage.marketplaces, label: "Marketplaces and selling platforms tracked" },
+    { value: null, label: "Official source linked for every record" },
   ];
   return (
     <>
@@ -147,19 +155,18 @@ function Index() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_0%,var(--color-primary-soft)_0%,transparent_70%)]"
         />
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="max-w-3xl">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
-                <Sparkles className="h-3.5 w-3.5 text-primary" />
                 Independent research for U.S. marketplace sellers
               </span>
               <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
                 Understand what it really costs to sell online.
               </h1>
               <p className="mt-5 max-w-xl text-pretty text-lg text-muted-foreground">
-                Independent marketplace fee and policy research helping U.S. small businesses understand selling costs across major e-commerce platforms.
+                A free, independent reference for U.S. sellers on Amazon, eBay, Walmart, Etsy and Shopify: what each charges, with a link to the official source for every fee.
               </p>
-              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Marketplace coverage">
+              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Coverage">
                 {marketplaces.map((m) => (
                   <li
                     key={m}
@@ -188,9 +195,6 @@ function Index() {
                 ))}
               </ul>
             </div>
-            <div className="lg:justify-self-end lg:w-full lg:max-w-md">
-              <FeePreview records={feeRecords} />
-            </div>
           </div>
         </div>
       </section>
@@ -200,12 +204,31 @@ function Index() {
         <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden px-4 py-10 sm:px-6 lg:grid-cols-4 lg:px-8">
           {stats.map((s) => (
             <div key={s.label} className="px-4 py-2 text-center sm:text-left">
-              <div className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{s.value}</div>
+              <div className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{s.value ?? <Link2 className="inline h-7 w-7 text-primary" aria-hidden />}</div>
               <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
             </div>
           ))}
         </div>
         <p className="pb-6 text-center text-xs text-muted-foreground">Latest fee verification: {formatVerificationDate(coverage.lastUpdated)}</p>
+      </section>
+
+      {/* Value pillars */}
+      <section className="border-b border-border bg-secondary/40">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-3 lg:px-8">
+          {[
+            { icon: Lock, title: "Independent by design", desc: "We don't sell leads to marketplaces. No ads, no lead selling, no paid placements." },
+            { icon: FileText, title: "Documented source links", desc: "Fee and policy records include source links and date information where available." },
+            { icon: Search, title: "Search and filter", desc: "Filter by marketplace or fee type, and open any record to see its conditions and source." },
+          ].map((p) => (
+            <div key={p.title}>
+              <span className="grid h-10 w-10 place-items-center rounded-lg bg-background text-primary ring-1 ring-border">
+                <p.icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-4 text-lg font-semibold text-foreground">{p.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Datasets */}
@@ -215,7 +238,7 @@ function Index() {
             Public research tools and datasets.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Tangible data assets you can search, filter, and reference — not gated reports or vague summaries.
+            Free to search. No sign-up. Every record shows where it came from.
           </p>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -243,33 +266,19 @@ function Index() {
         </div>
       </section>
 
-      {/* Value pillars */}
-      <section className="border-y border-border bg-secondary/40">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-3 lg:px-8">
-          {[
-            { icon: Lock, title: "Independent by design", desc: "We don't sell leads to marketplaces. Our datasets exist to protect your margin and your account." },
-            { icon: FileText, title: "Documented source links", desc: "Fee and policy records include source links and date information where available." },
-            { icon: BarChart3, title: "Decision-ready outputs", desc: "Data you can act on immediately. Filter by marketplace or fee type." },
-          ].map((p) => (
-            <div key={p.title}>
-              <span className="grid h-10 w-10 place-items-center rounded-lg bg-background text-primary ring-1 ring-border">
-                <p.icon className="h-5 w-5" />
-              </span>
-              <h3 className="mt-4 text-lg font-semibold text-foreground">{p.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
-            </div>
-          ))}
-        </div>
+      {/* Sample fees */}
+      <section className="mx-auto max-w-3xl px-4 pb-20 sm:px-6 lg:px-8">
+        <FeePreview records={feeRecords} />
       </section>
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="rounded-2xl border border-border bg-foreground px-8 py-12 text-center text-background sm:px-12">
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Stop guessing. Start from source-linked fee records.
+            Check a fee before you set a price.
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-base opacity-80">
-            Search the fee database or browse the latest policy changes — no signup required.
+            Search the fee database or browse documented policy changes — no signup required.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg" variant="secondary">
