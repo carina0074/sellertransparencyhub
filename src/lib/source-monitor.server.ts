@@ -97,13 +97,20 @@ async function checkWeekly(admin: Admin, s: any, summary: any) {
   summary.checked++;
 }
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** Snapshot once; Wayback is retried on later runs until a capture succeeds (spaced to respect its rate limit). */
 async function archiveOnce(admin: Admin, s: any, summary: any) {
-  const f = await fetchPage(s.url);
-  await insertSnapshot(admin, s.id, s.url, f, "archive_once");
+  const update: Record<string, unknown> = { last_checked_at: new Date().toISOString() };
+  if (!s.last_checked_at) {
+    const f = await fetchPage(s.url);
+    await insertSnapshot(admin, s.id, s.url, f, "archive_once");
+    update.last_hash = f.hash;
+  }
   const wb = await requestWayback(s.url);
-  await admin.from("monitored_sources").update({
-    last_checked_at: new Date().toISOString(), last_hash: f.hash, archive_url: wb.url,
-  }).eq("id", s.id);
+  if (wb.url) update.archive_url = wb.url;
+  await admin.from("monitored_sources").update(update).eq("id", s.id);
+  await sleep(10000);
   summary.archived++;
 }
 
@@ -120,6 +127,7 @@ async function processCapture(admin: Admin, c: any, sources: any[]) {
   const f = await fetchPage(c.url);
   const snapId = await insertSnapshot(admin, src?.id ?? null, c.url, f, "record_save");
   const wb = await requestWayback(c.url);
+  await sleep(10000);
   const snapshotOk = !f.error;
   const errors = [f.error && `Snapshot: ${f.error}`, wb.error && `Wayback: ${wb.error}`].filter(Boolean).join("; ");
   await admin.from("evidence_captures").update({
@@ -143,7 +151,7 @@ export async function runSourceMonitor() {
   for (const s of all.filter((x: any) => x.source_type === "monitor_weekly" && isWeeklyCheckDue(x.last_checked_at, now))) {
     await checkWeekly(admin, s, summary);
   }
-  for (const s of all.filter((x: any) => x.source_type === "archive_once" && !x.last_checked_at)) {
+  for (const s of all.filter((x: any) => x.source_type === "archive_once" && !x.archive_url)) {
     await archiveOnce(admin, s, summary);
   }
   return summary;
