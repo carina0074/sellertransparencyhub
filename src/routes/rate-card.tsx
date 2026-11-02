@@ -2,7 +2,7 @@ import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { ExternalLink, Database, Search, ShieldCheck } from "lucide-react";
+import { ExternalLink, Database, Search, ShieldCheck, History, Store, Tags, Check } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +13,7 @@ import {
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { getFeeRecords, getDatabaseStats } from "@/lib/fees.functions";
+import { getFeeRecords, getDatabaseStats, type FeeRecord } from "@/lib/fees.functions";
 import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@/lib/fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { trackEvent } from "@/lib/analytics";
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/rate-card")({
     meta: [
       ...shareImageMeta,
       { title: "Marketplace Fee Database — Amazon, Walmart, eBay, Shopify, Etsy rates" },
-      { name: "description", content: "Current U.S. seller fees for Amazon, Walmart, eBay, Shopify, and Etsy, with pricing tiers, applicability, first-party evidence and current-value review status." },
+      { name: "description", content: "Current U.S. seller fees on marketplaces and selling platforms (Amazon, Walmart, eBay, Etsy and Shopify), with pricing tiers, applicability, first-party evidence and current-value review status." },
       { property: "og:title", content: "Marketplace Fee Database" },
       { property: "og:description", content: "Current U.S. marketplace fees with pricing conditions, official evidence and separate current-value and effective-date information." },
       { property: "og:type", content: "website" },
@@ -97,16 +97,16 @@ function RateCardPage() {
   return (
     <div onClickCapture={(e) => { if (isValueMomentClick(e.target)) { setValueMoment(true); setRecord(recordFromClick(e.target)); } }}>
       <PageHeader
-        eyebrow="Public data asset"
+        eyebrow="Fee database"
         title="Marketplace Fee Database"
-        description="Current U.S. seller fees for Amazon, Walmart, eBay, Shopify, and Etsy — with pricing conditions, official sources, current-value review status, and effective dates where independently established."
+        description="Current U.S. seller fees on marketplaces and selling platforms (Amazon, Walmart, eBay, Etsy and Shopify), with pricing conditions, official sources, current-value review status, and effective dates where independently established."
       />
       <section className="mx-auto max-w-7xl space-y-6 px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard label="Current Fee Records" value={`${stats.activeRecords}`} />
-          <a href="/fees" className="hover:underline"><StatCard label="Historical Fee-Change Events" value={`${stats.historicalChanges}`} /></a>
-          <StatCard label="Marketplaces Tracked" value={`${stats.marketplaces}`} />
-          <a href="#category-labels" className="hover:underline"><StatCard label="Category Labels" value={`${stats.categories}`} /></a>
+          <StatCard icon={Database} label="Current Fee Records" value={`${stats.activeRecords}`} />
+          <a href="/fees" className="hover:underline"><StatCard icon={History} label="Historical Fee-Change Events" value={`${stats.historicalChanges}`} /></a>
+          <StatCard icon={Store} label="Marketplaces and Selling Platforms Tracked" value={`${stats.marketplaces}`} />
+          <a href="#category-labels" className="hover:underline"><StatCard icon={Tags} label="Category Labels" value={`${stats.categories}`} /></a>
         </div>
         <details id="category-labels" className="text-sm text-muted-foreground">
           <summary className="cursor-pointer font-medium text-primary">{stats.categories} category labels</summary>
@@ -141,7 +141,11 @@ function RateCardPage() {
           </Select>
         </div>
 
-        <Card className="border-border">
+        <div className="space-y-3 md:hidden">
+          {filtered.map((r) => <MobileFeeCard key={r.id} r={r} />)}
+        </div>
+
+        <Card className="hidden border-border md:block">
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <Table>
@@ -187,8 +191,7 @@ function RateCardPage() {
                       </TableCell>
                       <TableCell className="max-w-40 whitespace-normal text-xs text-muted-foreground tabular-nums">{effectiveDateLabel(r.effective_date)}</TableCell>
                       <TableCell className="text-muted-foreground tabular-nums">
-                        <TooltipProvider><Tooltip><TooltipTrigger asChild><Badge tabIndex={0} variant="outline" className="max-w-48 whitespace-normal text-xs">{verificationLabel(r.verification_status)}</Badge></TooltipTrigger><TooltipContent className="max-w-72">Checking the current value against its source does not establish when the fee took effect.</TooltipContent></Tooltip></TooltipProvider>
-                        <p className="mt-1 text-xs">{r.verification_status === "verification_pending" ? "Previous review: " : "Reviewed: "}{formatVerificationDate(r.last_verified)}</p>
+                        <ReviewStatus status={r.verification_status} lastVerified={r.last_verified} />
                       </TableCell>
                       <TableCell className="text-right">
                         <a
@@ -203,7 +206,6 @@ function RateCardPage() {
                         </a>
                         {presentation.details && <div className="mt-2 space-y-2 whitespace-normal text-xs">
                           {presentation.details.references.map((reference) => <a key={reference.url} href={reference.url} target="_blank" rel="noreferrer" className="block text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>)}
-                          <p className="text-muted-foreground">Current-value evidence reviewed {formatVerificationDate(presentation.details.reviewed_on)}.</p>
                         </div>}
                       </TableCell>
                     </TableRow>
@@ -235,17 +237,67 @@ function RateCardPage() {
   );
 }
 
-function StatCard({ label, value }: { label: string; value: string }) {
+function StatCard({ icon: Icon, label, value }: { icon: typeof Database; label: string; value: string }) {
   return (
     <Card className="border-border">
       <CardContent className="flex items-center gap-3 p-5">
         <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary-soft text-primary">
-          <Database className="h-5 w-5" />
+          <Icon className="h-5 w-5" />
         </span>
         <div>
           <div className="text-xl font-semibold tabular-nums text-foreground">{value}</div>
           <div className="text-xs text-muted-foreground">{label}</div>
         </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function ReviewStatus({ status, lastVerified }: { status?: string; lastVerified: string | null }) {
+  const checked = status === "verified_current_value";
+  const label = checked ? "Checked" : verificationLabel(status);
+  return (
+    <TooltipProvider><Tooltip><TooltipTrigger asChild>
+      <span tabIndex={0} className="inline-flex items-center gap-1 text-xs font-medium text-foreground">
+        {checked && <Check className="h-3.5 w-3.5 text-primary" aria-hidden />}{label}
+        <span className="font-normal text-muted-foreground"> · {formatVerificationDate(lastVerified)}</span>
+      </span>
+    </TooltipTrigger><TooltipContent className="max-w-72">{checked ? "Current value checked against source. " : status === "verification_pending" ? "Date shown is the previous review. " : ""}Checking the current value against its source does not establish when the fee took effect.</TooltipContent></Tooltip></TooltipProvider>
+  );
+}
+
+function MobileFeeCard({ r }: { r: FeeRecord }) {
+  const presentation = presentFee(r);
+  const d = presentation.details;
+  return (
+    <Card className="border-border" data-record-id={r.id} data-record-type="fee_record">
+      <CardContent className="space-y-2 p-4 text-sm">
+        <div className="flex items-start justify-between gap-3">
+          <Badge variant="secondary" className="rounded-full">{r.marketplace}</Badge>
+          <span className="text-right font-semibold tabular-nums text-foreground">{presentation.value}</span>
+        </div>
+        <div>
+          <div className="font-medium text-foreground">{r.fee_name}</div>
+          <div className="text-xs text-muted-foreground">{r.category}</div>
+        </div>
+        {(r.notes || d) && <details className="text-xs leading-relaxed text-muted-foreground">
+          <summary className="cursor-pointer font-medium text-primary">Fee details &amp; conditions</summary>
+          <div className="mt-2 space-y-2">
+            {r.notes && <p>{r.notes}</p>}
+            {d?.scope && <p><strong>Scope:</strong> {d.scope}</p>}
+            {d?.basis && <p><strong>Basis:</strong> {d.basis}</p>}
+            {d?.kind === "tiered" && <ul className="space-y-1">{d.tiers.map((t) => <li key={t.label}><strong>{t.label}:</strong> {tierAmount(t, d.unit)}{t.effective_date && ` (effective ${t.effective_date})`}</li>)}</ul>}
+            {d?.minimum_minor != null && <p>Minimum referral fee: ${(d.minimum_minor / 100).toFixed(2)} USD per item, where applicable.</p>}
+            {d?.separate_closing_minor !== undefined && d && <p>Separate closing fee: ${(d.separate_closing_minor / 100).toFixed(2)} USD per item sold (not part of the percentage).</p>}
+            {d?.conditions.map((c) => <p key={c}>{c}</p>)}
+            <p>Effective: {effectiveDateLabel(r.effective_date)}</p>
+          </div>
+        </details>}
+        <a href={r.source_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+          onClick={() => { trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); }}>
+          {d?.legacy_source ? "Legacy reference" : "Official source"}: {r.source_title} <ExternalLink className="h-3 w-3" />
+        </a>
+        <div><ReviewStatus status={r.verification_status} lastVerified={r.last_verified} /></div>
       </CardContent>
     </Card>
   );
