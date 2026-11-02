@@ -24,34 +24,28 @@ function AboutPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Our mission"
-        title="Empowering small businesses through transparency."
-        description="Marketplaces are powerful, but their complexity quietly costs sellers margin and stability. We exist to close that gap."
+        eyebrow="About"
+        title="Seller fees, with the source for each one."
+        description="Seller Transparency Hub is a free reference that collects U.S. seller fees and policy changes from Amazon, eBay, Walmart, Etsy and Shopify, and links each record to the official page it came from."
       />
       <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="space-y-10">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-foreground">Why seller transparency matters</h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground">Why this exists</h2>
             <p className="mt-3 text-muted-foreground">
-              Small and medium businesses selling on marketplaces often operate on thin margins. A fee restructure, a policy update, or an
-              unexpected verification request can wipe out months of margin.
+              Fees and policies change, and the details are spread across many help pages. A change to a fee or a policy can affect what you keep from each sale.
             </p>
           </div>
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-foreground">The problem with hidden marketplace complexity</h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground">The problem</h2>
             <p className="mt-3 text-muted-foreground">
-              Fees compound across categories, weight tiers, storage windows, and return reasons.
-              Account health is governed by metrics that change without warning. The information
-              exists, but it's scattered across dozens of help pages — and almost never aggregated
-              in a way operators can act on.
+              What you pay to sell an item can depend on its category, size, how long it sits in storage, and whether it is returned. Each of these is explained on a different help page, so the full cost is hard to see in one place.
             </p>
           </div>
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-foreground">Helping sellers make better decisions</h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground">What we provide</h2>
             <p className="mt-3 text-muted-foreground">
-              Seller Transparency Hub takes the public information that already exists and turns it
-              into source-linked fee information, educational tools such as the profit calculator, and
-              research publications such as quarterly fee reports.
+              A searchable fee database, a feed of documented fee changes, a policy archive, a calculator for selected fees, and quarterly reports.
             </p>
           </div>
         </div>
@@ -59,7 +53,7 @@ function AboutPage() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2">
           {[
             { icon: Eye, title: "Source-linked information", desc: "Current fee records list their source documentation. Our Methodology explains how information is sourced, reviewed, and qualified." },
-            { icon: ShieldCheck, title: "Independent voice", desc: "We are not affiliated with any marketplace. Our incentive is your durability." },
+            { icon: ShieldCheck, title: "Independent voice", desc: "We are not affiliated with any marketplace or selling platform." },
             { icon: HeartHandshake, title: "Free public resources", desc: "Our research and tools are free to use." },
           ].map((v) => (
             <Card key={v.title} className="border-border">
@@ -89,9 +83,9 @@ function AboutPage() {
           </div>
 
           <div className="mt-12 rounded-2xl border border-border bg-secondary/40 p-8 text-center">
-          <h3 className="text-2xl font-semibold tracking-tight text-foreground">Try the tools that started it all.</h3>
+          <h3 className="text-2xl font-semibold tracking-tight text-foreground">Try the tools</h3>
           <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
-            Free, no signup. Run a profitability check on a product or assess your account health in under two minutes.
+            Free, no sign-up. Estimate selected fees for a product, or check your account health.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Button asChild><Link to="/calculator">Open the calculator</Link></Button>

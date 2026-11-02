@@ -66,10 +66,12 @@ function CalculatorPage() {
     ...(result.closingFee > 0 ? [{ name: "Books closing fee", value: result.closingFee }] : []),
     { name: inputs.marketplace === "shopify" || inputs.marketplace === "etsy" ? "Self-fulfillment shipping" : "Fulfillment", value: inputs.marketplace === "shopify" || inputs.marketplace === "etsy" ? result.fulfillmentFee : null },
     { name: "Storage", value: null },
-    { name: "Returns (assumption)", value: result.returnCost },
+    { name: "Returns (estimate)", value: result.returnCost },
     ...(inputs.marketplace === "shopify" ? [{ name: "Subscription and other card/provider charges", value: null }] : []),
     ...(inputs.marketplace === "etsy" ? [{ name: "Offsite Ads and other applicable fees", value: null }] : []),
   ];
+  // Optional/conditional exclusions (e.g. Etsy Offsite Ads) get a neutral info style instead of a warning.
+  const onlyOptionalExcluded = result.unsupported.length > 0 && result.unsupported.every((u) => u.startsWith("Etsy Offsite Ads"));
   const feeData = feeRows.filter((row): row is { name: string; value: number } => row.value !== null && row.value > 0);
 
   const profitData = [
@@ -155,14 +157,16 @@ function CalculatorPage() {
             <div className="grid gap-4 sm:grid-cols-3">
               <Stat label={result.unsupported.length ? "Left after included fees" : "Net profit"} value={fmtUSD(result.netProfit)} accent="primary" />
               <Stat label={result.unsupported.length ? "Margin after included fees" : "Profit margin"} value={fmtPct(result.margin)} />
-              <Stat label={result.unsupported.length ? "Included fees" : "Total fees"} value={fmtUSD(result.totalFees)} />
+              <Stat label={result.unsupported.length ? "Included fees and estimates" : "Total fees"} value={fmtUSD(result.totalFees)} />
             </div>
 
             {result.unsupported.length === 0 && <RecommendationBanner level={result.recommendation} margin={result.margin} />}
 
             {result.unsupported.length > 0 && (
-              <div className="flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/15 p-4 text-warning-foreground">
-                <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" />
+              <div className={onlyOptionalExcluded
+                ? "flex items-start gap-3 rounded-lg border border-border bg-muted p-4 text-muted-foreground"
+                : "flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/15 p-4 text-warning-foreground"}>
+                {onlyOptionalExcluded ? <Info className="mt-0.5 h-5 w-5 shrink-0" /> : <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" />}
                 <div>
                   <p className="text-sm font-semibold">Not included in this estimate</p>
                   <ul className="mt-1 list-inside list-disc text-sm opacity-90">

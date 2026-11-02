@@ -102,7 +102,7 @@ function RateCardPage() {
         description="Current U.S. seller fees on marketplaces and selling platforms (Amazon, Walmart, eBay, Etsy and Shopify), with pricing conditions, official sources, current-value review status, and effective dates where independently established."
       />
       <section className="mx-auto max-w-7xl space-y-6 px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           <StatCard icon={Database} label="Current Fee Records" value={`${stats.activeRecords}`} />
           <a href="/fees" className="hover:underline"><StatCard icon={History} label="Historical Fee-Change Events" value={`${stats.historicalChanges}`} /></a>
           <StatCard icon={Store} label="Marketplaces and Selling Platforms Tracked" value={`${stats.marketplaces}`} />
@@ -240,12 +240,12 @@ function RateCardPage() {
 function StatCard({ icon: Icon, label, value }: { icon: typeof Database; label: string; value: string }) {
   return (
     <Card className="border-border">
-      <CardContent className="flex items-center gap-3 p-5">
-        <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary-soft text-primary">
+      <CardContent className="flex items-center gap-3 p-3 sm:p-5">
+        <span className="hidden h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary-soft text-primary sm:grid">
           <Icon className="h-5 w-5" />
         </span>
         <div>
-          <div className="text-xl font-semibold tabular-nums text-foreground">{value}</div>
+          <div className="text-lg font-semibold tabular-nums text-foreground sm:text-xl">{value}</div>
           <div className="text-xs text-muted-foreground">{label}</div>
         </div>
       </CardContent>

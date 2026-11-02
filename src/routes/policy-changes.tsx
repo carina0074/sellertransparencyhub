@@ -92,7 +92,7 @@ function PolicyChangesPage() {
         }
       />
       <section className="mx-auto max-w-7xl space-y-8 px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
           <StatCard icon={BookOpen} label={officialSources === 1 ? "Unique source URL" : "Unique source URLs"} value={officialSources.toString()} />
           <StatCard icon={Layers} label={changes.length === 1 ? "Policy record archived" : "Policy records archived"} value={changes.length.toString()} />
           <StatCard icon={Building2} label={marketplaces.length - 1 === 1 ? "Marketplace covered" : "Marketplaces covered"} value={(marketplaces.length - 1).toString()} />
@@ -136,12 +136,12 @@ function StatCard({
 }: { icon: typeof Layers; label: string; value: string }) {
   return (
     <Card className="border-border">
-      <CardContent className="flex items-center gap-3 p-5">
-        <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary-soft text-primary">
+      <CardContent className="flex items-center gap-3 p-3 sm:p-5">
+        <span className="hidden h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary-soft text-primary sm:grid">
           <Icon className="h-5 w-5" />
         </span>
         <div>
-          <div className="text-xl font-semibold tabular-nums text-foreground">{value}</div>
+          <div className="text-lg font-semibold tabular-nums text-foreground sm:text-xl">{value}</div>
           <div className="text-xs text-muted-foreground">{label}</div>
         </div>
       </CardContent>
