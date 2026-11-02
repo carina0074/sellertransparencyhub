@@ -29,7 +29,7 @@ export const changelog: ChangelogEntry[] = [
     title: "Research Integrity & Source Verification Update",
     summary:
       "Reviewed published fee records, fee-change events, policy events and reports against marketplace-published documentation. Corrected, qualified or retired claims the evidence did not support; coverage remains curated and non-exhaustive.",
-    updatedAt: "2026-11-02",
+    updatedAt: "2026-11-01",
     records: [
       { name: "Current fee records", detail: "Reviewed against current marketplace-published documentation. Tiered and conditional fees are shown as structured pricing instead of single flat rates, and review dates are kept separate from effective dates." },
       { name: "Historical fee changes and policy events", detail: "Each event was checked for dated evidence. Unsupported events were retired from public view, and dates are shown only to the precision the evidence supports." },
