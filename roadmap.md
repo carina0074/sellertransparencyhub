@@ -61,3 +61,7 @@
 - [x] Homepage hero polish: two-column hero, new messaging, marketplace chips, live fee-comparison preview card (2026-10-24).
 - [x] Pre-outreach UX: persistent Give feedback tab on Fee Database, inline estimate-usefulness prompt on Calculator, corrected traceability wording (2026-10-24).
 - [x] Feedback discoverability: contextual prompt on Fee Database — inline between filters and table, ~8s after first meaningful interaction, once per session, expands in place, closeable (2026-10-24).
+
+- [x] Add shared admin navigation across Subscribers, Feedback and Evidence & alerts pages.
+- [x] Show an "Archived copy" link beside source links only when a dated archived copy is held, read from the private evidence list via a public URL→archive projection; no record writes.
+- [x] Validate projection, tests, build and preview on Fee Database, Fee Change Feed, Policy Archive and all admin pages; do not publish.
