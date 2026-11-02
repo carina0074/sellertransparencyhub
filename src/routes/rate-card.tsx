@@ -16,6 +16,8 @@ import {
 import { getFeeRecords, getDatabaseStats, type FeeRecord } from "@/lib/fees.functions";
 import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@/lib/fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
+import { archiveLinksQuery } from "@/lib/archive-links";
+import { ArchiveCopyLink } from "@/components/archive-copy-link";
 import { trackEvent } from "@/lib/analytics";
 import { QuickFeedback } from "@/components/quick-feedback";
 import { isValueMomentClick, recordFromClick, type ValueRecord } from "@/lib/quick-feedback";
@@ -47,6 +49,7 @@ export const Route = createFileRoute("/rate-card")({
     Promise.all([
       context.queryClient.ensureQueryData(feeRecordsQuery),
       context.queryClient.ensureQueryData(statsQuery),
+      context.queryClient.ensureQueryData(archiveLinksQuery),
     ]),
   errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">
@@ -293,10 +296,13 @@ function MobileFeeCard({ r }: { r: FeeRecord }) {
             <p>Effective: {effectiveDateLabel(r.effective_date)}</p>
           </div>
         </details>}
-        <a href={r.source_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
-          onClick={() => { trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); }}>
-          {d?.legacy_source ? "Legacy reference" : "Official source"}: {r.source_title} <ExternalLink className="h-3 w-3" />
-        </a>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <a href={r.source_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+            onClick={() => { trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); }}>
+            {d?.legacy_source ? "Legacy reference" : "Official source"}: {r.source_title} <ExternalLink className="h-3 w-3" />
+          </a>
+          <ArchiveCopyLink url={r.source_url} />
+        </div>
         <div><ReviewStatus status={r.verification_status} lastVerified={r.last_verified} /></div>
       </CardContent>
     </Card>

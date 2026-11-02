@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button";
 import { getPolicyChanges, type PolicyChange } from "@/lib/fees.functions";
 import { policyDateLabel, policyEvidenceSchema } from "@/lib/policy-evidence";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
+import { archiveLinksQuery } from "@/lib/archive-links";
+import { ArchiveCopyLink } from "@/components/archive-copy-link";
 
 const policyChangesQuery = queryOptions({
   queryKey: ["policy-changes"],
@@ -31,7 +33,10 @@ export const Route = createFileRoute("/policy-changes")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(policyChangesQuery),
+  loader: ({ context }) => Promise.all([
+    context.queryClient.ensureQueryData(policyChangesQuery),
+    context.queryClient.ensureQueryData(archiveLinksQuery),
+  ]),
   errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">
       Couldn't load policy changes: {error.message}
@@ -223,7 +228,10 @@ function PolicyCard({ c }: { c: PolicyChange }) {
               <p className="mt-3 text-xs text-muted-foreground">Review dates are evidence checks, not historical effective dates.</p>
               {evidence.references.map((reference, index) => (
                 <div key={`${reference.url}-${index}`} className="mt-3 space-y-2">
-                  {evidence.references.findIndex(r => r.url === reference.url) === index && <a href={reference.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>}
+                  {evidence.references.findIndex(r => r.url === reference.url) === index && <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <a href={reference.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>
+                    <ArchiveCopyLink url={reference.url} />
+                  </span>}
                   <p className="text-xs text-muted-foreground">{reference.evidence_type} · {reference.heading}</p>
                   <blockquote className="border-l-2 border-border pl-3 text-muted-foreground">{reference.quote}</blockquote>
                   <p className="text-xs text-muted-foreground">This quote supports: {reference.supported_fields.join(", ")}</p>
@@ -239,14 +247,17 @@ function PolicyCard({ c }: { c: PolicyChange }) {
             </span>{" "}
             {c.source_title}
           </span>
-          {!evidence?.references.some(r => r.url === c.source_url) && <a
-            href={c.source_url}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
-          >
-            Source <ExternalLink className="h-3 w-3" />
-          </a>}
+          {!evidence?.references.some(r => r.url === c.source_url) && <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
+            <a
+              href={c.source_url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+            >
+              Source <ExternalLink className="h-3 w-3" />
+            </a>
+            <ArchiveCopyLink url={c.source_url} />
+          </span>}
         </div>
       </CardContent>
     </Card>

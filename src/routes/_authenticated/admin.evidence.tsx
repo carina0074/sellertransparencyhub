@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { AdminNav } from "@/components/layout/AdminNav";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
@@ -162,11 +163,8 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="text-2xl font-semibold">Evidence &amp; alerts</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Private. Nothing here changes public records. ·{" "}
-        <Link to="/admin/feedback" className="text-primary hover:underline">Feedback</Link> ·{" "}
-        <Link to="/admin/subscribers" className="text-primary hover:underline">Subscribers</Link>
-      </p>
+      <p className="mt-1 text-sm text-muted-foreground">Private. Nothing here changes public records.</p>
+      <div className="mt-2"><AdminNav /></div>
       <div className="mt-8 space-y-10">{children}</div>
     </div>
   );

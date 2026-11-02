@@ -15,6 +15,8 @@ import {
 import { getFeeChanges, formatFeeValue } from "@/lib/fees.functions";
 import { historicalChangeLabel, historicalEffectiveDate, historicalEvidenceSchema } from "@/lib/historical-fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
+import { archiveLinksQuery } from "@/lib/archive-links";
+import { ArchiveCopyLink } from "@/components/archive-copy-link";
 
 const feeChangesQuery = queryOptions({
   queryKey: ["fee-changes"],
@@ -33,7 +35,10 @@ export const Route = createFileRoute("/fees")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(feeChangesQuery),
+  loader: ({ context }) => Promise.all([
+    context.queryClient.ensureQueryData(feeChangesQuery),
+    context.queryClient.ensureQueryData(archiveLinksQuery),
+  ]),
   errorComponent: ({ error }: { error: any; reset: () => void }) => (
     <p className="mx-auto max-w-2xl p-12 text-center text-sm text-destructive" role="alert">
       Couldn't load the change feed: {error.message}
@@ -141,7 +146,10 @@ function FeesPage() {
                       <p><strong>Scope:</strong> {evidence.scope}</p>
                       {evidence.conditions.map((condition) => <p key={condition}>{condition}</p>)}
                       {evidence.references.map((reference) => <div key={reference.url}>
-                        <a href={reference.url} target="_blank" rel="noreferrer" className="text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>
+                        <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
+                          <a href={reference.url} target="_blank" rel="noreferrer" className="text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>
+                          <ArchiveCopyLink url={reference.url} />
+                        </span>
                         <blockquote className="mt-1 border-l-2 border-border pl-2">{reference.quote}</blockquote>
                       </div>)}
                       <p>Evidence reviewed {formatVerificationDate(evidence.reviewed_on)}; review date is not an effective date.</p>
@@ -149,12 +157,15 @@ function FeesPage() {
                     </div>
                   </details>}
                   <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3 text-xs">
-                    <a
-                      href={c.source_url} target="_blank" rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-primary hover:underline"
-                    >
-                      {c.source_title} <ExternalLink className="h-3 w-3" />
-                    </a>
+                    <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <a
+                        href={c.source_url} target="_blank" rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-primary hover:underline"
+                      >
+                        {c.source_title} <ExternalLink className="h-3 w-3" />
+                      </a>
+                      <ArchiveCopyLink url={c.source_url} />
+                    </span>
                     <span className="font-medium text-foreground tabular-nums">
                       {historicalChangeLabel(c.old_value, c.new_value) === "New fee" ? "New fee" : `${historicalChangeLabel(c.old_value, c.new_value)} change`}
                     </span>
