@@ -14,3 +14,14 @@ describe("policy historical evidence integrity", () => {
     expect(policyEvidenceSchema.safeParse({ status: "verified_policy_event", reviewed_on: "2026-10-29", scope: "UK private sellers", conditions: [], impact: "Managed shipping requirement", references: [] }).success).toBe(false);
   });
 });
+import { policyDateLabel as label } from "./policy-evidence";
+describe("policy badge date label", () => {
+  const exact = { effective_date: "2025-04-15", effective_date_precision: "exact", effective_period: null };
+  it("says Announced start when evidence marks an unconfirmed announced start", () => {
+    expect(label(exact, "announced_start")).toBe("Announced start Apr 15, 2025");
+  });
+  it("says Effective when the basis is confirmed or absent", () => {
+    expect(label(exact, "confirmed")).toBe("Effective Apr 15, 2025");
+    expect(label(exact)).toBe("Effective Apr 15, 2025");
+  });
+});

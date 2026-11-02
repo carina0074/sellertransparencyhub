@@ -4,13 +4,13 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { QuickFeedback } from "@/components/quick-feedback";
 import { isValueMomentClick, recordFromClick, type ValueRecord } from "@/lib/quick-feedback";
-import { ExternalLink, BookOpen, RefreshCw, Layers, Building2, Filter } from "lucide-react";
+import { ExternalLink, BookOpen, Layers, Building2, Filter } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getPolicyChanges, type PolicyChange } from "@/lib/fees.functions";
-import { policyEffectiveDate, policyEvidenceSchema } from "@/lib/policy-evidence";
+import { policyDateLabel, policyEvidenceSchema } from "@/lib/policy-evidence";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 
 const policyChangesQuery = queryOptions({
@@ -23,9 +23,10 @@ export const Route = createFileRoute("/policy-changes")({
       meta: [
       ...shareImageMeta,
         { title: "Marketplace Policy Archive — Documented Changes | Seller Transparency Hub" },
-      { name: "description", content: "A manually maintained, source-linked collection of documented marketplace policy changes with evidence, applicable scope and qualified historical dates." },
+      { name: "description", content: "Source-linked archive of documented marketplace policy changes, with evidence and date precision for each record." },
       { property: "og:title", content: "Marketplace Policy Archive" },
-      { property: "og:description", content: "Documented marketplace policy changes with first-party evidence, applicable scope and qualified historical dates." },
+      { property: "og:description", content: "Source-linked archive of documented marketplace policy changes, with evidence and date precision for each record." },
+      { name: "twitter:description", content: "Source-linked archive of documented marketplace policy changes, with evidence and date precision for each record." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -91,11 +92,10 @@ function PolicyChangesPage() {
         }
       />
       <section className="mx-auto max-w-7xl space-y-8 px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard icon={BookOpen} label="Unique source URLs" value={officialSources.toString()} />
-          <StatCard icon={Layers} label="Policy records archived" value={changes.length.toString()} />
+        <div className="grid gap-4 sm:grid-cols-3">
+          <StatCard icon={BookOpen} label={officialSources === 1 ? "Unique source URL" : "Unique source URLs"} value={officialSources.toString()} />
+          <StatCard icon={Layers} label={changes.length === 1 ? "Policy record archived" : "Policy records archived"} value={changes.length.toString()} />
           <StatCard icon={Building2} label="Marketplaces covered" value={(marketplaces.length - 1).toString()} />
-          <StatCard icon={RefreshCw} label="Maintenance" value="Manually maintained" />
         </div>
 
         <div className="flex flex-wrap items-center gap-3 rounded-xl border border-border bg-secondary/40 p-3">
@@ -185,7 +185,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
           <Badge variant="outline" className="rounded-full">{c.policy_area}</Badge>
           {evidence && <Badge variant="outline">{evidence.status === "verified_policy_event" ? "Evidence reviewed" : "Timing not established"}</Badge>}
           <span className="ml-auto tabular-nums text-muted-foreground">
-            {c.effective_date_precision === "unknown" ? policyEffectiveDate(c) : `Effective ${policyEffectiveDate(c)}`}
+            {policyDateLabel(c, evidence?.effective_date_basis)}
           </span>
         </div>
         <h2 className="text-base font-semibold leading-snug text-foreground sm:text-lg">
@@ -219,7 +219,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
                   {evidence.references.findIndex(r => r.url === reference.url) === index && <a href={reference.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>}
                   <p className="text-xs text-muted-foreground">{reference.evidence_type} · {reference.heading}</p>
                   <blockquote className="border-l-2 border-border pl-3 text-muted-foreground">{reference.quote}</blockquote>
-                  <p className="text-xs text-muted-foreground">Supports: {reference.supported_fields.join(", ")}</p>
+                  <p className="text-xs text-muted-foreground">This quote supports: {reference.supported_fields.join(", ")}</p>
                 </div>
               ))}
             </details>
