@@ -1,11 +1,16 @@
 import { shareImageMeta } from "@/lib/share-metadata";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Clock, BarChart3 } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/reports/annual-2026")({
+  // Hidden until the annual report exists; source retained.
+  beforeLoad: () => {
+    throw notFound();
+  },
+  notFoundComponent: () => <p className="p-12 text-center">Not found.</p>,
   head: () => ({
     meta: [
       ...shareImageMeta,

@@ -87,6 +87,11 @@ function Q2_2026_ReportPage() {
           <span className="rounded-full border border-border px-3 py-1">Quarterly</span>
         </div>
 
+        <p className="mb-6 rounded-md border-l-2 border-primary bg-muted/50 px-4 py-2 text-sm leading-relaxed text-muted-foreground">
+          <span className="font-medium text-foreground">Review note: </span>
+          This report was published in June 2026, before the end of its stated April–June 2026 period. It reflects information available at publication and was not updated afterward.
+        </p>
+
         <aside className="mb-10 space-y-2 rounded-lg border border-border bg-muted/40 p-5 text-sm leading-relaxed text-muted-foreground">
           <p className="font-semibold text-foreground">Editorial note</p>
           <p>
