@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] After publication, run one-time Wayback backfill for existing fee records, fee changes and policy events: deduplicate public source/reference URLs, reuse held captures, skip login-only Seller Central; store results only in private evidence captures without editing records or edit logs. Report successful, failed and skipped URL counts and every failure. Blocker: awaiting publication.
+- [x] After publication, run one-time Wayback backfill for existing fee records, fee changes and policy events: 22 distinct source/reference URLs, 8 successful captures, 3 failed attempts, 11 skipped (6 held captures, 5 login-only Seller Central). Stored 31 record-linked private evidence rows; browser read-back verified. All research rows identical before/after and fee edit log unchanged at 40. Failures: Walmart WFS timeout, eBay Store fees CAPTCHA, Etsy Fees & Payments HTTP 520.
 
 - [x] Apply next-batch Fee Database, calculator, score explanation, reports, Policy Archive and changelog-index presentation fixes; keep storage values and October entry unchanged pending review.
 - [x] Verify newsletter blocks, add domain-hosted share image metadata on public pages, and add shared plain-language export dictionary meanings.
