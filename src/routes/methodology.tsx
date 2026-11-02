@@ -76,7 +76,7 @@ function MethodologyPage() {
               <><span className="font-medium text-foreground">Policy events</span> (<Link to="/policy-changes" className={linkClass}>Policy Archive</Link>): selected marketplace policy developments supported by their own sources, scope and timing evidence.</>,
             ]}
           />
-          <p>Coverage currently spans Amazon, eBay, Walmart Marketplace, Etsy, and Shopify. All three collections are curated and non-exhaustive.</p>
+          <p>Coverage currently spans marketplaces and selling platforms: Amazon, eBay, Walmart Marketplace, Etsy, and Shopify. All three collections are curated and non-exhaustive.</p>
         </Section>
 
         <Card className="border-border">

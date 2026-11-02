@@ -2,7 +2,7 @@ import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { Search, TrendingUp, TrendingDown, ExternalLink } from "lucide-react";
+import { Search, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { QuickFeedback } from "@/components/quick-feedback";
 import { isValueMomentClick, recordFromClick, type ValueRecord } from "@/lib/quick-feedback";
@@ -108,7 +108,6 @@ function FeesPage() {
           {filtered.map((c) => {
             const parsedEvidence = historicalEvidenceSchema.safeParse(c.evidence_details);
             const evidence = parsedEvidence.success ? parsedEvidence.data : null;
-            const direction: "up" | "down" = c.new_value >= c.old_value ? "up" : "down";
             return (
               <Card key={c.id} data-record-id={c.id} data-record-type="fee_change" className="border-border transition-shadow hover:shadow-md">
                 <CardContent className="p-6">
@@ -124,7 +123,7 @@ function FeesPage() {
                       <h3 className="mt-2 text-base font-semibold text-foreground">{c.title}</h3>
                       <p className="mt-0.5 text-xs text-muted-foreground">{c.category}</p>
                     </div>
-                    <ImpactBadge level={c.impact_level} direction={direction} />
+                    {/* Impact badges hidden until a written impact rule exists in the Methodology. */}
                   </div>
                   <div className="mt-4 flex items-baseline gap-2 text-lg font-semibold tabular-nums">
                     <span className="text-muted-foreground line-through decoration-muted-foreground/40">
@@ -157,7 +156,7 @@ function FeesPage() {
                       {c.source_title} <ExternalLink className="h-3 w-3" />
                     </a>
                     <span className="font-medium text-foreground tabular-nums">
-                      {historicalChangeLabel(c.old_value, c.new_value)}
+                      {historicalChangeLabel(c.old_value, c.new_value) === "New fee" ? "New fee" : `${historicalChangeLabel(c.old_value, c.new_value)} change`}
                     </span>
                   </div>
                 </CardContent>
@@ -174,19 +173,5 @@ function FeesPage() {
 
       </section>
     </div>
-  );
-}
-
-function ImpactBadge({ level, direction }: { level: "low" | "medium" | "high"; direction: "up" | "down" }) {
-  const map = {
-    high: "bg-destructive/10 text-destructive",
-    medium: "bg-warning/15 text-warning-foreground",
-    low: "bg-success/10 text-success",
-  } as const;
-  const Icon = direction === "up" ? TrendingUp : TrendingDown;
-  return (
-    <span className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${map[level]}`}>
-      <Icon className="h-3.5 w-3.5" /> {level} impact
-    </span>
   );
 }

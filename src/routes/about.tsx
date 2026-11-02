@@ -74,7 +74,11 @@ function AboutPage() {
           ))}
         </div>
 
-          <div className="mt-12 text-sm text-muted-foreground">
+          <p className="mt-12 text-sm text-muted-foreground">
+            <span className="font-semibold text-foreground">Funding:</span> self-funded by its maintainer. No advertising, sponsorships or affiliate revenue.
+          </p>
+
+          <div className="mt-6 text-sm text-muted-foreground">
             <h3 className="text-base font-semibold text-foreground">Contact</h3>
             <p className="mt-2">
               Corrections, research questions and data requests:{" "}
