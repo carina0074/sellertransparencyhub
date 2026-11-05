@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { shareImageMeta } from "@/lib/share-metadata";
+import { disableAnalytics } from "@/lib/analytics";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
@@ -10,6 +11,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
+  useEffect(() => { disableAnalytics(); }, []);
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
