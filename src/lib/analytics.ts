@@ -19,6 +19,11 @@
  * - feedback_answered            — Yes/No tapped (params: answer: yes|no, resource_type)
  * - feedback_followup            — follow-up chosen (param: option — a fixed use option, or
  *   "missing_text_provided"; the free text itself is never sent)
+ * - source_clicked               — official source/reference link clicked on Fee Database, Fee Change Feed or
+ *   Policy Archive (params: dataset: fee_database|fee_change_feed|policy_archive, marketplace)
+ * - archived_copy_clicked        — "Archived copy" link opened (param: dataset)
+ * - newsletter_subscribed        — new email added (already-subscribed doesn't fire; no params)
+ * - dataset_page_viewed          — Fee Change Feed / Policy Archive page opened (param: dataset)
  * Legacy long-survey events (no longer rendered):
  * - feedback_prompt_answered       — usefulness button clicked (params: resource_type, response)
  * - feedback_started               — first interaction with the expanded feedback form (param: resource_type)
