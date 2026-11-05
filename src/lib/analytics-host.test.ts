@@ -1,4 +1,5 @@
-import { describe, it, expect } from "vitest";
+/// <reference types="bun" />
+import { describe, it, expect } from "bun:test";
 import { isProductionHost } from "./analytics";
 
 describe("GA4 production-only hosts", () => {
