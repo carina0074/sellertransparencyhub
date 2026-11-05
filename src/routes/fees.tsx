@@ -1,6 +1,7 @@
 import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { Search, ExternalLink } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -49,6 +50,7 @@ export const Route = createFileRoute("/fees")({
 });
 
 function FeesPage() {
+  useEffect(() => { trackEvent("dataset_page_viewed", { dataset: "fee_change_feed" }); }, []);
   const { data: changes } = useSuspenseQuery(feeChangesQuery);
 
   const marketplaces = useMemo(
@@ -147,7 +149,7 @@ function FeesPage() {
                       {evidence.conditions.map((condition) => <p key={condition}>{condition}</p>)}
                       {evidence.references.map((reference) => <div key={reference.url}>
                         <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
-                          <a href={reference.url} target="_blank" rel="noreferrer" className="text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>
+                          <a href={reference.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("source_clicked", { dataset: "fee_change_feed", marketplace: c.marketplace })} className="text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>
                           <ArchiveCopyLink url={reference.url} />
                         </span>
                         <blockquote className="mt-1 border-l-2 border-border pl-2">{reference.quote}</blockquote>
@@ -160,6 +162,7 @@ function FeesPage() {
                     <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
                       <a
                         href={c.source_url} target="_blank" rel="noreferrer"
+                        onClick={() => trackEvent("source_clicked", { dataset: "fee_change_feed", marketplace: c.marketplace })}
                         className="inline-flex items-center gap-1 text-primary hover:underline"
                       >
                         {c.source_title} <ExternalLink className="h-3 w-3" />

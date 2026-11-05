@@ -1,3 +1,4 @@
+import { trackEvent } from "@/lib/analytics";
 import { Link } from "@tanstack/react-router";
 import { LineChart, Mail, ArrowRight, Check } from "lucide-react";
 import { useState } from "react";
@@ -35,6 +36,7 @@ function NewsletterSignup() {
     } else {
       setStatus("success");
       setMessage("Thanks for subscribing!");
+      trackEvent("newsletter_subscribed");
     }
   }
 

@@ -202,13 +202,13 @@ function RateCardPage() {
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
-                          onClick={() => { trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); }}
+                          onClick={() => { trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); trackEvent("source_clicked", { dataset: "fee_database", marketplace: r.marketplace }); }}
                         >
                           <Badge variant="outline" className="rounded-full text-[10px] font-normal">{presentation.details?.legacy_source ? "Legacy reference" : "Official source"}</Badge>
                           {r.source_title} <ExternalLink className="h-3 w-3" />
                         </a>
                         {presentation.details && <div className="mt-2 space-y-2 whitespace-normal text-xs">
-                          {presentation.details.references.map((reference) => <a key={reference.url} href={reference.url} target="_blank" rel="noreferrer" className="block text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>)}
+                          {presentation.details.references.map((reference) => <a key={reference.url} href={reference.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("source_clicked", { dataset: "fee_database", marketplace: r.marketplace })} className="block text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>)}
                         </div>}
                       </TableCell>
                     </TableRow>
@@ -298,7 +298,7 @@ function MobileFeeCard({ r }: { r: FeeRecord }) {
         </details>}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <a href={r.source_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
-            onClick={() => { trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); }}>
+            onClick={() => { trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); trackEvent("source_clicked", { dataset: "fee_database", marketplace: r.marketplace }); }}>
             {d?.legacy_source ? "Legacy reference" : "Official source"}: {r.source_title} <ExternalLink className="h-3 w-3" />
           </a>
           <ArchiveCopyLink url={r.source_url} />

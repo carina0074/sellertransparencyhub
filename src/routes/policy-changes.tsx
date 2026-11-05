@@ -1,7 +1,8 @@
 import { shareImageMeta } from "@/lib/share-metadata";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { QuickFeedback } from "@/components/quick-feedback";
 import { isValueMomentClick, recordFromClick, type ValueRecord } from "@/lib/quick-feedback";
 import { ExternalLink, BookOpen, Layers, Building2, Filter } from "lucide-react";
@@ -49,6 +50,7 @@ export const Route = createFileRoute("/policy-changes")({
 const ALL = "All";
 
 function PolicyChangesPage() {
+  useEffect(() => { trackEvent("dataset_page_viewed", { dataset: "policy_archive" }); }, []);
   const { data: changes } = useSuspenseQuery(policyChangesQuery);
   const [marketplace, setMarketplace] = useState<string>(ALL);
   const [area, setArea] = useState<string>(ALL);
@@ -229,7 +231,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
               {evidence.references.map((reference, index) => (
                 <div key={`${reference.url}-${index}`} className="mt-3 space-y-2">
                   {evidence.references.findIndex(r => r.url === reference.url) === index && <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
-                    <a href={reference.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>
+                    <a href={reference.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("source_clicked", { dataset: "policy_archive", marketplace: c.marketplace })} className="inline-flex items-center gap-1 text-primary hover:underline">{reference.title}<ExternalLink className="h-3 w-3 shrink-0" /></a>
                     <ArchiveCopyLink url={reference.url} />
                   </span>}
                   <p className="text-xs text-muted-foreground">{reference.evidence_type} · {reference.heading}</p>
@@ -251,6 +253,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
             <a
               href={c.source_url}
               target="_blank"
+              onClick={() => trackEvent("source_clicked", { dataset: "policy_archive", marketplace: c.marketplace })}
               rel="noreferrer"
               className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
             >
