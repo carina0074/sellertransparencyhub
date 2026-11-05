@@ -29,6 +29,30 @@ export function trackEvent(
   params?: Record<string, string | number | boolean>,
 ): void {
   if (typeof window === "undefined") return;
+  if (!analyticsAllowed()) return;
   const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
   if (typeof gtag === "function") gtag("event", name, params);
+}
+
+const GA_ID = "G-Z45Q4LF9HX";
+export const PRODUCTION_HOSTS = ["sellertransparency.com", "www.sellertransparency.com"];
+
+export function isProductionHost(hostname: string): boolean {
+  return PRODUCTION_HOSTS.includes(hostname.toLowerCase());
+}
+
+/** False on non-production hosts, automated browsers, or once a session signs in. */
+export function analyticsAllowed(): boolean {
+  if (typeof window === "undefined") return false;
+  const w = window as unknown as Record<string, unknown>;
+  if (w[`ga-disable-${GA_ID}`]) return false;
+  if (!isProductionHost(window.location.hostname)) return false;
+  if (navigator.webdriver) return false;
+  return true;
+}
+
+/** Called when an auth session appears: stops GA4 for the rest of the page life. */
+export function disableAnalytics(): void {
+  if (typeof window === "undefined") return;
+  (window as unknown as Record<string, unknown>)[`ga-disable-${GA_ID}`] = true;
 }
