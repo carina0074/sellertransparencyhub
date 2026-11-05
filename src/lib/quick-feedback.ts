@@ -2,8 +2,10 @@
 
 export const QUICK_FEEDBACK_KEY_PREFIX = "quick-feedback-shown:";
 
-/** Survey link shown under the thank-you message. Empty = hidden until a URL is provided. */
-export const RESEARCH_SURVEY_URL = "";
+/** Survey link shown under the thank-you message. Empty = hidden until a URL is provided.
+ * Public response link (the /edit address only opens for the form's owner). */
+export const RESEARCH_SURVEY_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLScHJxNsNNNlnDV2zfMQh2B8t9PZixMWS-0W9F6A26ckeOrMAw/viewform";
 
 type SessionStore = Pick<Storage, "getItem" | "setItem">;
 

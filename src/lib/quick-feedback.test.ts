@@ -30,8 +30,13 @@ describe("quick feedback", () => {
     expect(quickAnswerSchema.safeParse({ id, resourceType: "calculator", resourcePath: "/calculator", answer: "maybe" }).success).toBe(false);
     expect(QUICK_TO_USEFULNESS.no).toBe("not_really");
   });
-  it("keeps the survey link hidden until a URL is provided", () => {
-    expect(RESEARCH_SURVEY_URL).toBe("");
+  it("shows only a publicly openable survey link under the thank-you", () => {
+    expect(RESEARCH_SURVEY_URL).toBe(
+      "https://docs.google.com/forms/d/e/1FAIpQLScHJxNsNNNlnDV2zfMQh2B8t9PZixMWS-0W9F6A26ckeOrMAw/viewform",
+    );
+    // The /edit address sends visitors to a Google sign-in / request-access page instead of the form.
+    expect(RESEARCH_SURVEY_URL).not.toContain("/edit");
+    expect(RESEARCH_SURVEY_URL.startsWith("https://docs.google.com/forms/d/e/")).toBe(true);
   });
 });
 
