@@ -103,16 +103,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     scripts: [
       {
-        src: "https://www.googletagmanager.com/gtag/js?id=G-Z45Q4LF9HX",
-        async: true,
-      },
-      {
         type: "text/javascript",
+        // GA4 loads only on production hostnames, never for automated browsers
+        // or signed-in (admin) sessions. See src/lib/analytics.ts.
         children: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-Z45Q4LF9HX');
+          (function(){
+            var id='G-Z45Q4LF9HX';
+            var h=location.hostname.toLowerCase();
+            var prod=h==='sellertransparency.com'||h==='www.sellertransparency.com';
+            var signedIn=false;
+            try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i)||'';if(/^sb-.*-auth-token$/.test(k)&&localStorage.getItem(k)){signedIn=true;break;}}}catch(e){}
+            if(!prod||navigator.webdriver||signedIn){window['ga-disable-'+id]=true;return;}
+            window.dataLayer=window.dataLayer||[];
+            window.gtag=function(){dataLayer.push(arguments);};
+            gtag('js',new Date());
+            gtag('config',id);
+            var s=document.createElement('script');s.async=true;
+            s.src='https://www.googletagmanager.com/gtag/js?id='+id;
+            document.head.appendChild(s);
+          })();
         `,
       },
     ],
