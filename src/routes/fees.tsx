@@ -145,7 +145,7 @@ function FeesPage() {
                     <div className="mt-2 space-y-2">
                       <p><strong>Scope:</strong> {evidence.scope}</p>
                       {evidence.conditions.map((condition) => <p key={condition}>{condition}</p>)}
-                      {evidence.references.map((reference) => <div key={reference.url}>
+                      {evidence.references.map((reference, index) => <div key={`${reference.url}-${index}`}>
                         <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
                           <a href={reference.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("source_clicked", { dataset: "fee_change_feed", marketplace: c.marketplace })} className="text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>
                           <ArchiveCopyLink url={reference.url} />
