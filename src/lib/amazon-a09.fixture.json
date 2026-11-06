@@ -1,0 +1,44 @@
+{
+  "id": "a09f2026-0115-4000-8000-000000000009",
+  "record_id": null,
+  "marketplace": "Amazon",
+  "region": "US",
+  "title": "FBA fulfillment fee increase, 2026",
+  "fee_type": "FBA fulfillment",
+  "category": "FBA fulfillment — size tier, weight and price dependent",
+  "old_value": null,
+  "new_value": null,
+  "change_amount": null,
+  "value_type": "usd_per_unit",
+  "change_details": { "kind": "announced_average_change", "direction": "increase", "amount_minor": 8, "currency": "USD", "basis": "announced_average" },
+  "announcement_date": "2025-10-15",
+  "effective_date": "2026-01-15",
+  "effective_date_precision": "exact",
+  "effective_period": null,
+  "impact_level": null,
+  "source_url": "https://sellingpartners.aboutamazon.com/update-to-u-s-referral-and-fulfillment-by-amazon-fees-for-2026",
+  "source_title": "Update to U.S. Referral and Fulfillment by Amazon fees for 2026",
+  "summary": "FBA fulfillment fees increase by an announced average of $0.08 per unit sold, less than 0.5% of an average item's selling price. Actual change varies by size tier, weight and price; no per-tier old/new values are recorded.",
+  "evidence_details": {
+    "status": "verified_historical_event",
+    "reviewer": "maintainer",
+    "reviewed_on": "2026-11-05",
+    "scope": "U.S. FBA fulfillment fees",
+    "conditions": ["Announced average, not a universal rate; actual change varies by size tier, weight and price.", "No per-tier old/new values are recorded.", "Unless otherwise noted, changes take effect January 15, 2026."],
+    "linkage_reason": "No current-record link; an announced average does not establish a per-tier current rate.",
+    "references": [
+      {
+        "title": "2026 FBA fee increase — announced average",
+        "url": "https://sellingpartners.aboutamazon.com/update-to-u-s-referral-and-fulfillment-by-amazon-fees-for-2026",
+        "evidence_type": "official marketplace announcement",
+        "quote": "In 2026, FBA fees will increase by an average of $0.08 per unit sold, or less than 0.5% of an average item's selling price. This is on top of no increase in US Referral and FBA fees in 2025."
+      },
+      {
+        "title": "2026 FBA changes — effective date",
+        "url": "https://sellingpartners.aboutamazon.com/update-to-u-s-referral-and-fulfillment-by-amazon-fees-for-2026",
+        "evidence_type": "official marketplace announcement",
+        "quote": "Unless otherwise noted, all changes will be effective January 15, 2026."
+      }
+    ]
+  }
+}
