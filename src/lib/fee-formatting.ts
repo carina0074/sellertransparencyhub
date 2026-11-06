@@ -16,6 +16,8 @@ const common = {
 const tier = z.object({
   label: z.string(), rate: fraction.optional(), amount_minor: minor.optional(),
   upper_minor: minor.nullable().optional(), effective_date: z.string().optional(),
+  listing_format: z.enum(["auction", "fixed_price"]).optional(),
+  category_scope: z.enum(["standard", "real_estate"]).optional(),
 });
 export const pricingDetailsSchema = z.discriminatedUnion("kind", [
   z.object({ ...common, kind: z.literal("simple") }),
@@ -86,6 +88,19 @@ export function evaluatePercentageTiers(details: Extract<PricingDetails, { kind:
 
 export function tierAmount(t: z.infer<typeof tier>, unit: string): string {
   return t.rate !== undefined ? formatFeeValue(t.rate, "percent") : t.amount_minor !== undefined ? `${formatFeeValue(t.amount_minor / 100, "usd")} ${unit}` : "Not established";
+}
+// Listing format and Real Estate exceptions select independent whole-price bands.
+export function evaluateFlatListingTiers(details: Extract<PricingDetails, { kind: "tiered" }>, priceMinor: number, listingFormat: "auction" | "fixed_price", categoryScope: "standard" | "real_estate"): number | null {
+  if (details.mode !== "threshold" || !Number.isInteger(priceMinor) || priceMinor < 0) return null;
+  const tiers = details.tiers.filter(t => t.listing_format === listingFormat && t.category_scope === categoryScope);
+  let previousUpper = -1;
+  for (const t of tiers) {
+    const upper = t.upper_minor ?? Infinity;
+    if (t.amount_minor === undefined || t.rate !== undefined || upper <= previousUpper) return null;
+    if (priceMinor <= upper) return t.amount_minor;
+    previousUpper = upper;
+  }
+  return null;
 }
 type DisplayRecord = { marketplace: string; fee_name: string; value: number; value_type: string; pricing_details?: unknown; verification_status?: string };
 export function presentFee(record: DisplayRecord): { value: string; details: PricingDetails | null } {

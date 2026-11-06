@@ -2,3 +2,4 @@
 - Original fee introduction dates link to historical events separately from current-rate timing and legacy current-value evidence, preventing new historical evidence from implying current-value verification.
 - Optional public corroborating URLs enqueue separate private captures when supplied; they never replace primary current-value evidence. Archive dates come from Wayback capture timestamps, not record review dates.
 - Private maintainer evidence notes belong only to admin-readable evidence_captures; public records, APIs and archive projections never include them.
+- Optional flat listing-upgrade threshold tiers select listing format and category scope independently, so Real Estate exceptions and auction/fixed-price bands cannot be evaluated together.
