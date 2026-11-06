@@ -1,0 +1,159 @@
+[
+  {
+    "id": "e18355c9-c294-42cf-8dee-bd71b5653225",
+    "marketplace": "Amazon",
+    "region": "US",
+    "source_url": "https://sellingpartners.aboutamazon.com/Update%20to%20US%20referral%20and%20Fulfillment%20by%20Amazon%20fees",
+    "source_title": "Update to US referral and Fulfillment by Amazon fees",
+    "announcement_date": "2023-12-05",
+    "effective_date_precision": "exact",
+    "effective_period": null,
+    "impact_level": null,
+    "old_value": null,
+    "new_value": null,
+    "change_amount": null,
+    "value_type": "percent",
+    "evidence_details": {
+      "status": "verified_historical_event",
+      "reviewer": "maintainer",
+      "reviewed_on": "2026-11-01",
+      "references": [
+        {
+          "title": "Update to US referral and Fulfillment by Amazon fees",
+          "url": "https://sellingpartners.aboutamazon.com/Update%20to%20US%20referral%20and%20Fulfillment%20by%20Amazon%20fees",
+          "quote": "We will reduce referral fees for apparel products priced below $20. For items priced under $15, we will decrease referral fees from 17% to 5%. For products priced between $15 and $20, we will decrease referral fees from 17% to 10%. Other referral fees will remain unchanged. These reduced fees will apply starting January 15, 2024.",
+          "evidence_type": "official marketplace announcement"
+        }
+      ],
+      "scope": "U.S. apparel products priced below $20",
+      "conditions": [
+        "Exact historical announcement wording: under $15 and between $15 and $20. Do not substitute current schedule boundaries.",
+        "Other referral fees unchanged."
+      ],
+      "linkage_reason": "Same Amazon Clothing and Accessories referral fee concept; current value and current schedule boundaries are unchanged."
+    },
+    "title": "Apparel referral fee reduction for items under $20",
+    "fee_type": "Referral",
+    "category": "Clothing & Accessories \u2014 apparel priced below $20",
+    "effective_date": "2024-01-15",
+    "record_id": "ad6481c1-e887-41ac-8241-d4464504c8d0",
+    "summary": "Under $15: 17% \u2192 5%. $15\u2013$20: 17% \u2192 10%. Other referral fees unchanged.",
+    "change_details": {
+      "kind": "tiered_rate_change",
+      "tiers": [
+        {
+          "label": "Under $15",
+          "old_rate": 0.17,
+          "new_rate": 0.05
+        },
+        {
+          "label": "$15\u2013$20",
+          "old_rate": 0.17,
+          "new_rate": 0.1
+        }
+      ]
+    }
+  },
+  {
+    "id": "e9d63638-3136-49a2-a1e6-17c221718cb5",
+    "marketplace": "Amazon",
+    "region": "US",
+    "source_url": "https://sellingpartners.aboutamazon.com/Update%20to%20US%20referral%20and%20Fulfillment%20by%20Amazon%20fees",
+    "source_title": "Update to US referral and Fulfillment by Amazon fees",
+    "announcement_date": "2023-12-05",
+    "effective_date_precision": "exact",
+    "effective_period": null,
+    "impact_level": null,
+    "old_value": null,
+    "new_value": null,
+    "change_amount": null,
+    "value_type": "usd_per_unit",
+    "evidence_details": {
+      "status": "verified_historical_event",
+      "reviewer": "maintainer",
+      "reviewed_on": "2026-11-04",
+      "references": [
+        {
+          "title": "Update to US referral and Fulfillment by Amazon fees",
+          "url": "https://sellingpartners.aboutamazon.com/Update%20to%20US%20referral%20and%20Fulfillment%20by%20Amazon%20fees",
+          "quote": "We will introduce an inbound placement service fee for standard and Large Bulky-sized products to reflect our cost of distributing inventory to fulfillment centers close to customers. These fees will average $0.27 per unit for standard-sized products and $1.58 per unit for Large Bulky-sized products. We will give you the option to pay reduced fees or even no fee based upon whether you send your shipment to a single location or multiple locations. These fees will be effective starting March 1, 2024, and the fees will be charged 45 days after products are received.",
+          "evidence_type": "official marketplace announcement"
+        }
+      ],
+      "scope": "U.S. FBA standard and Large Bulky-sized products",
+      "conditions": [
+        "Announced averages, not universal rates: about $0.27/unit for standard size and $1.58/unit for Large Bulky.",
+        "Lower or no fee if shipments go to multiple locations.",
+        "Charged 45 days after products are received."
+      ],
+      "linkage_reason": "No existing current-record link; no prior value for this fee introduction."
+    },
+    "title": "NEW fee: FBA inbound placement service fee",
+    "fee_type": "Inbound placement",
+    "category": "Standard and Large Bulky-sized products",
+    "effective_date": "2024-03-01",
+    "record_id": null,
+    "summary": "Some third-party sources give Apr 15, 2024. Amazon's announcement states March 1, 2024.",
+    "change_details": {
+      "kind": "new_fee",
+      "amounts": [
+        {
+          "label": "Standard size",
+          "amount_minor": 27,
+          "currency": "USD",
+          "basis": "announced_average"
+        },
+        {
+          "label": "Large Bulky",
+          "amount_minor": 158,
+          "currency": "USD",
+          "basis": "announced_average"
+        }
+      ]
+    }
+  },
+  {
+    "id": "d90a1c70-15e5-4e60-9b64-7ea84ad5b0ee",
+    "marketplace": "Amazon",
+    "region": "US",
+    "source_url": "https://sellingpartners.aboutamazon.com/Update%20to%20US%20referral%20and%20Fulfillment%20by%20Amazon%20fees",
+    "source_title": "Update to US referral and Fulfillment by Amazon fees",
+    "announcement_date": "2023-12-05",
+    "effective_date_precision": "exact",
+    "effective_period": null,
+    "impact_level": null,
+    "old_value": null,
+    "new_value": null,
+    "change_amount": null,
+    "value_type": "usd_per_unit",
+    "evidence_details": {
+      "status": "verified_historical_event",
+      "reviewer": "maintainer",
+      "reviewed_on": "2026-11-04",
+      "references": [
+        {
+          "title": "Update to US referral and Fulfillment by Amazon fees",
+          "url": "https://sellingpartners.aboutamazon.com/Update%20to%20US%20referral%20and%20Fulfillment%20by%20Amazon%20fees",
+          "quote": "We will introduce a low-inventory-level fee for standard-sized products. The fee applies if you carry consistently low levels of inventory relative to unit sales, as this inhibits our ability to distribute products across our network, degrading delivery speeds and increasing our shipping costs. Sellers can avoid this fee by maintaining more than four weeks of inventory relative to sales. These fees will apply starting April 1, 2024.",
+          "evidence_type": "official marketplace announcement"
+        }
+      ],
+      "scope": "U.S. FBA standard-sized products at introduction",
+      "conditions": [
+        "Applies when inventory is consistently low relative to unit sales.",
+        "Avoided by keeping more than four weeks of inventory relative to sales.",
+        "No fee amount is stated in this announcement; current rates are separate."
+      ],
+      "linkage_reason": "Same low-inventory-level fee concept as current record. Original standard-size introduction is distinct from current eligibility and Jan 15, 2026 current-rate timing."
+    },
+    "title": "NEW fee: FBA low-inventory-level fee (standard size)",
+    "fee_type": "Low Inventory",
+    "category": "Standard-sized products",
+    "effective_date": "2024-04-01",
+    "record_id": "8df97652-1d8d-4d26-865f-d977a701484e",
+    "summary": "Some third-party sources give Apr 15, 2024. Amazon's announcement states April 1, 2024.",
+    "change_details": {
+      "kind": "new_fee"
+    }
+  }
+]

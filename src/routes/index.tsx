@@ -8,7 +8,7 @@ import {
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getDatabaseStats, getFeeRecords, getFeeChanges, formatFeeValue } from "@/lib/fees.functions";
 import type { FeeChange } from "@/lib/fees.functions";
-import { historicalEffectiveDate, latestDocumentedChange } from "@/lib/historical-fee-formatting";
+import { historicalEffectiveDate, latestDocumentedChange, historicalPresentation } from "@/lib/historical-fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { presentFee } from "@/lib/fee-formatting";
 import type { FeeRecord } from "@/lib/fees.functions";
@@ -155,11 +155,7 @@ function LatestChangeCard({ change }: { change: FeeChange }) {
         <p className="mt-3 text-sm font-medium text-foreground">{change.marketplace}</p>
         <h2 className="text-lg font-semibold tracking-tight text-foreground">{titleWithoutMarketplace(change.title, change.marketplace)}</h2>
         <div className="mt-4 flex items-baseline gap-2 text-2xl font-semibold tabular-nums">
-          <span className="text-muted-foreground line-through decoration-muted-foreground/60">
-            {change.old_value === 0 ? "—" : formatFeeValue(change.old_value, change.value_type)}
-          </span>
-          <ArrowRight className="h-4 w-4 self-center text-muted-foreground" aria-label="to" />
-          <span className="text-foreground">{formatFeeValue(change.new_value, change.value_type)}</span>
+          <div className="space-y-1 text-lg">{historicalPresentation(change).lines.map(line => <p key={line}>{line}</p>)}</div>
         </div>
         <p className="mt-2 text-sm text-muted-foreground">Effective {historicalEffectiveDate(change)}</p>
         <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">

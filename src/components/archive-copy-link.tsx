@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Archive } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { archiveFor, archiveLinksQuery } from "@/lib/archive-links";
@@ -15,7 +15,7 @@ export function ArchiveCopyLink({
   url: string | null | undefined;
   className?: string;
 }) {
-  const { data } = useQuery(archiveLinksQuery);
+  const { data } = useSuspenseQuery(archiveLinksQuery);
   const archive = archiveFor(data, url);
   if (!archive) return null;
 

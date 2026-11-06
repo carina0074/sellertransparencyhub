@@ -14,7 +14,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import { getFeeChanges, formatFeeValue } from "@/lib/fees.functions";
-import { historicalChangeLabel, historicalEffectiveDate, historicalEvidenceSchema } from "@/lib/historical-fee-formatting";
+import { historicalPresentation, historicalEffectiveDate, historicalEvidenceSchema } from "@/lib/historical-fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { archiveLinksQuery } from "@/lib/archive-links";
 import { ArchiveCopyLink } from "@/components/archive-copy-link";
@@ -115,6 +115,7 @@ function FeesPage() {
           {filtered.map((c) => {
             const parsedEvidence = historicalEvidenceSchema.safeParse(c.evidence_details);
             const evidence = parsedEvidence.success ? parsedEvidence.data : null;
+            const presentation = historicalPresentation(c);
             return (
               <Card key={c.id} data-record-id={c.id} data-record-type="fee_change" className="border-border transition-shadow hover:shadow-md">
                 <CardContent className="p-6">
@@ -132,12 +133,8 @@ function FeesPage() {
                     </div>
                     {/* Impact badges hidden until a written impact rule exists in the Methodology. */}
                   </div>
-                  <div className="mt-4 flex items-baseline gap-2 text-lg font-semibold tabular-nums">
-                    <span className="text-muted-foreground line-through decoration-muted-foreground/40">
-                      {c.old_value === 0 ? "—" : formatFeeValue(c.old_value, c.value_type)}
-                    </span>
-                    <span className="text-muted-foreground">→</span>
-                    <span className="text-foreground">{formatFeeValue(c.new_value, c.value_type)}</span>
+                  <div className="mt-4 space-y-1 text-base font-semibold tabular-nums">
+                    {presentation.lines.map(line => <p key={line}>{line}</p>)}
                   </div>
                   {c.summary && (
                     <p className="mt-3 text-sm text-muted-foreground">{c.summary}</p>
@@ -155,6 +152,7 @@ function FeesPage() {
                         <blockquote className="mt-1 border-l-2 border-border pl-2">{reference.quote}</blockquote>
                       </div>)}
                       <p>Evidence reviewed {formatVerificationDate(evidence.reviewed_on)}; review date is not an effective date.</p>
+                      {evidence.reviewer && <p>Reviewer: {evidence.reviewer}</p>}
                       <p>{c.record_id ? "Linked to the same current fee concept." : "No current-record link."} {evidence.linkage_reason}</p>
                     </div>
                   </details>}
@@ -170,7 +168,7 @@ function FeesPage() {
                       <ArchiveCopyLink url={c.source_url} />
                     </span>
                     <span className="font-medium text-foreground tabular-nums">
-                      {historicalChangeLabel(c.old_value, c.new_value) === "New fee" ? "New fee" : `${historicalChangeLabel(c.old_value, c.new_value)} change`}
+                      {presentation.label.includes("%") ? `${presentation.label} change` : presentation.label}
                     </span>
                   </div>
                 </CardContent>

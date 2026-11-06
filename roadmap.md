@@ -1,8 +1,8 @@
 # Roadmap
 
-- [ ] Import three approved Amazon US historical events with exact quotes, independent pricing structures and capture-on-save; preserve current values.
-- [ ] Show low-inventory original start separately from current-rate timing; verify six-event count and homepage ordering.
-- [ ] Run tests, verify preview/API and provide before/after diff without publishing.
+- [x] Import three approved Amazon US historical events with exact quotes, independent pricing structures and capture-on-save; preserve current values.
+- [x] Show low-inventory original start separately from current-rate timing; verify six-event count and homepage ordering.
+- [x] Run tests, verify preview/API and provide before/after diff without publishing; two capture requests succeeded, apparel request timed out but shares the same successfully archived source URL.
 
 - [x] After publication, run one-time Wayback backfill for existing fee records, fee changes and policy events: 22 distinct source/reference URLs, 8 successful captures, 3 failed attempts, 11 skipped (6 held captures, 5 login-only Seller Central). Stored 31 record-linked private evidence rows; browser read-back verified. All research rows identical before/after and fee edit log unchanged at 40. Failures: Walmart WFS timeout, eBay Store fees CAPTCHA, Etsy Fees & Payments HTTP 520.
 
