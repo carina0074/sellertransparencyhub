@@ -8,6 +8,8 @@ export const policyEvidenceSchema = z.object({
   status: z.enum(["verified_policy_event", "effective_date_not_proven"]),
   /** "announced_start" = the date is an announced start the evidence does not confirm as enforced. */
   effective_date_basis: z.enum(["announced_start", "confirmed"]).optional(),
+  change_type: z.literal("fee_rule_change").optional(),
+  reviewer: z.string().optional(),
   reviewed_on: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   scope: z.string().min(1),
   conditions: z.array(z.string()),

@@ -13,8 +13,9 @@ import {
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { getFeeRecords, getFeeChanges, getDatabaseStats, type FeeRecord, type FeeChange } from "@/lib/fees.functions";
-import { currentFeeTiming, sortFeeEvents } from "@/lib/fee-presentation";
+import { getFeeRecords, getFeeChanges, getPolicyChanges, getDatabaseStats, type FeeRecord, type FeeChange } from "@/lib/fees.functions";
+import { currentFeeTiming } from "@/lib/fee-presentation";
+import { recentChanges as orderedRecentChanges } from "@/lib/recent-changes";
 import { historicalEffectiveDate } from "@/lib/historical-fee-formatting";
 import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@/lib/fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
@@ -35,6 +36,7 @@ const statsQuery = queryOptions({
   queryFn: () => getDatabaseStats(),
 });
 const changesQuery = queryOptions({ queryKey: ["fee-changes"], queryFn: () => getFeeChanges() });
+const policiesQuery = queryOptions({ queryKey: ["policy-changes"], queryFn: () => getPolicyChanges() });
 
 export const Route = createFileRoute("/rate-card")({
   head: () => ({
@@ -53,6 +55,7 @@ export const Route = createFileRoute("/rate-card")({
       context.queryClient.ensureQueryData(feeRecordsQuery),
       context.queryClient.ensureQueryData(statsQuery),
       context.queryClient.ensureQueryData(changesQuery),
+      context.queryClient.ensureQueryData(policiesQuery),
       context.queryClient.ensureQueryData(archiveLinksQuery),
     ]),
   errorComponent: ({ error }: { error: any; reset: () => void }) => (
@@ -68,7 +71,8 @@ function RateCardPage() {
   const { data: records } = useSuspenseQuery(feeRecordsQuery);
   const { data: stats } = useSuspenseQuery(statsQuery);
   const { data: changes } = useSuspenseQuery(changesQuery);
-  const recentChanges = sortFeeEvents(changes).slice(0, 3);
+  const { data: policies } = useSuspenseQuery(policiesQuery);
+  const recentChanges = orderedRecentChanges(changes, policies).slice(0, 3);
 
   useEffect(() => {
     trackEvent("fee_database_view");
@@ -152,7 +156,7 @@ function RateCardPage() {
 
         <div className="border-y border-border bg-muted/30 py-4">
           <div className="flex items-center justify-between gap-3"><h2 className="text-base font-semibold">Recent fee changes</h2><a href="/fees" className="text-sm font-medium text-primary hover:underline">See all changes →</a></div>
-          <ul className="mt-3 grid gap-3 sm:grid-cols-3">{recentChanges.map(c => <li key={c.id} className="min-w-0 text-sm"><p className="text-xs text-muted-foreground">{c.marketplace} · {historicalEffectiveDate(c)}</p><a href="/fees" className="text-primary hover:underline">{c.title}</a></li>)}</ul>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-3">{recentChanges.map(item => <li key={item.record.id} className="min-w-0 text-sm"><p className="text-xs text-muted-foreground">{item.record.marketplace} · {historicalEffectiveDate(item.record)}</p><a href={item.href} className="text-primary hover:underline">{item.record.title}</a>{item.kind === "policy" && <p className="text-xs text-muted-foreground">Fee-rule change · no rate change</p>}</li>)}</ul>
         </div>
         <div className="space-y-3 md:hidden">
           {filtered.map((r) => <MobileFeeCard key={r.id} r={r} originalEvent={changes.find(c => c.id === r.first_effective_event_id && c.record_id === r.id)} />)}

@@ -29,7 +29,7 @@ function session(): Storage | null {
 
 /**
  * One-tap "Did this answer your question?" prompt.
- * - floating: appears bottom-right once `active` becomes true (calculator, database pages).
+ * - floating: desktop bottom-right; mobile in-flow at the end, shown only when reached.
  * - inline: renders in place and counts as shown when scrolled into view (end of reports).
  */
 export function QuickFeedback({
@@ -71,7 +71,14 @@ export function QuickFeedback({
 
   useEffect(() => {
     if (blocked || visible || variant !== "floating" || !active) return;
-    show();
+    const media = window.matchMedia("(min-width: 768px)");
+    if (media.matches) { show(); return; }
+    if (!boxRef.current) return;
+    const io = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) { show(); io.disconnect(); }
+    }, { threshold: 0.5 });
+    io.observe(boxRef.current);
+    return () => io.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, blocked, variant]);
 
@@ -86,7 +93,7 @@ export function QuickFeedback({
   }, [blocked, variant]);
 
   const dismissed = step === "ask" && blocked && !visible;
-  if (variant === "floating" && !visible) return null;
+  if (variant === "floating" && !visible) return blocked || !active ? null : <div ref={boxRef} aria-hidden="true" className="h-px md:hidden" />;
   if (variant === "inline" && dismissed) return null;
 
   const tap = (a: QuickAnswer) => {
@@ -114,14 +121,14 @@ export function QuickFeedback({
   const close = () => { setVisible(false); setBlocked(true); setStep("ask"); };
 
   const wrapper = variant === "floating"
-    ? "fixed bottom-4 right-4 z-50 w-[min(22rem,calc(100vw-2rem))] rounded-lg border border-border bg-card p-4 shadow-lg"
+    ? "relative w-full rounded-lg border border-border bg-card p-3 md:fixed md:bottom-4 md:right-4 md:z-50 md:w-[22rem] md:p-4 md:shadow-lg"
     : "relative mt-8 rounded-lg border border-border bg-card p-4";
 
   return (
     <div ref={boxRef} className={wrapper} role="region" aria-label="Quick feedback">
-      <button type="button" onClick={close} aria-label="Dismiss" className="absolute right-2 top-2 rounded-md p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+      <Button type="button" variant="ghost" size="icon" onClick={close} aria-label="Dismiss" className="absolute right-1 top-1 h-7 w-7 text-muted-foreground">
         <X className="h-4 w-4" />
-      </button>
+      </Button>
 
       {step === "ask" && (
         <div className="flex flex-wrap items-center gap-3 pr-6">

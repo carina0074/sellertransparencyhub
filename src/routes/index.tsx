@@ -6,9 +6,10 @@ import {
   CheckCircle2, Lock, FileText, Search, History, Calculator, Link2,
 } from "lucide-react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { getDatabaseStats, getFeeRecords, getFeeChanges, formatFeeValue } from "@/lib/fees.functions";
+import { getDatabaseStats, getFeeRecords, getFeeChanges, getPolicyChanges, formatFeeValue } from "@/lib/fees.functions";
 import type { FeeChange } from "@/lib/fees.functions";
-import { historicalEffectiveDate, latestDocumentedChange, historicalPresentation } from "@/lib/historical-fee-formatting";
+import { historicalEffectiveDate, historicalPresentation } from "@/lib/historical-fee-formatting";
+import { recentChanges, type RecentChange } from "@/lib/recent-changes";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { presentFee } from "@/lib/fee-formatting";
 import type { FeeRecord } from "@/lib/fees.functions";
@@ -18,6 +19,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const statsQuery = queryOptions({ queryKey: ["fee-stats"], queryFn: () => getDatabaseStats() });
 const feeRecordsQuery = queryOptions({ queryKey: ["fee-records"], queryFn: () => getFeeRecords() });
 const homeFeeChangesQuery = queryOptions({ queryKey: ["fee-changes"], queryFn: () => getFeeChanges() });
+const homePolicyChangesQuery = queryOptions({ queryKey: ["policy-changes"], queryFn: () => getPolicyChanges() });
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,6 +38,7 @@ export const Route = createFileRoute("/")({
       context.queryClient.ensureQueryData(statsQuery),
       context.queryClient.ensureQueryData(feeRecordsQuery),
       context.queryClient.ensureQueryData(homeFeeChangesQuery),
+      context.queryClient.ensureQueryData(homePolicyChangesQuery),
     ]),
   component: Index,
 });
@@ -147,7 +150,8 @@ function titleWithoutMarketplace(title: string, marketplace: string): string {
   return rest.charAt(0).toUpperCase() + rest.slice(1);
 }
 
-function LatestChangeCard({ change }: { change: FeeChange }) {
+function LatestChangeCard({ item }: { item: RecentChange }) {
+  const change = item.record;
   return (
     <Card className="border-border bg-background/90 shadow-sm">
       <CardContent className="p-6">
@@ -155,14 +159,14 @@ function LatestChangeCard({ change }: { change: FeeChange }) {
         <p className="mt-3 text-sm font-medium text-foreground">{change.marketplace}</p>
         <h2 className="text-lg font-semibold tracking-tight text-foreground">{titleWithoutMarketplace(change.title, change.marketplace)}</h2>
         <div className="mt-4 flex items-baseline gap-2 text-2xl font-semibold tabular-nums">
-          <div className="space-y-1 text-lg">{historicalPresentation(change).lines.map(line => <p key={line}>{line}</p>)}</div>
+          <div className="space-y-1 text-lg">{item.kind === "fee" ? historicalPresentation(item.record).lines.map(line => <p key={line}>{line}</p>) : <p>Fee-rule change · no rate change</p>}</div>
         </div>
         <p className="mt-2 text-sm text-muted-foreground">Effective {historicalEffectiveDate(change)}</p>
         <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
           <a href={change.source_url} target="_blank" rel="noreferrer" className="inline-flex items-center text-primary hover:text-foreground">
             Official source <Link2 className="ml-1 h-4 w-4" />
           </a>
-          <Link to="/fees" className="inline-flex items-center text-primary hover:text-foreground">
+          <Link to={item.href} className="inline-flex items-center text-primary hover:text-foreground">
             See all changes <ArrowRight className="ml-1 h-4 w-4" />
           </Link>
         </div>
@@ -175,7 +179,8 @@ function Index() {
   const { data: coverage } = useSuspenseQuery(statsQuery);
   const { data: feeRecords } = useSuspenseQuery(feeRecordsQuery);
   const { data: feeChanges } = useSuspenseQuery(homeFeeChangesQuery);
-  const latestChange = latestDocumentedChange(feeChanges);
+  const { data: policyChanges } = useSuspenseQuery(homePolicyChangesQuery);
+  const latestChange = recentChanges(feeChanges, policyChanges)[0];
   const stats = [
     { value: coverage.activeRecords, label: "Current fee records" },
     { value: coverage.historicalChanges, label: "Historical fee-change events" },
@@ -233,7 +238,7 @@ function Index() {
             </div>
             {latestChange && (
               <div className="hidden lg:block">
-                <LatestChangeCard change={latestChange} />
+                <LatestChangeCard item={latestChange} />
               </div>
             )}
           </div>
