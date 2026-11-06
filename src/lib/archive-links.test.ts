@@ -1,10 +1,15 @@
 import { describe, expect, test } from "bun:test";
-import { archiveFor, normalizeSourceUrl } from "./archive-links";
+import { archiveDate, archiveFor, normalizeSourceUrl } from "./archive-links";
 
 const SOURCE = "https://www.ebay.com/sellercenter/resources/seller-updates/2025-january/final-value-fee";
 const ARCHIVE = `https://web.archive.org/web/20261102033327/${SOURCE}`;
 
 describe("archived copy links", () => {
+  test("archive date uses the capture timestamp, including across US timezones", () => {
+    expect(archiveDate(ARCHIVE)).toBe("Nov 2, 2026");
+    expect(archiveDate("https://web.archive.org/web/20261106015113/https://example.com")).toBe("Nov 6, 2026");
+    expect(archiveDate("https://example.com/20261102033327/")).toBeNull();
+  });
   test("source URL normalization drops fragment, trailing slash and case", () => {
     expect(normalizeSourceUrl(`${SOURCE}#quotes`)).toBe(SOURCE.toLowerCase());
     expect(normalizeSourceUrl("https://Example.com/pricing/")).toBe("https://example.com/pricing");
