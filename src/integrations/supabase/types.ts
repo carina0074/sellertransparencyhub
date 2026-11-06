@@ -89,7 +89,8 @@ export type Database = {
         Row: {
           announcement_date: string | null
           category: string
-          change_amount: number
+          change_amount: number | null
+          change_details: Json | null
           created_at: string
           effective_date: string | null
           effective_date_precision: string
@@ -99,8 +100,8 @@ export type Database = {
           id: string
           impact_level: string | null
           marketplace: string
-          new_value: number
-          old_value: number
+          new_value: number | null
+          old_value: number | null
           record_id: string | null
           region: string | null
           source_title: string
@@ -112,7 +113,8 @@ export type Database = {
         Insert: {
           announcement_date?: string | null
           category: string
-          change_amount: number
+          change_amount?: number | null
+          change_details?: Json | null
           created_at?: string
           effective_date?: string | null
           effective_date_precision?: string
@@ -122,8 +124,8 @@ export type Database = {
           id?: string
           impact_level?: string | null
           marketplace: string
-          new_value: number
-          old_value: number
+          new_value?: number | null
+          old_value?: number | null
           record_id?: string | null
           region?: string | null
           source_title: string
@@ -135,7 +137,8 @@ export type Database = {
         Update: {
           announcement_date?: string | null
           category?: string
-          change_amount?: number
+          change_amount?: number | null
+          change_details?: Json | null
           created_at?: string
           effective_date?: string | null
           effective_date_precision?: string
@@ -145,8 +148,8 @@ export type Database = {
           id?: string
           impact_level?: string | null
           marketplace?: string
-          new_value?: number
-          old_value?: number
+          new_value?: number | null
+          old_value?: number | null
           record_id?: string | null
           region?: string | null
           source_title?: string
@@ -202,6 +205,8 @@ export type Database = {
           effective_date: string | null
           fee_name: string
           fee_type: string
+          first_effective_date: string | null
+          first_effective_event_id: string | null
           id: string
           last_verified: string
           marketplace: string
@@ -221,6 +226,8 @@ export type Database = {
           effective_date?: string | null
           fee_name: string
           fee_type: string
+          first_effective_date?: string | null
+          first_effective_event_id?: string | null
           id?: string
           last_verified: string
           marketplace: string
@@ -240,6 +247,8 @@ export type Database = {
           effective_date?: string | null
           fee_name?: string
           fee_type?: string
+          first_effective_date?: string | null
+          first_effective_event_id?: string | null
           id?: string
           last_verified?: string
           marketplace?: string
@@ -253,7 +262,15 @@ export type Database = {
           value_type?: string
           verification_status?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "fee_records_first_effective_event_id_fkey"
+            columns: ["first_effective_event_id"]
+            isOneToOne: false
+            referencedRelation: "fee_changes"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       feedback_submissions: {
         Row: {

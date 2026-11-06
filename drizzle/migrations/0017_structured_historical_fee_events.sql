@@ -1,0 +1,12 @@
+ALTER TABLE public.fee_changes ALTER COLUMN old_value DROP NOT NULL;
+ALTER TABLE public.fee_changes ALTER COLUMN new_value DROP NOT NULL;
+ALTER TABLE public.fee_changes ALTER COLUMN change_amount DROP NOT NULL;
+ALTER TABLE public.fee_changes ADD COLUMN change_details jsonb;
+COMMENT ON COLUMN public.fee_changes.old_value IS 'Prior scalar value; NULL for new fees or transitions represented only in change_details. Never use zero to invent a prior price.';
+COMMENT ON COLUMN public.fee_changes.new_value IS 'New scalar value only for a single established rate or amount; NULL for tiered changes, announced averages or an introduction with no announced amount.';
+COMMENT ON COLUMN public.fee_changes.change_amount IS 'Scalar difference when applicable; NULL for structured transitions or fee introductions without a scalar pair.';
+COMMENT ON COLUMN public.fee_changes.change_details IS 'Independent historical pricing: tiered_rate_change with exact announced price-band labels and paired decimal rates; new_fee with optional announced_average amounts in integer USD minor units. No inferred current rates.';
+ALTER TABLE public.fee_records ADD COLUMN first_effective_date date;
+ALTER TABLE public.fee_records ADD COLUMN first_effective_event_id uuid REFERENCES public.fee_changes(id);
+COMMENT ON COLUMN public.fee_records.first_effective_date IS 'Original fee introduction day supported by the linked historical event; separate from effective_date, which retains current-rate timing. No legacy backfill.';
+COMMENT ON COLUMN public.fee_records.first_effective_event_id IS 'Historical event establishing first_effective_date; evidence stays in that event, without altering legacy current-value evidence.';

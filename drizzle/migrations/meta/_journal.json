@@ -120,6 +120,13 @@
       "when": 1793590794612,
       "tag": "0016_public_archive_links",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1793929676556,
+      "tag": "0017_structured_historical_fee_events",
+      "breakpoints": true
     }
   ]
 }
