@@ -192,7 +192,9 @@ function RateCardPage() {
                       <TableCell className="text-right font-semibold tabular-nums">
                         <span className={presentation.details ? "block min-w-36 max-w-52 whitespace-normal" : undefined}>{presentation.value}</span>
                       </TableCell>
-                      <TableCell className="max-w-40 whitespace-normal text-xs text-muted-foreground tabular-nums">{effectiveDateLabel(r.effective_date)}</TableCell>
+                      <TableCell className="max-w-40 whitespace-normal text-xs text-muted-foreground tabular-nums">
+                        {r.first_effective_date ? <><p>First effective date: {effectiveDateLabel(r.first_effective_date)} <a href="/fees" className="text-primary hover:underline">Historical source</a></p><p className="mt-2">Current rates effective: {effectiveDateLabel(r.effective_date)}</p></> : effectiveDateLabel(r.effective_date)}
+                      </TableCell>
                       <TableCell className="text-muted-foreground tabular-nums">
                         <ReviewStatus status={r.verification_status} lastVerified={r.last_verified} />
                       </TableCell>
@@ -293,7 +295,8 @@ function MobileFeeCard({ r }: { r: FeeRecord }) {
             {d?.minimum_minor != null && <p>Minimum referral fee: ${(d.minimum_minor / 100).toFixed(2)} USD per item, where applicable.</p>}
             {d?.separate_closing_minor !== undefined && d && <p>Separate closing fee: ${(d.separate_closing_minor / 100).toFixed(2)} USD per item sold (not part of the percentage).</p>}
             {d?.conditions.map((c) => <p key={c}>{c}</p>)}
-            <p>Effective: {effectiveDateLabel(r.effective_date)}</p>
+            {r.first_effective_date && <p>First effective date: {effectiveDateLabel(r.first_effective_date)} · <a href="/fees" className="text-primary hover:underline">Historical source</a></p>}
+            <p>{r.first_effective_date ? "Current rates effective" : "Effective"}: {effectiveDateLabel(r.effective_date)}</p>
           </div>
         </details>}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">

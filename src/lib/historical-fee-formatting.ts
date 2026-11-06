@@ -1,5 +1,17 @@
 import { z } from "zod";
-import { relativeFeeChange } from "./fee-formatting";
+import { relativeFeeChange, formatFeeValue } from "./fee-formatting";
+
+export const historicalChangeDetailsSchema = z.discriminatedUnion("kind", [
+  z.object({ kind: z.literal("tiered_rate_change"), tiers: z.array(z.object({ label: z.string(), old_rate: z.number().min(0).max(1), new_rate: z.number().min(0).max(1) })).min(1) }),
+  z.object({ kind: z.literal("new_fee"), amounts: z.array(z.object({ label: z.string(), amount_minor: z.number().int().nonnegative(), currency: z.literal("USD"), basis: z.literal("announced_average") })).optional() }),
+]);
+
+export function historicalPresentation(change: { old_value: number | null; new_value: number | null; value_type: string; change_details?: unknown }) {
+  const parsed = historicalChangeDetailsSchema.safeParse(change.change_details);
+  if (parsed.success && parsed.data.kind === "tiered_rate_change") return { label: "Tiered rate reduction", lines: parsed.data.tiers.map(t => `${t.label}: ${formatFeeValue(t.old_rate, "percent")} → ${formatFeeValue(t.new_rate, "percent")}`) };
+  if (parsed.success && parsed.data.kind === "new_fee") return { label: "New fee", lines: parsed.data.amounts?.map(a => `${a.label}: about $${(a.amount_minor / 100).toFixed(2)} / unit (announced average, not a rate)`) ?? ["New fee — amount not stated in this announcement"] };
+  return { label: historicalChangeLabel(change.old_value, change.new_value), lines: [`${change.old_value == null || change.old_value === 0 ? "—" : formatFeeValue(change.old_value, change.value_type)} → ${change.new_value == null ? "Amount not established" : formatFeeValue(change.new_value, change.value_type)}`] };
+}
 
 export const historicalDateSchema = z.object({
   effective_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable(),
@@ -20,6 +32,7 @@ export const historicalDateSchema = z.object({
 export const historicalEvidenceSchema = z.object({
   status: z.enum(["verified_historical_event", "effective_date_not_proven"]),
   reviewed_on: z.string(),
+  reviewer: z.string().optional(),
   scope: z.string(),
   conditions: z.array(z.string()),
   linkage_reason: z.string(),
@@ -38,7 +51,9 @@ export function historicalEffectiveDate(value: { effective_date: string | null; 
   return new Intl.DateTimeFormat("en-US", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${value.effective_date}T00:00:00Z`));
 }
 
-export function historicalChangeLabel(oldValue: number, newValue: number): string {
+export function historicalChangeLabel(oldValue: number | null, newValue: number | null): string {
+  if (oldValue === null) return "New fee";
+  if (newValue === null) return "Change not quantified";
   const relative = relativeFeeChange(oldValue, newValue);
   return relative === null ? "New fee" : `${relative >= 0 ? "+" : ""}${(relative * 100).toFixed(1)}%`;
 }

@@ -20,6 +20,8 @@ export type FeeRecord = {
   value: number;
   value_type: string;
   effective_date: string | null;
+  first_effective_date: string | null;
+  first_effective_event_id: string | null;
   source_url: string;
   source_title: string;
   last_verified: string;
@@ -36,10 +38,11 @@ export type FeeChange = {
   fee_type: string;
   category: string;
   title: string;
-  old_value: number;
-  new_value: number;
+  old_value: number | null;
+  new_value: number | null;
+  change_details: Json | null;
   value_type: string;
-  change_amount: number;
+  change_amount: number | null;
   effective_date: string | null;
   effective_date_precision: "exact" | "month" | "year" | "unknown";
   effective_period: string | null;
@@ -104,7 +107,7 @@ export const getFeeRecords = createServerFn({ method: "GET" }).handler(
   async (): Promise<FeeRecord[]> => {
     const { data, error } = await supabase
       .from("fee_records")
-      .select("id,marketplace,region,fee_name,category,fee_type,value,value_type,effective_date,source_url,source_title,last_verified,notes,pricing_details,verification_status")
+      .select("id,marketplace,region,fee_name,category,fee_type,value,value_type,effective_date,first_effective_date,first_effective_event_id,source_url,source_title,last_verified,notes,pricing_details,verification_status")
       .order("marketplace", { ascending: true })
       .order("fee_type", { ascending: true })
       .order("category", { ascending: true });
@@ -121,14 +124,14 @@ export const getFeeChanges = createServerFn({ method: "GET" }).handler(
   async (): Promise<FeeChange[]> => {
     const { data, error } = await supabase
       .from("fee_changes")
-      .select("id,record_id,marketplace,region,fee_type,category,title,old_value,new_value,value_type,change_amount,effective_date,announcement_date,impact_level,source_url,source_title,summary,effective_date_precision,effective_period,evidence_details")
+      .select("id,record_id,marketplace,region,fee_type,category,title,old_value,new_value,value_type,change_amount,change_details,effective_date,announcement_date,impact_level,source_url,source_title,summary,effective_date_precision,effective_period,evidence_details")
       .order("effective_date", { ascending: false });
     if (error) throw new Error(error.message);
     return (data ?? []).map((r) => ({
       ...r,
-      old_value: Number(r.old_value),
-      new_value: Number(r.new_value),
-      change_amount: Number(r.change_amount),
+      old_value: r.old_value == null ? null : Number(r.old_value),
+      new_value: r.new_value == null ? null : Number(r.new_value),
+      change_amount: r.change_amount == null ? null : Number(r.change_amount),
       impact_level: r.impact_level as "low" | "medium" | "high" | null,
     })) as FeeChange[];
   },
