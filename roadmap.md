@@ -1,5 +1,9 @@
 # Roadmap
 
+- [ ] Add optional public corroborating fee sources, capture-on-save, dated archive links and recent changes; preserve all fee values.
+- [ ] Refine fee timing/cohort/review labels, fixed marketplace filter and count; remove public editorial commentary while retaining quotes/history.
+- [ ] Check badge setting, run tests and desktop/mobile preview, deliver diff without publishing.
+
 - [x] Import three approved Amazon US historical events with exact quotes, independent pricing structures and capture-on-save; preserve current values.
 - [x] Show low-inventory original start separately from current-rate timing; verify six-event count and homepage ordering.
 - [x] Run tests, verify preview/API and provide before/after diff without publishing; two capture requests succeeded, apparel request timed out but shares the same successfully archived source URL.

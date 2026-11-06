@@ -13,7 +13,8 @@ import { Badge } from "@/components/ui/badge";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
-import { getFeeChanges, formatFeeValue } from "@/lib/fees.functions";
+import { getFeeChanges } from "@/lib/fees.functions";
+import { announcementDateLabel, sortFeeEvents } from "@/lib/fee-presentation";
 import { historicalPresentation, historicalEffectiveDate, historicalEvidenceSchema } from "@/lib/historical-fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { archiveLinksQuery } from "@/lib/archive-links";
@@ -53,10 +54,7 @@ function FeesPage() {
   useEffect(() => { trackEvent("dataset_page_viewed", { dataset: "fee_change_feed" }); }, []);
   const { data: changes } = useSuspenseQuery(feeChangesQuery);
 
-  const marketplaces = useMemo(
-    () => Array.from(new Set(changes.map((c) => c.marketplace))).sort(),
-    [changes],
-  );
+  const marketplaces = ["Amazon", "eBay", "Walmart", "Etsy", "Shopify"];
   const feeTypes = useMemo(
     () => Array.from(new Set(changes.map((c) => c.fee_type))).sort(),
     [changes],
@@ -70,7 +68,7 @@ function FeesPage() {
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
-    return changes.filter((c) => {
+    return sortFeeEvents(changes).filter((c) => {
       if (marketplace !== "all" && c.marketplace !== marketplace) return false;
       if (feeType !== "all" && c.fee_type !== feeType) return false;
       if (!needle) return true;
@@ -98,7 +96,7 @@ function FeesPage() {
           <Select value={marketplace} onValueChange={(v) => { setMarketplace(v); setValueMoment(true); }}>
             <SelectTrigger><SelectValue placeholder="Marketplace" /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All marketplaces</SelectItem>
+              <SelectItem value="all">All</SelectItem>
               {marketplaces.map((m) => <SelectItem key={m} value={m}>{m}</SelectItem>)}
             </SelectContent>
           </Select>
@@ -110,6 +108,8 @@ function FeesPage() {
             </SelectContent>
           </Select>
         </div>
+
+        <p className="mt-4 text-sm text-muted-foreground">{filtered.length} recorded {filtered.length === 1 ? "change" : "changes"} across {new Set(filtered.map(c => c.marketplace)).size} {new Set(filtered.map(c => c.marketplace)).size === 1 ? "marketplace" : "marketplaces"}</p>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {filtered.map((c) => {
@@ -125,8 +125,9 @@ function FeesPage() {
                         <Badge variant="secondary" className="rounded-full">{c.marketplace}</Badge>
                         <Badge variant="outline" className="rounded-full">{c.fee_type}</Badge>
                         <span className="tabular-nums">
-                          {historicalEffectiveDate(c)}
+                          Effective: {historicalEffectiveDate(c)}
                         </span>
+                        <span className="tabular-nums">Announced: {announcementDateLabel(c.announcement_date)}</span>
                       </div>
                       <h3 className="mt-2 text-base font-semibold text-foreground">{c.title}</h3>
                       <p className="mt-0.5 text-xs text-muted-foreground">{c.category}</p>
@@ -151,11 +152,10 @@ function FeesPage() {
                         </span>
                         <blockquote className="mt-1 border-l-2 border-border pl-2">{reference.quote}</blockquote>
                       </div>)}
-                      <p>Evidence reviewed {formatVerificationDate(evidence.reviewed_on)}; review date is not an effective date.</p>
                       {evidence.reviewer && <p>Reviewer: {evidence.reviewer}</p>}
-                      <p>{c.record_id ? "Linked to the same current fee concept." : "No current-record link."} {evidence.linkage_reason}</p>
                     </div>
                   </details>}
+                  {evidence && <p className="mt-3 text-xs text-muted-foreground">Last checked: {formatVerificationDate(evidence.reviewed_on)}</p>}
                   <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3 text-xs">
                     <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
                       <a

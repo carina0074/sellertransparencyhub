@@ -13,7 +13,9 @@ import {
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { getFeeRecords, getDatabaseStats, type FeeRecord } from "@/lib/fees.functions";
+import { getFeeRecords, getFeeChanges, getDatabaseStats, type FeeRecord, type FeeChange } from "@/lib/fees.functions";
+import { currentFeeTiming, sortFeeEvents } from "@/lib/fee-presentation";
+import { historicalEffectiveDate } from "@/lib/historical-fee-formatting";
 import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@/lib/fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { archiveLinksQuery } from "@/lib/archive-links";
@@ -32,6 +34,7 @@ const statsQuery = queryOptions({
   queryKey: ["fee-stats"],
   queryFn: () => getDatabaseStats(),
 });
+const changesQuery = queryOptions({ queryKey: ["fee-changes"], queryFn: () => getFeeChanges() });
 
 export const Route = createFileRoute("/rate-card")({
   head: () => ({
@@ -49,6 +52,7 @@ export const Route = createFileRoute("/rate-card")({
     Promise.all([
       context.queryClient.ensureQueryData(feeRecordsQuery),
       context.queryClient.ensureQueryData(statsQuery),
+      context.queryClient.ensureQueryData(changesQuery),
       context.queryClient.ensureQueryData(archiveLinksQuery),
     ]),
   errorComponent: ({ error }: { error: any; reset: () => void }) => (
@@ -63,6 +67,8 @@ export const Route = createFileRoute("/rate-card")({
 function RateCardPage() {
   const { data: records } = useSuspenseQuery(feeRecordsQuery);
   const { data: stats } = useSuspenseQuery(statsQuery);
+  const { data: changes } = useSuspenseQuery(changesQuery);
+  const recentChanges = sortFeeEvents(changes).slice(0, 3);
 
   useEffect(() => {
     trackEvent("fee_database_view");
@@ -144,8 +150,12 @@ function RateCardPage() {
           </Select>
         </div>
 
+        <div className="border-y border-border bg-muted/30 py-4">
+          <div className="flex items-center justify-between gap-3"><h2 className="text-base font-semibold">Recent fee changes</h2><a href="/fees" className="text-sm font-medium text-primary hover:underline">See all changes →</a></div>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-3">{recentChanges.map(c => <li key={c.id} className="min-w-0 text-sm"><p className="text-xs text-muted-foreground">{c.marketplace} · {historicalEffectiveDate(c)}</p><a href="/fees" className="text-primary hover:underline">{c.title}</a></li>)}</ul>
+        </div>
         <div className="space-y-3 md:hidden">
-          {filtered.map((r) => <MobileFeeCard key={r.id} r={r} />)}
+          {filtered.map((r) => <MobileFeeCard key={r.id} r={r} originalEvent={changes.find(c => c.id === r.first_effective_event_id && c.record_id === r.id)} />)}
         </div>
 
         <Card className="hidden border-border md:block">
@@ -193,7 +203,7 @@ function RateCardPage() {
                         <span className={presentation.details ? "block min-w-36 max-w-52 whitespace-normal" : undefined}>{presentation.value}</span>
                       </TableCell>
                       <TableCell className="max-w-40 whitespace-normal text-xs text-muted-foreground tabular-nums">
-                        {r.first_effective_date ? <><p>First effective date: {effectiveDateLabel(r.first_effective_date)} <a href="/fees" className="text-primary hover:underline">Historical source</a></p><p className="mt-2">Current rates effective: {effectiveDateLabel(r.effective_date)}</p></> : effectiveDateLabel(r.effective_date)}
+                        {currentFeeTiming(r, changes.find(c => c.id === r.first_effective_event_id && c.record_id === r.id)).map(line => <p key={line} className="mt-1">{line}</p>)}
                       </TableCell>
                       <TableCell className="text-muted-foreground tabular-nums">
                         <ReviewStatus status={r.verification_status} lastVerified={r.last_verified} />
@@ -209,6 +219,8 @@ function RateCardPage() {
                           <Badge variant="outline" className="rounded-full text-[10px] font-normal">{presentation.details?.legacy_source ? "Legacy reference" : "Official source"}</Badge>
                           {r.source_title} <ExternalLink className="h-3 w-3" />
                         </a>
+                        <div className="mt-1"><ArchiveCopyLink url={r.source_url} /></div>
+                        <PublicCorroboratingSource r={r} />
                         {presentation.details && <div className="mt-2 space-y-2 whitespace-normal text-xs">
                           {presentation.details.references.map((reference) => <a key={reference.url} href={reference.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("source_clicked", { dataset: "fee_database", marketplace: r.marketplace })} className="block text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>)}
                         </div>}
@@ -271,7 +283,7 @@ function ReviewStatus({ status, lastVerified }: { status?: string; lastVerified:
   );
 }
 
-function MobileFeeCard({ r }: { r: FeeRecord }) {
+function MobileFeeCard({ r, originalEvent }: { r: FeeRecord; originalEvent?: FeeChange }) {
   const presentation = presentFee(r);
   const d = presentation.details;
   return (
@@ -295,10 +307,9 @@ function MobileFeeCard({ r }: { r: FeeRecord }) {
             {d?.minimum_minor != null && <p>Minimum referral fee: ${(d.minimum_minor / 100).toFixed(2)} USD per item, where applicable.</p>}
             {d?.separate_closing_minor !== undefined && d && <p>Separate closing fee: ${(d.separate_closing_minor / 100).toFixed(2)} USD per item sold (not part of the percentage).</p>}
             {d?.conditions.map((c) => <p key={c}>{c}</p>)}
-            {r.first_effective_date && <p>First effective date: {effectiveDateLabel(r.first_effective_date)} · <a href="/fees" className="text-primary hover:underline">Historical source</a></p>}
-            <p>{r.first_effective_date ? "Current rates effective" : "Effective"}: {effectiveDateLabel(r.effective_date)}</p>
           </div>
         </details>}
+        <div className="text-xs text-muted-foreground">{currentFeeTiming(r, originalEvent).map(line => <p key={line}>{line}</p>)}</div>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <a href={r.source_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
             onClick={() => { trackEvent("fee_source_clicked", { marketplace: r.marketplace, fee_type: r.fee_type }); trackEvent("source_clicked", { dataset: "fee_database", marketplace: r.marketplace }); }}>
@@ -306,8 +317,17 @@ function MobileFeeCard({ r }: { r: FeeRecord }) {
           </a>
           <ArchiveCopyLink url={r.source_url} />
         </div>
+        <PublicCorroboratingSource r={r} />
         <div><ReviewStatus status={r.verification_status} lastVerified={r.last_verified} /></div>
       </CardContent>
     </Card>
   );
+}
+
+function PublicCorroboratingSource({ r }: { r: FeeRecord }) {
+  if (!r.public_corroborating_source_url) return null;
+  return <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+    <a href={r.public_corroborating_source_url} target="_blank" rel="noreferrer" className="text-primary hover:underline" onClick={() => trackEvent("source_clicked", {dataset:"fee_database", marketplace:r.marketplace})}>Public source</a>
+    <span className="text-muted-foreground">·</span><ArchiveCopyLink url={r.public_corroborating_source_url} />
+  </div>;
 }

@@ -23,6 +23,7 @@ export type FeeRecord = {
   first_effective_date: string | null;
   first_effective_event_id: string | null;
   source_url: string;
+  public_corroborating_source_url: string | null;
   source_title: string;
   last_verified: string;
   notes: string | null;
@@ -107,7 +108,7 @@ export const getFeeRecords = createServerFn({ method: "GET" }).handler(
   async (): Promise<FeeRecord[]> => {
     const { data, error } = await supabase
       .from("fee_records")
-      .select("id,marketplace,region,fee_name,category,fee_type,value,value_type,effective_date,first_effective_date,first_effective_event_id,source_url,source_title,last_verified,notes,pricing_details,verification_status")
+      .select("id,marketplace,region,fee_name,category,fee_type,value,value_type,effective_date,first_effective_date,first_effective_event_id,public_corroborating_source_url,source_url,source_title,last_verified,notes,pricing_details,verification_status")
       .order("marketplace", { ascending: true })
       .order("fee_type", { ascending: true })
       .order("category", { ascending: true });

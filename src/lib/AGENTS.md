@@ -1,2 +1,3 @@
 - Historical multi-band changes and fee introductions use validated change_details with nullable scalar values, so announced averages cannot masquerade as rates.
 - Original fee introduction dates link to historical events separately from current-rate timing and legacy current-value evidence, preventing new historical evidence from implying current-value verification.
+- Optional public corroborating URLs enqueue separate private captures when supplied; they never replace primary current-value evidence. Archive dates come from Wayback capture timestamps, not record review dates.
