@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Import approved A09 Amazon US announced-average increase with exact quotes and private internal note; capture Wayback on save without current-fee edits.
+- [ ] Validate seven events and homepage Jan 15, 2026 selection, run tests, provide preview and diff without publishing.
+
 - [x] Add optional public corroborating fee sources, capture-on-save, dated archive links and recent changes; preserve all fee values.
 - [x] Refine fee timing/cohort/review labels, fixed marketplace filter and count; remove public editorial commentary while retaining quotes/history.
 - [x] Check badge setting (hide request declined; unchanged), run 162 tests and desktop/mobile preview, deliver diff without publishing.
