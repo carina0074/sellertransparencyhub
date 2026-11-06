@@ -212,6 +212,7 @@ export type Database = {
           marketplace: string
           notes: string | null
           pricing_details: Json | null
+          public_corroborating_source_url: string | null
           region: string | null
           source_title: string
           source_url: string
@@ -233,6 +234,7 @@ export type Database = {
           marketplace: string
           notes?: string | null
           pricing_details?: Json | null
+          public_corroborating_source_url?: string | null
           region?: string | null
           source_title: string
           source_url: string
@@ -254,6 +256,7 @@ export type Database = {
           marketplace?: string
           notes?: string | null
           pricing_details?: Json | null
+          public_corroborating_source_url?: string | null
           region?: string | null
           source_title?: string
           source_url?: string

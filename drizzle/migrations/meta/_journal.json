@@ -127,6 +127,13 @@
       "when": 1793929676556,
       "tag": "0017_structured_historical_fee_events",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1793930767142,
+      "tag": "0018_public_corroborating_fee_source",
+      "breakpoints": true
     }
   ]
 }
