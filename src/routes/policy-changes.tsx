@@ -197,6 +197,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
           <Badge variant="secondary" className="rounded-full">{c.marketplace}</Badge>
           <Badge variant="outline">{c.region}</Badge>
           <Badge variant="outline" className="rounded-full">{c.policy_area}</Badge>
+          {evidence?.change_type === "fee_rule_change" && <Badge variant="outline">Fee-rule change</Badge>}
           {evidence && <Badge variant="outline">{evidence.status === "verified_policy_event" ? "Source checked" : "Timing not established"}</Badge>}
           <span className="ml-auto tabular-nums text-muted-foreground">
             {policyDateLabel(c, evidence?.effective_date_basis)}
