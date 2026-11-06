@@ -33,7 +33,7 @@
         "title": "eBay — Promoted Listings attribution",
         "url": "https://pages.ebay.com/sell/pl/attribution.html",
         "quote": "eBay will report an Attributed sale from a general campaign when a buyer purchases the same item that was featured in the ad that was clicked on by any buyer in the most recent 30 days.",
-        "heading": "General campaign strategy",
+        "heading": "Promoted Listings - General campaign strategy",
         "evidence_type": "Current official marketplace guidance",
         "supported_fields": [
           "any-buyer attribution",
@@ -44,7 +44,7 @@
         "title": "eBay — Promoted Listings attribution",
         "url": "https://pages.ebay.com/sell/pl/attribution.html",
         "quote": "The ad fee is charged when a buyer purchases the promoted item from a general ad that any buyer clicked on in the most recent 30 days. The item must be promoted at the time of click and the time of sale. The ad fee is based on the ad rate in effect at the time of the sale.",
-        "heading": "General campaign strategy",
+        "heading": "Promoted Listings - General campaign strategy",
         "evidence_type": "Current official marketplace guidance",
         "supported_fields": [
           "ad-fee conditions",
