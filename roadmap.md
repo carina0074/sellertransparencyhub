@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Verify the eBay international-fee quote without changing value, conditions, scope or dates; add the approved Subtitle threshold record with exact quotes.
+- [ ] Run all tests, verify 39 current records and expanded desktop/mobile preview, deliver diff without publishing.
+
 - [x] Import approved A09 Amazon US announced-average increase with exact quotes and private internal note; Wayback capture queued on save, no current-fee edits.
 - [x] Validate seven events and homepage Jan 15, 2026 selection; 165 tests pass, desktop/mobile preview and diff delivered without publishing.
 
