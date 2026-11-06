@@ -1,8 +1,8 @@
 # Roadmap
 
-- [ ] Import E04 eBay US attribution fee-rule policy event with verbatim evidence, dates and private captures; preserve all fee amounts.
-- [ ] Update only international-fee review date/reviewer; prevent mobile feedback overlap and retain session dismissal/GA events.
-- [ ] Run all tests, verify preview at 390px and recent-change ordering, deliver diff without publishing.
+- [x] Import E04 eBay US fee-rule policy with four verbatim quotes and exact dates; both Wayback captures stored privately (local snapshots flagged for manual review), fee amounts unchanged.
+- [x] Update only international-fee review dates (reviewer already maintainer); mobile feedback in-flow after details with session dismissal and unchanged GA events.
+- [x] 174 tests pass; desktop/390px preview and recent ordering verified, diff/screenshots delivered without publishing. Shared database data updates are live; page changes remain in preview.
 
 - [x] Verify the eBay international-fee quote without changing value, conditions, scope or dates; add the approved Subtitle threshold record with exact quotes.
 - [x] All 169 tests pass; 39 current records / 38 category labels, expanded desktop/mobile preview and diff verified without publishing. New captures flagged manual-only; existing Nov 2 archive remains available.
