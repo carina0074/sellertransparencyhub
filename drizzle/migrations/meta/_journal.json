@@ -134,6 +134,13 @@
       "when": 1793930767142,
       "tag": "0018_public_corroborating_fee_source",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1793931227748,
+      "tag": "0019_private_capture_note_and_announced_average_change",
+      "breakpoints": true
     }
   ]
 }

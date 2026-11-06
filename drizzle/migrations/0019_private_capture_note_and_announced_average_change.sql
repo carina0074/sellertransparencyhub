@@ -1,0 +1,3 @@
+ALTER TABLE public.evidence_captures ADD COLUMN internal_note text;
+COMMENT ON COLUMN public.evidence_captures.internal_note IS 'Optional private maintainer note about record evidence; admin-only table, never part of public archive projection or research record JSON.';
+COMMENT ON COLUMN public.fee_changes.change_details IS 'Independent historical pricing: tiered_rate_change with paired decimal rates; new_fee with optional announced averages; announced_average_change with direction, integer USD minor-unit amount and announced_average basis. Null scalar values; never a universal rate.';

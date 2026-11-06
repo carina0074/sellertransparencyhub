@@ -4,10 +4,12 @@ import { relativeFeeChange, formatFeeValue } from "./fee-formatting";
 export const historicalChangeDetailsSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("tiered_rate_change"), tiers: z.array(z.object({ label: z.string(), old_rate: z.number().min(0).max(1), new_rate: z.number().min(0).max(1) })).min(1) }),
   z.object({ kind: z.literal("new_fee"), amounts: z.array(z.object({ label: z.string(), amount_minor: z.number().int().nonnegative(), currency: z.literal("USD"), basis: z.literal("announced_average") })).optional() }),
+  z.object({ kind: z.literal("announced_average_change"), direction: z.enum(["increase", "decrease"]), amount_minor: z.number().int().positive(), currency: z.literal("USD"), basis: z.literal("announced_average") }),
 ]);
 
 export function historicalPresentation(change: { old_value: number | null; new_value: number | null; value_type: string; change_details?: unknown }) {
   const parsed = historicalChangeDetailsSchema.safeParse(change.change_details);
+  if (parsed.success && parsed.data.kind === "announced_average_change") return { label: "Announced average " + parsed.data.direction, lines: [`${parsed.data.direction === "increase" ? "+" : "−"}$${(parsed.data.amount_minor / 100).toFixed(2)} / unit (announced average, not a rate)`] };
   if (parsed.success && parsed.data.kind === "tiered_rate_change") return { label: "Tiered rate reduction", lines: parsed.data.tiers.map(t => `${t.label}: ${formatFeeValue(t.old_rate, "percent")} → ${formatFeeValue(t.new_rate, "percent")}`) };
   if (parsed.success && parsed.data.kind === "new_fee") return { label: "New fee", lines: parsed.data.amounts?.map(a => `${a.label}: about $${(a.amount_minor / 100).toFixed(2)} / unit (announced average, not a rate)`) ?? ["New fee — amount not stated in this announcement"] };
   return { label: historicalChangeLabel(change.old_value, change.new_value), lines: [`${change.old_value == null || change.old_value === 0 ? "—" : formatFeeValue(change.old_value, change.value_type)} → ${change.new_value == null ? "Amount not established" : formatFeeValue(change.new_value, change.value_type)}`] };

@@ -36,6 +36,7 @@ export type Database = {
         Row: {
           error: string | null
           id: string
+          internal_note: string | null
           processed_at: string | null
           record_id: string
           record_type: string
@@ -50,6 +51,7 @@ export type Database = {
         Insert: {
           error?: string | null
           id?: string
+          internal_note?: string | null
           processed_at?: string | null
           record_id: string
           record_type: string
@@ -64,6 +66,7 @@ export type Database = {
         Update: {
           error?: string | null
           id?: string
+          internal_note?: string | null
           processed_at?: string | null
           record_id?: string
           record_type?: string

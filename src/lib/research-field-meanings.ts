@@ -39,7 +39,7 @@ const byCollection: Record<string, Record<string, string>> = {
     old_value: "Prior scalar in value_type units; empty for new fees or structured-only transitions, not an assumed zero rate.",
     new_value: "New scalar in value_type units; empty for structured transitions, announced averages or introductions with no stated amount.",
     change_amount: "Scalar difference when applicable; empty without a scalar pair. Relative change is calculated separately; legacy zero baselines display New fee.",
-    change_details: "Historical tiered_rate_change stores exact announced band labels and paired decimal rates. new_fee optionally stores announced_average amounts as integer USD minor units, never universal rates.",
+    change_details: "Historical tiered_rate_change stores exact announced band labels and paired decimal rates. new_fee optionally stores announced_average amounts as integer USD minor units. announced_average_change stores an increase or decrease in integer USD minor units with announced_average basis, never a universal rate or a per-tier old/new pair.",
     evidence_details: "Historical change evidence, supporting references, review date, scope, conditions and current-record linkage reason.",
   },
   policy_changes: {
