@@ -1,0 +1,79 @@
+{
+  "id": "c4f4c72c-35cc-487b-8fd1-efa763f4fcb3",
+  "marketplace": "eBay",
+  "region": "US",
+  "policy_area": "Advertising",
+  "title": "Promoted Listings General: expanded ad-fee attribution (\"any buyer clicked\")",
+  "summary": "Before Jan 13, 2026, general-campaign ad fees used Direct and Halo item attribution, based on the buyer's own click. From Jan 13, 2026, the ad fee is charged when a buyer purchases the promoted item and any buyer clicked its general ad in the most recent 30 days.",
+  "body_markdown": "The item must be promoted at both the time of click and the time of sale, and the fee uses the ad rate in effect at the time of sale. Rule change only; no rate change.",
+  "effective_date": "2026-01-13",
+  "effective_date_precision": "exact",
+  "effective_period": null,
+  "announcement_date": "2025-10-29",
+  "impact_level": null,
+  "affected_sellers": "eBay US Promoted Listings General advertisers; also applies to Canada. Already in use on UK, FR, IT, ES, AU and DE sites.",
+  "source_url": "https://pages.ebay.com/sell/pl/attribution.html",
+  "source_title": "eBay — Promoted Listings attribution",
+  "last_verified": "2026-11-05",
+  "evidence_details": {
+    "status": "verified_policy_event",
+    "effective_date_basis": "confirmed",
+    "change_type": "fee_rule_change",
+    "reviewed_on": "2026-11-05",
+    "reviewer": "maintainer",
+    "scope": "Applies to Promoted Listings General campaigns only. Priority campaigns are charged per click and aren't affected.",
+    "conditions": [
+      "The item must be promoted at the time of click and the time of sale.",
+      "The ad fee uses the ad rate in effect at the time of sale.",
+      "US and Canada adopt this attribution on Jan 13, 2026; already used on UK, FR, IT, ES, AU and DE sites."
+    ],
+    "impact": "General-campaign ad fees no longer depend on the purchasing buyer’s own click; any buyer’s click on the promoted item in the most recent 30 days can qualify the sale. No rate change or quantified impact is asserted.",
+    "references": [
+      {
+        "title": "eBay — Promoted Listings attribution",
+        "url": "https://pages.ebay.com/sell/pl/attribution.html",
+        "quote": "eBay will report an Attributed sale from a general campaign when a buyer purchases the same item that was featured in the ad that was clicked on by any buyer in the most recent 30 days.",
+        "heading": "General campaign strategy",
+        "evidence_type": "Current official marketplace guidance",
+        "supported_fields": [
+          "any-buyer attribution",
+          "30-day window"
+        ]
+      },
+      {
+        "title": "eBay — Promoted Listings attribution",
+        "url": "https://pages.ebay.com/sell/pl/attribution.html",
+        "quote": "The ad fee is charged when a buyer purchases the promoted item from a general ad that any buyer clicked on in the most recent 30 days. The item must be promoted at the time of click and the time of sale. The ad fee is based on the ad rate in effect at the time of the sale.",
+        "heading": "General campaign strategy",
+        "evidence_type": "Current official marketplace guidance",
+        "supported_fields": [
+          "ad-fee conditions",
+          "promotion at click and sale",
+          "sale-time ad rate"
+        ]
+      },
+      {
+        "title": "eBay seller_news_team — Updates to eBay’s Promoted Listings are coming soon",
+        "url": "https://community.ebay.com/forum/announcements-57928/topic/seller-announcement-updates-to-ebays-promoted-listings-are-coming-soon-8506/",
+        "quote": "As of January 13, 2026, all eBay sites will use this attribution definition when reporting sales and charging ad fees for items promoted using a general campaign strategy.",
+        "heading": "Updates to eBay’s Promoted Listings are coming soon",
+        "evidence_type": "Official marketplace announcement (seller_news_team, Oct 29, 2025)",
+        "supported_fields": [
+          "effective date",
+          "site scope"
+        ]
+      },
+      {
+        "title": "eBay seller_news_team — Updates to eBay’s Promoted Listings are coming soon",
+        "url": "https://community.ebay.com/forum/announcements-57928/topic/seller-announcement-updates-to-ebays-promoted-listings-are-coming-soon-8506/",
+        "quote": "As of January 13, 2026, items promoted using a general campaign strategy will no longer use Direct attribution and Halo item attribution when sales are reported or ad fees are charged.",
+        "heading": "Updates to eBay’s Promoted Listings are coming soon",
+        "evidence_type": "Official marketplace announcement (seller_news_team, Oct 29, 2025)",
+        "supported_fields": [
+          "before-state Direct and Halo attribution",
+          "rule change"
+        ]
+      }
+    ]
+  }
+}
