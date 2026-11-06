@@ -13,6 +13,16 @@ export function normalizeSourceUrl(url: string): string {
   return u.toLowerCase();
 }
 
+/** Capture timestamp comes from the Wayback URL, never the record review date. */
+export function archiveDate(url: string): string | null {
+  const match = url.match(/^https:\/\/web\.archive\.org\/web\/(\d{14})(?:[a-z_]+)?\//i);
+  if (!match?.[1]) return null;
+  const t = match[1];
+  const date = new Date(`${t.slice(0,4)}-${t.slice(4,6)}-${t.slice(6,8)}T${t.slice(8,10)}:${t.slice(10,12)}:${t.slice(12,14)}Z`);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
+}
+
 /** The archived copy for a source URL, or null when none is held. */
 export function archiveFor(
   archiveLinks: Record<string, string> | undefined,

@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Archive } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
-import { archiveFor, archiveLinksQuery } from "@/lib/archive-links";
+import { archiveDate, archiveFor, archiveLinksQuery } from "@/lib/archive-links";
 
 /**
  * Shows an "Archived copy" link next to a source link, but only when a dated
@@ -20,6 +20,7 @@ export function ArchiveCopyLink({
   if (!archive) return null;
 
   return (
+    <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
     <a
       href={archive}
       target="_blank"
@@ -30,6 +31,8 @@ export function ArchiveCopyLink({
     >
       Archived copy <Archive className="h-3 w-3 shrink-0" />
     </a>
+    {archiveDate(archive) && <span className="text-xs font-normal text-muted-foreground">Archived {archiveDate(archive)}</span>}
+    </span>
   );
 }
 

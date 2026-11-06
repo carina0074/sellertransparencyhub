@@ -29,6 +29,7 @@ const byCollection: Record<string, Record<string, string>> = {
     effective_date: "Nullable effective day, only where established. Current records have no separate effective-date-precision field.",
     first_effective_date: "Original fee introduction day supported by first_effective_event_id; distinct from current rates effective_date.",
     first_effective_event_id: "Historical fee-change event establishing the original introduction day; its quotes do not verify current rates.",
+    public_corroborating_source_url: "Optional public corroborating source, separate from primary evidence. Its captures are stored privately and shown when available; empty when no URL is supplied.",
     last_verified: "Last successful first-party current-value review, not an effective date or a failed access attempt.",
     verification_status: "verified_current_value: reviewed current value and recorded applicability, not proof of its start date. partially_verified: headline value confirmed in a first-party source; at least one stated condition, tier or scope element is unconfirmed and identified in notes. verification_pending: pending; the public formatter suppresses the numeric headline and directs readers to the source.",
     updated_at: "Prospective current-fee edit timestamp. Earlier edits have not been backfilled.",
@@ -50,5 +51,5 @@ const byCollection: Record<string, Record<string, string>> = {
   },
 };
 export function fieldMeaning(collection: string, field: string): string {
-  return byCollection[collection]?.[field] ?? common[field] ?? "TODO: field meaning not yet documented.";
+  return byCollection[collection]?.[field] ?? common[field] ?? "Field description not recorded.";
 }
