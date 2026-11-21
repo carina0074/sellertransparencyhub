@@ -1,5 +1,5 @@
 import { shareImageMeta } from "@/lib/share-metadata";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { ExternalLink, Database, Search, ShieldCheck, History, Store, Tags, Check } from "lucide-react";
@@ -20,6 +20,7 @@ import { historicalEffectiveDate } from "@/lib/historical-fee-formatting";
 import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@/lib/fee-formatting";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { archiveLinksQuery } from "@/lib/archive-links";
+import { internationalFeeRecordId } from "@/lib/guides";
 import { ArchiveCopyLink } from "@/components/archive-copy-link";
 import { trackEvent } from "@/lib/analytics";
 import { QuickFeedback } from "@/components/quick-feedback";
@@ -39,6 +40,8 @@ const changesQuery = queryOptions({ queryKey: ["fee-changes"], queryFn: () => ge
 const policiesQuery = queryOptions({ queryKey: ["policy-changes"], queryFn: () => getPolicyChanges() });
 
 export const Route = createFileRoute("/rate-card")({
+  validateSearch: (search: Record<string, unknown>): { record?: string } =>
+    typeof search["record"] === "string" ? { record: search["record"] } : {},
   head: () => ({
     meta: [
       ...shareImageMeta,
@@ -73,6 +76,14 @@ function RateCardPage() {
   const { data: changes } = useSuspenseQuery(changesQuery);
   const { data: policies } = useSuspenseQuery(policiesQuery);
   const recentChanges = orderedRecentChanges(changes, policies).slice(0, 3);
+  const selectedRecord = Route.useSearch().record;
+  useEffect(() => {
+    if (!selectedRecord) return;
+    const element = Array.from(document.querySelectorAll<HTMLElement>("[data-record-id]")).find(el => el.dataset["recordId"] === selectedRecord && el.getClientRects().length > 0);
+    if (!element) return;
+    element.querySelectorAll("details").forEach(detail => { detail.open = true; });
+    element.scrollIntoView({ block: "center" });
+  }, [selectedRecord, records]);
 
   useEffect(() => {
     trackEvent("fee_database_view");
@@ -187,6 +198,7 @@ function RateCardPage() {
                       </TableCell>
                       <TableCell className="text-muted-foreground">
                         {r.fee_name}
+                        <InternationalFeeGuideLink r={r} />
                         {r.notes && <p className="mt-1 min-w-48 max-w-80 whitespace-normal text-xs leading-relaxed text-muted-foreground/80">{r.notes}</p>}
                         {presentation.details && <details className="mt-2 min-w-48 max-w-80 whitespace-normal text-xs leading-relaxed">
                           <summary className="cursor-pointer font-medium text-primary">Fee details &amp; conditions</summary>
@@ -299,6 +311,7 @@ function MobileFeeCard({ r, originalEvent }: { r: FeeRecord; originalEvent?: Fee
         </div>
         <div>
           <div className="font-medium text-foreground">{r.fee_name}</div>
+          <InternationalFeeGuideLink r={r} />
           <div className="text-xs text-muted-foreground">{r.category}</div>
         </div>
         {(r.notes || d) && <details className="text-xs leading-relaxed text-muted-foreground">
@@ -334,4 +347,9 @@ function PublicCorroboratingSource({ r }: { r: FeeRecord }) {
     <a href={r.public_corroborating_source_url} target="_blank" rel="noreferrer" className="text-primary hover:underline" onClick={() => trackEvent("source_clicked", {dataset:"fee_database", marketplace:r.marketplace})}>Public source</a>
     <span className="text-muted-foreground">·</span><ArchiveCopyLink url={r.public_corroborating_source_url} />
   </div>;
+}
+
+function InternationalFeeGuideLink({ r }: { r: FeeRecord }) {
+  if (r.id !== internationalFeeRecordId) return null;
+  return <Link to="/guides/ebay-international-fee-us-address" className="mt-2 block whitespace-normal text-xs font-medium text-primary hover:underline">Why was I charged this on a US order? →</Link>;
 }

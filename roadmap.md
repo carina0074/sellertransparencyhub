@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Add the eBay US-address international-fee guide and index with live record evidence, navigation, record backlink, FAQ, sitemap, GA4 and short changelog entry.
+- [x] Verify 175 tests and desktop/mobile evidence, archive, FAQ, sitemap and record round-trip; deliver preview and diff without publishing or editing research records.
+
 - [x] Import E04 eBay US fee-rule policy with four verbatim quotes and exact dates; both Wayback captures stored privately (local snapshots flagged for manual review), fee amounts unchanged.
 - [x] Update only international-fee review dates (reviewer already maintainer); mobile feedback in-flow after details with session dismissal and unchanged GA events.
 - [x] 174 tests pass; desktop/390px preview and recent ordering verified, diff/screenshots delivered without publishing. Shared database data updates are live; page changes remain in preview.

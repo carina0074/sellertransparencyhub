@@ -14,6 +14,7 @@ export const navGroups = [
   ] },
   { key: "research", title: "Research", items: [
     { to: "/reports", label: "Reports" },
+    { to: "/guides", label: "Guides" },
     { to: "/methodology", label: "Methodology" },
     { to: "/changelog", label: "Changelog" },
   ] },

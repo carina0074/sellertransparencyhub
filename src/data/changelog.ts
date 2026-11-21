@@ -24,6 +24,15 @@ export interface ChangelogSection {
 // published-site analytics, dated report files) belong here.
 export const changelog: ChangelogEntry[] = [
   {
+    slug: "ebay-international-fee-guide",
+    date: "November 2026",
+    title: "Added guide: eBay international fee on US-address orders.",
+    summary: "Added guide: eBay international fee on US-address orders.",
+    updatedAt: "2026-11-21",
+    records: [],
+    sources: [{ title: "Why did eBay charge me an international fee when I shipped to a US address?", url: "/guides/ebay-international-fee-us-address" }],
+  },
+  {
     slug: "october-2026",
     date: "October 2026",
     title: "Research Integrity & Source Verification Update",

@@ -24,6 +24,7 @@
  * - archived_copy_clicked        — "Archived copy" link opened (param: dataset)
  * - newsletter_subscribed        — new email added (already-subscribed doesn't fire; no params)
  * - dataset_page_viewed          — Fee Change Feed / Policy Archive page opened (param: dataset)
+ * - guide_viewed                 — guide page mounted (param: guide_slug; fixed identifier only)
  * Legacy long-survey events (no longer rendered):
  * - feedback_prompt_answered       — usefulness button clicked (params: resource_type, response)
  * - feedback_started               — first interaction with the expanded feedback form (param: resource_type)

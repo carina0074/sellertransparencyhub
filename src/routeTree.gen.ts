@@ -29,6 +29,8 @@ import { Route as SuspensionPreventionRouteImport } from './routes/suspension-pr
 import { Route as ChangelogIndexRouteImport } from './routes/changelog.index'
 import { Route as ChangelogSlugRouteImport } from './routes/changelog.$slug'
 import { Route as DownloadsQ22026ReportRouteImport } from './routes/downloads.q2-2026-report'
+import { Route as GuidesIndexRouteImport } from './routes/guides.index'
+import { Route as GuidesEbayInternationalFeeUsAddressRouteImport } from './routes/guides.ebay-international-fee-us-address'
 import { Route as ReportsIndexRouteImport } from './routes/reports.index'
 import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
 import { Route as ReportsQ22026RouteImport } from './routes/reports.q2-2026'
@@ -141,6 +143,17 @@ const DownloadsQ22026ReportRoute = DownloadsQ22026ReportRouteImport.update({
   path: '/downloads/q2-2026-report',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesIndexRoute = GuidesIndexRouteImport.update({
+  id: '/guides/',
+  path: '/guides/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesEbayInternationalFeeUsAddressRoute =
+  GuidesEbayInternationalFeeUsAddressRouteImport.update({
+    id: '/guides/ebay-international-fee-us-address',
+    path: '/guides/ebay-international-fee-us-address',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ReportsIndexRoute = ReportsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -225,10 +238,12 @@ export interface FileRoutesByFullPath {
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
   '/downloads/q2-2026-report': typeof DownloadsQ22026ReportRoute
+  '/guides/ebay-international-fee-us-address': typeof GuidesEbayInternationalFeeUsAddressRoute
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog/': typeof ChangelogIndexRoute
+  '/guides/': typeof GuidesIndexRoute
   '/reports/': typeof ReportsIndexRoute
   '/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
@@ -257,10 +272,12 @@ export interface FileRoutesByTo {
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
   '/downloads/q2-2026-report': typeof DownloadsQ22026ReportRoute
+  '/guides/ebay-international-fee-us-address': typeof GuidesEbayInternationalFeeUsAddressRoute
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog': typeof ChangelogIndexRoute
+  '/guides': typeof GuidesIndexRoute
   '/reports': typeof ReportsIndexRoute
   '/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
@@ -292,10 +309,12 @@ export interface FileRoutesById {
   '/suspension-prevention': typeof SuspensionPreventionRoute
   '/changelog/$slug': typeof ChangelogSlugRoute
   '/downloads/q2-2026-report': typeof DownloadsQ22026ReportRoute
+  '/guides/ebay-international-fee-us-address': typeof GuidesEbayInternationalFeeUsAddressRoute
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
   '/changelog/': typeof ChangelogIndexRoute
+  '/guides/': typeof GuidesIndexRoute
   '/reports/': typeof ReportsIndexRoute
   '/_authenticated/admin/evidence': typeof AuthenticatedAdminEvidenceRoute
   '/_authenticated/admin/feedback': typeof AuthenticatedAdminFeedbackRoute
@@ -327,10 +346,12 @@ export interface FileRouteTypes {
     | '/suspension-prevention'
     | '/changelog/$slug'
     | '/downloads/q2-2026-report'
+    | '/guides/ebay-international-fee-us-address'
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
     | '/changelog/'
+    | '/guides/'
     | '/reports/'
     | '/admin/evidence'
     | '/admin/feedback'
@@ -359,10 +380,12 @@ export interface FileRouteTypes {
     | '/suspension-prevention'
     | '/changelog/$slug'
     | '/downloads/q2-2026-report'
+    | '/guides/ebay-international-fee-us-address'
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
     | '/changelog'
+    | '/guides'
     | '/reports'
     | '/admin/evidence'
     | '/admin/feedback'
@@ -393,10 +416,12 @@ export interface FileRouteTypes {
     | '/suspension-prevention'
     | '/changelog/$slug'
     | '/downloads/q2-2026-report'
+    | '/guides/ebay-international-fee-us-address'
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
     | '/changelog/'
+    | '/guides/'
     | '/reports/'
     | '/_authenticated/admin/evidence'
     | '/_authenticated/admin/feedback'
@@ -428,7 +453,9 @@ export interface RootRouteChildren {
   SuspensionPreventionRoute: typeof SuspensionPreventionRoute
   ChangelogSlugRoute: typeof ChangelogSlugRoute
   DownloadsQ22026ReportRoute: typeof DownloadsQ22026ReportRoute
+  GuidesEbayInternationalFeeUsAddressRoute: typeof GuidesEbayInternationalFeeUsAddressRoute
   ChangelogIndexRoute: typeof ChangelogIndexRoute
+  GuidesIndexRoute: typeof GuidesIndexRoute
   ApiPublicFeeChangesRoute: typeof ApiPublicFeeChangesRoute
   ApiPublicFeesRoute: typeof ApiPublicFeesRoute
   ApiPublicMarketplacesRoute: typeof ApiPublicMarketplacesRoute
@@ -578,6 +605,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DownloadsQ22026ReportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/': {
+      id: '/guides/'
+      path: '/guides'
+      fullPath: '/guides/'
+      preLoaderRoute: typeof GuidesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/ebay-international-fee-us-address': {
+      id: '/guides/ebay-international-fee-us-address'
+      path: '/guides/ebay-international-fee-us-address'
+      fullPath: '/guides/ebay-international-fee-us-address'
+      preLoaderRoute: typeof GuidesEbayInternationalFeeUsAddressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reports/': {
       id: '/reports/'
       path: '/'
@@ -717,7 +758,10 @@ const rootRouteChildren: RootRouteChildren = {
   SuspensionPreventionRoute: SuspensionPreventionRoute,
   ChangelogSlugRoute: ChangelogSlugRoute,
   DownloadsQ22026ReportRoute: DownloadsQ22026ReportRoute,
+  GuidesEbayInternationalFeeUsAddressRoute:
+    GuidesEbayInternationalFeeUsAddressRoute,
   ChangelogIndexRoute: ChangelogIndexRoute,
+  GuidesIndexRoute: GuidesIndexRoute,
   ApiPublicFeeChangesRoute: ApiPublicFeeChangesRoute,
   ApiPublicFeesRoute: ApiPublicFeesRoute,
   ApiPublicMarketplacesRoute: ApiPublicMarketplacesRoute,

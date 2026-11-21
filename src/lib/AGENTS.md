@@ -4,3 +4,4 @@
 - Private maintainer evidence notes belong only to admin-readable evidence_captures; public records, APIs and archive projections never include them.
 - Optional flat listing-upgrade threshold tiers select listing format and category scope independently, so Real Estate exceptions and auction/fixed-price bands cannot be evaluated together.
 - Fee-rule policy classification lives in policy evidence; shared recent-change ordering includes tagged policies without duplicating numeric fee history.
+- Guides select live fee evidence by record ID and reuse private archive projections; record links use validated search to open the same evidence without copied quotes or database writes.
