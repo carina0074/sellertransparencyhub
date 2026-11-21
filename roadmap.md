@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Add Subtitle and Promoted Listings General guides with live evidence, FAQ, archive links, record backlinks, index, sitemap, analytics and short changelog entry.
+- [x] Test both guides and record round-trips on desktop/mobile; 183 tests pass, all seven quotes match live records, FAQ and archive links checked; share previews and diff without publishing or changing research data.
+
 - [x] Add the eBay US-address international-fee guide and index with live record evidence, navigation, record backlink, FAQ, sitemap, GA4 and short changelog entry.
 - [x] Verify 175 tests and desktop/mobile evidence, archive, FAQ, sitemap and record round-trip; deliver preview and diff without publishing or editing research records.
 

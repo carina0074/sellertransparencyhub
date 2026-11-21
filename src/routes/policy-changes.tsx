@@ -15,6 +15,7 @@ import { policyDateLabel, policyEvidenceSchema } from "@/lib/policy-evidence";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { archiveLinksQuery } from "@/lib/archive-links";
 import { ArchiveCopyLink } from "@/components/archive-copy-link";
+import { promotedPolicyId } from "@/lib/extra-guides";
 
 const policyChangesQuery = queryOptions({
   queryKey: ["policy-changes"],
@@ -22,6 +23,8 @@ const policyChangesQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/policy-changes")({
+  validateSearch: (search: Record<string, unknown>): { record?: string } =>
+    typeof search["record"] === "string" ? { record: search["record"] } : {},
   head: () => ({
       meta: [
       ...shareImageMeta,
@@ -50,6 +53,15 @@ export const Route = createFileRoute("/policy-changes")({
 const ALL = "All";
 
 function PolicyChangesPage() {
+  const { record: selectedRecord } = Route.useSearch();
+  useEffect(() => {
+    if (!selectedRecord) return;
+    const card = document.getElementById(`policy-${selectedRecord}`);
+    if (!card) return;
+    const details = card.querySelector("details");
+    if (details) details.open = true;
+    card.scrollIntoView({ block: "start" });
+  }, [selectedRecord]);
   useEffect(() => { trackEvent("dataset_page_viewed", { dataset: "policy_archive" }); }, []);
   const { data: changes } = useSuspenseQuery(policyChangesQuery);
   const [marketplace, setMarketplace] = useState<string>(ALL);
@@ -191,7 +203,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
   const parsed = policyEvidenceSchema.safeParse(c.evidence_details);
   const evidence = parsed.success ? parsed.data : null;
   return (
-    <Card className="border-border" data-record-id={c.id} data-record-type="policy_change">
+    <Card id={`policy-${c.id}`} className="scroll-mt-24 border-border" data-record-id={c.id} data-record-type="policy_change">
       <CardContent className="space-y-4 p-6">
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <Badge variant="secondary" className="rounded-full">{c.marketplace}</Badge>
@@ -207,6 +219,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
           {c.title}
         </h2>
         <p className="text-sm text-muted-foreground">{c.summary}</p>
+        {c.id === promotedPolicyId && <Link to="/guides/ebay-promoted-listings-general-ad-fee" className="block text-sm font-medium text-primary hover:underline">Why am I charged when the buyer didn't click my ad? →</Link>}
         {c.body_markdown && (
           <p className="rounded-md border border-border bg-muted/40 p-3 text-sm text-foreground">
             {c.body_markdown}

@@ -23,6 +23,8 @@ export const Route = createFileRoute("/sitemap.xml")({
           { url: `${BASE_URL}/reports`, changefreq: "monthly", priority: "0.8" },
           { url: `${BASE_URL}/guides`, changefreq: "monthly", priority: "0.7" },
           { url: `${BASE_URL}/guides/ebay-international-fee-us-address`, changefreq: "monthly", priority: "0.7" },
+          { url: `${BASE_URL}/guides/ebay-subtitle-fee`, changefreq: "monthly", priority: "0.7" },
+          { url: `${BASE_URL}/guides/ebay-promoted-listings-general-ad-fee`, changefreq: "monthly", priority: "0.7" },
           { url: `${BASE_URL}/reports/q3-2026`, changefreq: "monthly", priority: "0.8" },
           { url: `${BASE_URL}/reports/q2-2026`, changefreq: "yearly", priority: "0.7" },
           { url: `${BASE_URL}/methodology`, changefreq: "monthly", priority: "0.8" },

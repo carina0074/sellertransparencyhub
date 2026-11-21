@@ -31,6 +31,8 @@ import { Route as ChangelogSlugRouteImport } from './routes/changelog.$slug'
 import { Route as DownloadsQ22026ReportRouteImport } from './routes/downloads.q2-2026-report'
 import { Route as GuidesIndexRouteImport } from './routes/guides.index'
 import { Route as GuidesEbayInternationalFeeUsAddressRouteImport } from './routes/guides.ebay-international-fee-us-address'
+import { Route as GuidesEbayPromotedListingsGeneralAdFeeRouteImport } from './routes/guides.ebay-promoted-listings-general-ad-fee'
+import { Route as GuidesEbaySubtitleFeeRouteImport } from './routes/guides.ebay-subtitle-fee'
 import { Route as ReportsIndexRouteImport } from './routes/reports.index'
 import { Route as ReportsAnnual2026RouteImport } from './routes/reports.annual-2026'
 import { Route as ReportsQ22026RouteImport } from './routes/reports.q2-2026'
@@ -154,6 +156,17 @@ const GuidesEbayInternationalFeeUsAddressRoute =
     path: '/guides/ebay-international-fee-us-address',
     getParentRoute: () => rootRouteImport,
   } as any)
+const GuidesEbayPromotedListingsGeneralAdFeeRoute =
+  GuidesEbayPromotedListingsGeneralAdFeeRouteImport.update({
+    id: '/guides/ebay-promoted-listings-general-ad-fee',
+    path: '/guides/ebay-promoted-listings-general-ad-fee',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const GuidesEbaySubtitleFeeRoute = GuidesEbaySubtitleFeeRouteImport.update({
+  id: '/guides/ebay-subtitle-fee',
+  path: '/guides/ebay-subtitle-fee',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReportsIndexRoute = ReportsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -239,6 +252,8 @@ export interface FileRoutesByFullPath {
   '/changelog/$slug': typeof ChangelogSlugRoute
   '/downloads/q2-2026-report': typeof DownloadsQ22026ReportRoute
   '/guides/ebay-international-fee-us-address': typeof GuidesEbayInternationalFeeUsAddressRoute
+  '/guides/ebay-promoted-listings-general-ad-fee': typeof GuidesEbayPromotedListingsGeneralAdFeeRoute
+  '/guides/ebay-subtitle-fee': typeof GuidesEbaySubtitleFeeRoute
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
@@ -273,6 +288,8 @@ export interface FileRoutesByTo {
   '/changelog/$slug': typeof ChangelogSlugRoute
   '/downloads/q2-2026-report': typeof DownloadsQ22026ReportRoute
   '/guides/ebay-international-fee-us-address': typeof GuidesEbayInternationalFeeUsAddressRoute
+  '/guides/ebay-promoted-listings-general-ad-fee': typeof GuidesEbayPromotedListingsGeneralAdFeeRoute
+  '/guides/ebay-subtitle-fee': typeof GuidesEbaySubtitleFeeRoute
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
@@ -310,6 +327,8 @@ export interface FileRoutesById {
   '/changelog/$slug': typeof ChangelogSlugRoute
   '/downloads/q2-2026-report': typeof DownloadsQ22026ReportRoute
   '/guides/ebay-international-fee-us-address': typeof GuidesEbayInternationalFeeUsAddressRoute
+  '/guides/ebay-promoted-listings-general-ad-fee': typeof GuidesEbayPromotedListingsGeneralAdFeeRoute
+  '/guides/ebay-subtitle-fee': typeof GuidesEbaySubtitleFeeRoute
   '/reports/annual-2026': typeof ReportsAnnual2026Route
   '/reports/q2-2026': typeof ReportsQ22026Route
   '/reports/q3-2026': typeof ReportsQ32026Route
@@ -347,6 +366,8 @@ export interface FileRouteTypes {
     | '/changelog/$slug'
     | '/downloads/q2-2026-report'
     | '/guides/ebay-international-fee-us-address'
+    | '/guides/ebay-promoted-listings-general-ad-fee'
+    | '/guides/ebay-subtitle-fee'
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
@@ -381,6 +402,8 @@ export interface FileRouteTypes {
     | '/changelog/$slug'
     | '/downloads/q2-2026-report'
     | '/guides/ebay-international-fee-us-address'
+    | '/guides/ebay-promoted-listings-general-ad-fee'
+    | '/guides/ebay-subtitle-fee'
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
@@ -417,6 +440,8 @@ export interface FileRouteTypes {
     | '/changelog/$slug'
     | '/downloads/q2-2026-report'
     | '/guides/ebay-international-fee-us-address'
+    | '/guides/ebay-promoted-listings-general-ad-fee'
+    | '/guides/ebay-subtitle-fee'
     | '/reports/annual-2026'
     | '/reports/q2-2026'
     | '/reports/q3-2026'
@@ -454,6 +479,8 @@ export interface RootRouteChildren {
   ChangelogSlugRoute: typeof ChangelogSlugRoute
   DownloadsQ22026ReportRoute: typeof DownloadsQ22026ReportRoute
   GuidesEbayInternationalFeeUsAddressRoute: typeof GuidesEbayInternationalFeeUsAddressRoute
+  GuidesEbayPromotedListingsGeneralAdFeeRoute: typeof GuidesEbayPromotedListingsGeneralAdFeeRoute
+  GuidesEbaySubtitleFeeRoute: typeof GuidesEbaySubtitleFeeRoute
   ChangelogIndexRoute: typeof ChangelogIndexRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
   ApiPublicFeeChangesRoute: typeof ApiPublicFeeChangesRoute
@@ -619,6 +646,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuidesEbayInternationalFeeUsAddressRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/ebay-promoted-listings-general-ad-fee': {
+      id: '/guides/ebay-promoted-listings-general-ad-fee'
+      path: '/guides/ebay-promoted-listings-general-ad-fee'
+      fullPath: '/guides/ebay-promoted-listings-general-ad-fee'
+      preLoaderRoute: typeof GuidesEbayPromotedListingsGeneralAdFeeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/ebay-subtitle-fee': {
+      id: '/guides/ebay-subtitle-fee'
+      path: '/guides/ebay-subtitle-fee'
+      fullPath: '/guides/ebay-subtitle-fee'
+      preLoaderRoute: typeof GuidesEbaySubtitleFeeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reports/': {
       id: '/reports/'
       path: '/'
@@ -760,6 +801,9 @@ const rootRouteChildren: RootRouteChildren = {
   DownloadsQ22026ReportRoute: DownloadsQ22026ReportRoute,
   GuidesEbayInternationalFeeUsAddressRoute:
     GuidesEbayInternationalFeeUsAddressRoute,
+  GuidesEbayPromotedListingsGeneralAdFeeRoute:
+    GuidesEbayPromotedListingsGeneralAdFeeRoute,
+  GuidesEbaySubtitleFeeRoute: GuidesEbaySubtitleFeeRoute,
   ChangelogIndexRoute: ChangelogIndexRoute,
   GuidesIndexRoute: GuidesIndexRoute,
   ApiPublicFeeChangesRoute: ApiPublicFeeChangesRoute,

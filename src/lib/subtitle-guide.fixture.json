@@ -1,0 +1,80 @@
+{
+  "kind": "tiered",
+  "mode": "threshold",
+  "unit": "/ listing",
+  "basis": "Whole-price threshold tiers: auction starting price or fixed item price selects the entire flat fee; Real Estate listings use separate amounts.",
+  "scope": "U.S. standard selling fees (non-Store sellers); optional Subtitle listing upgrade",
+  "tiers": [
+    {
+      "label": "Auction-style \u2014 starting price up to $150",
+      "upper_minor": 15000,
+      "amount_minor": 150,
+      "category_scope": "standard",
+      "listing_format": "auction"
+    },
+    {
+      "label": "Auction-style \u2014 starting price over $150",
+      "upper_minor": null,
+      "amount_minor": 300,
+      "category_scope": "standard",
+      "listing_format": "auction"
+    },
+    {
+      "label": "Auction-style \u2014 Real Estate listings",
+      "upper_minor": null,
+      "amount_minor": 50,
+      "category_scope": "real_estate",
+      "listing_format": "auction"
+    },
+    {
+      "label": "Fixed price (Good 'Til Cancelled) \u2014 item price up to $150",
+      "upper_minor": 15000,
+      "amount_minor": 200,
+      "category_scope": "standard",
+      "listing_format": "fixed_price"
+    },
+    {
+      "label": "Fixed price (Good 'Til Cancelled) \u2014 item price over $150",
+      "upper_minor": null,
+      "amount_minor": 600,
+      "category_scope": "standard",
+      "listing_format": "fixed_price"
+    },
+    {
+      "label": "Fixed price (Good 'Til Cancelled) \u2014 Real Estate listings",
+      "upper_minor": null,
+      "amount_minor": 150,
+      "category_scope": "real_estate",
+      "listing_format": "fixed_price"
+    }
+  ],
+  "currency": "USD",
+  "reviewer": "maintainer",
+  "conditions": [
+    "Charged when the listing goes live, whether or not the item sells.",
+    "Good 'Til Cancelled listings renew every calendar month, and the upgrade fee is charged again at each renewal.",
+    "Fee amounts follow the terms in effect at listing and at each renewal."
+  ],
+  "references": [
+    {
+      "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+      "quote": "$1.50 \u2013 Item starting price up to $150 $3.00 \u2013 Item starting price over $150 $0.50 \u2013 Real Estate listings",
+      "title": "eBay \u2014 Subtitle, auction-style listings",
+      "heading": "Fees for optional listing upgrades \u2014 Auction-style listings"
+    },
+    {
+      "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+      "quote": "$2.00 \u2013 Item price up to $150 $6.00 \u2013 Item price over $150 $1.50 \u2013 Real Estate listings",
+      "title": "eBay \u2014 Subtitle, fixed price listings",
+      "heading": "Fees for optional listing upgrades \u2014 Fixed price listings \u2013 Good 'Til Cancelled"
+    },
+    {
+      "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+      "quote": "Good 'Til Cancelled listings are fixed price listings that renew automatically once per calendar month. We charge an insertion fee and applicable optional listing upgrade fees when you list your item for the first time, and each time it renews.",
+      "title": "eBay \u2014 Good 'Til Cancelled renewal",
+      "heading": "Good 'Til Cancelled listings"
+    }
+  ],
+  "reviewed_on": "2026-11-05",
+  "legacy_source": false
+}

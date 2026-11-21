@@ -24,6 +24,18 @@ export interface ChangelogSection {
 // published-site analytics, dated report files) belong here.
 export const changelog: ChangelogEntry[] = [
   {
+    slug: "ebay-subtitle-and-promoted-listings-guides",
+    date: "November 2026",
+    title: "Added guides: eBay subtitle fees and Promoted Listings General attribution.",
+    summary: "Added two source-linked guides on subtitle fees and monthly renewals, and the Promoted Listings General any-buyer-click rule.",
+    updatedAt: "2026-11-21",
+    records: [],
+    sources: [
+      { title: "eBay subtitle fee guide", url: "/guides/ebay-subtitle-fee" },
+      { title: "eBay Promoted Listings General ad-fee guide", url: "/guides/ebay-promoted-listings-general-ad-fee" },
+    ],
+  },
+  {
     slug: "ebay-international-fee-guide",
     date: "November 2026",
     title: "Added guide: eBay international fee on US-address orders.",

@@ -21,6 +21,7 @@ import { effectiveDateLabel, presentFee, verificationLabel, tierAmount } from "@
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { archiveLinksQuery } from "@/lib/archive-links";
 import { internationalFeeRecordId } from "@/lib/guides";
+import { subtitleRecordId } from "@/lib/extra-guides";
 import { ArchiveCopyLink } from "@/components/archive-copy-link";
 import { trackEvent } from "@/lib/analytics";
 import { QuickFeedback } from "@/components/quick-feedback";
@@ -350,6 +351,7 @@ function PublicCorroboratingSource({ r }: { r: FeeRecord }) {
 }
 
 function InternationalFeeGuideLink({ r }: { r: FeeRecord }) {
+  if (r.id === subtitleRecordId) return <Link to="/guides/ebay-subtitle-fee" className="mt-2 block whitespace-normal text-xs font-medium text-primary hover:underline">How much does the subtitle cost, and is it charged every month? →</Link>;
   if (r.id !== internationalFeeRecordId) return null;
   return <Link to="/guides/ebay-international-fee-us-address" className="mt-2 block whitespace-normal text-xs font-medium text-primary hover:underline">Why was I charged this on a US order? →</Link>;
 }
