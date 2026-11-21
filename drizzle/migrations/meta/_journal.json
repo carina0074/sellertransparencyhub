@@ -141,6 +141,13 @@
       "when": 1793931227748,
       "tag": "0019_private_capture_note_and_announced_average_change",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1795227627814,
+      "tag": "0020_current_fee_unspecified_and_plan_pricing",
+      "breakpoints": true
     }
   ]
 }

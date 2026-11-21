@@ -1,0 +1,3 @@
+ALTER TABLE public.fee_records ALTER COLUMN value DROP NOT NULL;
+ALTER TABLE public.fee_records ADD CONSTRAINT fee_records_null_value_structured CHECK (value IS NOT NULL OR (pricing_details->>'kind' IN ('unspecified_amount','plan_rates')) IS TRUE);
+COMMENT ON COLUMN public.fee_records.value IS 'Current headline amount; NULL for source-unspecified amounts or independent plan rates. Never use zero as an unknown amount.';

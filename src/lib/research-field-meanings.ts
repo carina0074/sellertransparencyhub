@@ -23,9 +23,9 @@ const byCollection: Record<string, Record<string, string>> = {
   fee_records: {
     fee_name: "The record’s fee label.",
     fee_type: "Observed current values: Advertising, Aged Inventory, Card processing, Final value, Insertion, International, Listing, Low Inventory, Payment processing, Per-order, Referral, Storage, Subscription, Transaction, WFS fulfillment, WFS storage.",
-    value: "Headline value. Current percentages are decimal fractions; monetary headlines use the unit stated by value_type. Read conditional values with pricing_details.",
+    value: "Headline value. Current percentages are decimal fractions; monetary headlines use the unit stated by value_type. Empty for source-unspecified amounts or independent plan rates, never an assumed zero. Read conditional values with pricing_details.",
     value_type: "Headline unit. Current percentages are decimal fractions; monetary headlines use the stated dollar-based unit.",
-    pricing_details: "Structured pricing, conditions and supporting references; see Normalization rules.",
+    pricing_details: "Structured pricing, conditions and supporting references. unspecified_amount preserves source-unspecified amounts; plan_rates selects independent plan rates (not price tiers); subscription starting_price marks a starting price. See Normalization rules.",
     effective_date: "Nullable effective day, only where established. Current records have no separate effective-date-precision field.",
     first_effective_date: "Original fee introduction day supported by first_effective_event_id; distinct from current rates effective_date.",
     first_effective_event_id: "Historical fee-change event establishing the original introduction day; its quotes do not verify current rates.",

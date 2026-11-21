@@ -15,11 +15,11 @@ export const guideRecordsQuery = queryOptions({
 
 export function internationalFeeEvidence(records: FeeRecord[]) {
   const record = records.find(r => r.id === internationalFeeRecordId);
-  if (!record) return null;
+  if (!record || record.value === null) return null;
   const parsed = pricingDetailsSchema.safeParse(record.pricing_details);
   const details = parsed.success ? parsed.data : null;
   const reference = details?.references.find(r => r.heading === "International fee" && r.quote);
-  return { record, details, reference, rate: formatFeeValue(record.value, record.value_type) };
+  return { record: { ...record, value: record.value }, details, reference, rate: formatFeeValue(record.value, record.value_type) };
 }
 
 export function guideShortAnswer(rate: string) {

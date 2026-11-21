@@ -1,7 +1,7 @@
 # Roadmap
 
-- [ ] Import seven approved Etsy/Shopify current records and three scoped updates; verify exact quotes, unknown timing, capture-on-save and unchanged existing amounts.
-- [ ] Test nullable unpublished amounts, starting prices and plan-based rates; share desktop/mobile preview and diff without publishing.
+- [x] Import seven approved Etsy/Shopify current records and three scoped updates; 46 current records, exact quotes, unknown timing and all 39 existing amounts preserved. Four Shopify captures succeeded; five Etsy captures flagged for manual capture; two additional Basic reference captures remain queued.
+- [x] Test nullable source-unspecified amounts, starting prices and plan-based rates; 202 tests pass and desktop/mobile/API read-back verified. Deliver preview and diff without publishing.
 
 - [x] Import verified A13 labeled announced-average reductions and A06 fee-rule scope expansion with exact quotes/dates; reused the existing Nov 6 archive. All 39 current-fee rows and 45 edit-log entries unchanged.
 - [x] 189 tests pass; eight fee events/four policy events and both exact quotes verified through public API and desktop/mobile preview. January 2026 events remain first; deliver diff without publishing.

@@ -220,7 +220,7 @@ export type Database = {
           source_title: string
           source_url: string
           updated_at: string | null
-          value: number
+          value: number | null
           value_type: string
           verification_status: string
         }
@@ -242,7 +242,7 @@ export type Database = {
           source_title: string
           source_url: string
           updated_at?: string | null
-          value: number
+          value?: number | null
           value_type: string
           verification_status?: string
         }
@@ -264,7 +264,7 @@ export type Database = {
           source_title?: string
           source_url?: string
           updated_at?: string | null
-          value?: number
+          value?: number | null
           value_type?: string
           verification_status?: string
         }

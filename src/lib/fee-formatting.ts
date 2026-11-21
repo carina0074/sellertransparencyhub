@@ -27,7 +27,9 @@ export const pricingDetailsSchema = z.discriminatedUnion("kind", [
   z.object({ ...common, kind: z.literal("tiered"), mode: z.enum(["threshold", "marginal", "schedule"]), currency: z.literal("USD"), unit: z.string(), tiers: z.array(tier).min(1), per_order_fee: z.boolean().optional() }),
   z.object({ ...common, kind: z.literal("order_fee"), threshold_minor: minor, below_or_equal_minor: minor, above_minor: minor, currency: z.literal("USD") }),
   z.object({ ...common, kind: z.literal("allowance"), free_listings: minor, additional_minor: minor, currency: z.literal("USD") }),
-  z.object({ ...common, kind: z.literal("subscription"), currency: z.literal("USD"), options: z.array(z.object({ label: z.string(), monthly_minor: minor })).min(1) }),
+  z.object({ ...common, kind: z.literal("subscription"), currency: z.literal("USD"), starting_price: z.boolean().optional(), options: z.array(z.object({ label: z.string(), monthly_minor: minor })).min(1) }),
+  z.object({ ...common, kind: z.literal("unspecified_amount"), display: z.string().min(1) }),
+  z.object({ ...common, kind: z.literal("plan_rates"), plans: z.array(z.object({ plan: z.enum(["Basic", "Grow", "Advanced", "Plus"]), rate: fraction })).min(1) }),
 ]);
 export type PricingDetails = z.infer<typeof pricingDetailsSchema>;
 
@@ -36,7 +38,8 @@ export function relativeFeeChange(oldValue: number, newValue: number): number | 
   return oldValue === 0 ? null : (newValue - oldValue) / oldValue;
 }
 
-export function formatFeeValue(value: number, valueType: string): string {
+export function formatFeeValue(value: number | null, valueType: string): string {
+  if (value === null) return "Amount not stated in source";
   switch (valueType) {
     case "percent": {
       // Exact precision: keep at least one decimal, never round away significant digits.
@@ -102,7 +105,7 @@ export function evaluateFlatListingTiers(details: Extract<PricingDetails, { kind
   }
   return null;
 }
-type DisplayRecord = { marketplace: string; fee_name: string; value: number; value_type: string; pricing_details?: unknown; verification_status?: string };
+type DisplayRecord = { marketplace: string; fee_name: string; value: number | null; value_type: string; pricing_details?: unknown; verification_status?: string };
 export function presentFee(record: DisplayRecord): { value: string; details: PricingDetails | null } {
   const plain = formatFeeValue(record.value, record.value_type);
   const parsed = pricingDetailsSchema.safeParse(record.pricing_details);
@@ -132,6 +135,13 @@ export function presentFee(record: DisplayRecord): { value: string; details: Pri
   }
   if (details.kind === "order_fee") return { value: `${formatFeeValue(details.below_or_equal_minor / 100, "usd")} or ${formatFeeValue(details.above_minor / 100, "usd")} / order`, details };
   if (details.kind === "allowance") return { value: `${details.free_listings} qualifying listings free; then ${formatFeeValue(details.additional_minor / 100, "usd")} / listing`, details };
-  if (details.kind === "subscription") return { value: details.options.map((o) => `${formatFeeValue(o.monthly_minor / 100, "usd")} / mo (${o.label})`).join(" or "), details };
+  if (details.kind === "subscription") return { value: `${details.starting_price ? "From " : ""}${details.options.map((o) => `${formatFeeValue(o.monthly_minor / 100, "usd")} / mo (${o.label})`).join(" or ")}`, details };
+  if (details.kind === "unspecified_amount") return { value: details.display, details };
+  if (details.kind === "plan_rates") return { value: details.plans.map(p => `${p.plan} ${formatFeeValue(p.rate, "percent")}`).join(" / "), details };
   return { value: details.kind === "listing" ? `${plain} / listing` : plain, details };
+}
+
+// Plans select independent rates; no sale-price threshold or marginal calculation.
+export function resolvePlanRate(details: Extract<PricingDetails, { kind: "plan_rates" }>, plan: "Basic" | "Grow" | "Advanced" | "Plus"): number | null {
+  return details.plans.find(p => p.plan === plan)?.rate ?? null;
 }

@@ -17,7 +17,7 @@ export type FeeRecord = {
   region: string;
   category: string;
   fee_type: string;
-  value: number;
+  value: number | null;
   value_type: string;
   effective_date: string | null;
   first_effective_date: string | null;
@@ -115,7 +115,7 @@ export const getFeeRecords = createServerFn({ method: "GET" }).handler(
     if (error) throw new Error(error.message);
     return (data ?? []).map((r) => ({
       ...r,
-      value: Number(r.value),
+      value: r.value === null ? null : Number(r.value),
       value_type: r.value_type,
     })) as FeeRecord[];
   },
