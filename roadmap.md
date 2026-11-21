@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Merge only the Etsy Listing/Transaction conditions, preserving distinct facts, values and quotes; mark Shop set-up partially verified with the approved note.
+- [x] Validate the correction against evidence rules; 203 tests pass, all three saved records read back in preview, unchanged values/quotes hashes and five field edits logged; deliver conditions-only before/after and diff without publishing.
+
 - [x] Import seven approved Etsy/Shopify current records and three scoped updates; 46 current records, exact quotes, unknown timing and all 39 existing amounts preserved. Four Shopify captures succeeded; five Etsy captures flagged for manual capture; two additional Basic reference captures remain queued.
 - [x] Test nullable source-unspecified amounts, starting prices and plan-based rates; 202 tests pass and desktop/mobile/API read-back verified. Deliver preview and diff without publishing.
 
