@@ -54,7 +54,7 @@ function SubtitleGuide() {
       <section>
         <h2 className="text-xl font-semibold">What this means in practice</h2>
         <ul className="mt-4 list-disc space-y-3 pl-5">
-          <li>It's charged when the listing goes live, even if the item never sells, and isn't refunded.</li>
+          <li>It's charged when the listing goes live, even if the item never sells.</li>
           <li>On a fixed-price listing up to $150, it's {example ? money(example.monthlyMinor) : "an amount not currently available"} every month the listing stays live.</li>
           <li>Some third-party sites list different amounts; these values are from eBay's page as of the check date.</li>
         </ul>
