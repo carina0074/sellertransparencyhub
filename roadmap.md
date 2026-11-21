@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Import verified A13 labeled announced-average reductions and A06 fee-rule scope expansion with exact quotes/dates; reused the existing Nov 6 archive. All 39 current-fee rows and 45 edit-log entries unchanged.
+- [x] 189 tests pass; eight fee events/four policy events and both exact quotes verified through public API and desktop/mobile preview. January 2026 events remain first; deliver diff without publishing.
+
 - [x] Add Subtitle and Promoted Listings General guides with live evidence, FAQ, archive links, record backlinks, index, sitemap, analytics and short changelog entry.
 - [x] Test both guides and record round-trips on desktop/mobile; 183 tests pass, all seven quotes match live records, FAQ and archive links checked; share previews and diff without publishing or changing research data.
 

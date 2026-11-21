@@ -1,0 +1,47 @@
+{
+  "marketplace": "Amazon",
+  "region": "US",
+  "announcement_date": "2023-12-05",
+  "effective_date_precision": "exact",
+  "effective_period": null,
+  "impact_level": null,
+  "source_url": "https://sellingpartners.aboutamazon.com/Update%20to%20US%20referral%20and%20Fulfillment%20by%20Amazon%20fees",
+  "source_title": "Update to US referral and Fulfillment by Amazon fees",
+  "id": "a0602024-0601-4000-8000-000000000006",
+  "title": "Returns processing fee expanded to high-return-rate products",
+  "policy_area": "Returns processing",
+  "effective_date": "2024-06-01",
+  "last_verified": "2026-11-20",
+  "body_markdown": null,
+  "affected_sellers": "U.S. FBA sellers of high return-rate products in all categories except apparel and shoes",
+  "summary": "From June 1, 2024, Amazon's returns processing fee applies to high return-rate products in all categories except apparel and shoes. It applies only to products with the highest return rates relative to other products in their category. Existing returns processing fees for apparel and shoes remain unchanged on average.",
+  "evidence_details": {
+    "status": "verified_policy_event",
+    "effective_date_basis": "confirmed",
+    "change_type": "fee_rule_change",
+    "reviewer": "maintainer",
+    "reviewed_on": "2026-11-20",
+    "scope": "U.S. FBA high return-rate products in all categories except apparel and shoes",
+    "conditions": [
+      "Applies only to products with the highest return rates relative to other products in their category.",
+      "Apparel and shoes are excluded from the expansion; existing returns processing fees for those categories remain unchanged on average."
+    ],
+    "impact": "Scope expansion of the returns processing fee to high return-rate products; no fee amounts are stated.",
+    "references": [
+      {
+        "title": "Update to US referral and Fulfillment by Amazon fees",
+        "url": "https://sellingpartners.aboutamazon.com/Update%20to%20US%20referral%20and%20Fulfillment%20by%20Amazon%20fees",
+        "quote": "Finally, we will expand the returns processing fee to apply to high return-rate products in all categories, excluding apparel and shoes. This fee will address the operational costs of returns and reduce waste. The returns processing fee will only apply to products that have the highest return rates relative to other products in their category and will apply starting June 1, 2024. Existing returns processing fees for apparel and shoes will remain unchanged on average.",
+        "evidence_type": "official marketplace announcement",
+        "heading": "Returns processing fee",
+        "supported_fields": [
+          "scope expansion",
+          "high return-rate products",
+          "apparel and shoes exclusion",
+          "June 1, 2024 effective date",
+          "existing apparel and shoes fees unchanged on average"
+        ]
+      }
+    ]
+  }
+}

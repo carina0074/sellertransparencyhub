@@ -1,0 +1,56 @@
+{
+  "marketplace": "Amazon",
+  "region": "US",
+  "announcement_date": "2023-12-05",
+  "effective_date_precision": "exact",
+  "effective_period": null,
+  "impact_level": null,
+  "source_url": "https://sellingpartners.aboutamazon.com/Update%20to%20US%20referral%20and%20Fulfillment%20by%20Amazon%20fees",
+  "source_title": "Update to US referral and Fulfillment by Amazon fees",
+  "id": "a1302024-0415-4000-8000-000000000013",
+  "record_id": null,
+  "title": "FBA fulfillment fee decrease, 2024",
+  "fee_type": "FBA fulfillment",
+  "category": "Standard-sized and Large Bulky-sized products",
+  "old_value": null,
+  "new_value": null,
+  "change_amount": null,
+  "value_type": "usd_per_unit",
+  "effective_date": "2024-04-15",
+  "change_details": {
+    "kind": "announced_average_change",
+    "direction": "decrease",
+    "amounts": [
+      {
+        "label": "Standard-sized products",
+        "amount_minor": 20
+      },
+      {
+        "label": "Large Bulky-sized products",
+        "amount_minor": 61
+      }
+    ],
+    "currency": "USD",
+    "basis": "announced_average"
+  },
+  "summary": "FBA fulfillment fees decrease by announced averages of $0.20 per unit for standard-sized products and $0.61 per unit for Large Bulky-sized products starting April 15, 2024. These are announced averages, not rates; no per-tier old/new values are recorded. Products priced below $10 continue to receive an additional $0.77 discount on per-unit fees.",
+  "evidence_details": {
+    "status": "verified_historical_event",
+    "reviewer": "maintainer",
+    "reviewed_on": "2026-11-20",
+    "scope": "U.S. FBA fulfillment fees for standard-sized and Large Bulky-sized products",
+    "conditions": [
+      "Announced averages, not universal rates; no per-tier old/new values are recorded.",
+      "Products priced below $10 continue to receive an additional $0.77 discount on per-unit fees."
+    ],
+    "linkage_reason": "No current-record link; announced averages do not establish per-tier current rates.",
+    "references": [
+      {
+        "title": "Update to US referral and Fulfillment by Amazon fees",
+        "url": "https://sellingpartners.aboutamazon.com/Update%20to%20US%20referral%20and%20Fulfillment%20by%20Amazon%20fees",
+        "quote": "On average, we will decrease FBA fulfillment fee rates for standard-sized products by $0.20 per unit and for Large Bulky-sized products by $0.61 per unit. These fees will apply starting April 15, 2024, the same date that the first inbound placement fees will begin to be charged. Products priced below $10 will continue to have an additional $0.77 discount on per-unit fees.",
+        "evidence_type": "official marketplace announcement"
+      }
+    ]
+  }
+}
