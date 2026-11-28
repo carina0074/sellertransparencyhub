@@ -42,7 +42,7 @@ export const corrections: CorrectionEntry[] = [
   {
     date: "2026-11-05",
     subject: "Amazon low-inventory-level fee",
-    problem: "The first effective date and the current-rates date were not shown separately.",
+    problem: "The record showed Jan 15, 2026 as 'Effective' without labelling it as the current-rates date, and the fee's first effective date (Apr 1, 2024) was not recorded.",
     change: "Separated \"first effective Apr 1, 2024\" from \"current rates effective Jan 15, 2026\".",
     source: AMAZON_2024,
     recordHref: "/rate-card?record=8df97652-1d8d-4d26-865f-d977a701484e",
