@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight, Database, TrendingUp, BookOpen,
-  CheckCircle2, Lock, FileText, Search, History, Calculator, Link2,
+  CheckCircle2, Lock, FileText, Search, History, Link2,
 } from "lucide-react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getDatabaseStats, getFeeRecords, getFeeChanges, getPolicyChanges, formatFeeValue } from "@/lib/fees.functions";
@@ -113,32 +113,32 @@ function FeePreview({ records }: { records: FeeRecord[] }) {
 const datasets = [
   {
     icon: Database,
-    title: "Marketplace Fee Database",
-    desc: "Searchable, source-linked fee records for marketplaces and selling platforms (Amazon, Walmart, eBay, Etsy and Shopify), covering selected referral, transaction, fulfillment, storage and subscription fees. Coverage is curated, not exhaustive.",
+    title: "Fee Database",
+    desc: "Current U.S. fees for Amazon, Walmart, eBay, Etsy and Shopify, with conditions, official sources and review dates. Coverage is curated, not exhaustive.",
     to: "/rate-card",
     cta: "Browse fee database",
   },
   {
     icon: TrendingUp,
     title: "Fee Change Feed",
-    desc: "Recorded marketplace fee-change events with available source and effective-date information.",
+    desc: "Recorded fee-change events with announcement and effective dates, quotes from the official source, and archived copies.",
     to: "/fees",
     cta: "Track fee changes",
   },
   {
     icon: BookOpen,
-    title: "Marketplace Policy Archive",
-    desc: "A manually maintained record of marketplace policy updates with source, date, and scope information where available.",
-    to: "/policy-changes",
-    cta: "Browse policy archive",
+    title: "Guides",
+    desc: "Plain-language answers to specific fee questions, built on the same source-linked records.",
+    to: "/guides",
+    cta: "Read the guides",
   },
-  {
-    icon: Calculator,
-    title: "Selling Cost Calculator",
-    desc: "Estimate selected fees for Amazon, Walmart, Etsy and Shopify. Costs the tool can't model are listed, not guessed.",
-    to: "/calculator",
-    cta: "Open calculator",
-  },
+] as const;
+
+const verifySteps = [
+  { title: "Official source", desc: "Each record links to the marketplace's own page or announcement." },
+  { title: "Verbatim quote", desc: "The supporting text is quoted word for word." },
+  { title: "Archived copy", desc: "Where possible, the source page is saved to the Wayback Machine." },
+  { title: "Dated check", desc: "Each record shows when it was last checked against its source." },
 ];
 
 import { changelog } from "@/data/changelog";
@@ -182,10 +182,11 @@ function Index() {
   const { data: policyChanges } = useSuspenseQuery(homePolicyChangesQuery);
   const latestChange = recentChanges(feeChanges, policyChanges)[0];
   const stats = [
-    { value: coverage.activeRecords, label: "Current fee records" },
-    { value: coverage.historicalChanges, label: "Historical fee-change events" },
-    { value: coverage.marketplaces, label: "Marketplaces and selling platforms tracked" },
-    { value: null, label: "Official source linked for every record" },
+    { value: String(coverage.activeRecords), label: "Current fee records" },
+    { value: String(coverage.historicalChanges), label: "Recorded fee changes" },
+    { value: String(policyChanges.length), label: "Policy events" },
+    { value: String(coverage.marketplaces), label: "Marketplaces" },
+    { value: formatVerificationDate(coverage.lastUpdated), label: "Latest verification" },
   ];
   return (
     <>
@@ -205,7 +206,7 @@ function Index() {
                 Understand what it really costs to sell online.
               </h1>
               <p className="mt-5 max-w-xl text-pretty text-lg text-muted-foreground">
-                A free, independent reference for U.S. sellers on Amazon, eBay, Walmart, Etsy and Shopify: what each charges, with a link to the official source for every fee.
+                A free, source-linked reference of U.S. marketplace seller fees and fee changes, for sellers, small-business advisors and researchers.
               </p>
               <ul className="mt-6 flex flex-wrap gap-2" aria-label="Coverage">
                 {marketplaces.map((m) => (
@@ -247,15 +248,14 @@ function Index() {
 
       {/* Stats */}
       <section className="border-b border-border bg-secondary/40">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden px-4 py-10 sm:px-6 lg:grid-cols-4 lg:px-8">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden px-4 py-10 sm:grid-cols-3 sm:px-6 lg:grid-cols-5 lg:px-8">
           {stats.map((s) => (
             <div key={s.label} className="px-4 py-2 text-center sm:text-left">
-              <div className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{s.value ?? <Link2 className="inline h-7 w-7 text-primary" aria-hidden />}</div>
+              <div className="text-2xl font-semibold tabular-nums tracking-tight text-foreground sm:text-3xl">{s.value}</div>
               <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
             </div>
           ))}
         </div>
-        <p className="pb-6 text-center text-xs text-muted-foreground">Latest fee verification: {formatVerificationDate(coverage.lastUpdated)}</p>
       </section>
 
       {/* Value pillars */}
@@ -287,7 +287,7 @@ function Index() {
             Free to search. No sign-up. Every record shows where it came from.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
           {datasets.map((d) => (
             <Card key={d.title} className="group border-border transition-shadow hover:shadow-md">
               <CardContent className="flex h-full flex-col gap-4 p-6">
@@ -312,8 +312,32 @@ function Index() {
         </div>
       </section>
 
+      {/* How we verify */}
+      <section className="border-y border-border bg-secondary/40">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground">How we verify</h2>
+          <ol className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {verifySteps.map((step, i) => (
+              <li key={step.title} className="min-w-0">
+                <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-xs text-primary-foreground">{i + 1}</span>
+                  {step.title}
+                  {i < verifySteps.length - 1 && <ArrowRight className="hidden h-4 w-4 text-muted-foreground lg:block" aria-hidden />}
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">{step.desc}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-6 text-sm">
+            <Link to="/methodology" className="font-medium text-primary hover:underline">Methodology</Link>
+            <span className="text-muted-foreground"> · </span>
+            <Link to="/corrections" className="font-medium text-primary hover:underline">Corrections</Link>
+          </p>
+        </div>
+      </section>
+
       {/* Sample fees */}
-      <section className="mx-auto max-w-3xl px-4 pb-20 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
         <FeePreview records={feeRecords} />
       </section>
 
