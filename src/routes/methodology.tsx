@@ -167,6 +167,10 @@ function MethodologyPage() {
             with the record, what's wrong and a link to the source.
           </p>
           <p>
+            Past data corrections and rejected claims are listed on the{" "}
+            <Link to="/corrections" className={linkClass}>Corrections</Link> page.
+          </p>
+          <p>
             To cite the data or download it as CSV, see{" "}
             <Link to="/cite" className={linkClass}>Cite &amp; download</Link>.
           </p>

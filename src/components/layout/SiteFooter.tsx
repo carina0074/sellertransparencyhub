@@ -112,13 +112,18 @@ export function SiteFooter() {
                     </Link>
                   </li>
                 ))}
-                {col.key === "research" && (
+                {col.key === "research" && (<>
                   <li>
                     <Link to="/cite" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
                       Cite &amp; download
                     </Link>
                   </li>
-                )}
+                  <li>
+                    <Link to="/corrections" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                      Corrections
+                    </Link>
+                  </li>
+                </>)}
                 {col.key === "about" && (
                   <li>
                     <a

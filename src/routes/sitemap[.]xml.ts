@@ -21,6 +21,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { url: `${BASE_URL}/rate-card`, changefreq: "weekly", priority: "0.9" },
           { url: `${BASE_URL}/fees`, changefreq: "weekly", priority: "0.9" },
           { url: `${BASE_URL}/cite`, changefreq: "monthly", priority: "0.5" },
+          { url: `${BASE_URL}/corrections`, changefreq: "monthly", priority: "0.5" },
           { url: `${BASE_URL}/reports`, changefreq: "monthly", priority: "0.8" },
           { url: `${BASE_URL}/guides`, changefreq: "monthly", priority: "0.7" },
           { url: `${BASE_URL}/guides/ebay-international-fee-us-address`, changefreq: "monthly", priority: "0.7" },
