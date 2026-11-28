@@ -15,6 +15,8 @@ import { policyDateLabel, policyEvidenceSchema } from "@/lib/policy-evidence";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { archiveLinksQuery } from "@/lib/archive-links";
 import { ArchiveCopyLink } from "@/components/archive-copy-link";
+import { CiteRecordButton } from "@/components/cite-record-button";
+import { DatasetDownloadButton } from "@/components/dataset-download-button";
 import { promotedPolicyId } from "@/lib/extra-guides";
 
 const policyChangesQuery = queryOptions({
@@ -103,11 +105,15 @@ function PolicyChangesPage() {
         title="Marketplace Policy Archive"
         description="A manually maintained, source-linked collection of documented marketplace policy changes. Coverage is not exhaustive; dates and applicability reflect the available evidence."
         actions={
+          <div className="flex flex-wrap items-center gap-2">
+          <DatasetDownloadButton dataset="policy_archive" />
           <Button asChild variant="outline" size="sm">
             <a href="/api/public/policy-changes" target="_blank" rel="noreferrer">
               Public API <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
             </a>
           </Button>
+          <a href="/cite" className="text-sm text-primary hover:underline">Cite &amp; download</a>
+          </div>
         }
       />
       <section className="mx-auto max-w-7xl space-y-8 px-4 py-12 sm:px-6 lg:px-8">
@@ -234,6 +240,7 @@ function PolicyCard({ c }: { c: PolicyChange }) {
           )}
           <Detail label="Source checked" value={evidence ? formatVerificationDate(evidence.reviewed_on) : "Review not established"} />
         </dl>
+        <CiteRecordButton dataset="policy_archive" id={c.id} title={c.title} lastChecked={evidence?.reviewed_on ?? c.last_verified ?? null} />
         {evidence && (
           <div className="space-y-3 border-t border-border pt-3 text-sm">
             <Detail label="Applicable scope" value={evidence.scope} />

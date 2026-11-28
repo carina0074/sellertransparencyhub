@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CalculatorRouteImport } from './routes/calculator'
+import { Route as CiteRouteImport } from './routes/cite'
 import { Route as FeesRouteImport } from './routes/fees'
 import { Route as HealthCheckRouteImport } from './routes/health-check'
 import { Route as ImpactReportsRouteImport } from './routes/impact-reports'
@@ -68,6 +69,11 @@ const AuthRoute = AuthRouteImport.update({
 const CalculatorRoute = CalculatorRouteImport.update({
   id: '/calculator',
   path: '/calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CiteRoute = CiteRouteImport.update({
+  id: '/cite',
+  path: '/cite',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FeesRoute = FeesRouteImport.update({
@@ -237,6 +243,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/calculator': typeof CalculatorRoute
+  '/cite': typeof CiteRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
   '/impact-reports': typeof ImpactReportsRoute
@@ -274,6 +281,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/calculator': typeof CalculatorRoute
+  '/cite': typeof CiteRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
   '/impact-reports': typeof ImpactReportsRoute
@@ -312,6 +320,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/calculator': typeof CalculatorRoute
+  '/cite': typeof CiteRoute
   '/fees': typeof FeesRoute
   '/health-check': typeof HealthCheckRoute
   '/impact-reports': typeof ImpactReportsRoute
@@ -351,6 +360,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/calculator'
+    | '/cite'
     | '/fees'
     | '/health-check'
     | '/impact-reports'
@@ -388,6 +398,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/calculator'
+    | '/cite'
     | '/fees'
     | '/health-check'
     | '/impact-reports'
@@ -425,6 +436,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/calculator'
+    | '/cite'
     | '/fees'
     | '/health-check'
     | '/impact-reports'
@@ -464,6 +476,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   CalculatorRoute: typeof CalculatorRoute
+  CiteRoute: typeof CiteRoute
   FeesRoute: typeof FeesRoute
   HealthCheckRoute: typeof HealthCheckRoute
   ImpactReportsRoute: typeof ImpactReportsRoute
@@ -525,6 +538,13 @@ declare module '@tanstack/react-router' {
       path: '/calculator'
       fullPath: '/calculator'
       preLoaderRoute: typeof CalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cite': {
+      id: '/cite'
+      path: '/cite'
+      fullPath: '/cite'
+      preLoaderRoute: typeof CiteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fees': {
@@ -785,6 +805,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   CalculatorRoute: CalculatorRoute,
+  CiteRoute: CiteRoute,
   FeesRoute: FeesRoute,
   HealthCheckRoute: HealthCheckRoute,
   ImpactReportsRoute: ImpactReportsRoute,

@@ -19,6 +19,8 @@ import { historicalPresentation, historicalEffectiveDate, historicalEvidenceSche
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { archiveLinksQuery } from "@/lib/archive-links";
 import { ArchiveCopyLink } from "@/components/archive-copy-link";
+import { CiteRecordButton } from "@/components/cite-record-button";
+import { DatasetDownloadButton } from "@/components/dataset-download-button";
 
 const feeChangesQuery = queryOptions({
   queryKey: ["fee-changes"],
@@ -26,6 +28,8 @@ const feeChangesQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/fees")({
+  validateSearch: (search: Record<string, unknown>): { record?: string } =>
+    typeof search["record"] === "string" ? { record: search["record"] } : {},
   head: () => ({
     meta: [
       ...shareImageMeta,
@@ -53,6 +57,14 @@ export const Route = createFileRoute("/fees")({
 function FeesPage() {
   useEffect(() => { trackEvent("dataset_page_viewed", { dataset: "fee_change_feed" }); }, []);
   const { data: changes } = useSuspenseQuery(feeChangesQuery);
+  const selectedRecord = Route.useSearch().record;
+  useEffect(() => {
+    if (!selectedRecord) return;
+    const el = Array.from(document.querySelectorAll<HTMLElement>("[data-record-id]")).find(e => e.dataset["recordId"] === selectedRecord);
+    if (!el) return;
+    el.querySelectorAll("details").forEach(d => { d.open = true; });
+    el.scrollIntoView({ block: "center" });
+  }, [selectedRecord, changes]);
 
   const marketplaces = ["Amazon", "eBay", "Walmart", "Etsy", "Shopify"];
   const feeTypes = useMemo(
@@ -110,6 +122,7 @@ function FeesPage() {
         </div>
 
         <p className="mt-4 text-sm text-muted-foreground">{filtered.length} recorded {filtered.length === 1 ? "change" : "changes"} across {new Set(filtered.map(c => c.marketplace)).size} {new Set(filtered.map(c => c.marketplace)).size === 1 ? "marketplace" : "marketplaces"}</p>
+        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs"><DatasetDownloadButton dataset="fee_change_feed" /><a href="/cite" className="text-primary hover:underline">Cite &amp; download</a></div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {filtered.map((c) => {
@@ -155,7 +168,7 @@ function FeesPage() {
                       {evidence.reviewer && <p>Reviewer: {evidence.reviewer}</p>}
                     </div>
                   </details>}
-                  {evidence && <p className="mt-3 text-xs text-muted-foreground">Last checked: {formatVerificationDate(evidence.reviewed_on)}</p>}
+                  <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">{evidence && <p className="text-xs text-muted-foreground">Last checked: {formatVerificationDate(evidence.reviewed_on)}</p>}<CiteRecordButton dataset="fee_change_feed" id={c.id} title={c.title} lastChecked={evidence?.reviewed_on ?? null} /></div>
                   <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3 text-xs">
                     <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
                       <a

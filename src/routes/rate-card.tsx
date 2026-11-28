@@ -23,6 +23,8 @@ import { archiveLinksQuery } from "@/lib/archive-links";
 import { internationalFeeRecordId } from "@/lib/guides";
 import { subtitleRecordId } from "@/lib/extra-guides";
 import { ArchiveCopyLink } from "@/components/archive-copy-link";
+import { CiteRecordButton } from "@/components/cite-record-button";
+import { DatasetDownloadButton } from "@/components/dataset-download-button";
 import { trackEvent } from "@/lib/analytics";
 import { QuickFeedback } from "@/components/quick-feedback";
 import { isValueMomentClick, recordFromClick, type ValueRecord } from "@/lib/quick-feedback";
@@ -138,8 +140,9 @@ function RateCardPage() {
           <ul className="mt-3 grid list-inside list-disc gap-2 sm:grid-cols-2 lg:grid-cols-3">{Array.from(new Set(records.map(r => r.category))).sort().map(category => <li key={category}>{category}</li>)}</ul>
         </details>
         <p className="text-xs text-muted-foreground">
-          Latest fee verification: {formatVerificationDate(stats.lastUpdated)} · <a href="/methodology" className="text-primary hover:underline">Methodology</a> · <a href="/api/public/fees" className="text-primary hover:underline">Public API</a>
+          Latest fee verification: {formatVerificationDate(stats.lastUpdated)} · <a href="/methodology" className="text-primary hover:underline">Methodology</a> · <a href="/api/public/fees" className="text-primary hover:underline">Public API</a> · <a href="/cite" className="text-primary hover:underline">Cite &amp; download</a>
         </p>
+        <DatasetDownloadButton dataset="fee_database" />
         <p className="text-xs leading-relaxed text-muted-foreground">
           Amazon FBA fulfillment varies by dimensions, shipping weight, price, product class, season and program eligibility. Former flat-fee records have been retired; consult the <a href="https://sellercentral.amazon.com/help/hub/reference/external/GABBX6GZPA8MSZGW" target="_blank" rel="noreferrer" className="text-primary hover:underline">current official FBA schedule</a> and its fuel/logistics surcharge. Current-value verification does not establish a fee’s original effective date.
         </p>
@@ -238,6 +241,7 @@ function RateCardPage() {
                         </a>
                         <div className="mt-1"><ArchiveCopyLink url={r.source_url} /></div>
                         <PublicCorroboratingSource r={r} />
+                        <div className="mt-2"><CiteRecordButton dataset="fee_database" id={r.id} title={`${r.marketplace} ${r.fee_name} (${r.category})`} lastChecked={r.last_verified} /></div>
                         {presentation.details && <div className="mt-2 space-y-2 whitespace-normal text-xs">
                           {presentation.details.references.map((reference) => <a key={reference.url} href={reference.url} target="_blank" rel="noreferrer" onClick={() => trackEvent("source_clicked", { dataset: "fee_database", marketplace: r.marketplace })} className="block text-primary hover:underline">{reference.title} <ExternalLink className="inline h-3 w-3" /></a>)}
                         </div>}
@@ -337,6 +341,7 @@ function MobileFeeCard({ r, originalEvent }: { r: FeeRecord; originalEvent?: Fee
         </div>
         <PublicCorroboratingSource r={r} />
         <div><ReviewStatus status={r.verification_status} lastVerified={r.last_verified} /></div>
+        <CiteRecordButton dataset="fee_database" id={r.id} title={`${r.marketplace} ${r.fee_name} (${r.category})`} lastChecked={r.last_verified} />
       </CardContent>
     </Card>
   );

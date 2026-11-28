@@ -166,6 +166,10 @@ function MethodologyPage() {
             </a>{" "}
             with the record, what's wrong and a link to the source.
           </p>
+          <p>
+            To cite the data or download it as CSV, see{" "}
+            <Link to="/cite" className={linkClass}>Cite &amp; download</Link>.
+          </p>
         </Section>
 
         <Section title="Coverage and limitations">
