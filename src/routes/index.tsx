@@ -10,6 +10,7 @@ import { getDatabaseStats, getFeeRecords, getFeeChanges, getPolicyChanges, forma
 import type { FeeChange } from "@/lib/fees.functions";
 import { historicalEffectiveDate, historicalPresentation } from "@/lib/historical-fee-formatting";
 import { recentChanges, type RecentChange } from "@/lib/recent-changes";
+import { countRecordsWithQuote } from "@/lib/quote-coverage";
 import { formatVerificationDate } from "@/lib/coverage-statistics";
 import { presentFee } from "@/lib/fee-formatting";
 import type { FeeRecord } from "@/lib/fees.functions";
@@ -180,6 +181,12 @@ function Index() {
   const { data: feeRecords } = useSuspenseQuery(feeRecordsQuery);
   const { data: feeChanges } = useSuspenseQuery(homeFeeChangesQuery);
   const { data: policyChanges } = useSuspenseQuery(homePolicyChangesQuery);
+  const quotedRecords = countRecordsWithQuote(feeRecords);
+  const steps = verifySteps.map((step) =>
+    step.title === "Verbatim quote" && quotedRecords < feeRecords.length
+      ? { ...step, desc: `Supporting text is quoted word for word; quotes are being added to older records (${quotedRecords} of ${feeRecords.length} so far).` }
+      : step,
+  );
   const latestChange = recentChanges(feeChanges, policyChanges)[0];
   const stats = [
     { value: String(coverage.activeRecords), label: "Current fee records" },
@@ -310,6 +317,12 @@ function Index() {
             </Card>
           ))}
         </div>
+        <p className="mt-6 text-sm text-muted-foreground">
+          Also:{" "}
+          <Link to="/calculator" className="font-medium text-primary hover:underline">Selling Cost Calculator</Link>
+          <span> · </span>
+          <Link to="/policy-changes" className="font-medium text-primary hover:underline">Policy Archive</Link>
+        </p>
       </section>
 
       {/* How we verify */}
@@ -317,7 +330,7 @@ function Index() {
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <h2 className="text-xl font-semibold tracking-tight text-foreground">How we verify</h2>
           <ol className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {verifySteps.map((step, i) => (
+            {steps.map((step, i) => (
               <li key={step.title} className="min-w-0">
                 <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
                   <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-xs text-primary-foreground">{i + 1}</span>
