@@ -23,11 +23,11 @@ describe("csv", () => {
     expect(csvCell('He said "hi", ok')).toBe('"He said ""hi"", ok"');
     expect(csvCell({ quote: 'a "b"' })).toBe('"{""quote"":""a \\""b\\""""}"');
   });
-  it("starts with the license line and uses the given columns", () => {
+  it("puts the column headings on line 1 and uses the given columns", () => {
     const lines = toCsv(["id", "title"], [{ id: 1, title: "x", extra: "no" }]).split("\r\n");
-    expect(lines[0]).toContain(DATA_LICENSE_URL);
-    expect(lines[1]).toBe("id,title");
-    expect(lines[2]).toBe("1,x");
+    expect(lines[0]).toBe("id,title");
+    expect(lines[1]).toBe("1,x");
+    expect(lines.join("\n")).not.toContain(DATA_LICENSE_URL);
   });
   it("matches the public API field lists", () => {
     for (const [file, key] of [["fees", "fee_database"], ["fee-changes", "fee_change_feed"], ["policy-changes", "policy_archive"]] as const) {

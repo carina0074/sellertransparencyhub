@@ -74,7 +74,7 @@ function CitePage() {
 
         <section className="space-y-3">
           <h2 className="text-xl font-semibold text-foreground">CSV files</h2>
-          <p>Each CSV contains the same fields as the public API, including source quotes in the evidence fields. The first line of each file states the data license.</p>
+          <p>Each CSV contains the same fields as the public API, including source quotes in the evidence fields. Use of the data is covered by the CC BY 4.0 license below.</p>
         </section>
 
         <section className="space-y-3">

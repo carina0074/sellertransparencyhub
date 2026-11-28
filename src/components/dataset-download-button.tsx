@@ -26,10 +26,11 @@ export function DatasetDownloadButton({ dataset, label = "Download CSV" }: { dat
     }
   };
   return (
-    <span className="inline-flex items-center gap-2">
+    <span className="inline-flex flex-wrap items-center gap-2">
       <Button type="button" variant="outline" size="sm" onClick={download} disabled={state === "loading"}>
         <Download className="h-4 w-4" aria-hidden />{state === "loading" ? "Preparing…" : label}
       </Button>
+      <span className="text-xs text-muted-foreground">CC BY 4.0 · <a href="/cite" className="text-primary hover:underline">Cite &amp; download</a></span>
       {state === "error" && <span className="text-xs text-destructive">Download failed. Try again.</span>}
     </span>
   );

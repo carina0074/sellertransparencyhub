@@ -77,9 +77,9 @@ export function csvCell(value: unknown): string {
   return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
-/** CSV with a leading license line, then header + rows in the given column order. */
+/** CSV: header row first (line 1), then rows in the given column order. */
 export function toCsv(columns: readonly string[], rows: ReadonlyArray<Record<string, unknown>>): string {
-  const lines = [csvCell(`# ${DATA_LICENSE_LINE}`), columns.join(",")];
+  const lines = [columns.join(",")];
   for (const row of rows) lines.push(columns.map(c => csvCell(row[c])).join(","));
   return lines.join("\r\n") + "\r\n";
 }

@@ -112,7 +112,6 @@ function PolicyChangesPage() {
               Public API <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
             </a>
           </Button>
-          <a href="/cite" className="text-sm text-primary hover:underline">Cite &amp; download</a>
           </div>
         }
       />

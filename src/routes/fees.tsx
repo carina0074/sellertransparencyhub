@@ -122,7 +122,7 @@ function FeesPage() {
         </div>
 
         <p className="mt-4 text-sm text-muted-foreground">{filtered.length} recorded {filtered.length === 1 ? "change" : "changes"} across {new Set(filtered.map(c => c.marketplace)).size} {new Set(filtered.map(c => c.marketplace)).size === 1 ? "marketplace" : "marketplaces"}</p>
-        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs"><DatasetDownloadButton dataset="fee_change_feed" /><a href="/cite" className="text-primary hover:underline">Cite &amp; download</a></div>
+        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs"><DatasetDownloadButton dataset="fee_change_feed" /></div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {filtered.map((c) => {
